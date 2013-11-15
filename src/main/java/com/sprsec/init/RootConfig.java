@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("com.sprsec")
-@PropertySource("classpath:com/sprsec/init/application.properties")
-@ImportResource("classpath:com/sprsec/init/spring-security.xml")
+@PropertySource("classpath:application.properties")
+@ImportResource("classpath:spring-security.xml")
 public class RootConfig {
 	
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
