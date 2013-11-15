@@ -1,28 +1,34 @@
 package com.sprsec.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping
 public class SecurityNavigation {
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public ModelAndView loginForm() {
-		return new ModelAndView("login");
+	@RequestMapping("/login")
+	public String login(Model model, @RequestParam(required=false) String message) {
+		model.addAttribute("message", message);
+		return "access/login";
 	}
 	
-	@RequestMapping(value="/login/failure", method=RequestMethod.GET)
-	public ModelAndView invalidLogin() {
-		ModelAndView modelAndView = new ModelAndView("login-form");
-		modelAndView.addObject("error", true);
-		return modelAndView;
+	@RequestMapping(value = "/denied")
+ 	public String denied() {
+		return "access/denied";
 	}
 	
-	@RequestMapping(value="/success-login", method=RequestMethod.GET)
-	public ModelAndView successLogin() {
-		return new ModelAndView("success-login");
+	@RequestMapping(value = "/login/failure")
+ 	public String loginFailure() {
+		String message = "Login Failure!";
+		return "redirect:/login?message="+message;
 	}
-
+	
+	@RequestMapping(value = "/logout/success")
+ 	public String logoutSuccess() {
+		String message = "Logout Success!";
+		return "redirect:/login?message="+message;
+	}
 }
