@@ -10,7 +10,7 @@ public class SecurityNavigation {
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginForm() {
-		return new ModelAndView("login-form");
+		return new ModelAndView("login");
 	}
 	
 	@RequestMapping(value="/login/failure", method=RequestMethod.GET)
