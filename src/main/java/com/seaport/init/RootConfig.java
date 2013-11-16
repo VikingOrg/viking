@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.sprsec")
+@ComponentScan("com.seaport")
 @PropertySource("classpath:application.properties")
 @ImportResource("classpath:spring-security.xml")
 public class RootConfig {

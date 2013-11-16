@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.sprsec.controller")
+@ComponentScan("com.seaport.controller")
 @ImportResource("classpath:trace-context.xml")
 public class WebAppConfig extends WebMvcConfigurerAdapter{
 	
