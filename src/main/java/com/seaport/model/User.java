@@ -1,4 +1,4 @@
-package com.sprsec.model;
+package com.seaport.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

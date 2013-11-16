@@ -1,11 +1,11 @@
-package com.sprsec.service;
+package com.seaport.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sprsec.dao.RoleDAO;
-import com.sprsec.model.Role;
+import com.seaport.dao.RoleDAO;
+import com.seaport.model.Role;
 
 @Service
 @Transactional

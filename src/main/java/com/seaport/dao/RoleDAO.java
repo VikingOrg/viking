@@ -1,6 +1,6 @@
-package com.sprsec.dao;
+package com.seaport.dao;
 
-import com.sprsec.model.Role;
+import com.seaport.model.Role;
 
 public interface RoleDAO {
 	

@@ -1,6 +1,6 @@
-package com.sprsec.service;
+package com.seaport.service;
 
-import com.sprsec.model.User;
+import com.seaport.model.User;
 
 public interface UserService {
 	

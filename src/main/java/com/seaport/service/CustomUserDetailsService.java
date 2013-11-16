@@ -1,4 +1,4 @@
-package com.sprsec.service;
+package com.seaport.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sprsec.dao.UserDAO;
+import com.seaport.dao.UserDAO;
 
 @Service("customUserDetailsService")
 @Transactional(readOnly=true)
@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String login)	throws UsernameNotFoundException {
 		
-		com.sprsec.model.User domainUser = userDAO.getUser(login);
+		com.seaport.model.User domainUser = userDAO.getUser(login);
 		
 		boolean enabled = true;
 		boolean accountNonExpired = true;
@@ -37,16 +37,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 	    } else if (domainUser.getRole()==null) { 
 	    	throw new UsernameNotFoundException("User " + domainUser.getLogin() + " has no authorities");
 	    }		
+		User user = new User(
+					domainUser.getLogin(), 
+					domainUser.getPassword(), 
+					enabled, 
+					accountNonExpired, 
+					credentialsNonExpired, 
+					accountNonLocked,
+					getAuthorities(domainUser.getRole().getId())
+					);
 		
-		return new User(
-				domainUser.getLogin(), 
-				domainUser.getPassword(), 
-				enabled, 
-				accountNonExpired, 
-				credentialsNonExpired, 
-				accountNonLocked,
-				getAuthorities(domainUser.getRole().getId())
-		);
+		return user;
 	}
 	
 	public Collection<? extends GrantedAuthority> getAuthorities(Integer role) {
@@ -57,12 +58,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public List<String> getRoles(Integer role) {
 
 		List<String> roles = new ArrayList<String>();
-
 		if (role.intValue() == 1) {
-			roles.add("ROLE_MODERATOR");
+			roles.add("ROLE_USER");
 			roles.add("ROLE_ADMIN");
+			
 		} else if (role.intValue() == 2) {
-			roles.add("ROLE_MODERATOR");
+			roles.add("ROLE_USER");
 		}
 		return roles;
 	}

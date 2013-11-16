@@ -1,6 +1,6 @@
-package com.sprsec.dao;
+package com.seaport.dao;
 
-import com.sprsec.model.User;
+import com.seaport.model.User;
 
 public interface UserDAO {
 	

@@ -1,4 +1,4 @@
-package com.sprsec.model;
+package com.seaport.model;
 
 import java.util.Set;
 

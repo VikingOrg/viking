@@ -27,7 +27,7 @@
        specified for component-scanning -->
   <context-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>com.sprsec.init.RootConfig</param-value>
+      <param-value>com.seaport.init.RootConfig</param-value>
   </context-param>
 
   <!-- Bootstrap the root application context as usual using ContextLoaderListener -->
@@ -48,7 +48,7 @@
       </init-param>
       <init-param>
          <param-name>contextConfigLocation</param-name>
-         <param-value>com.sprsec.init.WebAppConfig</param-value>
+         <param-value>com.seaport.init.WebAppConfig</param-value>
       </init-param>
       <load-on-startup>1</load-on-startup>
    </servlet>

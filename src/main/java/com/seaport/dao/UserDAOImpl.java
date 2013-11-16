@@ -1,4 +1,4 @@
-package com.sprsec.dao;
+package com.seaport.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.sprsec.model.User;
+import com.seaport.model.User;
 
 @Repository
 public class UserDAOImpl implements UserDAO {

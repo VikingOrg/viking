@@ -1,6 +1,6 @@
-package com.sprsec.service;
+package com.seaport.service;
 
-import com.sprsec.model.Role;
+import com.seaport.model.Role;
 
 public interface RoleService {
 	

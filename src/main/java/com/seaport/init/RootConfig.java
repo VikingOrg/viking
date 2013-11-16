@@ -1,4 +1,4 @@
-package com.sprsec.init;
+package com.seaport.init;
 
 import java.util.Properties;
 
