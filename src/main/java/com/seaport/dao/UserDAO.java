@@ -1,6 +1,6 @@
 package com.seaport.dao;
 
-import com.seaport.model.User;
+import com.seaport.domain.User;
 
 public interface UserDAO {
 	

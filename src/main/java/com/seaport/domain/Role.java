@@ -1,4 +1,4 @@
-package com.seaport.model;
+package com.seaport.domain;
 
 import java.util.Set;
 

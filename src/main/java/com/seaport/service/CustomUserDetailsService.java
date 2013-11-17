@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String login)	throws UsernameNotFoundException {
 		
-		com.seaport.model.User domainUser = userDAO.getUser(login);
+		com.seaport.domain.User domainUser = userDAO.getUser(login);
 		
 		boolean enabled = true;
 		boolean accountNonExpired = true;
@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		boolean accountNonLocked = true;
 
 	    if(domainUser==null) { 
-	    	throw new UsernameNotFoundException("No such user: " + domainUser.getLogin());
+	    	throw new UsernameNotFoundException("No such user: ");
 	    } else if (domainUser.getRole()==null) { 
 	    	throw new UsernameNotFoundException("User " + domainUser.getLogin() + " has no authorities");
 	    }		

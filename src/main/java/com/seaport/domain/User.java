@@ -1,4 +1,4 @@
-package com.seaport.model;
+package com.seaport.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.dao.RoleDAO;
-import com.seaport.model.Role;
+import com.seaport.domain.Role;
 
 @Service
 @Transactional

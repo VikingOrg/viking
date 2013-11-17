@@ -1,13 +1,11 @@
 package com.seaport.service;
 
 import org.springframework.transaction.annotation.Transactional;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seaport.dao.UserDAO;
-import com.seaport.model.User;
+import com.seaport.domain.User;
 
 @Service
 @Transactional

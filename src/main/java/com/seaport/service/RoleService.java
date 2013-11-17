@@ -1,6 +1,6 @@
 package com.seaport.service;
 
-import com.seaport.model.Role;
+import com.seaport.domain.Role;
 
 public interface RoleService {
 	

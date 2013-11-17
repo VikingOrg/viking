@@ -1,6 +1,6 @@
 package com.seaport.service;
 
-import com.seaport.model.User;
+import com.seaport.domain.User;
 
 public interface UserService {
 	
