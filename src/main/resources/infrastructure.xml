@@ -11,7 +11,8 @@
 		   http://www.springframework.org/schema/jee 
 		   http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-	<jee:jndi-lookup jndi-name="java:jboss/viking/persistence" id="entityManagerFactory"
+	<!-- JDNI name for EntityManagerFactory is defined in src/main/resources/META-INF/persistence.xml -->
+	<jee:jndi-lookup jndi-name="java:jboss/spring-quickstart/persistence" id="entityManagerFactory"
                      expected-type="javax.persistence.EntityManagerFactory" />
 
 	<bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
