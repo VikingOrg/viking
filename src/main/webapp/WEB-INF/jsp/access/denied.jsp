@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<jsp:include page="../menu.jsp" />
+	<jsp:include page="../common/menu.jsp" />
 	<h1 id="banner">Unauthorized</h1>
 	<hr/>
 	

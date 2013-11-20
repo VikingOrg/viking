@@ -17,9 +17,9 @@ public class LinkNavigation {
 		return "user";
 	}
 	
-	@RequestMapping(value="/admin")
+	@RequestMapping(value="/deviceList")
 	public String getAdminPage() {
-		return "admin";
+		return "admin/deviceList";
 	}
 
 }
