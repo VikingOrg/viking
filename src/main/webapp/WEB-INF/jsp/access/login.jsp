@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -66,7 +67,9 @@
 				
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 				<p>&nbsp;</p>
-				<p><a href="#">Зарегистрироваться</a></p>
+				<c:url value="register" var="registerURL"/>
+				
+				<p><a href="${registerURL}">Зарегистрироваться</a></p>
 				<p><a href="#">Восстановить пароль</a></p>
 				
 				<p class="message">${message}</p>        

@@ -21,10 +21,4 @@ public class LinkNavigation {
 	public String getAdminPage() {
 		return "admin/deviceListAdmin";
 	}
-	
-	@RequestMapping(value="/httpError.jsp")
-	public String getErrorPage() {
-		String message = "Страница не найдена.";
-		return "redirect:/login?message="+message;
-	}
 }

@@ -31,4 +31,14 @@ public class SecurityNavigation {
 		String message = "Logout Success!";
 		return "redirect:/login?message="+message;
 	}
+	@RequestMapping(value="/404.html")
+	public String getErrorPage() {
+		String message = "PageNotFound";
+		return "redirect:/login?message="+message;
+	}	
+	@RequestMapping(value = "/register")
+ 	public String register() {
+		return "access/register";
+	}
+
 }
