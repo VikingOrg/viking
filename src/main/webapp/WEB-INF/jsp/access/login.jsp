@@ -1,20 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
-	    <meta charset="utf-8">
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Stting up common head elements -->
+		<jsp:include page="../common/headCoreElements.jsp" />
 	    <meta name="description" content="Login Page. Any unauthorized access will be prostecuted to the fullest extend of the law.">
-	    <meta name="author" content="Danil Ozherelyev">
 		<link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 		<title>Регистрация в системе</title>
-	    <!-- Bootstrap core CSS -->
-	    <link href="resources/css/bootstrap.css" rel="stylesheet">
 	
 	    <style type="text/css">
 	      body {

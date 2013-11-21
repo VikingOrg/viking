@@ -12,14 +12,19 @@ public class LinkNavigation {
 		return "home";
 	}
 	
-	@RequestMapping(value="/user")
+	@RequestMapping(value="/deviceSearch")
 	public String getUserPage() {
-		return "user";
+		return "deviceSearch";
 	}
 	
-	@RequestMapping(value="/deviceList")
+	@RequestMapping(value="/deviceListAdmin")
 	public String getAdminPage() {
-		return "admin/deviceList";
+		return "admin/deviceListAdmin";
 	}
-
+	
+	@RequestMapping(value="/httpError.jsp")
+	public String getErrorPage() {
+		String message = "Страница не найдена.";
+		return "redirect:/login?message="+message;
+	}
 }
