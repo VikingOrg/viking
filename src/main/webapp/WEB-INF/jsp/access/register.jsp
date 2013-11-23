@@ -7,7 +7,9 @@
 <html lang="ru">
 	<head>
 	    <title>Регистрация</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	    <meta name="viewport" content="width=device-width">
+	    <meta name="author" content="Viking Inc.">
 	    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/core.css"/>
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
@@ -17,6 +19,8 @@
 	<body>
 		<!-- Wrap all page content here -->
 		<div id="wrap">
+			<form:form id="registration" action="register" commandName="registrationCommand" method="post" accept-charset="UTF-8">
+			
 		    <div class="container">
 		      <div class="masthead">
 		        <div class="container">
@@ -32,7 +36,7 @@
 		              <div class="form-group">
 		                <label class="control-label">ИМЯ</label>
 		                <div class="controls">
-		                  <input type="text" class="form-control" name="name">
+		                  <form:input path="user.firstName" class="form-control"/>
 		                </div>
 		              </div>
 		            </section>
@@ -40,7 +44,7 @@
 		          <div class="form-group">
 		            <label class="control-label">ФАМИЛИЯ</label>
 		            <div class="controls">
-		              <input type="text" class="form-control" name="surname">
+		              <form:input path="user.lastName" class="form-control"/>
 		            </div>
 		          </div>
 		        </div>
@@ -104,6 +108,7 @@
 		
 		      </div>
 		    </div>
+		</form:form>    
 	  	</div><!-- End of wrapper-->
 		<div id="footer">
 		  <div class="container">

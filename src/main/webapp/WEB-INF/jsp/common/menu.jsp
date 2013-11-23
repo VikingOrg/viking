@@ -29,7 +29,8 @@
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Инфраструктура<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="${portSearchUrl}">Порты*</a></li>
+			              <li><a href="${portSearchUrl}">Стивидоры*</a></li>
+			              <li><a href="#">Порты</a></li>
 			              <li><a href="#">СВХ и ТС</a></li>
 			              <li><a href="#">Транзит</a></li>
 			              <li class="divider"></li>

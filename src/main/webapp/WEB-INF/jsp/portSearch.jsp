@@ -18,98 +18,165 @@
 		<!-- Wrap all page content here -->
 		<div id="wrap">
 		   <jsp:include page="common/menu.jsp" />
-		   <!-- Begin page content -->
-		    <div class="container">
-		      <div class="masthead">
-		        <div class="container">
-		          <h4 class="text-muted page-header">СПИСОК ПОРТОВ</h4>
+		   <!----- Begin page content ------>
+
+	        <div class="container">
+	            <div class="masthead">
+	                <div class="container">
+	                    <h4 class="text-muted page-header">СПИСОК СТИВИДОРНЫХ КОМПАНИЙ<br></h4>
+	                </div>
+	            </div>
+	        
+		        <div class="container-fluid">
+		            <div class="row-fluid">
+		                 <div class="col col-md-2">
+		                     <!--Sidebar content-->
+		                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
+		                    
+		                    <select class="form-control" style="margin: 5px">
+		                    <option>Страна</option>
+		                    <option>Россия</option>
+		                    <option>Украина</option>
+		                    <option>Латвия</option>
+		                    </select>
+		                    <select class="form-control" style="margin: 5px">
+		                    <option>Порт</option>
+		                    <option>С-Петербургский</option>
+		                    <option>Высоцкий</option>
+		                    <option>Находкинский</option>
+		                    </select><hr>
+		                    <div class="input-group" style="margin: 5px">
+		                        <input type="text" class="form-control" placeholder="Поиск">
+		                        <span class="input-group-btn">
+		                        <button class="btn btn-default" type="button">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;</button>
+		                        </span>
+		                    </div>
+		                 </div>
+		                <div class="col col-md-10">
+		                    <!--Body content-->
+		                    <div class="btn-group" style="margin: 5px">
+		                    <a href="#" class="btn btn-default" title="Ввод нового">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+		                    <a href="#" class="btn btn-default" title="Редактировать">&nbsp;<span class="glyphicon glyphicon-pencil"></span>&nbsp;</a>
+		                    <a href="#" class="btn btn-default" title="Сохранить">&nbsp;<span class="glyphicon glyphicon-ok"></span>&nbsp;</a>
+		                    <a href="#" class="btn btn-default" title="Удалить">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
+		                </div>
+		                <div class="table-responsive">
+		                    <table class="table table-striped" cellpadding="0" cellspacing="0" width="100%">
+		                          <thead>
+		                              <tr>
+		                              <th>ID&nbsp;
+		                              </th>
+		                              <th>Порт&nbsp;
+		                                <span class="caret"></span>
+		                              </th>
+		                              <th>Наименование
+		                              </th>
+		                              <th>Страна&nbsp;
+		                              </th>
+		                              <th>Примечания</th>
+		                            </tr>
+		                          </thead>
+		                          <tbody>
+		                            <tr>
+		                              <td>1</td>
+		                              <td>Порт 1</td>
+		                              <td>1-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Балтика</td>
+		                            </tr>
+		                            <tr>
+		                              <td>2</td>
+		                              <td>Порт 2</td>
+		                              <td>2-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>3</td>
+		                              <td>Порт 3</td>
+		                              <td>3-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>4</td>
+		                              <td>Порт 4</td>
+		                              <td>4-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>5</td>
+		                              <td>Порт 5</td>
+		                              <td>5-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>6</td>
+		                              <td>Порт 6</td>
+		                              <td>6-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>7</td>
+		                              <td>Порт 7</td>
+		                              <td>7-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>8</td>
+		                              <td>Порт 8</td>
+		                              <td>8-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>9</td>
+		                              <td>Порт 9</td>
+		                              <td>9-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                            <tr>
+		                              <td>10</td>
+		                              <td>Порт 10</td>
+		                              <td>10-я Стивидорная</td>
+		                              <td>Россия</td>
+		                              <td>Северное море</td>
+		                            </tr>
+		                          </tbody>
+		                    </table>
+		                    </div>
+		                    <div class="container">
+		                        <div class="row">
+		                            <div class="col col-md-12 text-center"> 
+		                                <ul class="pagination">
+		                                <li><a href="#">Назад</a>
+		                                </li>
+		                                <li><a href="#">1</a>
+		                                </li>
+		                                <li><a href="#">2</a>
+		                                </li>
+		                                <li><a href="#">3</a>
+		                                </li>
+		                                <li><a href="#">4</a>
+		                                </li>
+		                                <li><a href="#">5</a>
+		                                </li>
+		                                <li><a href="#">Следующая</a>
+		                                </li>
+		                                </ul>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
 		        </div>
-		      </div>
 		    </div>
-		    <div class="container">
-		      <div class="row">
-		        <div class="col-md-4">
-		          <h3>Фильтр&nbsp;<i class="fa fa-th-list">&nbsp;&nbsp;</i></h3>
-		          <select class="form-control">
-		            <option>Россия</option>
-		            <option>Украина</option>
-		            <option>Латвия</option>
-		          </select>
-		          <select class="form-control">
-		            <option>Северо-Западный</option>
-		            <option>Южный</option>
-		            <option>Дальневосточный</option>
-		          </select>
-		          <h3>Поиск &nbsp;&nbsp;<i class="fa fa-search"></i></h3>
-		          <input type="text" class="form-control">
-		        </div>
-		        <div class="col-md-8">
-		          <div class="container-fluid">
-		            <ul class="nav nav-tabs">
-		              <li class="active">
-		                <a href="#">&nbsp;<i class="fa fa-plus"></i></a>
-		              </li>
-		              <li>
-		                <a href="#">&nbsp;<i class="fa fa-minus"></i></a>
-		              </li>
-		              <li>
-		                <a href="#">&nbsp;<i class="fa fa-pencil"></i></a>
-		              </li>
-		              <li>
-		                <a href="#">&nbsp;<i class="fa fa-check"></i></a>
-		              </li>
-		              <li>
-		                <a href="#">&nbsp;<i class="fa fa-times"></i></a>
-		              </li>
-		            </ul>
-		          </div>
-		          <div class="container-fluid">
-		            <table class="table" width="100%" cellpadding="0" cellspacing="0">
-		              <thead>
-		                <tr>
-		                  <th>ID&nbsp;<i class="fa fa-sort-down"></i>
-		                  </th>
-		                  <th>Наименование&nbsp;
-		                    <i class="fa fa-sort-down"></i>
-		                  </th>
-		                  <th>Полное наименование&nbsp;
-		                    <i class="fa fa-sort-down"></i>
-		                  </th>
-		                  <th>Страна&nbsp;
-		                    <i class="fa fa-sort-down"></i>
-		                  </th>
-		                  <th>Примечания</th>
-		                </tr>
-		              </thead>
-		              <tbody>
-		                <tr>
-		                  <td>1</td>
-		                  <td>Порт 1</td>
-		                  <td>Морской Порт 1</td>
-		                  <td>Россия</td>
-		                  <td>Балтика</td>
-		                </tr>
-		                <tr>
-		                  <td>2</td>
-		                  <td>Порт 2</td>
-		                  <td>Морской Порт 2</td>
-		                  <td>Россия</td>
-		                  <td>Северное море</td>
-		                </tr>
-		              </tbody>
-		            </table>
-		          </div>
-		          <ul class="pager">
-		            <li>
-		              <a href="#">Назад</a>
-		            </li>
-		            <li>
-		              <a href="#">Далее</a>
-		            </li>
-		          </ul>
-		        </div>
-		      </div>
-		    </div>
+
 		</div> <!-- Wrapper end -->
 
 		<div id="footer">
