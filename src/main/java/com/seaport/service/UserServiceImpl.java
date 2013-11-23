@@ -17,5 +17,7 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String login) {
 		return userDAO.getUser(login);
 	}
-
+	public void saveUser(User user){
+		userDAO.saveUser(user);
+	}
 }

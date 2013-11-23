@@ -5,5 +5,5 @@ import com.seaport.domain.User;
 public interface UserService {
 	
 	public User getUser(String login);
-
+	public void saveUser(User user);
 }

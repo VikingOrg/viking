@@ -31,4 +31,8 @@ public class UserDAOImpl implements UserDAO {
 		else
 			return null;	
 	}
+
+	public void saveUser(User user){
+		openSession().save(user);
+	}
 }
