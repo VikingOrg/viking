@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
-		<!-- Stting up common head elements -->
+		<!-- Setting up common head elements -->
 		<jsp:include page="../common/headCoreElements.jsp" />
 	    <meta name="description" content="Login Page. Any unauthorized access will be prostecuted to the fullest extend of the law.">
-		<link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+		
 		<title>Регистрация в системе</title>
 	
 	    <style type="text/css">
