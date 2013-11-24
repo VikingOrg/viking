@@ -75,6 +75,12 @@
       <servlet-name>spring</servlet-name>
       <url-pattern>/</url-pattern>
    </servlet-mapping>
+   
+
+ 	
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>	   
 	<error-page>
 	    <error-code>404</error-code>
 	    <location>/404.html</location>

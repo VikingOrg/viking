@@ -11,20 +11,27 @@
 		http://www.springframework.org/schema/util 
 		http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-	<http pattern="/resources" security="none" />
+	<http pattern="/static/**" security="none" />
 	
 	<http auto-config="true"  use-expressions="true">
 		<intercept-url pattern="/login" access="permitAll"/>
+		<intercept-url pattern="/login/failure" access="permitAll"/>
 		<intercept-url pattern="/logout" access="permitAll"/>
 		<intercept-url pattern="/register" access="permitAll"/>
+    	<intercept-url pattern="/core.css" access="permitAll"/>		
 		<intercept-url pattern="/denied" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/*admin" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
 		
-		<form-login login-page="/login" authentication-failure-url="/login/failure" default-target-url="/"/>
+		<form-login login-page="/login" 
+					authentication-failure-url="/login/failure" 
+					default-target-url="/"/>
 		<access-denied-handler error-page="/denied"/>
-		<logout invalidate-session="true" logout-success-url="/logout/success" logout-url="/logout"/>
+		<logout invalidate-session="true" 
+				logout-success-url="/logout"
+				logout-url="/j_spring_security_logout"
+				delete-cookies="JSESSIONID" />
 		
 	</http>
 	

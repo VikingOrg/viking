@@ -1,5 +1,8 @@
 package com.seaport.domain;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +15,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="users")
-public class User extends AuthDO{
+public class User implements Serializable {
 	
+	private static final long serialVersionUID = -6808032045384344779L;
+
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
@@ -37,9 +42,27 @@ public class User extends AuthDO{
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	
-	@Column(name = "OCCUPATION")
-	private String occupation;
-			
+	@Column(name="OCCUPATION_ID")
+	private int occupationId;
+
+	@Column(name="OCCUPATION_OTHER")
+	private String occupationOther;
+	
+	@Column(name="PORT_ID")
+	private int portId;
+
+	@Column(name="STEVEDOR_ID")
+	private int stevedorId;
+	
+	@Column(name = "CREATE_DATE", nullable = false)
+	private Timestamp createDate;
+	
+	@Column(name = "UPDATE_USER_ID")
+	private Integer updateUserId;
+
+	@Column(name = "UPDATE_DATE", nullable = false)
+	private Timestamp updateDate;
+
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinTable(name="user_roles",
 		joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},
@@ -103,20 +126,68 @@ public class User extends AuthDO{
 		this.password = password;
 	}
 
-	public String getOccupation() {
-		return occupation;
-	}
-
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
-	}
-
 	public Role getRole() {
 		return role;
 	}
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
+	public Integer getUpdateUserId() {
+		return updateUserId;
+	}
+
+	public void setUpdateUserId(Integer updateUserId) {
+		this.updateUserId = updateUserId;
+	}
+
+	public Timestamp getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public int getOccupationId() {
+		return occupationId;
+	}
+
+	public void setOccupationId(int occupationId) {
+		this.occupationId = occupationId;
+	}
+
+	public int getPortId() {
+		return portId;
+	}
+
+	public void setPortId(int portId) {
+		this.portId = portId;
+	}
+
+	public int getStevedorId() {
+		return stevedorId;
+	}
+
+	public void setStevedorId(int stevedorId) {
+		this.stevedorId = stevedorId;
+	}
+
+	public String getOccupationOther() {
+		return occupationOther;
+	}
+
+	public void setOccupationOther(String occupationOther) {
+		this.occupationOther = occupationOther;
 	}
 
 

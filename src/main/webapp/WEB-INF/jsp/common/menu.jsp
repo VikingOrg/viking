@@ -62,7 +62,7 @@
 				            </ul>
 				          </li>
 			          </sec:authorize>
-			          <li ><a href="${logoutUrl}">Выход*</a></li>
+			          <li> <a href="<c:url value="j_spring_security_logout" />" > Logout</a>
 			        </ul>
 			      </div><!--/.nav-collapse -->
 			    </div>

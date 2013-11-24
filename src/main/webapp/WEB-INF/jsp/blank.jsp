@@ -6,10 +6,10 @@
 <!doctype html>
 <html lang="ru">
 	<head>
-	    <title>Титул</title>
+	    <title>Страница не найдена 404</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 	</head>
@@ -21,18 +21,11 @@
 		  <!-- Begin page content -->
 		  <div class="container">
 		    <div class="page-header">
-		      <h1>Титул Страницы</h1>
+		      <h1>Страничка не найдена.</h1>
 		    </div>
-			<p>Welcome <span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>
-					<p>Все заменить на нужное и не нужно здесь..</p>					
+			<p>Извините, но данная страница отсутствует (код ошибки 404).</p>
+					<p>Если вы рарегистрированный пользователь и хотите войти в систему вам <a href="<c:url value="login" />" > Сюда</a> </p>
+					<p>Если вы новый пользователь, вам нужно пройти регистрацию <a href="<c:url value="register" />" > Здесь</a> </p>
 		  </div>
 		</div>
 

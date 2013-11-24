@@ -17,7 +17,10 @@ public class SecurityNavigation {
 						@RequestParam(required=false) String message) {
 		if (message!=null && message.equalsIgnoreCase("002340")) {
 			message = "Вы успешно зарегистрировались. Используйте новый Логин для входа в систему.";
+		} else if (message!=null && message.equalsIgnoreCase("002399")) {
+			message = "Логин и/или пароль не найден.";
 		}
+
 		model.addAttribute("message", message);
 		return "access/login";
 	}
@@ -29,18 +32,18 @@ public class SecurityNavigation {
 	
 	@RequestMapping(value = "/login/failure")
  	public String loginFailure() {
-		String message = "Login Failure!";
+		String message = "002399";
 		return "redirect:/login?message="+message;
 	}
 	
-	@RequestMapping(value = "/logout/success")
- 	public String logoutSuccess() {
-		String message = "Logout Success!";
-		return "redirect:/login?message="+message;
+	
+	@RequestMapping(value = "/logout")
+ 	public String logout() {
+		return "/access/logout";
 	}
+	
 	@RequestMapping(value="/404.html")
 	public String getErrorPage() {
-		String message = "PageNotFound";
-		return "redirect:/login?message="+message;
+		return "blank";
 	}	
 }

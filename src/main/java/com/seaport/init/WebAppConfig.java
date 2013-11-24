@@ -25,8 +25,12 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 		return resolver;
 	}
 	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}	
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+            .addResourceHandler("/static/**")
+            .addResourceLocations("/static/")
+            .setCachePeriod(31556926);
+    }
+
 }
