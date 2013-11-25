@@ -42,11 +42,19 @@ public class RootConfig {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-		dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-		
+		String dbHost = envVarWithDefault("OPENSHIFT_DB_HOST", "localhost");
+		String dbPort = envVarWithDefault("OPENSHIFT_DB_PORT", "3306");
+		String dbDb = envVarWithDefault("OPENSHIFT_APP_NAME", "viking");
+		dataSource.setUrl("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbDb + "?characterEncoding=utf8&useUnicode=true");
+		dataSource.setUsername(envVarWithDefault("OPENSHIFT_MYSQL_DB_USERNAME", "adminIYYgA5H"));
+		dataSource.setPassword(envVarWithDefault("OPENSHIFT_MYSQL_DB_PASSWORD", "UwZtWWwLYbPh"));
 		return dataSource;
+	}
+	
+	private String envVarWithDefault(String envVarName, String defaultValue) {
+		String value = System.getenv(envVarName);
+		if (value == null || value.length() == 0) value = defaultValue;
+		return value;
 	}
 	
 	@Bean
