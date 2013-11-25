@@ -42,7 +42,7 @@ public class RootConfig {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL) + "?characterEncoding=utf8&useUnicode=true");
 		dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
 		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 		
@@ -68,9 +68,10 @@ public class RootConfig {
 		properties.setProperty("hibernate.generate_statistics", "true");
 		properties.setProperty("hibernate.connection.datasource", env.getProperty("jndi.name"));
 		
-		properties.setProperty("hibernate.connection.useUnicode", "true");
-		properties.setProperty("hibernate.connection.characterEncoding", "UTF-8");
-		properties.setProperty("hibernate.connection.charSet", "UTF-8");
+//		properties.setProperty("hibernate.connection.useUnicode", "true");
+//		properties.setProperty("hibernate.connection.characterEncoding", "UTF-8");
+//		properties.setProperty("hibernate.connection.charSet", "UTF-8");
+		
 		return properties;	
 	}
 	
