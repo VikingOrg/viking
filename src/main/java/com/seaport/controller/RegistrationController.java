@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,6 @@ public class RegistrationController {
 	@Autowired
 	private RoleService roleService;
 	
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
@@ -44,6 +44,10 @@ public class RegistrationController {
     	registrationCommand.getUserOccupation().put(2, "Самый Главный");
     	registrationCommand.getUserOccupation().put(2, "Ниглавнейший");
 		
+    	String dbHost = System.getenv("OPENSHIFT_DB_HOST");
+		String dbPort = System.getenv("OPENSHIFT_DB_PORT");
+		String dbDb = System.getenv("OPENSHIFT_APP_NAME");
+
 		model.put("registrationCommand", registrationCommand);
 		return "access/register";
 	}

@@ -48,6 +48,7 @@ public class RootConfig {
 		dataSource.setUrl("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbDb + "?characterEncoding=utf8&useUnicode=true");
 		dataSource.setUsername(envVarWithDefault("OPENSHIFT_MYSQL_DB_USERNAME", "adminIYYgA5H"));
 		dataSource.setPassword(envVarWithDefault("OPENSHIFT_MYSQL_DB_PASSWORD", "UwZtWWwLYbPh"));
+		System.out.println("---->>>>" + dbHost + ":::" + dbPort + ":::" + dbDb);
 		return dataSource;
 	}
 	
