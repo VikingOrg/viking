@@ -42,8 +42,8 @@ public class RootConfig {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-		String dbHost = envVarWithDefault("OPENSHIFT_DB_HOST", "localhost");
-		String dbPort = envVarWithDefault("OPENSHIFT_DB_PORT", "3306");
+		String dbHost = envVarWithDefault("OPENSHIFT_MYSQL_DB_HOST", "localhost");
+		String dbPort = envVarWithDefault("OPENSHIFT_MYSQL_DB_PORT", "3306");
 		String dbDb = envVarWithDefault("OPENSHIFT_APP_NAME", "viking");
 		dataSource.setUrl("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbDb + "?characterEncoding=utf8&useUnicode=true");
 		dataSource.setUsername(envVarWithDefault("OPENSHIFT_MYSQL_DB_USERNAME", "adminIYYgA5H"));
