@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -66,9 +68,9 @@ public class RootConfig {
 		properties.setProperty("hibernate.generate_statistics", "true");
 		properties.setProperty("hibernate.connection.datasource", env.getProperty("jndi.name"));
 		
-//		properties.setProperty("hibernate.connection.useUnicode", "true");
-//		properties.setProperty("hibernate.connection.characterEncoding", "UTF-8");
-//		properties.setProperty("hibernate.connection.charSet", "UTF-8");
+		properties.setProperty("hibernate.connection.useUnicode", "true");
+		properties.setProperty("hibernate.connection.characterEncoding", "UTF-8");
+		properties.setProperty("hibernate.connection.charSet", "UTF-8");
 		return properties;	
 	}
 	
@@ -78,5 +80,6 @@ public class RootConfig {
 		transactionManager.setSessionFactory(sessionFactory().getObject());
 		return transactionManager;
 	}
+	
 	
 }
