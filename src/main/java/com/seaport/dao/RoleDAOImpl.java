@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.seaport.domain.Role;
 
 @Repository
-public class RoleDAOImpl implements RoleDAO {
+public class RoleDAOImpl implements IRoleDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	

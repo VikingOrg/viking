@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.seaport.command.RegistrationCommand;
 import com.seaport.domain.Role;
-import com.seaport.service.RoleService;
-import com.seaport.service.UserService;
+import com.seaport.service.IRoleService;
+import com.seaport.service.IUserService;
 
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	@Autowired
-	private RoleService roleService;
+	private IRoleService roleService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 

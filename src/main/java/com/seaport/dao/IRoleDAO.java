@@ -1,8 +1,8 @@
-package com.seaport.service;
+package com.seaport.dao;
 
 import com.seaport.domain.Role;
 
-public interface RoleService {
+public interface IRoleDAO {
 	
 	public Role getRole(int id);
 

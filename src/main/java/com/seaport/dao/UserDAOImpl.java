@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.seaport.domain.User;
 
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements IUserDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
 		return sessionFactory.getCurrentSession();
 	}
 	
-@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public User getUser(String login) {
 		List<User> userList = new ArrayList<User>();
 		Query query = openSession().createQuery("from User u where u.login = :login");
@@ -31,7 +31,11 @@ public class UserDAOImpl implements UserDAO {
 		else
 			return null;	
 	}
-
+	@SuppressWarnings("unchecked")
+	public List<User> getUser(Object[] params){
+		return sessionFactory.getCurrentSession().createCriteria(User.class).list();
+	}
+	
 	public void saveUser(User user){
 		openSession().save(user);
 	}

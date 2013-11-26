@@ -117,13 +117,14 @@
 		      </div>
 		    </div>
 
-
 		    <div class="container">
 		      <div class="row">
 		        <div class="col-md-4 col-md-offset-1">
 		          <div class="form-actions">
 		            <button type="submit" class="btn btn-primary">ОТПРАВИТЬ &raquo;</button>
-		            <button type="button" class="btn btn-primary">ОТМЕНИТЬ &raquo;</button>
+		            <button type="button" class="btn btn-primary" 
+		            	onclick="window.location.href = '<c:url value="login"/>';" 
+		            	value="Klick">ОТМЕНИТЬ &raquo;</button>
 		          </div>
 		        </div>
 		      </div>

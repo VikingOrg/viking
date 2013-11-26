@@ -8,7 +8,7 @@
 <c:url value="deviceListAdmin" var="deviceListAdminUrl"/>
 <c:url value="logout" var="logoutUrl"/>
 <c:url value="portSearch" var="portSearchUrl"/>
-
+<c:url value="userSearchAdmin" var="userSearchUrl"/>
         
 			   <!-- Fixed navbar -->
 			  <div class="navbar navbar-default navbar-fixed-top">
@@ -53,13 +53,11 @@
 				          <li class="dropdown">
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
 				            <ul class="dropdown-menu">
-				              <li><a href="#">Пользователи</a></li>
+				              <li><a href="${userSearchUrl}">Список пользователей*</a></li>
 				              <li><a href="${deviceListAdminUrl}">Оборудование*</a></li>
-				              <li><a href="#">Порты</a></li>
 				              <li class="divider"></li>
-				              <li><a href="#">Отчеты</a></li>
-				              <li><a href="#">Аудит</a></li>
-				            </ul>
+				              <li><a href="#">Добавить пользователя</a></li>
+				            </ul>				            
 				          </li>
 			          </sec:authorize>
 			          <li> <a href="<c:url value="j_spring_security_logout" />" > Logout</a>

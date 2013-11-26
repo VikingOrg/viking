@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.seaport.dao.RoleDAO;
+import com.seaport.dao.IRoleDAO;
 import com.seaport.domain.Role;
 
 @Service
 @Transactional
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl implements IRoleService {
 	
 	@Autowired
-	private RoleDAO roleDAO;
+	private IRoleDAO roleDAO;
 
 	public Role getRole(int id) {
 		return roleDAO.getRole(id);
