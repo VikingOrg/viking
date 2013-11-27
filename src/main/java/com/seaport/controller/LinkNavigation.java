@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LinkNavigation {
 	@RequestMapping
 	public String getHomePage() {
-		return "home";
+		return "stevidorSearch";
+	}
+	
+	@RequestMapping(value="/help.html")
+	public String getUserPage() {
+		return "common/help.html";
 	}
 }

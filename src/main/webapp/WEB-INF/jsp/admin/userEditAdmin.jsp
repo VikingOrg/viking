@@ -24,7 +24,14 @@
 			      <div class="masthead">
 			        <div class="container">
 			          <div class="col-md-10 col-md-offset-1">
-			            <h4 class="text-muted page-header">ФОРМА РЕДАКТИРОВАНИЯ ДАННЫХ ПОЛЬЗОВАТЕЛЯ<br></h4>
+			      		<c:choose>
+					      <c:when test="${registrationCommand.editForm}">
+					      	<h4 class="text-muted page-header">РЕДАКТИРОВАНИЯ ДАННЫХ ПОЛЬЗОВАТЕЛЯ<br></h4>
+					      </c:when>
+					      <c:otherwise>
+							<h4 class="text-muted page-header">ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ<br></h4>
+					      </c:otherwise>
+						</c:choose>			          
 			          </div>
 			        </div>
 			      </div>

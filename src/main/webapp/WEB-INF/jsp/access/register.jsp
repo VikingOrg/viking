@@ -124,7 +124,8 @@
 		            <button type="submit" class="btn btn-primary">ОТПРАВИТЬ &raquo;</button>
 		            <button type="button" class="btn btn-primary" 
 		            	onclick="window.location.href = '<c:url value="login"/>';" 
-		            	value="Klick">ОТМЕНИТЬ &raquo;</button>
+		            	value="Klick">ОТМЕНИТЬ &raquo;
+		            </button>
 		          </div>
 		        </div>
 		      </div>

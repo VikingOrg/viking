@@ -24,14 +24,14 @@
 			      <div class="collapse navbar-collapse">
 			        <ul class="nav navbar-nav">
 			
-			  		  <li ><a href="${homeUrl}">Главная</a></li>
+			  		  <%--<li ><a href="${stevidorSearchUrl}">Главная</a></li> --%>
 			          
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Порты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
 			              <li><a href="${stevidorSearchUrl}">Список Стивидоров</a></li>
 			              <li class="divider"></li>
-			              <li><a href="#">Добавить Стивидора</a></li>
+			              <li><a href="<c:url value="stevidorEdit"/>">Добавить Стивидора</a></li>
 			            </ul>
 			          </li> 
 			
@@ -42,7 +42,7 @@
 			              <li><a href="#">Список групп*</a></li>
 			              <li><a href="#">Список производителей*</a></li>
 			              <li class="divider"></li>
-			              <li><a href="#">Добивить механизм</a></li>
+			              <li><a href="<c:url value="deviceEdit"/>">Добавить Механизм</a></li>
 			            </ul>
 			          </li>
 			          <sec:authorize access="hasRole('ROLE_ADMIN')">          
@@ -51,7 +51,7 @@
 				            <ul class="dropdown-menu">
 				              <li><a href="${userSearchUrl}">Список пользователей*</a></li>
 				              <li class="divider"></li>
-				              <li><a href="#">Добавить пользователя</a></li>
+				              <li><a href="<c:url value="userEditAdmin"/>">Добавить Пользователя</a></li>
 				            </ul>				            
 				          </li>
 			          </sec:authorize>

@@ -18,6 +18,7 @@
 		<intercept-url pattern="/login/failure" access="permitAll"/>
 		<intercept-url pattern="/logout" access="permitAll"/>
 		<intercept-url pattern="/register" access="permitAll"/>
+		<intercept-url pattern="/passRecover" access="permitAll"/>
     	<intercept-url pattern="/core.css" access="permitAll"/>		
 		<intercept-url pattern="/denied" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/*admin" access="hasRole('ROLE_ADMIN')"/>

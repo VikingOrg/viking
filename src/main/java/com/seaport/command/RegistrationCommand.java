@@ -11,7 +11,16 @@ public class RegistrationCommand {
 	private Map<Integer, String> userPort = new LinkedHashMap<Integer,String>();
 	private Map<Integer, String> userStevedor = new LinkedHashMap<Integer,String>();
 	private Map<Integer, String> userOccupation = new LinkedHashMap<Integer,String>();
+	boolean editForm;
 	
+	public boolean isEditForm() {
+		return editForm;
+	}
+
+	public void setEditForm(boolean editForm) {
+		this.editForm = editForm;
+	}
+
 	public User getUser() {
 		return user;
 	}

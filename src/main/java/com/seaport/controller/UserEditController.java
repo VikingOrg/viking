@@ -27,9 +27,13 @@ public class UserEditController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
-		String action = request.getParameter("userId");
 		RegistrationCommand registrationCommand = new RegistrationCommand();
-		registrationCommand.setUser(userService.getUser(Integer.parseInt(action)));
+		String userId = request.getParameter("userId");
+		if (userId != null) {
+			registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
+			registrationCommand.setEditForm(true);
+		}
+		
 		model.put("registrationCommand", registrationCommand);
 		return "admin/userEditAdmin";
 	}

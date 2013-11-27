@@ -70,7 +70,7 @@
 				<c:url value="register" var="registerURL"/>
 				
 				<p><a href="${registerURL}">Зарегистрироваться</a></p>
-				<p><a href="#">Восстановить пароль</a></p>
+				<p><a href="<c:url value="passRecover"/>">Восстановить пароль</a></p>
 				
 				<p class="message">${message}</p>        
 			</form>
