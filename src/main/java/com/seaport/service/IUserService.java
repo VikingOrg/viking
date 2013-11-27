@@ -8,4 +8,5 @@ public interface IUserService {
 	public User getUser(String login);
 	public void saveUser(User user);
 	public List<User> getUser(Object[] params);
+	public User getUser(Integer userId);
 }

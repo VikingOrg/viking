@@ -31,12 +31,17 @@ public class UserDAOImpl implements IUserDAO {
 		else
 			return null;	
 	}
+
+	public User getUser(Integer userId) {
+		return (User)openSession().get(User.class, userId);
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<User> getUser(Object[] params){
 		return sessionFactory.getCurrentSession().createCriteria(User.class).list();
 	}
 	
 	public void saveUser(User user){
-		openSession().save(user);
+		openSession().saveOrUpdate(user);
 	}
 }

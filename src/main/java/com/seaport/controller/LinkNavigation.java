@@ -6,19 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class LinkNavigation {
-	
 	@RequestMapping
 	public String getHomePage() {
 		return "home";
-	}
-	
-	@RequestMapping(value="/deviceSearch")
-	public String getUserPage() {
-		return "deviceSearch";
-	}
-	
-	@RequestMapping(value="/deviceListAdmin")
-	public String getAdminPage() {
-		return "admin/deviceListAdmin";
 	}
 }

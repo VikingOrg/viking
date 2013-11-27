@@ -17,18 +17,13 @@
 		<!-- Wrap all page content here -->
 		<div id="wrap">
 		<jsp:include page="common/menu.jsp" />
-		  
-		  <!-- Begin page content -->
-		  <div class="container">
-		    <div class="page-header">
-		      <h1>Страничка не найдена.</h1>
-		    </div>
-			<p>Извините, но данная страница отсутствует (код ошибки 404).</p>
-					<p>Если вы зарегистрированный пользователь и хотите войти в систему вам <a href="<c:url value="login" />" > Сюда</a> </p>
-					<p>Если вы новый пользователь, вам нужно пройти регистрацию <a href="<c:url value="register" />" > Здесь</a> </p>
-		  </div>
-		</div>
+			<!-- Begin page content -->
+		    <div class="container">
 
+
+					
+			</div> <!-- End of Main Container -->
+		</div> <!-- End of Wrapping -->
 		<div id="footer">
 		  <div class="container">
 		   <jsp:include page="common/footer.jsp" />

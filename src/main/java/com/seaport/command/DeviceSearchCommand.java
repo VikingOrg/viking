@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class PortSearchCommand {
+public class DeviceSearchCommand {
 	private List<Object> genericList = new ArrayList<Object>();
 	private String userId;
 	private Map<String, String> generisStingMap;

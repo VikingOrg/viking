@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.seaport.command.PortSearchCommand;
+import com.seaport.command.StevidorEditCommand;
+import com.seaport.command.StevidorSearchCommand;
 
 @Controller
-@RequestMapping("/portSearch")
-public class PortSearchController {
+@RequestMapping("/stevidorEdit")
+public class StevidorEditController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
-		
-		model.put("portSearchCommand", new PortSearchCommand());
-		return "portSearch";
+		String action = request.getParameter("stevidorId");
+		model.put("stevidorSearchCommand", new StevidorEditCommand());
+		return "stevidorEdit";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
 	public ModelAndView onSubmit(HttpServletRequest request, 
-								@ModelAttribute PortSearchCommand portSearchCommand,
+								@ModelAttribute StevidorSearchCommand portSearchCommand,
 								BindingResult result) {
 
-//		return new ModelAndView("redirect:nextViewHere", result.getModel());
-		return new ModelAndView("portSearch", result.getModel());
+		return new ModelAndView("stevidorEdit", result.getModel());
 	}
 }

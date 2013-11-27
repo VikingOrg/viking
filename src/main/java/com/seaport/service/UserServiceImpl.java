@@ -25,4 +25,7 @@ public class UserServiceImpl implements IUserService {
 	public List<User> getUser(Object[] params) {
 		return userDAO.getUser(params);
 	}
+	public User getUser(Integer userId){
+		return userDAO.getUser(userId);
+	}
 }

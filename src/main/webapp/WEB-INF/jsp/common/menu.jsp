@@ -7,7 +7,7 @@
 <c:url value="deviceSearch" var="deviceSearchUrl"/>
 <c:url value="deviceListAdmin" var="deviceListAdminUrl"/>
 <c:url value="logout" var="logoutUrl"/>
-<c:url value="portSearch" var="portSearchUrl"/>
+<c:url value="stevidorSearch" var="stevidorSearchUrl"/>
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
         
 			   <!-- Fixed navbar -->
@@ -24,29 +24,25 @@
 			      <div class="collapse navbar-collapse">
 			        <ul class="nav navbar-nav">
 			
-			  		  <li ><a href="${homeUrl}">Главная*</a></li>
+			  		  <li ><a href="${homeUrl}">Главная</a></li>
 			          
 			          <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Инфраструктура<b class="caret"></b></a>
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Порты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="${portSearchUrl}">Стивидоры*</a></li>
-			              <li><a href="#">Порты</a></li>
-			              <li><a href="#">СВХ и ТС</a></li>
-			              <li><a href="#">Транзит</a></li>
+			              <li><a href="${stevidorSearchUrl}">Список Стивидоров</a></li>
 			              <li class="divider"></li>
-			              <li><a href="#">Отчеты/статус</a></li>
-			              <li><a href="#">Загрузка/Трафик</a></li>
+			              <li><a href="#">Добавить Стивидора</a></li>
 			            </ul>
 			          </li> 
 			
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="${deviceSearchUrl}">Поиск*</a></li>
-			              <li><a href="#">Наменклатура</a></li>
+			              <li><a href="${deviceSearchUrl}">Список Механизмов</a></li>
+			              <li><a href="#">Список групп*</a></li>
+			              <li><a href="#">Список производителей*</a></li>
 			              <li class="divider"></li>
-			              <li><a href="#">Потребности</a></li>
-			              <li><a href="#">Износ</a></li>
+			              <li><a href="#">Добивить механизм</a></li>
 			            </ul>
 			          </li>
 			          <sec:authorize access="hasRole('ROLE_ADMIN')">          
@@ -54,7 +50,6 @@
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
 				            <ul class="dropdown-menu">
 				              <li><a href="${userSearchUrl}">Список пользователей*</a></li>
-				              <li><a href="${deviceListAdminUrl}">Оборудование*</a></li>
 				              <li class="divider"></li>
 				              <li><a href="#">Добавить пользователя</a></li>
 				            </ul>				            
