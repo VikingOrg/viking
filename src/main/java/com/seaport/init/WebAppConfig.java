@@ -27,10 +27,8 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 	
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-            .addResourceHandler("/static/**")
-            .addResourceLocations("/static/")
-            .setCachePeriod(31556926);
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/").setCachePeriod(31556926);
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("/favicon.ico");
     }
 
 }
