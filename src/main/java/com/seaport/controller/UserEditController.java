@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.RegistrationCommand;
+import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
 
 @Controller
@@ -23,6 +24,8 @@ import com.seaport.service.IUserService;
 public class UserEditController {
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IRoleService userRole;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
@@ -32,6 +35,7 @@ public class UserEditController {
 		if (userId != null) {
 			registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
 			registrationCommand.setEditForm(true);
+			registrationCommand.setUserRole(registrationCommand.getUser().getRole().getId());
 		}
 		
 		model.put("registrationCommand", registrationCommand);
@@ -43,8 +47,8 @@ public class UserEditController {
 								@ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result) {
 		Map model = result.getModel();
+		registrationCommand.getUser().setRole(userRole.getRole(registrationCommand.getUserRole()));
 		userService.saveUser(registrationCommand.getUser());
-//		return "redirect:/userEditAdmin?userId="+registrationCommand.getUser().getUserId();
-		return new ModelAndView("admin/userEditAdmin", model);
+		return new ModelAndView("redirect:userSearchAdmin", model);
 	}
 }

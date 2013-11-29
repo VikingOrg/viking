@@ -21,14 +21,16 @@
 		<intercept-url pattern="/register" access="permitAll"/>
 		<intercept-url pattern="/passRecover" access="permitAll"/>
     	<intercept-url pattern="/core.css" access="permitAll"/>		
-		<intercept-url pattern="/denied" access="hasRole('ROLE_USER')"/>
+    	<intercept-url pattern="/home" access="hasRole('ROLE_GUEST')"/>
+		<intercept-url pattern="/denied" access="hasRole('ROLE_GUEST')"/>
 		<intercept-url pattern="/*admin" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
 		
 		<form-login login-page="/login" 
 					authentication-failure-url="/login/failure" 
-					default-target-url="/"/>
+					default-target-url="/home"
+					always-use-default-target="true"/>
 		<access-denied-handler error-page="/denied"/>
 		<logout invalidate-session="true" 
 				logout-success-url="/logout"

@@ -36,7 +36,6 @@ public class SecurityNavigation {
 		return "redirect:/login?message="+message;
 	}
 	
-	
 	@RequestMapping(value = "/logout")
  	public String logout() {
 		return "/access/logout";

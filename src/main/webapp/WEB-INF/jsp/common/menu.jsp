@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 
-<c:url value="/" var="homeUrl"/>
+
 <c:url value="deviceSearch" var="deviceSearchUrl"/>
 <c:url value="deviceListAdmin" var="deviceListAdminUrl"/>
 <c:url value="logout" var="logoutUrl"/>
@@ -24,8 +24,8 @@
 			      <div class="collapse navbar-collapse">
 			        <ul class="nav navbar-nav">
 			
-			  		  <%--<li ><a href="${stevidorSearchUrl}">Главная</a></li> --%>
-			          
+			  		  <li ><a href="<c:url value="/home"/>">Главная</a></li>
+			<sec:authorize access="hasRole('ROLE_USER')">                
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Порты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
@@ -45,6 +45,7 @@
 			              <li><a href="<c:url value="deviceEdit"/>">Добавить Механизм</a></li>
 			            </ul>
 			          </li>
+			  </sec:authorize>        
 			          <sec:authorize access="hasRole('ROLE_ADMIN')">          
 				          <li class="dropdown">
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>

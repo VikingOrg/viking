@@ -37,14 +37,14 @@
 			      </div>
 			      <div class="row">
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-			            <div class="form-group">
-			                <label class="form-label">РОЛЬ В СИСТЕМЕ</label>
-			                <select class="form-control" name="port">
-			                <option>НЕ ЗАРЕГИСТРИРОВАН</option>
-			                <option>АДМИНИСТРАТОР</option>
-			                <option>ПОЛЬЗОВАТЕЛЬ</option>
-			          </select>
-			          </div>
+			        	<div class="form-group">
+			            	<label class="form-label">РОЛЬ В СИСТЕМЕ</label>
+							<form:select path="userRole" cssClass="form-control">
+							   <form:option value="3" label="НЕ ЗАРЕГИСТРИРОВАН"/>
+							   <form:option value="2" label="ПОЛЬЗОВАТЕЛЬ"/>
+							   <form:option value="1" label="АДМИНИСТРАТОР"/>
+							</form:select>			            	
+			          	</div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">ФАМИЛИЯ</label>
