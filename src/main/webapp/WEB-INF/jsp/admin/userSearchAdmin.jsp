@@ -8,14 +8,12 @@
 	    <title>Оборудование</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="static/css/jquery.dataTables.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-	    <script src="static/js/ajax-form.js" type="text/javascript"></script>
-	    
-		<!-- DataTables CSS -->
-		<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-		<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="static/js/jquery.dataTables.min.js"></script>
 
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
@@ -32,7 +30,9 @@
                 } );
 			} );
             
-		</script>  
+		</script>
+		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
+		  
 	</head>
 
 	<body>
@@ -41,6 +41,7 @@
 			<jsp:include page="../common/menu.jsp" />
 			<!-- Begin page content -->
 	  		<div class="container">
+	  			<form:form id="user_search_form" action="userSearchAdmin" commandName="userSearchCommand" method="post" accept-charset="UTF-8">
 				<div class="masthead">
 				    <div class="container">
 				        <div class="row">
@@ -148,6 +149,7 @@
 	                
 		            </div>
 		        </div>
+		        </form:form>
 		    </div>    
 		</div>
 
@@ -162,14 +164,13 @@
 		  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		    <div class="modal-dialog">
 		      <div class="modal-content">
-		      	<form id="ratting-form" class="form-horizontal well" data-async data-target="#rating-modal" action="/userSearchAdmin" method="POST">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">×</button>	
 		          <h4 class="modal-title">Добавить Нового Пользователя</h4>
 		        </div>
 		        <div class="modal-body">
 					 <!-- The async form to send and replace the modals content with its response -->
-					
+					<form id="ratting-form" class="contact" data-async data-target="#rating-modal" action="/userSearchAdmin" method="POST">
 					<fieldset>
 		               <div class="input-group" style="margin: 5px">
 		                   <label class="form-label">Фамилия</label>
@@ -183,17 +184,15 @@
 		                       
 		                  </div>			
 					</fieldset>
-
+					</form>
 		        </div>
-				<div class="modal-footer">
+		        <div class="modal-footer">
 				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 				    <button form="ratting-form" class="btn btn-primary" type="submit">Save changes</button>
-				</div>
-				</form>				
+		        </div>
 		      </div><!-- /.modal-content -->
 		    </div><!-- /.modal-dialog -->
 		  </div><!-- /.modal -->
-		
 	</body>
 </html>
 
