@@ -10,7 +10,29 @@
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
-	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>	
+	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script src="static/js/ajax-form.js" type="text/javascript"></script>
+	    
+		<!-- DataTables CSS -->
+		<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+		<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#user_table').dataTable( {
+                    "oLanguage": {
+                    "sUrl": "static/js/ru_RU.txt"
+                    },
+                    "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+				} );
+                $.extend( $.fn.dataTableExt.oStdClasses, {
+                "sSortAsc": "header headerSortDown",
+                "sSortDesc": "header headerSortUp",
+                "sSortable": "header"
+                } );
+			} );
+            
+		</script>  
 	</head>
 
 	<body>
@@ -68,7 +90,8 @@
 		                    <a href="#" class="btn btn-default" title="Удалить">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
 		                </div>
 		                    <div class="table-container">
-		                    <table class="table table-bordered">
+		                    
+		                    <table id="user_table" class="table table-bordered">
 		                          <thead>
 		                            <tr>
 		                              <th><input type="checkbox"></th>
@@ -88,6 +111,7 @@
 					                       		<td><input type="checkbox"></td>
 					                         	<td class="nowrap">
 					                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">Edit</a>&nbsp;
+					                         		<a data-toggle="modal" href="#myModal">Edit(Modal)</a>&nbsp;
 					                         		<c:out value="${user.firstName} ${user.lastName} ${user.middleInitial}"/>
 					                         	</td>
 					                         	<td class="nowrap"><c:out value="${user.occupationOther}"/></td>
@@ -123,8 +147,8 @@
 		                </div>
 	                
 		            </div>
-		        </div>				
-			</div>
+		        </div>
+		    </div>    
 		</div>
 
 		<div id="footer">
@@ -132,6 +156,44 @@
 		   <jsp:include page="../common/footer.jsp" />
 		  </div>
 		</div>
+		
+		
+		  <!-- Modal -->
+		  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		      	<form id="ratting-form" class="form-horizontal well" data-async data-target="#rating-modal" action="/userSearchAdmin" method="POST">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">×</button>	
+		          <h4 class="modal-title">Добавить Нового Пользователя</h4>
+		        </div>
+		        <div class="modal-body">
+					 <!-- The async form to send and replace the modals content with its response -->
+					
+					<fieldset>
+		               <div class="input-group" style="margin: 5px">
+		                   <label class="form-label">Фамилия</label>
+		                   <input class="form-control" placeholder="Фамилия" title="" type="text">
+		                   <label class="form-label">Имя</label>
+		                   <input class="form-control" placeholder="Имя" title="" type="text">
+		                   <label class="form-label">Возраст</label>
+		                   <input class="form-control" placeholder="Возраст" title="" type="text">
+		                   <label class="form-label">Дата рождения</label>
+		                   <input class="form-control" placeholder="Дата Рождения" title="" type="text">    
+		                       
+		                  </div>			
+					</fieldset>
+
+		        </div>
+				<div class="modal-footer">
+				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+				    <button form="ratting-form" class="btn btn-primary" type="submit">Save changes</button>
+				</div>
+				</form>				
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		
 	</body>
 </html>
 
