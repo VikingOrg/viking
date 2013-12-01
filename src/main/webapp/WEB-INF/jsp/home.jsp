@@ -23,6 +23,7 @@
 		      <h1>Главная</h1>
 		    </div>
 			<p>Welcome <span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p>
+					<p>Last Update from 11/01/2013 file 03</p>
 					<p>Last Update from 11/01/2013 Test dual config</p>
 					<p>Last Update from 10/30/2013 from new config "Origin"</p>
 					<p>Last Update from 10/30/2013</p>
