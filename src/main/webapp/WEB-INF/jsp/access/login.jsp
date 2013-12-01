@@ -62,7 +62,7 @@
 				<input id="j_password" name="j_password" type="password" class="form-control" placeholder="Пароль" required>
 				
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-				<p>System call you!</p>
+				<h2> All your base are belong to us.</h2>
 				<c:url value="register" var="registerURL"/>
 				
 				<p><a href="${registerURL}">Зарегистрироваться</a></p>

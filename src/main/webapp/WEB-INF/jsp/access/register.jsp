@@ -117,7 +117,9 @@
 		      <div class="row">
 		        <div class="col-md-4 col-md-offset-1">
 		          <div class="form-actions">
-		            <button type="submit" class="btn btn-primary data-toggle="modal" data-target="#userRegistered">ОТПРАВИТЬ &raquo;</button>
+		          <button type="submit"  class="btn btn-primary">ОК</button>
+<!-- 		          <a data-toggle="modal" href="#userRegistered">ОТПРАВИТЬ &raquo;</a> -->
+<!-- 		            <button type="submit" class="btn btn-primary data-toggle="modal" data-target="#userRegistered">ОТПРАВИТЬ &raquo;</button> -->
 		            <button type="button" class="btn btn-default" 
 		            	onclick="window.location.href = '<c:url value="login"/>';" 
 		            	value="Klick">ОТМЕНИТЬ &raquo;</button>
@@ -141,7 +143,7 @@
 		          <p>В течение суток на E-Mail будет выслано подтверждение о регистрации</p>
 		          </div>
 		          <div class="modal-footer">
-		            <button type="button" class="btn btn-primary" data-dismiss="modal">ОК</button>
+		            <button type="submit"  class="btn btn-primary" data-dismiss="modal">ОК</button>
 		          </div>
 		        </div><!-- /.modal-content -->
 		      </div><!-- /.modal-dialog -->
