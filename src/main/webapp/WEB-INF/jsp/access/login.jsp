@@ -56,14 +56,14 @@
 	<body>
 		<div class="container">
 			<form class="form-signin" action="j_spring_security_check" method="post">
-				<h2 class="form-signin-heading">ВХОД В СИСТЕМУ</h2>
+				<h2 class="form-signin-heading text-center">ВХОД В СИСТЕМУ</h2>
 				
 				<input id="j_username" name="j_username" type="text" class="form-control" placeholder="Логин" required autofocus>
 				<input id="j_password" name="j_password" type="password" class="form-control" placeholder="Пароль" required>
 				
-				<label class="checkbox">
+				<!-- <label class="checkbox">
 				  <input type="checkbox" value="remember-me">Запомнить.
-				</label>
+				</label> -->
 				
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 				<p>&nbsp;</p>
