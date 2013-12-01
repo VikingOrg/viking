@@ -61,12 +61,8 @@
 				<input id="j_username" name="j_username" type="text" class="form-control" placeholder="Логин" required autofocus>
 				<input id="j_password" name="j_password" type="password" class="form-control" placeholder="Пароль" required>
 				
-				<!-- <label class="checkbox">
-				  <input type="checkbox" value="remember-me">Запомнить.
-				</label> -->
-				
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-				<p>&nbsp;</p>
+				<p>System call you!</p>
 				<c:url value="register" var="registerURL"/>
 				
 				<p><a href="${registerURL}">Зарегистрироваться</a></p>

@@ -73,7 +73,7 @@
 			        <div class="col-md-4 col-md-offset-1">
 			          <div class="form-actions">
 			            <button type="submit" class="btn btn-primary">ОТПРАВИТЬ »</button>
-			            <button type="button" class="btn btn-primary" 
+			            <button type="button" class="btn btn-default" 
 			            	onclick="window.location.href = '<c:url value="login"/>';" 
 			            	value="Klick">ОТМЕНИТЬ &raquo;
 			            </button>
