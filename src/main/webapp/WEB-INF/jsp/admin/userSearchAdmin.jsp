@@ -8,31 +8,27 @@
 	    <title>Оборудование</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" href="static/css/jquery.dataTables.css">
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
+		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
-	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-		<script type="text/javascript" charset="utf8" src="static/js/jquery.dataTables.min.js"></script>
-
-		<script type="text/javascript" charset="utf-8">
-			$(document).ready(function() {
-				$('#user_table').dataTable( {
-                    "oLanguage": {
-                    "sUrl": "static/js/ru_RU.txt"
-                    },
-                    "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
-				} );
-                $.extend( $.fn.dataTableExt.oStdClasses, {
-                "sSortAsc": "header headerSortDown",
-                "sSortDesc": "header headerSortUp",
-                "sSortable": "header"
-                } );
-			} );
-            
-		</script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
+	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
+        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-		  
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#user_table').dataTable( {
+                    "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                    "sPaginationType": "bootstrap",
+                    "oLanguage": {
+                        "sUrl": "static/js/ru_RU.txt"
+                     }                    
+                } );
+            } );
+        </script>		  
 	</head>
 
 	<body>
@@ -92,7 +88,7 @@
 		                </div>
 		                    <div class="table-container">
 		                    
-		                    <table id="user_table" class="table table-bordered">
+		                    <table id="user_table" class="table table-striped table-bordered">
 		                          <thead>
 		                            <tr>
 		                              <th><input type="checkbox"></th>
@@ -127,24 +123,6 @@
 		                          </tbody>
 		                    </table>
 		                    </div>
-		                <div class="container">
-		                    <div class="row">
-		                        <div class="col col-md-12 text-center"> 
-		                            <ul class="pagination">
-		                            <li><a href="#">Назад</a>
-		                            </li>
-		                            <li><a href="#">1</a>
-		                            </li>
-		                            <li><a href="#">2</a>
-		                            </li>
-		                            <li><a href="#">3</a>
-		                            </li>
-		                            <li><a href="#">Следующая</a>
-		                            </li>
-		                            </ul>
-		                        </div>
-		                    </div>
-		                </div>			                    
 		                </div>
 	                
 		            </div>
