@@ -80,6 +80,11 @@
 		          </div>
 		        </div>
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
+		        	<label class="form-label">СТРАНА</label>
+<%-- 					<form:select path="user.countryId" cssClass="form-control"> --%>
+<%-- 					    <form:options items="${registrationCommand.userCountry}" /> --%>
+<%-- 					</form:select>		           --%>
+		          <p>&nbsp;</p>
 		          <label class="form-label">ПОРТ</label>
 					<form:select path="user.portId" cssClass="form-control">
 					    <form:options items="${registrationCommand.userPort}" />
@@ -117,9 +122,7 @@
 		      <div class="row">
 		        <div class="col-md-4 col-md-offset-1">
 		          <div class="form-actions">
-		          <button type="submit"  class="btn btn-primary">ОК</button>
-<!-- 		          <a data-toggle="modal" href="#userRegistered">ОТПРАВИТЬ &raquo;</a> -->
-<!-- 		            <button type="submit" class="btn btn-primary data-toggle="modal" data-target="#userRegistered">ОТПРАВИТЬ &raquo;</button> -->
+		          <button type="submit" class="btn btn-primary">ОТПРАВИТЬ &raquo;</button>
 		            <button type="button" class="btn btn-default" 
 		            	onclick="window.location.href = '<c:url value="login"/>';" 
 		            	value="Klick">ОТМЕНИТЬ &raquo;</button>
@@ -131,23 +134,6 @@
 		        </div>
 		      </div>
 		    </div>
-		  	<div class="modal fade" id="userRegistered" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		      <div class="modal-dialog">
-		        <div class="modal-content">
-		          <div class="modal-header alert alert-success">
-		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		            <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
-		          </div>
-		          <div class="modal-body text-center">
-		          <h3>УЧЕТНАЯ ЗАПИСЬ УСПЕШНО СОЗДАНА!</h3>
-		          <p>В течение суток на E-Mail будет выслано подтверждение о регистрации</p>
-		          </div>
-		          <div class="modal-footer">
-		            <button type="submit"  class="btn btn-primary" data-dismiss="modal">ОК</button>
-		          </div>
-		        </div><!-- /.modal-content -->
-		      </div><!-- /.modal-dialog -->
-		    </div><!-- /.modal -->
 		  </form:form>
 		  </div>
 	  	</div><!-- End of wrapper-->

@@ -1,16 +1,16 @@
    <%@ page contentType="text/html; charset=UTF-8" %>
    <!-- Site footer -->
    <div class="footer">
-     <p class="text-center"><a href="#">О Системе&nbsp;</a>
-     	<i class="fa fa-ellipsis-vertical"></i>
-     	<a href="#">&nbsp;Участники&nbsp;</a>
-     	<i class="fa fa-ellipsis-vertical"></i>
-     	<a href="#">&nbsp;Правила&nbsp;</a>
-     	<i class="fa fa-ellipsis-vertical"></i>
-     	<a href="#">&nbsp;Поддержка&nbsp;</a>
-     	<i class="fa fa-ellipsis-vertical"></i>
-     	<a href="help.html">&nbsp;Справка</a>
+     <p class="text-center"><a href="#">О Системе</a>
+     	&nbsp;|&nbsp;
+     	<a href="#">&nbsp;Участники</a>
+     	&nbsp;|&nbsp;
+     	<a href="#">&nbsp;Правила</a>
+     	&nbsp;|&nbsp;
+     	<a href="#">&nbsp;Поддержка</a>
+     	&nbsp;|&nbsp;
+     	<a href="help.html">Справка</a>
 
      </p>
-     <p class="text-center">&copy; ООО "ИТТ24", 2013&nbsp;</p>
+     <p class="text-center">&copy; ООО "ИТТ", 2013&nbsp;</p>
    </div>

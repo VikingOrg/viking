@@ -10,6 +10,8 @@
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="static/css/page.css">
+		<link rel="stylesheet" type="text/css" href="static/css/table.css">
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
@@ -93,6 +95,7 @@
 		                            <tr>
 		                              <th><input type="checkbox"></th>
 		                              <th>ФИО<span class="caret"></span></th>
+		                              <th>Подразделение</th>
 		                              <th>Должность</th>
 		                              <th>Роль</th>
 		                              <th>E-mail</th>
@@ -109,8 +112,9 @@
 					                         	<td class="nowrap">
 					                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">Edit</a>&nbsp;
 					                         		<a data-toggle="modal" href="#myModal">Edit(Modal)</a>&nbsp;
-					                         		<c:out value="${user.firstName} ${user.lastName} ${user.middleInitial}"/>
+					                         		<c:out value="${user.lastName} ${user.firstName} ${user.middleInitial}"/>
 					                         	</td>
+					                         	<td class="nowrap"><c:out value="${user.occupationOther}"/></td>
 					                         	<td class="nowrap"><c:out value="${user.occupationOther}"/></td>
 					                         	<td class="nowrap"><c:out value="${user.role.role}"/></td>
 					                         	<td class="nowrap"><c:out value="${user.userEmail}"/></td>
