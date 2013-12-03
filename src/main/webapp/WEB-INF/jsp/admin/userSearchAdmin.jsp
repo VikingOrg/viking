@@ -22,15 +22,42 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#user_table').dataTable( {
+            	var oTable = $('#user_table').dataTable( {
+            	"aoColumns": [
+                	               { "bSortable": false },
+                	               null,
+                	               null,
+                	               null,
+                	               null,
+                	               { "bSortable": false },
+                	               null,
+                	               null,
+                	               null,
+                	               { "bSortable": false },
+                	           ],
                     "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
                         "sUrl": "static/js/ru_RU.txt"
                      }                    
                 } );
+
+
+                $('#dataTableSaerch').on('input', function() {
+                	oTable.fnFilter( $(this).val());
+                });   		 
+
+                
             } );
-        </script>		  
+
+    
+        </script>
+        <style type="text/css">
+			.dataTables_filter {
+			     display: none;
+			}
+        </style>
+               		  
 	</head>
 
 	<body>
@@ -40,6 +67,7 @@
 			<!-- Begin page content -->
 	  		<div class="container">
 	  			<form:form id="user_search_form" action="userSearchAdmin" commandName="userSearchCommand" method="post" accept-charset="UTF-8">
+
 				<div class="masthead">
 				    <div class="container">
 				        <div class="row">
@@ -53,30 +81,32 @@
 		                 <div class="col col-md-3 col-xs-4">
 		                     <!--Sidebar content-->
 		                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
-		                    <label class="form-label">СТРАНА</label>
-		                    <select class="form-control" style="margin: 5px">
-		                    <option>Россия</option>
-		                    <option>Украина</option>
-		                    <option>Латвия</option>
-		                    </select>
-		                    <label class="form-label">ПОРТ</label>
-		                    <select class="form-control" style="margin: 5px">
-		                    <option>С-Петербургский</option>
-		                    <option>Высоцкий</option>
-		                    <option>Находкинский</option>
-		                    </select>
-		                    <label class="form-label">КОМПАНИЯ</label>
-		                    <select class="form-control" style="margin: 5px">
-		                    <option>1-ая Стивидорная</option>
-		                    <option>2-ая Стивидорная</option>
-		                    <option>3-ая Стивидорная</option>
-		                    </select>
+                            <label class="form-label">СТРАНА</label>
+                            <select class="form-control" style="margin: 5px">
+                            <option>Выбрать</option>
+                            <option>Россия</option>
+                            <option>Украина</option>
+                            <option>Латвия</option>
+                            </select>
+                            <label class="form-label">ПОРТ</label>
+                            <select class="form-control" style="margin: 5px">
+                            <option>Выбрать</option>
+                            <option>С-Петербургский</option>
+                            <option>Высоцкий</option>
+                            <option>Находкинский</option>
+                            </select>
+                            <label class="form-label">КОМПАНИЯ</label>
+                            <select class="form-control" style="margin: 5px">
+                            <option>Выбрать</option>
+                            <option>1-ая Стивидорная</option>
+                            <option>2-ая Стивидорная</option>
+                            <option>3-ая Стивидорная</option>
+                            </select>
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
-		                    <label class="form-label">ФАМИЛИЯ</label>
-		                        <input class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text">
-		                    <label class="form-label">ИМЯ</label>
-		                        <input class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text">    
+							    <label class="form-label">ПОИСК</label>
+							    <input id="dataTableSaerch" class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text"/>  
+		                        <br><br>
 		                        <div class="form-actions" style="margin: 5px">
 		                            <button type="submit" class="btn btn-primary">НАЙТИ</button>
 		                        </div>
@@ -85,24 +115,25 @@
 		                <div class="col col-md-9  col-xs-8">
 		                    <!--Body content-->
 		                    <div class="btn-group" style="margin: 5px">
-		                    <a href="#" class="btn btn-default" title="Ввод нового">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
-		                    <a href="#" class="btn btn-default" title="Удалить">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
-		                </div>
+                            <a href="#" class="btn btn-primary" title="Ввод нового">Новый &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+                            <a href="#" class="btn btn-primary" title="Удалить">Копия &nbsp;<span class="glyphicon glyphicon-fullscreen"></span>&nbsp;</a>
+                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDeleteUser">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
+                            </div>
 		                    <div class="table-container">
 		                    
 		                    <table id="user_table" class="table table-striped table-bordered">
 		                          <thead>
 		                            <tr>
 		                              <th><input type="checkbox"></th>
-		                              <th>ФИО<span class="caret"></span></th>
-		                              <th>Подразделение</th>
-		                              <th>Должность</th>
-		                              <th>Роль</th>
-		                              <th>E-mail</th>
-		                              <th>Компания</th>
-		                              <th>Порт</th>
-		                              <th>Страна</th>
-		                              <th>Примечания</th>
+		                              <th>ФИО&nbsp;&nbsp;</th>
+		                              <th>Подразделение&nbsp;&nbsp;</th>
+		                              <th>Должность&nbsp;&nbsp;</th>
+		                              <th>Роль&nbsp;&nbsp;</th>
+		                              <th>E-mail&nbsp;&nbsp;</th>
+		                              <th>Компания&nbsp;&nbsp;</th>
+		                              <th>Порт&nbsp;&nbsp;</th>
+		                              <th>Страна&nbsp;&nbsp;</th>
+		                              <th>Примечания&nbsp;&nbsp;</th>
 		                            </tr>
 		                          </thead>
 		                          <tbody>
@@ -126,6 +157,8 @@
 										</c:forEach>                              
 		                          </tbody>
 		                    </table>
+		                    
+	                    
 		                    </div>
 		                </div>
 	                

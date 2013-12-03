@@ -30,6 +30,8 @@
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Порты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
 			              <li><a href="${stevidorSearchUrl}">Список Стивидоров</a></li>
+			              <li><a href="#">Список Портов</a></li>
+			              <li><a href="#">Список Стран</a></li>
 			              <li class="divider"></li>
 			              <li><a href="<c:url value="stevidorEdit"/>">Добавить Стивидора</a></li>
 			            </ul>
@@ -39,10 +41,20 @@
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
 			              <li><a href="${deviceSearchUrl}">Список Механизмов</a></li>
-			              <li><a href="#">Список групп*</a></li>
-			              <li><a href="#">Список производителей*</a></li>
+			              <li><a href="#">Список Групп*</a></li>
+			              <li><a href="#">Список Производителей*</a></li>
 			              <li class="divider"></li>
 			              <li><a href="<c:url value="deviceEdit"/>">Добавить Механизм</a></li>
+			            </ul>
+			          </li>
+			          
+			          <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
+			            <ul class="dropdown-menu">
+			              <li><a href="#">Количественный состав</a></li>
+			              <li><a href="#">Разрез по годам</a></li>
+			              <li class="divider"></li>
+			              <li><a href="<c:url value="deviceEdit"/>">Добавить Отчет</a></li>
 			            </ul>
 			          </li>
 			  </sec:authorize>        

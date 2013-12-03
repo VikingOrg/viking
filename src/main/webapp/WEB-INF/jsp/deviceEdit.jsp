@@ -24,7 +24,7 @@
 			      <div class="masthead">
 			        <div class="container">
 			          <div class="col-md-10 col-md-offset-1">
-			            <h4 class="text-muted page-header">ЗАПОЛНИТЕ ПОЖАЛУЙСТА ПОЛЯ</h4>
+			            <h4 class="text-muted page-header">ЗАПОЛНИТЕ ПОЛЯ ДАННЫХ</h4>
 			          </div>
 			        </div>
 			      </div>
@@ -38,6 +38,7 @@
 			          </div>
 			          <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
 			          <select class="form-control" name="manufacturer">
+			          	<option>Выбрать</option>
 			            <option>TOYOTA</option>
 			            <option>LIEBHERR</option>
 			            <option>HUYSTER</option>
@@ -51,49 +52,60 @@
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
-			                <label class="form-label">ИНВЕНТАРНЫЙ НОМЕР</label>
+			                <label class="form-label">ИНВЕНТАРНЫЙ №</label>
 			              <input type="text" class="form-control" name="reg_number" title="Введите инвентарный номер">
 			            </div>
 			          </div>
-			          <div class="form-group">
-			            <div class="controls">
 			                <label class="form-label">ГОД ПРОИЗВОДСТВА</label>
 			                <select class="form-control" name="prod_year">
+			          		<option>Выбрать</option>
 			                <option>1950</option>
 			                <option>1960</option>
 			                <option>1970</option>
 			                </select>
 			                <p>&nbsp;</p>
-			            </div>
 			            <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">ДАТА ВВОДА ВЭКСПЛУАТАЦИЮ</label>
-			              <input type="email" class="form-control" name="begin_date" title="Укажите дату ввода в эксплуатацию">
-			            </div>
+				            <div class="controls">
+				            <label class="form-label">ДАТА ВВОДА ВЭКСПЛУАТАЦИЮ</label>
+				              <input type="email" class="form-control" name="begin_date" title="Укажите дату ввода в эксплуатацию">
+				            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
-			                <label class="form-label">ДОКУМЕНТ ВВОДА В ЭКСПЛУАТАЦИЮ</label>
+			                <label class="form-label">КОНТРАКТ №</label>
 			              <input type="password" class="form-control" title="Укажите документ ввода в эксплуатацию" name="doc">
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
-			            <label class="form-label">TRANC</label>
+			            <label class="form-label">ТРАНС №</label>
 			              <input type="password" class="form-control" name="tranc" title="Укажите TRANC">
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
-			            <label class="form-label">ЗАВОДСКОЙ НОМЕР</label>
+			            <label class="form-label">ЗАВОДСКОЙ №</label>
 			              <input type="password" class="form-control" name="serial" title="Укажите заводской номер">
 			            </div>
 			          </div>
+			          <div class="form-group">
+			            <div class="controls">
+			            <label class="form-label">НОМЕНКЛАТУРНЫЙ №</label>
+			              <input type="password" class="form-control" name="serial" title="Укажите заводской номер">
+			            </div>
 			          </div>
+			          <div class="form-group">
+			            <div class="controls">
+			            <label class="form-label">РЕГИСТРАЦИОННЫЙ №</label>
+			              <input type="password" class="form-control" name="serial" title="Укажите заводской номер">
+			            </div>
+			          </div>
+			          
 			        </div>
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
 			        <label class="form-label">СТРАНА</label>
 			          <select class="form-control" name="port">
+			          	<option>Выбрать</option>
 			            <option>Россия</option>
 			            <option>Украина</option>
 			            <option>Латвия</option>
@@ -101,6 +113,7 @@
 			          <p>&nbsp;</p>
 			          <label class="form-label">ПОРТ</label>
 			          <select class="form-control" name="port">
+			          	<option>Выбрать</option>
 			            <option>Порт 1</option>
 			            <option>Порт 2</option>
 			            <option>Порт 3</option>
@@ -108,6 +121,7 @@
 			          <p>&nbsp;</p>
 			          <label class="form-label">КОМПАНИЯ</label>
 			          <select class="form-control" name="stevedor">
+			          	<option>Выбрать</option>
 			            <option>1-я Стивидорная</option>
 			            <option>2-я Стивидорная</option>
 			            <option>3-я Стивидорная</option>
@@ -116,7 +130,7 @@
 			          <div class="form-group">
 			                <div class="controls">
 			                  <label class="form-label">МЕСТО УСТАНОВКИ</label>
-			                  <input type="password" class="form-control" title="Укажите место установки" name="place">
+			                  <input type="password" class="form-control" title="Укажите место установки" name="location">
 			                </div>
 			            </div>
 			            <div class="form-group">
@@ -134,7 +148,7 @@
 			        <div class="col-md-4 col-md-offset-1">
 			          <div class="form-actions">
 			            <button type="submit" class="btn btn-primary">СОХРАНИТЬ &raquo;</button>
-			            <button type="button" class="btn">ОТМЕНА &raquo;</button>
+			            <button type="button" class="btn btn-default">ОТМЕНА &raquo;</button>
 			          </div>
 			        </div>
 			      </div>

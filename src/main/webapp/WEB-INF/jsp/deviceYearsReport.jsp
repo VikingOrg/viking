@@ -82,53 +82,129 @@
                 </div>
                     <div class="table-container">
                     <table class="table table-bordered">
-                          <thead>
-                              <tr>
-                              <th><input type="checkbox"></th>
-                              <th>Наименование&nbsp;<span class="caret"></span></th>
-                              <th>Производитель</th>
-                              <th>Модель</th>
-                              <th>Кол-во</th>
-                              <th>Год выпуска</th>
-                              <th>Дата ввода в эксплуатацию</th>
-                              <th>Документ ввода в эксплуатацию</th>
-                              <th>Инв. номер</th>
-                              <th>TRANC</th>
-                              <th>Зав. номер</th>
-                              <th>Место установк</th>
-                              <th>Группа</th>
-                              <th>Компания</th>
-                              <th>Порт</th>
-                              <th>Страна</th>
-                              <th>Примечания</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td><input type="checkbox"></td>
-                              <td class="nowrap">
-	                         		<a href="<c:url value="deviceEdit?deviceId=1"/>">Edit</a>&nbsp;
-	                         		<c:out value="Портальный кран АЛЬБАТРОС&nbsp; 10/20тн"/>                              
-                              </td>
-                              <td class="nowrap">Kranbau</td>
-                              <td class="nowrap">Колея 15,3м</td>
-                              <td class="nowrap">2</td>
-                              <td class="nowrap">1960</td>
-                              <td class="nowrap">01.04.1999</td>
-                              <td class="nowrap">№123</td>
-                              <td class="nowrap">87087134</td>
-                              <td class="nowrap">-193248-10923</td>
-                              <td class="nowrap">98798999</td>
-                              <td class="nowrap">1-ый причал</td>
-                              <td class="nowrap">Портальные краны</td>
-                              <td class="nowrap">1-я Стивидорная</td>
-                              <td class="nowrap">С-Петербургский</td>
-                              <td class="nowrap">Россия</td>
-                              <td class="nowrap">Работает хорошо</td>
-                            </tr>
- 
-                          </tbody>
-                    </table>
+					<tbody>
+                    	<tr>
+			<td WIDTH=303 HEIGHT=23 ALIGN=LEFT>РАСПРЕДЕЛЕНИЕ ТЕХНИКИ ПОРТА ВЫБОРГСКИЙ ПО ГОДАМ</td>
+			<td WIDTH=104 ALIGN=LEFT><BR></td>
+			<td WIDTH=104 ALIGN=LEFT><BR></td>
+			<td WIDTH=104 ALIGN=LEFT><BR></td>
+			<td WIDTH=104 ALIGN=LEFT><BR></td>
+			<td WIDTH=104 ALIGN=LEFT><BR></td>
+			<td WIDTH=104 ALIGN=LEFT><BR></td>
+			<td WIDTH=104 ALIGN=LEFT><BR></td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT><BR></td>
+			<td ALIGN=LEFT><BR></td>
+			<td ALIGN=LEFT><BR></td>
+			<td ALIGN=LEFT><BR></td>
+			<td ALIGN=LEFT><BR></td>
+			<td ALIGN=LEFT><BR></td>
+			<td ALIGN=LEFT><BR></td>
+			<td ALIGN=LEFT><BR></td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=CENTER><B>НАИМЕНОВАНИЕ</B></td>
+			<td ALIGN=CENTER><B>ДО 1960</B></td>
+			<td ALIGN=CENTER SDVAL="1960" SDNUM="1049;"><B>1960</B></td>
+			<td ALIGN=CENTER SDVAL="1970" SDNUM="1049;"><B>1970</B></td>
+			<td ALIGN=CENTER SDVAL="1980" SDNUM="1049;"><B>1980</B></td>
+			<td ALIGN=CENTER SDVAL="1990" SDNUM="1049;"><B>1990</B></td>
+			<td ALIGN=CENTER SDVAL="2000" SDNUM="1049;"><B>2000</B></td>
+			<td ALIGN=CENTER SDVAL="2010" SDNUM="1049;"><B>2010</B></td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Портальный кран</B></td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="1" SDNUM="1049;">1</td>
+			<td ALIGN=CENTER SDVAL="3" SDNUM="1049;">3</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="5" SDNUM="1049;">5</td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Полупортальный кран</B></td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="5" SDNUM="1049;">5</td>
+			<td ALIGN=CENTER SDVAL="6" SDNUM="1049;">6</td>
+			<td ALIGN=CENTER SDVAL="7" SDNUM="1049;">7</td>
+			<td ALIGN=CENTER SDVAL="1" SDNUM="1049;">1</td>
+			<td ALIGN=CENTER SDVAL="1" SDNUM="1049;">1</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Пневмоколесный кран</B></td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="6" SDNUM="1049;">6</td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="5" SDNUM="1049;">5</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Автомобильный кран</B></td>
+			<td ALIGN=CENTER SDVAL="1" SDNUM="1049;">1</td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="10" SDNUM="1049;">10</td>
+			<td ALIGN=CENTER SDVAL="3" SDNUM="1049;">3</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="5" SDNUM="1049;">5</td>
+			<td ALIGN=CENTER SDVAL="6" SDNUM="1049;">6</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Железнодорожный кран</B></td>
+			<td ALIGN=CENTER SDVAL="3" SDNUM="1049;">3</td>
+			<td ALIGN=CENTER SDVAL="4" SDNUM="1049;">4</td>
+			<td ALIGN=CENTER SDVAL="6" SDNUM="1049;">6</td>
+			<td ALIGN=CENTER SDVAL="7" SDNUM="1049;">7</td>
+			<td ALIGN=CENTER SDVAL="3" SDNUM="1049;">3</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="5" SDNUM="1049;">5</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Мобильный кран</B></td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="4" SDNUM="1049;">4</td>
+			<td ALIGN=CENTER SDVAL="4" SDNUM="1049;">4</td>
+			<td ALIGN=CENTER SDVAL="6" SDNUM="1049;">6</td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="6" SDNUM="1049;">6</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Гусеничный кран</B></td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="10" SDNUM="1049;">10</td>
+			<td ALIGN=CENTER SDVAL="3" SDNUM="1049;">3</td>
+			<td ALIGN=CENTER SDVAL="4" SDNUM="1049;">4</td>
+			<td ALIGN=CENTER SDVAL="5" SDNUM="1049;">5</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="8" SDNUM="1049;">8</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=LEFT VALIGN=MIDDLE><B>Плавучий кран</B></td>
+			<td ALIGN=CENTER SDVAL="1" SDNUM="1049;">1</td>
+			<td ALIGN=CENTER SDVAL="2" SDNUM="1049;">2</td>
+			<td ALIGN=CENTER SDVAL="10" SDNUM="1049;">10</td>
+			<td ALIGN=CENTER SDVAL="3" SDNUM="1049;">3</td>
+			<td ALIGN=CENTER SDVAL="0" SDNUM="1049;">0</td>
+			<td ALIGN=CENTER SDVAL="5" SDNUM="1049;">5</td>
+			<td ALIGN=CENTER SDVAL="6" SDNUM="1049;">6</td>
+		</tr>
+		<tr>
+			<td HEIGHT=23 ALIGN=CENTER><B>ВСЕГО</B></td>
+			<td ALIGN=CENTER SDVAL="9" SDNUM="1049;"><B>9</B></td>
+			<td ALIGN=CENTER SDVAL="27" SDNUM="1049;"><B>27</B></td>
+			<td ALIGN=CENTER SDVAL="47" SDNUM="1049;"><B>47</B></td>
+			<td ALIGN=CENTER SDVAL="31" SDNUM="1049;"><B>31</B></td>
+			<td ALIGN=CENTER SDVAL="22" SDNUM="1049;"><B>22</B></td>
+			<td ALIGN=CENTER SDVAL="13" SDNUM="1049;"><B>13</B></td>
+			<td ALIGN=CENTER SDVAL="37" SDNUM="1049;"><B>37</B></td>
+		</tr>
+					</tbody>
+				</table>
                     </div>
 		                <div class="container">
 		                    <div class="row">
