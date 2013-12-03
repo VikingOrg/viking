@@ -20,15 +20,30 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#user_table').dataTable( {
+            	var oTable = $('#user_table').dataTable( {
                     "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
                         "sUrl": "static/js/ru_RU.txt"
                      }                    
                 } );
+
+
+                $('#dataTableSaerch').on('input', function() {
+                	oTable.fnFilter( $(this).val());
+                });   		 
+
+                
             } );
-        </script>		  
+
+    
+        </script>
+        <style type="text/css">
+			.dataTables_filter {
+			     display: none;
+			}
+        </style>
+               		  
 	</head>
 
 	<body>
@@ -38,6 +53,7 @@
 			<!-- Begin page content -->
 	  		<div class="container">
 	  			<form:form id="user_search_form" action="userSearchAdmin" commandName="userSearchCommand" method="post" accept-charset="UTF-8">
+
 				<div class="masthead">
 				    <div class="container">
 				        <div class="row">
@@ -71,10 +87,9 @@
 		                    </select>
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
-		                    <label class="form-label">ФАМИЛИЯ</label>
-		                        <input class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text">
-		                    <label class="form-label">ИМЯ</label>
-		                        <input class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text">    
+							    <label class="form-label">ПОИСК</label>
+							    <input id="dataTableSaerch" class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text"/>  
+		                        <br><br>
 		                        <div class="form-actions" style="margin: 5px">
 		                            <button type="submit" class="btn btn-primary">НАЙТИ</button>
 		                        </div>
@@ -122,6 +137,8 @@
 										</c:forEach>                              
 		                          </tbody>
 		                    </table>
+		                    
+	                    
 		                    </div>
 		                </div>
 	                
