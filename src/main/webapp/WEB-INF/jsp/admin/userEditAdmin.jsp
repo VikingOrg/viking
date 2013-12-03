@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
-	    <title>Редактирования данных пользователя</title>
+	    <title>Редактирование данных пользователя</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
@@ -26,7 +26,7 @@
 			          <div class="col-md-10 col-md-offset-1">
 			      		<c:choose>
 					      <c:when test="${registrationCommand.editForm}">
-					      	<h4 class="text-muted page-header">РЕДАКТИРОВАНИЯ ДАННЫХ ПОЛЬЗОВАТЕЛЯ<br></h4>
+					      	<h4 class="text-muted page-header">РЕДАКТИРОВАНИЕ ДАННЫХ ПОЛЬЗОВАТЕЛЯ<br></h4>
 					      </c:when>
 					      <c:otherwise>
 							<h4 class="text-muted page-header">ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ<br></h4>
@@ -66,25 +66,26 @@
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">E-MAIL</label>
-			            	<form:input path="user.userEmail" type="email" cssClass="form-control"title="Укажите свой e-mail в качестве логина"/>
+			            	<form:input path="user.userEmail" type="email" cssClass="form-control" title="Укажите свой e-mail в качестве логина"/>
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			                <label class="form-label">ПАРОЛЬ</label>
-			                <form:input path="user.password" cssClass="form-control"title="Укажите пароль для входа"/>
+			                <form:input path="user.password" type="password" cssClass="form-control" title="Укажите пароль для входа"/>
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">ПОВТОРИТЕ ПАРОЛЬ</label>
-			            	<form:input path="pswordCheck" cssClass="form-control"title="Повторно укажите пароль"/>
+			            	<form:input path="pswordCheck" type="password" cssClass="form-control" title="Повторно укажите пароль"/>
 			            </div>
 			          </div>
 			        </div>
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
 			        <label class="form-label">СТРАНА</label>
 			          <select class="form-control" name="port">
+			          	<option>Выберите</option>
 			            <option>Россия</option>
 			            <option>Украина</option>
 			            <option>Латвия</option>
@@ -92,6 +93,7 @@
 			          <p>&nbsp;</p>
 			          <label class="form-label">ПОРТ</label>
 			          <select class="form-control" name="port">
+			          	<option>Выберите</option>
 			            <option>Порт 1</option>
 			            <option>Порт 2</option>
 			            <option>Порт 3</option>
@@ -99,11 +101,18 @@
 			          <p>&nbsp;</p>
 			          <label class="form-label">КОМПАНИЯ</label>
 			          <select class="form-control" name="stevedor">
+			          	<option>Выберите</option>
 			            <option>1-я Стивидорная</option>
 			            <option>2-я Стивидорная</option>
 			            <option>3-я Стивидорная</option>
 			          </select>
 			          <p>&nbsp;</p>
+			          <div class="form-group">
+			            <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>
+			            <div class="controls">
+<%-- 			                <form:input path="user.division" cssClass="form-control"title="Подразделение"/> --%>
+			            </div>
+			          </div>
 			          <div class="form-group">
 			            <label class="form-label">ДОЛЖНОСТЬ</label>
 			            <div class="controls">
@@ -126,7 +135,7 @@
 		        <div class="col-md-4 col-md-offset-1">
 		          <div class="form-actions">
 		            <button type="submit" class="btn btn-primary">СОХРАНИТЬ &raquo;</button>
-		            <button type="button" class="btn btn-primary" 
+		            <button type="button" class="btn btn-default" 
 		            	onclick="window.location.href = '<c:url value="userSearchAdmin"/>';" 
 		            	value="Klick">ВЕРНУТЬСЯ &raquo;</button>
 		          </div>
