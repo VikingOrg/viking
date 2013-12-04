@@ -47,6 +47,10 @@
                 	oTable.fnFilter( $(this).val());
                 });   		 
 
+                $('#selectAll').click(function (e) {
+                    $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+                });
+
                 
             } );
 
@@ -114,17 +118,30 @@
 		                 </div>
 		                <div class="col col-md-9  col-xs-8">
 		                    <!--Body content-->
+		                    
+		                    <!--                             Вывод сообщений и предупреждений -->
+							<div class="alert alert-success hidden">Изменения внесены
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							</div>
+							<div class="alert alert-danger show">Ошибка сохранения данных
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							</div>
+		                    
+		                    
 		                    <div class="btn-group" style="margin: 5px">
                             <a href="#" class="btn btn-primary" title="Ввод нового">Новый &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Удалить">Копия &nbsp;<span class="glyphicon glyphicon-fullscreen"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDeleteUser">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
+                            
+
+<!-- 							Таблица со списком пользователей -->
 		                    <div class="table-container">
 		                    
 		                    <table id="user_table" class="table table-striped table-bordered">
 		                          <thead>
 		                            <tr>
-		                              <th><input type="checkbox"></th>
+		                              <th><input type="checkbox" id="selectAll"></th>
 		                              <th>ФИО&nbsp;&nbsp;</th>
 		                              <th>Подразделение&nbsp;&nbsp;</th>
 		                              <th>Должность&nbsp;&nbsp;</th>

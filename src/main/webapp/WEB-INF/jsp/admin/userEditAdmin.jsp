@@ -48,9 +48,13 @@
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">ФАМИЛИЯ</label>
-			              <form:input path="user.lastName" cssClass="form-control" title="Введите свою фамилию"/>
+			              <form:input path="user.lastName" cssClass="form-control" сlass="has-error" title="Введите свою фамилию"/>
 			            </div>
 			          </div>
+			          <div class="form-group has-error">
+						  <input type="text" class="form-control" id="inputError">
+						  <label class="control-label" for="inputError">Исправьте ошибку в заполнении поля</label>
+					  </div>
 			          <div class="form-group">
 			            <div class="controls">
 			                <label class="form-label">ИМЯ</label>
@@ -134,7 +138,7 @@
 		      <div class="row">
 		        <div class="col-md-4 col-md-offset-1">
 		          <div class="form-actions">
-		            <button type="submit" class="btn btn-primary">СОХРАНИТЬ &raquo;</button>
+		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">СОХРАНИТЬ &raquo;</button>
 		            <button type="button" class="btn btn-default" 
 		            	onclick="window.location.href = '<c:url value="userSearchAdmin"/>';" 
 		            	value="Klick">ВЕРНУТЬСЯ &raquo;</button>
@@ -142,6 +146,26 @@
 		        </div>
 		      </div>
 		    </div>
+		    
+		    <!-- 		Модальное окно подтверждения сохранения введенных данных -->
+		<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">ВНИМАНИЕ!</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+		        <button type="submit" class="btn btn-primary">СОХРАНИТЬ</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
 			</form:form>    
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
@@ -150,6 +174,8 @@
 		   <jsp:include page="../common/footer.jsp" />
 		  </div>
 		</div>
+		
+
 	</body>
 </html>
 
