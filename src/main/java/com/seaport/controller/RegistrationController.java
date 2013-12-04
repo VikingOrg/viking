@@ -38,10 +38,10 @@ public class RegistrationController {
     	registrationCommand.getUserStevedor().put(1, "Стеведор-Помидор");
     	registrationCommand.getUserStevedor().put(2, "Хрен Редьки Не Слаще");
 	    
-    	registrationCommand.getUserOccupation().put(0, "Не указывать");
-    	registrationCommand.getUserOccupation().put(1, "Главный");
-    	registrationCommand.getUserOccupation().put(2, "Самый Главный");
-    	registrationCommand.getUserOccupation().put(2, "Ниглавнейший");
+    	registrationCommand.getUserCountry().put(0, "Не указывать");
+    	registrationCommand.getUserCountry().put(1, "Россия");
+    	registrationCommand.getUserCountry().put(2, "Украина");
+    	registrationCommand.getUserCountry().put(3, "Литва");
 
     	model.put("registrationCommand", registrationCommand);
 		return "access/register";

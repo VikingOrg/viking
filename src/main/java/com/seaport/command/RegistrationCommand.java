@@ -10,7 +10,7 @@ public class RegistrationCommand {
 	private String pswordCheck = "";
 	private Map<Integer, String> userPort = new LinkedHashMap<Integer,String>();
 	private Map<Integer, String> userStevedor = new LinkedHashMap<Integer,String>();
-	private Map<Integer, String> userOccupation = new LinkedHashMap<Integer,String>();
+	private Map<Integer, String> userCountry = new LinkedHashMap<Integer,String>();
 	boolean editForm;
 	private Integer userRole;
 	
@@ -62,13 +62,14 @@ public class RegistrationCommand {
 		this.userStevedor = userStevedor;
 	}
 
-	public Map<Integer, String> getUserOccupation() {
-		return userOccupation;
+	public Map<Integer, String> getUserCountry() {
+		return userCountry;
 	}
 
-	public void setUserOccupation(Map<Integer, String> userOccupation) {
-		this.userOccupation = userOccupation;
+	public void setUserCountry(Map<Integer, String> userCountry) {
+		this.userCountry = userCountry;
 	}
+
 
 	
 }

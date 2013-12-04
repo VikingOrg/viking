@@ -145,8 +145,8 @@
 					                         		<a data-toggle="modal" href="#myModal">Edit(Modal)</a>&nbsp;
 					                         		<c:out value="${user.lastName} ${user.firstName} ${user.middleInitial}"/>
 					                         	</td>
-					                         	<td class="nowrap"><c:out value="${user.occupationOther}"/></td>
-					                         	<td class="nowrap"><c:out value="${user.occupationOther}"/></td>
+					                         	<td class="nowrap"><c:out value="${user.division}"/></td>
+					                         	<td class="nowrap"><c:out value="${user.occupation}"/></td>
 					                         	<td class="nowrap"><c:out value="${user.role.role}"/></td>
 					                         	<td class="nowrap"><c:out value="${user.userEmail}"/></td>
 					                         	<td class="nowrap">1-я Стивидорная</td>

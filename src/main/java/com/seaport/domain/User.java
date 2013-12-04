@@ -24,6 +24,15 @@ public class User implements Serializable {
 	@Column(name = "ID")
 	private Integer userId;
 
+	@Column(name = "COUNTRY_ID")
+	private Integer countryId;
+	
+	@Column(name="STEVEDOR_ID")
+	private int stevedorId;
+	
+	@Column(name="PORT_ID")
+	private int portId;	
+	
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 	
@@ -42,17 +51,14 @@ public class User implements Serializable {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	
-	@Column(name="OCCUPATION_ID")
-	private int occupationId;
-
-	@Column(name="OCCUPATION_OTHER")
-	private String occupationOther;
+	@Column(name="DIVISION")
+	private String division;
 	
-	@Column(name="PORT_ID")
-	private int portId;
+	@Column(name="OCCUPATION")
+	private String occupation;
 
-	@Column(name="STEVEDOR_ID")
-	private int stevedorId;
+	@Column(name="USER_NOTE")
+	private String userNote;
 	
 	@Column(name = "CREATE_DATE", nullable = false)
 	private Timestamp createDate;
@@ -76,6 +82,30 @@ public class User implements Serializable {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public Integer getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
+	}
+
+	public int getStevedorId() {
+		return stevedorId;
+	}
+
+	public void setStevedorId(int stevedorId) {
+		this.stevedorId = stevedorId;
+	}
+
+	public int getPortId() {
+		return portId;
+	}
+
+	public void setPortId(int portId) {
+		this.portId = portId;
 	}
 
 	public String getFirstName() {
@@ -126,12 +156,20 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Role getRole() {
-		return role;
+	public String getOccupation() {
+		return occupation;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+	public String getUserNote() {
+		return userNote;
+	}
+
+	public void setUserNote(String userNote) {
+		this.userNote = userNote;
 	}
 
 	public Timestamp getCreateDate() {
@@ -158,36 +196,20 @@ public class User implements Serializable {
 		this.updateDate = updateDate;
 	}
 
-	public int getOccupationId() {
-		return occupationId;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setOccupationId(int occupationId) {
-		this.occupationId = occupationId;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
-	public int getPortId() {
-		return portId;
+	public String getDivision() {
+		return division;
 	}
 
-	public void setPortId(int portId) {
-		this.portId = portId;
-	}
-
-	public int getStevedorId() {
-		return stevedorId;
-	}
-
-	public void setStevedorId(int stevedorId) {
-		this.stevedorId = stevedorId;
-	}
-
-	public String getOccupationOther() {
-		return occupationOther;
-	}
-
-	public void setOccupationOther(String occupationOther) {
-		this.occupationOther = occupationOther;
+	public void setDivision(String division) {
+		this.division = division;
 	}
 
 	@Override
@@ -195,13 +217,13 @@ public class User implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((createDate == null) ? 0 : createDate.hashCode());
+				+ ((countryId == null) ? 0 : countryId.hashCode());
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + portId;
 		result = prime * result
 				+ ((userEmail == null) ? 0 : userEmail.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
@@ -217,10 +239,10 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (createDate == null) {
-			if (other.createDate != null)
+		if (countryId == null) {
+			if (other.countryId != null)
 				return false;
-		} else if (!createDate.equals(other.createDate))
+		} else if (!countryId.equals(other.countryId))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -237,10 +259,7 @@ public class User implements Serializable {
 				return false;
 		} else if (!login.equals(other.login))
 			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
+		if (portId != other.portId)
 			return false;
 		if (userEmail == null) {
 			if (other.userEmail != null)
@@ -257,14 +276,16 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", middleInitial=" + middleInitial
-				+ ", userEmail=" + userEmail + ", login=" + login
-				+ ", password=" + password + ", occupationId=" + occupationId
-				+ ", occupationOther=" + occupationOther + ", portId=" + portId
-				+ ", stevedorId=" + stevedorId + ", createDate=" + createDate
-				+ ", updateUserId=" + updateUserId + ", updateDate="
-				+ updateDate + ", role=" + role + "]";
+		return "User [userId=" + userId + ", countryId=" + countryId
+				+ ", stevedorId=" + stevedorId + ", portId=" + portId
+				+ ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", middleInitial=" + middleInitial + ", userEmail="
+				+ userEmail + ", login=" + login + ", password=" + password
+				+ ", occupation=" + occupation + ", userNote=" + userNote
+				+ ", createDate=" + createDate + ", updateUserId="
+				+ updateUserId + ", updateDate=" + updateDate + ", role="
+				+ role + "]";
 	}
+
 
 }
