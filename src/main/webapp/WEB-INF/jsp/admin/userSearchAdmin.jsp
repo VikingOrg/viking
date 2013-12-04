@@ -138,7 +138,7 @@
                             <a href="#" class="btn btn-success" title="Ввод нового">Новый &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
                             <a href="#" class="btn btn-warning" title="Редактировать">Редактировать &nbsp;<span class="glyphicon glyphicon-pencil"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Копировать">Копия &nbsp;<span class="glyphicon glyphicon-fullscreen"></span>&nbsp;</a>
-                            <a href="#" class="btn btn-danger" title="Удалить" data-toggle="modal" data-target="#confirmDeleteUser">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
+                            <a href="#" class="btn btn-danger" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
                             
 
@@ -187,6 +187,27 @@
 	                
 		            </div>
 		        </div>
+		        
+		        
+		    <!-- 		Модальное окно подтверждения удаления данных -->
+		<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">ВНИМАНИЕ!</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+		        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		        
 		        </form:form>
 		    </div>    
 		</div>
