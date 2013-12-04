@@ -2,6 +2,7 @@ package com.seaport.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.seaport.command.RegistrationCommand;
+import com.seaport.domain.Countries;
 import com.seaport.domain.Role;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
@@ -37,11 +39,11 @@ public class RegistrationController {
     	registrationCommand.getUserStevedor().put(0, "Не указывать");
     	registrationCommand.getUserStevedor().put(1, "Стеведор-Помидор");
     	registrationCommand.getUserStevedor().put(2, "Хрен Редьки Не Слаще");
-	    
-    	registrationCommand.getUserCountry().put(0, "Не указывать");
-    	registrationCommand.getUserCountry().put(1, "Россия");
-    	registrationCommand.getUserCountry().put(2, "Украина");
-    	registrationCommand.getUserCountry().put(3, "Литва");
+    	
+    	List<Countries> countriesList =  userService.getContries();
+    	for (Countries countries : countriesList) {
+    		registrationCommand.getUserCountry().put(countries.getCountryId(), countries.getNameRus());
+		}
 
     	model.put("registrationCommand", registrationCommand);
 		return "access/register";

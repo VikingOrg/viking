@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
  * Countries 
  */
 @Entity
-@Table(name = "countries", catalog = "viking")
+@Table(name = "countries")
 public class Countries implements java.io.Serializable {
 	private static final long serialVersionUID = -4663358365744814774L;
 	private int countryId;
