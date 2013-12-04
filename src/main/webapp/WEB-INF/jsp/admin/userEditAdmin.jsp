@@ -107,12 +107,12 @@
 			            <option>3-я Стивидорная</option>
 			          </select>
 			          <p>&nbsp;</p>
-			          <div class="form-group">
-			            <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>
+			           <div class="form-group">
 			            <div class="controls">
-<%-- 			                <form:input path="user.division" cssClass="form-control"title="Подразделение"/> --%>
+			              <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>
+	 		              <form:input path="user.division" type="text" cssClass="form-control" title="Подразделение"/>
 			            </div>
-			          </div>
+			          	</div>
 			          <div class="form-group">
 			            <label class="form-label">ДОЛЖНОСТЬ</label>
 			            <div class="controls">
