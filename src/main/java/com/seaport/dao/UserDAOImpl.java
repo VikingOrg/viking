@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.seaport.domain.Countries;
 import com.seaport.domain.User;
 
 @Repository
@@ -43,5 +44,10 @@ public class UserDAOImpl implements IUserDAO {
 	
 	public void saveUser(User user){
 		openSession().saveOrUpdate(user);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Countries> getContries(){
+		return sessionFactory.getCurrentSession().createCriteria(Countries.class).list();
 	}
 }

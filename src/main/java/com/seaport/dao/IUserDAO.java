@@ -1,6 +1,8 @@
 package com.seaport.dao;
 
 import java.util.List;
+
+import com.seaport.domain.Countries;
 import com.seaport.domain.User;
 
 public interface IUserDAO {
@@ -9,4 +11,5 @@ public interface IUserDAO {
 	public void saveUser(User user);
 	public List<User> getUser(Object[] params);
 	public User getUser(Integer userId);
+	public List<Countries> getContries();
 }

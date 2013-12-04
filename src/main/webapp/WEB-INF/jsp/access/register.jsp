@@ -81,10 +81,10 @@
 		        </div>
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
 		        	<label class="form-label">СТРАНА</label>
-<%-- 					<form:select path="user.countryId" cssClass="form-control"> --%>
-<%-- 					    <form:options items="${registrationCommand.userCountry}" /> --%>
-<%-- 					</form:select>		           --%>
-		          <p>&nbsp;</p>
+					<form:select path="user.countryId" cssClass="form-control"> 
+					    <form:options items="${registrationCommand.userCountry}"/> 
+					</form:select>		          
+		          	<p>&nbsp;</p>
 		          <label class="form-label">ПОРТ</label>
 					<form:select path="user.portId" cssClass="form-control">
 					    <form:options items="${registrationCommand.userPort}" />
@@ -95,21 +95,16 @@
 					    <form:options items="${registrationCommand.userStevedor}" />
 					</form:select>
 		          <p>&nbsp;</p>
-		          <%-- <label class="form-label">ДОЛЖНОСТЬ</label>
-					<form:select path="user.occupationId" cssClass="form-control">
-					    <form:options items="${registrationCommand.userOccupation}" />
-					</form:select>
-		          <p>&nbsp;</p> --%>
 		          <div class="form-group">
 		            <div class="controls">
-		                <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>
-<%-- 		              <form:input path="user.occupationDivision" type="text" cssClass="form-control" title="Подразделение"/> --%>
+		              <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>
+ 		              <form:input path="user.division" type="text" cssClass="form-control" title="Подразделение"/>
 		            </div>
 		          </div>
 		          <div class="form-group">
 		            <div class="controls">
 		                <label class="form-label">ДОЛЖНОСТЬ</label>
-		              <form:input path="user.occupationOther" type="text" cssClass="form-control" title="Должность"/>
+		              <form:input path="user.occupation" type="text" cssClass="form-control" title="Должность"/>
 		            </div>
 		          </div>		          
 		          

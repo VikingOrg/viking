@@ -116,7 +116,7 @@
 			          <div class="form-group">
 			            <label class="form-label">ДОЛЖНОСТЬ</label>
 			            <div class="controls">
-			                <form:input path="user.occupationOther" cssClass="form-control"title="Должность"/>
+			                <form:input path="user.occupation" cssClass="form-control"title="Должность"/>
 			            </div>
 			          </div>
 			          <div class="form-group">

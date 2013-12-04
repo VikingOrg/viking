@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seaport.dao.IUserDAO;
+import com.seaport.domain.Countries;
 import com.seaport.domain.User;
 
 @Service
@@ -27,5 +28,9 @@ public class UserServiceImpl implements IUserService {
 	}
 	public User getUser(Integer userId){
 		return userDAO.getUser(userId);
+	}
+	
+	public List<Countries> getContries(){
+		return userDAO.getContries();
 	}
 }
