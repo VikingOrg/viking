@@ -29,7 +29,15 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1;
 
 DROP TABLE IF EXISTS `user_roles`;
-
+CREATE TABLE IF NOT EXISTS `viking`.`user_roles` (
+  `user_id` INT(6) NOT NULL,
+  `role_id` INT(6) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
+  INDEX `user` (`user_id` ASC),
+  INDEX `role` (`role_id` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
 
 CREATE TABLE IF NOT EXISTS `viking`.`countries` (
   `country_id` INT NOT NULL,
