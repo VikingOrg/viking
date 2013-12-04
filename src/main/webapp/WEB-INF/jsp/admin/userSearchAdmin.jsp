@@ -126,12 +126,19 @@
 							<div class="alert alert-danger show">Ошибка сохранения данных
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							</div>
+							<div class="alert alert-warning hidden">Не выбрано ни одной строки
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							</div>
+							<div class="alert alert-warning show">Выбрано больше одной строки
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							</div>
 		                    
-		                    
+<!-- 		                    Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
-                            <a href="#" class="btn btn-primary" title="Ввод нового">Новый &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
-                            <a href="#" class="btn btn-primary" title="Удалить">Копия &nbsp;<span class="glyphicon glyphicon-fullscreen"></span>&nbsp;</a>
-                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDeleteUser">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
+                            <a href="#" class="btn btn-success" title="Ввод нового">Новый &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+                            <a href="#" class="btn btn-warning" title="Редактировать">Редактировать &nbsp;<span class="glyphicon glyphicon-pencil"></span>&nbsp;</a>
+                            <a href="#" class="btn btn-primary" title="Копировать">Копия &nbsp;<span class="glyphicon glyphicon-fullscreen"></span>&nbsp;</a>
+                            <a href="#" class="btn btn-danger" title="Удалить" data-toggle="modal" data-target="#confirmDeleteUser">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
                             
 
@@ -159,7 +166,6 @@
 					                       		<td><input type="checkbox"></td>
 					                         	<td class="nowrap">
 					                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">Edit</a>&nbsp;
-					                         		<a data-toggle="modal" href="#myModal">Edit(Modal)</a>&nbsp;
 					                         		<c:out value="${user.lastName} ${user.firstName} ${user.middleInitial}"/>
 					                         	</td>
 					                         	<td class="nowrap"><c:out value="${user.division}"/></td>
