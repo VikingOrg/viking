@@ -51,8 +51,8 @@
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="#">Количественный состав</a></li>
-			              <li><a href="#">Разрез по годам</a></li>
+			              <li><a href="deviceReport.html">Количественный состав</a></li>
+			              <li><a href="deviceYearsReport.html">Разрез по годам</a></li>
 			              <li class="divider"></li>
 			              <li><a href="<c:url value="deviceEdit"/>">Добавить Отчет</a></li>
 			            </ul>
@@ -68,9 +68,18 @@
 				            </ul>				            
 				          </li>
 			          </sec:authorize>
-			          <li> <a href="<c:url value="j_spring_security_logout" />" > Logout</a>
+			          
 			        </ul>
-			      </div><!--/.nav-collapse -->
+			        <ul class="nav navbar-nav navbar-right">
+			        	<li>
+				          <a> Имя Фамилия</a>
+				        </li>
+				        <li>
+				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
+				        </li>
+				    </ul>
+			       </div><!--/.nav-collapse -->
+			       
 			    </div>
 			  </div>   
 
