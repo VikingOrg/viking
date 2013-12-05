@@ -9,11 +9,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Countries 
+ * The persistent class for the ports database table. 
+ * 
+ * @Author Danil Ozherelyev
+ * @version 1.0 12/04/13
+ *          
  */
 @Entity
 @Table(name = "countries")
-public class Countries implements java.io.Serializable {
+public class Country implements java.io.Serializable {
 	private static final long serialVersionUID = -4663358365744814774L;
 	private int countryId;
 	private String nameRus;
@@ -25,10 +29,10 @@ public class Countries implements java.io.Serializable {
 	private Date updateDate;
 	private String updateUserId;
 
-	public Countries() {
+	public Country() {
 	}
 
-	public Countries(int countryId, String nameRus, Date createDate,
+	public Country(int countryId, String nameRus, Date createDate,
 			String createUserId, Date updateDate, String updateUserId) {
 		this.countryId = countryId;
 		this.nameRus = nameRus;
@@ -38,7 +42,7 @@ public class Countries implements java.io.Serializable {
 		this.updateUserId = updateUserId;
 	}
 
-	public Countries(int countryId, String nameRus, String nameEn,
+	public Country(int countryId, String nameRus, String nameEn,
 			String archived, String countryNote, Date createDate,
 			String createUserId, Date updateDate, String updateUserId) {
 		this.countryId = countryId;

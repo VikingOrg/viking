@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.seaport.command.RegistrationCommand;
-import com.seaport.domain.Countries;
+import com.seaport.domain.Country;
+import com.seaport.domain.Port;
 import com.seaport.domain.Role;
+import com.seaport.domain.Stevedor;
+import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
 
@@ -27,21 +30,23 @@ public class RegistrationController {
 	private IUserService userService;
 	@Autowired
 	private IRoleService roleService;
+	@Autowired
+	private IPortService portService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
-    	registrationCommand.getUserPort().put(0, "Не указывать");
-    	registrationCommand.getUserPort().put(1, "Большой Порт Сакт-Петербурга");
-    	registrationCommand.getUserPort().put(2, "Малый Порт Санкт-Оренбурга");
-
-    	registrationCommand.getUserStevedor().put(0, "Не указывать");
-    	registrationCommand.getUserStevedor().put(1, "Стеведор-Помидор");
-    	registrationCommand.getUserStevedor().put(2, "Хрен Редьки Не Слаще");
-    	
-    	List<Countries> countriesList =  userService.getContries();
-    	for (Countries countries : countriesList) {
+		List<Port> portList = portService.getPorts();
+		for (Port port : portList) {
+			registrationCommand.getUserPort().put(port.getPortId(), port.getName());
+		}
+		List<Stevedor> stevedorList = portService.getStevedors();
+		for (Stevedor stevedor : stevedorList) {
+			registrationCommand.getUserStevedor().put(stevedor.getStevedorId(), stevedor.getName());
+		}
+    	List<Country> countriesList =  userService.getContries();
+    	for (Country countries : countriesList) {
     		registrationCommand.getUserCountry().put(countries.getCountryId(), countries.getNameRus());
 		}
 

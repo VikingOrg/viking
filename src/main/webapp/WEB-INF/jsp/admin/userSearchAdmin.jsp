@@ -161,21 +161,21 @@
 		                            </tr>
 		                          </thead>
 		                          <tbody>
-								       <c:forEach var="user"  items="${userSearchCommand.userList}" >
+								       <c:forEach var="userDto"  items="${userSearchCommand.userDtoList}" >
 					                       <tr>
 					                       		<td><input type="checkbox"></td>
 					                         	<td class="nowrap">
-					                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">Edit</a>&nbsp;
-					                         		<c:out value="${user.lastName} ${user.firstName} ${user.middleInitial}"/>
+					                         		<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}"/>">Edit</a>&nbsp;
+					                         		<c:out value="${userDto.user.lastName} ${userDto.user.firstName} ${userDto.user.middleInitial}"/>
 					                         	</td>
-					                         	<td class="nowrap"><c:out value="${user.division}"/></td>
-					                         	<td class="nowrap"><c:out value="${user.occupation}"/></td>
-					                         	<td class="nowrap"><c:out value="${user.role.role}"/></td>
-					                         	<td class="nowrap"><c:out value="${user.userEmail}"/></td>
-					                         	<td class="nowrap">1-я Стивидорная</td>
-				                              	<td class="nowrap">С-Петербургский</td>
-				                              	<td class="nowrap">Россия</td>
-				                              	<td class="nowrap">Примечаю</td>
+					                         	<td class="nowrap"><c:out value="${userDto.user.division}"/></td>
+					                         	<td class="nowrap"><c:out value="${userDto.user.occupation}"/></td>
+					                         	<td class="nowrap"><c:out value="${userDto.user.role.role}"/></td>
+					                         	<td class="nowrap"><c:out value="${userDto.user.userEmail}"/></td>
+					                         	<td class="nowrap"><c:out value="${userDto.stevedor.name}"/></td>
+				                              	<td class="nowrap"><c:out value="${userDto.port.name}"/></td>
+				                              	<td class="nowrap"><c:out value="${userDto.countries.nameRus}"/></td>
+				                              	<td class="nowrap"><c:out value="${userDto.user.userNote}"/></td>
 					                       </tr>
 										</c:forEach>                              
 		                          </tbody>

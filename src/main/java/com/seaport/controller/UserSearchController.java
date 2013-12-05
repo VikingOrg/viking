@@ -25,7 +25,7 @@ public class UserSearchController {
 							ModelMap model) {
 		
 		UserSearchCommand userSearchCommand = new UserSearchCommand();
-		userSearchCommand.setUserList(userService.getUser(new Object[]{}));
+		userSearchCommand.setUserDtoList(userService.getUserDTOs(new Object[]{}));
 		model.put("userSearchCommand", userSearchCommand);
 		return "admin/userSearchAdmin";
 	}

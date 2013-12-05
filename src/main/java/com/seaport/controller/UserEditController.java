@@ -1,5 +1,6 @@
 package com.seaport.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.RegistrationCommand;
+import com.seaport.domain.Country;
+import com.seaport.domain.Port;
+import com.seaport.domain.Stevedor;
+import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
 
@@ -26,6 +31,8 @@ public class UserEditController {
 	private IUserService userService;
 	@Autowired
 	private IRoleService userRole;
+	@Autowired
+	private IPortService portService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
@@ -36,8 +43,21 @@ public class UserEditController {
 			registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
 			registrationCommand.setEditForm(true);
 			registrationCommand.setUserRole(registrationCommand.getUser().getRole().getId());
+			registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
 		}
-		
+		List<Port> portList = portService.getPorts();
+		for (Port port : portList) {
+			registrationCommand.getUserPort().put(port.getPortId(), port.getName());
+		}
+		List<Stevedor> stevedorList = portService.getStevedors();
+		for (Stevedor stevedor : stevedorList) {
+			registrationCommand.getUserStevedor().put(stevedor.getStevedorId(), stevedor.getName());
+		}
+    	List<Country> countriesList =  userService.getContries();
+    	for (Country countries : countriesList) {
+    		registrationCommand.getUserCountry().put(countries.getCountryId(), countries.getNameRus());
+		}
+    	
 		model.put("registrationCommand", registrationCommand);
 		return "admin/userEditAdmin";
 	}

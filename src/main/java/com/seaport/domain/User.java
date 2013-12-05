@@ -13,6 +13,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * The persistent class for the users database table. 
+ * 
+ * @Author Danil Ozherelyev
+ * @version 1.0 12/04/13
+ *          
+ */
 @Entity
 @Table(name="users")
 public class User implements Serializable {

@@ -2,6 +2,7 @@ package com.seaport.domain;
 
 import java.util.Set;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * The persistent class for the ports database table. 
+ * 
+ * @Author Danil Ozherelyev
+ * @version 1.0 12/04/13
+ *          
+ */
 @Entity
 @Table(name="roles")
 public class Role {

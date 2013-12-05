@@ -87,30 +87,21 @@
 			          </div>
 			        </div>
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-			        <label class="form-label">СТРАНА</label>
-			          <select class="form-control" name="port">
-			          	<option>Выберите</option>
-			            <option>Россия</option>
-			            <option>Украина</option>
-			            <option>Латвия</option>
-			          </select>
-			          <p>&nbsp;</p>
-			          <label class="form-label">ПОРТ</label>
-			          <select class="form-control" name="port">
-			          	<option>Выберите</option>
-			            <option>Порт 1</option>
-			            <option>Порт 2</option>
-			            <option>Порт 3</option>
-			          </select>
-			          <p>&nbsp;</p>
-			          <label class="form-label">КОМПАНИЯ</label>
-			          <select class="form-control" name="stevedor">
-			          	<option>Выберите</option>
-			            <option>1-я Стивидорная</option>
-			            <option>2-я Стивидорная</option>
-			            <option>3-я Стивидорная</option>
-			          </select>
-			          <p>&nbsp;</p>
+			        	<label class="form-label">СТРАНА</label>
+						<form:select path="user.countryId" cssClass="form-control"> 
+						    <form:options items="${registrationCommand.userCountry}"/> 
+						</form:select>
+			          	<p>&nbsp;</p>
+				          <label class="form-label">ПОРТ</label>
+							<form:select path="user.portId" cssClass="form-control">
+							    <form:options items="${registrationCommand.userPort}" />
+							</form:select>		          
+				          <p>&nbsp;</p>
+				          <label class="form-label">КОМПАНИЯ</label>
+							<form:select path="user.stevedorId" cssClass="form-control">
+							    <form:options items="${registrationCommand.userStevedor}" />
+							</form:select>
+				          <p>&nbsp;</p>
 			           <div class="form-group">
 			            <div class="controls">
 			              <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>
@@ -126,8 +117,7 @@
 			          <div class="form-group">
 			            <label class="form-label">ПРИМЕЧАНИЯ</label>
 			            <div class="controls">
-			                <textarea class="form-control" name="comments" title="Примечания" rows="3">
-			                </textarea>
+			            	<form:textarea path="user.userNote" rows="3" cssClass="form-control"/>
 			            </div>
 			          </div>
 			        </div>
