@@ -148,7 +148,7 @@
 		      <div class="modal-body">
 		        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
 		      </div>
-		      <div class="modal-footer">
+		      <div class="modal-footer navbar-fixed-bottom">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
 		        <button type="submit" class="btn btn-primary">СОХРАНИТЬ</button>
 		      </div>
@@ -160,7 +160,7 @@
 			</form:form>    
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
-		<div id="footer">
+		<div id="footer navbar-fixed-bottom">
 		  <div class="container">
 		   <jsp:include page="../common/footer.jsp" />
 		  </div>

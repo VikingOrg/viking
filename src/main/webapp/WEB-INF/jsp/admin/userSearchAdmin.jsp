@@ -60,6 +60,9 @@
 			.dataTables_filter {
 			     display: none;
 			}
+			body {
+				 padding-bottom: 70px;
+				 padding-top: 70px; }
         </style>
                		  
 	</head>

@@ -17,6 +17,11 @@
 	        padding-bottom: 40px;
 	        background-color: #eee;
 	      }
+	      .form-message {
+	        max-width: 530px;
+	        padding: 15px;
+	        margin: 0 auto;
+	      }
 	      .form-signin {
 	        max-width: 330px;
 	        padding: 15px;
@@ -63,12 +68,14 @@
 				
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 				<c:url value="register" var="registerURL"/>
-				
+				<p>&nbsp;</p>
 				<p><a href="${registerURL}">Зарегистрироваться</a></p>
 				<p><a href="<c:url value="passRecover"/>">Восстановить пароль</a></p>
 				
-				<p class="message">${message}</p>        
 			</form>
-	    </div>		
+	    </div>	
+	    <div class="form-message alert alert-success hidden">
+	    	<p class="message"><h4>${message}</h4></p> 
+		</div>	
 	</body>
 </html>

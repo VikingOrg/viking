@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="ru">
 	<head>
-	    <title>Sign In</title>
+	    <title>Главная страница</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
@@ -22,11 +22,12 @@
 		    <div class="page-header">
 		      <h1>Главная</h1>
 		    </div>
-			<p>Welcome <span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p>
+		    <div class="alert alert-success show"><p><h4>Приветствуем вас, <span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p></h4>
 					<p>Last Update from 11/01/2013 file 03</p>
 					<p>Last Update from 11/01/2013 Test dual config</p>
 					<p>Last Update from 10/30/2013 from new config "Origin"</p>
 					<p>Last Update from 10/30/2013</p>
+			</div>
 					
 		  </div>
 		</div>
