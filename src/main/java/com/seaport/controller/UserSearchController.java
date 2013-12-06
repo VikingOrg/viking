@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.UserSearchCommand;
+import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
 @Controller
@@ -19,6 +20,8 @@ import com.seaport.service.IUserService;
 public class UserSearchController {
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IPortService portService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
@@ -26,6 +29,11 @@ public class UserSearchController {
 		
 		UserSearchCommand userSearchCommand = new UserSearchCommand();
 		userSearchCommand.setUserDtoList(userService.getUserDTOs(new Object[]{}));
+		
+		userSearchCommand.setUserPort(portService.getPortsMap());
+		userSearchCommand.setUserStevedor(portService.getStevedorsMap());
+		userSearchCommand.setUserCountry(userService.getContriesMap());
+		
 		model.put("userSearchCommand", userSearchCommand);
 		return "admin/userSearchAdmin";
 	}

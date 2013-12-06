@@ -37,18 +37,9 @@ public class RegistrationController {
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
-		List<Port> portList = portService.getPorts();
-		for (Port port : portList) {
-			registrationCommand.getUserPort().put(port.getPortId(), port.getName());
-		}
-		List<Stevedor> stevedorList = portService.getStevedors();
-		for (Stevedor stevedor : stevedorList) {
-			registrationCommand.getUserStevedor().put(stevedor.getStevedorId(), stevedor.getName());
-		}
-    	List<Country> countriesList =  userService.getContries();
-    	for (Country countries : countriesList) {
-    		registrationCommand.getUserCountry().put(countries.getCountryId(), countries.getNameRus());
-		}
+		registrationCommand.setUserPort(portService.getPortsMap());
+		registrationCommand.setUserStevedor(portService.getStevedorsMap());
+		registrationCommand.setUserCountry(userService.getContriesMap());
 
     	model.put("registrationCommand", registrationCommand);
 		return "access/register";

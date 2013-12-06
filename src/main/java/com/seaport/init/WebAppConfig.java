@@ -1,12 +1,18 @@
 package com.seaport.init;
 
+import java.util.Locale;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
@@ -15,6 +21,44 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("com.seaport.controller")
 @ImportResource("classpath:trace-context.xml")
 public class WebAppConfig extends WebMvcConfigurerAdapter{
+	
+//    @Bean  
+//    public ResourceBundleMessageSource messageSource() {  
+//        ResourceBundleMessageSource source = new ResourceBundleMessageSource();  
+////        source.setBasename("i18n/messages");
+//        source.setBasename("classpath:/i18n/messages");
+//        source.setDefaultEncoding("UTF-8");        
+//        source.setUseCodeAsDefaultMessage(true);  
+//        return source;  
+//    } 
+    
+//    @Bean
+//    public ReloadableResourceBundleMessageSource messageSource(){
+//            ReloadableResourceBundleMessageSource messageSource=new ReloadableResourceBundleMessageSource();
+//            messageSource.setDefaultEncoding("UTF-8");        
+//            messageSource.setUseCodeAsDefaultMessage(true);  
+//            String[] resources= {"classpath:/i18n/labels","classpath:/i18n/message"};
+//            messageSource.setBasenames(resources);
+//            return messageSource;
+//    }
+//
+//    @Bean 
+//    public LocaleChangeInterceptor localeChangeInterceptor(){
+//        LocaleChangeInterceptor localeChangeInterceptor=new LocaleChangeInterceptor();
+//        localeChangeInterceptor.setParamName("locale");
+//        return localeChangeInterceptor;
+//    }
+//
+//    @Bean
+//    public SessionLocaleResolver sessionLocaleResolver(){
+//        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+//        localeResolver.setDefaultLocale(new Locale("en","EN"));
+//        return localeResolver;
+//    }   
+//
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(localeChangeInterceptor());
+//    }    
 	
 	@Bean
 	public UrlBasedViewResolver setupViewResolver() {

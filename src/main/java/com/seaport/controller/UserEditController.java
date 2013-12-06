@@ -1,6 +1,5 @@
 package com.seaport.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.RegistrationCommand;
-import com.seaport.domain.Country;
-import com.seaport.domain.Port;
-import com.seaport.domain.Stevedor;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
@@ -41,22 +37,19 @@ public class UserEditController {
 		String userId = request.getParameter("userId");
 		if (userId != null) {
 			registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
-			registrationCommand.setEditForm(true);
 			registrationCommand.setUserRole(registrationCommand.getUser().getRole().getId());
 			registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
+			if (request.getParameter("copy")!= null) {
+				registrationCommand.setFormType("C");
+				registrationCommand.getUser().setUserId(null);
+			} else {
+				registrationCommand.setFormType("E");
+			}
 		}
-		List<Port> portList = portService.getPorts();
-		for (Port port : portList) {
-			registrationCommand.getUserPort().put(port.getPortId(), port.getName());
-		}
-		List<Stevedor> stevedorList = portService.getStevedors();
-		for (Stevedor stevedor : stevedorList) {
-			registrationCommand.getUserStevedor().put(stevedor.getStevedorId(), stevedor.getName());
-		}
-    	List<Country> countriesList =  userService.getContries();
-    	for (Country countries : countriesList) {
-    		registrationCommand.getUserCountry().put(countries.getCountryId(), countries.getNameRus());
-		}
+		
+		registrationCommand.setUserPort(portService.getPortsMap());
+		registrationCommand.setUserStevedor(portService.getStevedorsMap());
+		registrationCommand.setUserCountry(userService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);
 		return "admin/userEditAdmin";

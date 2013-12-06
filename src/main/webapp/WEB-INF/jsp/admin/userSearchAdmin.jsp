@@ -46,7 +46,15 @@
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 });   		 
-
+                $('#countrySelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 8);
+                });
+                $('#portSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 7);
+                });
+                $('#stevedorSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 6);
+                });
                 $('#selectAll').click(function (e) {
                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
                 });
@@ -88,35 +96,42 @@
 		                 <div class="col col-md-3 col-xs-4">
 		                     <!--Sidebar content-->
 		                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
-                            <label class="form-label">СТРАНА</label>
-                            <select class="form-control" style="margin: 5px">
-                            <option>Выбрать</option>
-                            <option>Россия</option>
-                            <option>Украина</option>
-                            <option>Латвия</option>
-                            </select>
-                            <label class="form-label">ПОРТ</label>
-                            <select class="form-control" style="margin: 5px">
-                            <option>Выбрать</option>
-                            <option>С-Петербургский</option>
-                            <option>Высоцкий</option>
-                            <option>Находкинский</option>
-                            </select>
-                            <label class="form-label">КОМПАНИЯ</label>
-                            <select class="form-control" style="margin: 5px">
-                            <option>Выбрать</option>
-                            <option>1-ая Стивидорная</option>
-                            <option>2-ая Стивидорная</option>
-                            <option>3-ая Стивидорная</option>
-                            </select>
+
+					        	<label class="form-label">СТРАНА</label>
+								<form:select id="countrySelect" path="countryId" cssClass="form-control">
+									<form:option value="">Не установлен</form:option>
+					                <c:forEach items="${userSearchCommand.userCountry}" var="country">
+					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+					                </c:forEach>
+								</form:select>
+					          	<p>&nbsp;</p>
+						          <label class="form-label">ПОРТ</label>
+									<form:select id="portSelect" path="portId" cssClass="form-control">
+										<form:option value="">Не установлен</form:option>
+						                <c:forEach items="${userSearchCommand.userPort}" var="port">
+						                    <form:option value="${port.value.name}" label="${port.value.name}" />
+						                </c:forEach>							
+									</form:select>		          
+						          <p>&nbsp;</p>
+						          <label class="form-label">КОМПАНИЯ</label>
+									<form:select id="stevedorSelect" path="stevedorId" cssClass="form-control">
+									    <form:option value="">Не установлен</form:option>
+						                <c:forEach items="${userSearchCommand.userStevedor}" var="stevedor">
+						                    <form:option value="${stevedor.value.name}" label="${stevedor.value.name}" />
+						                </c:forEach>								
+									</form:select>
+						          <p>&nbsp;</p>
+
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
 							    <label class="form-label">ПОИСК</label>
 							    <input id="dataTableSearch" class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text"/>  
 		                        <br><br>
+		                        <!-- 
 		                        <div class="form-actions" style="margin: 5px">
 		                            <button type="submit" class="btn btn-primary">НАЙТИ</button>
 		                        </div>
+		                         -->
 		                    </div>
 		                 </div>
 		                <div class="col col-md-9  col-xs-8">
@@ -134,7 +149,7 @@
 							</div>
 <!-- 		                    Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
-                            <a href="#" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+                            <a href="<c:url value="userEditAdmin"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
                             
@@ -163,7 +178,7 @@
 					                       		<td><input type="checkbox"></td>
 					                         	<td class="nowrap">
 					                         		<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         		<a href="#">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+					                         		<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
 					                         		<c:out value="${userDto.user.lastName} ${userDto.user.firstName} ${userDto.user.middleInitial}"/>
 					                         	</td>
 					                         	<td class="nowrap"><c:out value="${userDto.user.division}"/></td>
@@ -187,24 +202,24 @@
 		        </div>
 		        
 		        
-		    <!-- 		Модальное окно подтверждения удаления данных -->
-		<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title">ВНИМАНИЕ!</h4>
-		      </div>
-		      <div class="modal-body">
-		        <p>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-		        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+				    <!-- 		Модальное окно подтверждения удаления данных -->
+					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title">ВНИМАНИЕ!</h4>
+					      </div>
+					      <div class="modal-body">
+					        <p>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</p>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
 		        
 		        </form:form>
 		    </div>    

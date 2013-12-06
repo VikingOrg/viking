@@ -50,7 +50,7 @@ public class RootConfig {
 		dataSource.setPassword(envVarWithDefault("OPENSHIFT_MYSQL_DB_PASSWORD", env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD)));
 		return dataSource;
 	}
-	
+ 
 	private String envVarWithDefault(String envVarName, String defaultValue) {
 		String value = System.getenv(envVarName);
 		if (value == null || value.length() == 0) value = defaultValue;
