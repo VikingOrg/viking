@@ -7,28 +7,23 @@
 	<head>
 	    <title>Титул</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
-	    
-	    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+		<script type="text/javascript" src="static/js/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {
-            	var oTable = $('#user_table').dataTable( {
+            	var oTable = $('#stevedor_table').dataTable( {
             	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               null,
-                	               null,
                 	               { "bSortable": false },
                 	               null,
                 	               null,
@@ -103,9 +98,9 @@
 			                    <option>Находкинский</option>
 			                    </select>
 			                    <hr>
-			                    <label class="form-label">НАИМЕНОВАНИЕ</label>
+			                    <label class="form-label">ПОИСК</label>
 			                    <div class="input-group" style="margin: 5px">
-			                        <input class="form-control" placeholder="Поиск" title="Введите для поиска по всем полям" type="text">
+			                        <input class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text">
 			                    </div>
 			                 </div>
 			                <div class="col col-md-9 col-xs-8">
@@ -131,25 +126,24 @@
 
 <!-- 							Таблица со списком пользователей -->
 			                <div class="table-container">
-			                    <table class="table table-bordered">
+			                    <table id="stevedor_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-			                              <th><input type="checkbox"></th>
-			                              <th>Порт
-			                                <span class="caret"></span>
-			                              </th>
-			                              <th>Наименование</th>
-			                              <th>Страна</th>
-			                              <th>Примечания</th>
-			                            </tr>
+			                              <th><input type="checkbox" id="selectAll"></th>
+			                              <th>Порт&nbsp;&nbsp;</th>
+			                              <th>Наименование&nbsp;&nbsp;</th>
+			                              <th>Страна&nbsp;&nbsp;</th>
+			                              <th>Примечания&nbsp;&nbsp;</th>
+			                              </tr>
 			                          </thead>
 			                          <tbody>
 			                            <tr>
 			                              <td><input type="checkbox"></td>
 			                              <td>Порт 1</td>
 				                          <td class="nowrap">
-				                         		<a href="<c:url value="stevidorEdit?stevidorId=1"/>">Edit</a>&nbsp;
-				                         		<c:out value="1-я Стивидорная"/>
+				                         		<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
+					                         	<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+					                         	<c:out value="1-я Стивидорная"/>
 				                          </td>                              
 			                              <td>Россия</td>
 			                              <td>Балтика</td>
@@ -160,6 +154,25 @@
 			                </div>
 			            </div>
 			        </div>
+			        
+				    <!-- 		Модальное окно подтверждения удаления данных -->
+					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title">ВНИМАНИЕ!</h4>
+					      </div>
+					      <div class="modal-body">
+					        <p>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</p>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
 
 		    </div> <!-- End Main Container -->
 		</div> <!-- Wrapper end -->

@@ -7,7 +7,7 @@
 	<head>
 	    <title>Список пользователей системы</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
@@ -121,7 +121,7 @@
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
 							    <label class="form-label">ПОИСК</label>
-							    <input id="dataTableSearch" class="form-control" placeholder="Поиск" title="Введите для поиска по всем полям" type="text"/>  
+							    <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>  
 		                        <br><br>
 		                    </div>
 		                 </div>
