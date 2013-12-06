@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The abstract form class contains common data to be shared by others 
+ * form classes in the presentation layer.<P>
+ *
+ * @Author       Danil Ozherelyev
+ * @version      1.0 12/05/13 <P>
+ */
+
 public class StevidorSearchCommand {
 	private List<Object> genericList = new ArrayList<Object>();
 	private String userId;

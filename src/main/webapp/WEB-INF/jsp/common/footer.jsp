@@ -8,7 +8,7 @@
      	&nbsp;|&nbsp;
      	<a href="#">&nbsp;Правила</a>
      	&nbsp;|&nbsp;
-     	<a href="#">&nbsp;Поддержка</a>
+     	<a href="<c:url value="static/html/help.html"/>">&nbsp;Поддержка</a>
      	&nbsp;|&nbsp;
      	<a href="help.html">Справка</a>
 

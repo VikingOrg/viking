@@ -22,7 +22,8 @@
 		    <div class="page-header">
 		      <h1>Главная</h1>
 		    </div>
-		    <div class="alert alert-success show"><p><h4>Приветствуем вас, <span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p></h4>
+		    <div class="alert alert-success show"><p><h4>Приветствуем вас, <span id="username">${userModel.lastName}&nbsp;${userModel.firstName}</span>!</p></h4>
+		    		<p>Last Update from 12/05/2013 Рассматривал электрическую лампочку и остался ею доволен.(Даниил Хармс. Июль 1933)</p>
 					<p>Last Update from 11/01/2013 file 03</p>
 					<p>Last Update from 11/01/2013 Test dual config</p>
 					<p>Last Update from 10/30/2013 from new config "Origin"</p>

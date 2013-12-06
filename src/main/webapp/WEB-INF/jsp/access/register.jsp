@@ -82,19 +82,25 @@
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
 		        	<label class="form-label">СТРАНА</label>
 					<form:select path="user.countryId" cssClass="form-control"> 
-					    <form:options items="${registrationCommand.userCountry}"/> 
-					</form:select>		          
-		          	<p>&nbsp;</p>
-		          <label class="form-label">ПОРТ</label>
-					<form:select path="user.portId" cssClass="form-control">
-					    <form:options items="${registrationCommand.userPort}" />
-					</form:select>		          
-		          <p>&nbsp;</p>
-		          <label class="form-label">КОМПАНИЯ</label>
-					<form:select path="user.stevedorId" cssClass="form-control">
-					    <form:options items="${registrationCommand.userStevedor}" />
+		                <c:forEach items="${registrationCommand.userCountry}" var="country">
+		                    <form:option value="${country.key}" label="${country.value.nameRus}" />
+		                </c:forEach>
 					</form:select>
-		          <p>&nbsp;</p>
+		          	<p>&nbsp;</p>
+			          <label class="form-label">ПОРТ</label>
+						<form:select path="user.portId" cssClass="form-control">
+			                <c:forEach items="${registrationCommand.userPort}" var="port">
+			                    <form:option value="${port.key}" label="${port.value.name}" />
+			                </c:forEach>							
+						</form:select>		          
+			          <p>&nbsp;</p>
+			          <label class="form-label">КОМПАНИЯ</label>
+						<form:select path="user.stevedorId" cssClass="form-control">
+			                <c:forEach items="${registrationCommand.userStevedor}" var="stevedor">
+			                    <form:option value="${stevedor.key}" label="${stevedor.value.name}" />
+			                </c:forEach>								
+						</form:select>
+			          <p>&nbsp;</p>
 		          <div class="form-group">
 		            <div class="controls">
 		              <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>

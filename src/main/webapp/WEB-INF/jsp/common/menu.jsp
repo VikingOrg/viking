@@ -62,7 +62,7 @@
 				          <li class="dropdown">
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
 				            <ul class="dropdown-menu">
-				              <li><a href="${userSearchUrl}">Список пользователей*</a></li>
+				              <li><a href="${userSearchUrl}">Список пользователей</a></li>
 				              <li class="divider"></li>
 				              <li><a href="<c:url value="userEditAdmin"/>">Добавить Пользователя</a></li>
 				            </ul>				            
@@ -72,7 +72,7 @@
 			        </ul>
 			        <ul class="nav navbar-nav navbar-right">
 			        	<li>
-				          <a> Имя Фамилия</a>
+				          <a> ${userModel.lastName}&nbsp;${userModel.firstName}</a>
 				        </li>
 				        <li>
 				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
