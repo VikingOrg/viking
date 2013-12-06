@@ -13,7 +13,11 @@
 			<name>SpringSource Milestone Repository</name>
 			<url>http://repo.springsource.org/milestone</url>
 		</repository>
-	</repositories>	
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
 	
 	<pluginRepositories>
 		<pluginRepository>
@@ -226,12 +230,13 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		 -->		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		 -->			
+			
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>

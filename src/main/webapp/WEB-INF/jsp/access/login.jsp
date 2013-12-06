@@ -74,8 +74,8 @@
 				
 			</form>
 	    </div>	
-	    <div class="form-message alert alert-success hidden">
-	    	<p class="message"><h4>${message}</h4></p> 
+	    <div class="form-message alert alert-success">
+	    	<h4>${message}</h4> 
 		</div>	
 	</body>
 </html>
