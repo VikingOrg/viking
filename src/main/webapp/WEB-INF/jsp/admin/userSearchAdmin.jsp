@@ -188,7 +188,6 @@
 	                    
 		                    </div>
 		                </div>
-	                
 		            </div>
 		        </div>
 		        
@@ -221,41 +220,6 @@
 		   <jsp:include page="../common/footer.jsp" />
 		  </div>
 		</div>
-		
-		
-		  <!-- Modal -->
-		  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">×</button>	
-		          <h4 class="modal-title">Добавить Нового Пользователя</h4>
-		        </div>
-		        <div class="modal-body">
-					 <!-- The async form to send and replace the modals content with its response -->
-					<form id="ratting-form" class="contact" data-async data-target="#rating-modal" action="/userSearchAdmin" method="POST">
-					<fieldset>
-		               <div class="input-group" style="margin: 5px">
-		                   <label class="form-label">Фамилия</label>
-		                   <input class="form-control" placeholder="Фамилия" title="" type="text">
-		                   <label class="form-label">Имя</label>
-		                   <input class="form-control" placeholder="Имя" title="" type="text">
-		                   <label class="form-label">Возраст</label>
-		                   <input class="form-control" placeholder="Возраст" title="" type="text">
-		                   <label class="form-label">Дата рождения</label>
-		                   <input class="form-control" placeholder="Дата Рождения" title="" type="text">    
-		                       
-		                  </div>			
-					</fieldset>
-					</form>
-		        </div>
-		        <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-				    <button form="ratting-form" class="btn btn-primary" type="submit">Save changes</button>
-		        </div>
-		      </div><!-- /.modal-content -->
-		    </div><!-- /.modal-dialog -->
-		  </div><!-- /.modal -->
 	</body>
 </html>
 
