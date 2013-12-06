@@ -2,9 +2,9 @@ package com.seaport.controller;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.RegistrationCommand;
-import com.seaport.domain.Country;
-import com.seaport.domain.Port;
 import com.seaport.domain.Role;
-import com.seaport.domain.Stevedor;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
@@ -46,9 +44,13 @@ public class RegistrationController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
-	public String onSubmit(HttpServletRequest request, 
-								@ModelAttribute RegistrationCommand registrationCommand,
-								BindingResult result) {
+	public ModelAndView onSubmit(HttpServletRequest request,  
+							@Valid @ModelAttribute RegistrationCommand registrationCommand,
+							BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return new ModelAndView("register", result.getModel());
+		}
 		
 		/*Setting up default not null values*/
 		Timestamp updateDate = new Timestamp(new Date().getTime());
@@ -59,6 +61,6 @@ public class RegistrationController {
 		registrationCommand.getUser().setRole(role);
 		userService.saveUser(registrationCommand.getUser());
 		String message = "002340";
-		return "redirect:/login?message="+message;
+		return new ModelAndView("redirect:/login?message="+message, result.getModel());
 	}
 }

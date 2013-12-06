@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the users database table. 
@@ -40,9 +43,16 @@ public class User implements Serializable {
 	@Column(name="PORT_ID")
 	private int portId;	
 	
+	
+	@NotNull
+	@Size(min = 1, max = 25)
+	@Pattern(regexp = "[A-Za-z ]*", message = "Имя может состоять только из букв и пробелов.")
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 	
+	@NotNull
+	@Size(min = 1, max = 25)
+	@Pattern(regexp = "[A-Za-z ]*", message = "Фамилия может состоять только из букв и пробелов.")	
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 	

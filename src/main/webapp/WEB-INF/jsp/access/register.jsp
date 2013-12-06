@@ -42,12 +42,14 @@
 		            <div class="controls">
 		            	<label class="form-label">ФАМИЛИЯ</label>
 		            	<form:input path="user.lastName" cssClass="form-control" title="Введите свою фамилию"/>
+		            	<form:errors class="invalid" path="user.lastName"/>
 		            </div>
 		          </div>
 		          <div class="form-group">
 		            <div class="controls">
 		                <label class="form-label">ИМЯ</label>
 		                <form:input path="user.firstName" cssClass="form-control" title="Введите своё имя"/>
+		                <form:errors class="invalid" path="user.firstName"/>
 		            </div>
 		          </div>
 		          <div class="form-group">
