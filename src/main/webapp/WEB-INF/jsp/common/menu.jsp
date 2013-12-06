@@ -51,8 +51,8 @@
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="deviceReport.html">Количественный состав</a></li>
-			              <li><a href="deviceYearsReport.html">Разрез по годам</a></li>
+			              <li><a href="<c:url value="static/html/deviceReport.html"/>">Количественный состав</a></li>
+			              <li><a href="<c:url value="static/html/deviceYearsReport.html"/>">Разрез по годам</a></li>
 			              <li class="divider"></li>
 			              <li><a href="<c:url value="deviceEdit"/>">Добавить Отчет</a></li>
 			            </ul>

@@ -7,15 +7,15 @@
 	<head>
 	    <title>Список пользователей системы</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="static/js/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
@@ -71,7 +71,6 @@
         </style>
                		  
 	</head>
-
 	<body>
 		<!-- Wrap all page content here -->
 		<div id="wrap">
@@ -83,8 +82,8 @@
 				<div class="masthead">
 				    <div class="container">
 				        <div class="row">
-				        <div class="col col-md-6">
-				        <h4 class="text-muted page-header">СПИСОК ПОЛЬЗОВАТЕЛЕЙ СИСТЕМЫ<br></h4></div></div>
+				        	<h4 class="text-muted page-header">СПИСОК ПОЛЬЗОВАТЕЛЕЙ СИСТЕМЫ<br></h4>
+				        </div>
 				    </div>
 				</div>
 				
@@ -122,13 +121,8 @@
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
 							    <label class="form-label">ПОИСК</label>
-							    <input id="dataTableSearch" class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text"/>  
+							    <input id="dataTableSearch" class="form-control" placeholder="Поиск" title="Введите для поиска по всем полям" type="text"/>  
 		                        <br><br>
-		                        <!-- 
-		                        <div class="form-actions" style="margin: 5px">
-		                            <button type="submit" class="btn btn-primary">НАЙТИ</button>
-		                        </div>
-		                         -->
 		                    </div>
 		                 </div>
 		                <div class="col col-md-9  col-xs-8">
