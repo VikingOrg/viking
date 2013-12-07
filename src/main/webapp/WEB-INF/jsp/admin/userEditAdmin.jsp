@@ -64,8 +64,8 @@
 				        <div class="form-group ${status.error ? 'has-error' : ''}">
 				        	<div class="controls">
 					            <label class="form-label">ИМЯ</label>
-					            <form:input path="user.firstName" id="firstName" cssClass="form-control" title="Введите своё имя"/>
-					            <form:errors for="firstName" class="control-label" path="user.firstName"/>
+					            <form:input path="user.firstName" cssClass="form-control" title="Введите своё имя"/>
+					            <form:errors class="control-label" path="user.firstName"/>
 				            </div>
 				        </div>
 				     </spring:bind>
@@ -75,12 +75,14 @@
 			            <div class="controls">
 			                <label class="form-label">ОТЧЕСТВО</label>
 			                <form:input path="user.middleInitial" cssClass="form-control" title="Введите своё отчество"/>
+			                <form:errors class="control-label" path="user.middleInitial"/>
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">E-MAIL</label>
 			            	<form:input path="user.userEmail" type="email" cssClass="form-control" title="Укажите свой e-mail в качестве логина"/>
+			            	<form:errors class="control-label" path="user.userEmail"/>
 			            </div>
 			          </div>
 			          <div class="form-group">
