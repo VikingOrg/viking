@@ -3,6 +3,9 @@ package com.seaport.command;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import com.seaport.domain.Country;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevedor;
@@ -17,6 +20,9 @@ import com.seaport.domain.User;
  */
 
 public class RegistrationCommand {
+	
+	@NotNull
+	@Valid
 	private User user = new User();
 	private String pswordCheck = "";
 	

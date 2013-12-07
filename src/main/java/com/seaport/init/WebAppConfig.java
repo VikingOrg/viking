@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -32,34 +33,41 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 //        return source;  
 //    } 
     
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource(){
+    	/*Reloadable used to avoid JVM restart*/
+	    ReloadableResourceBundleMessageSource messageSource=new ReloadableResourceBundleMessageSource();
+	    messageSource.setDefaultEncoding("UTF-8");        
+	    messageSource.setUseCodeAsDefaultMessage(true);  
+	    String[] resources= {"classpath:/i18n/labels","classpath:/i18n/messages"};
+	    messageSource.setBasenames(resources);
+	    return messageSource;
+    }
+    
+    @Bean
+    public SessionLocaleResolver localeResolver(){
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(new Locale("en","en"));
+        return localeResolver;
+    }
+    
 //    @Bean
-//    public ReloadableResourceBundleMessageSource messageSource(){
-//            ReloadableResourceBundleMessageSource messageSource=new ReloadableResourceBundleMessageSource();
-//            messageSource.setDefaultEncoding("UTF-8");        
-//            messageSource.setUseCodeAsDefaultMessage(true);  
-//            String[] resources= {"classpath:/i18n/labels","classpath:/i18n/message"};
-//            messageSource.setBasenames(resources);
-//            return messageSource;
-//    }
-//
-//    @Bean 
-//    public LocaleChangeInterceptor localeChangeInterceptor(){
-//        LocaleChangeInterceptor localeChangeInterceptor=new LocaleChangeInterceptor();
-//        localeChangeInterceptor.setParamName("locale");
-//        return localeChangeInterceptor;
-//    }
-//
-//    @Bean
-//    public SessionLocaleResolver sessionLocaleResolver(){
-//        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+//    public CookieLocaleResolver localeResolver(){
+//    	CookieLocaleResolver localeResolver = new CookieLocaleResolver();
 //        localeResolver.setDefaultLocale(new Locale("en","EN"));
 //        return localeResolver;
-//    }   
-//
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(localeChangeInterceptor());
 //    }    
-	
+    
+    @Bean 
+    public LocaleChangeInterceptor localeChangeInterceptor(){
+        LocaleChangeInterceptor localeChangeInterceptor=new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        return localeChangeInterceptor;
+    }
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+    
 	@Bean
 	public UrlBasedViewResolver setupViewResolver() {
 		UrlBasedViewResolver resolver = new UrlBasedViewResolver();

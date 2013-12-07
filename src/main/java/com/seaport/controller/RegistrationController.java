@@ -44,12 +44,13 @@ public class RegistrationController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
-	public ModelAndView onSubmit(HttpServletRequest request,  
+	public String onSubmit(HttpServletRequest request,  
 							@Valid @ModelAttribute RegistrationCommand registrationCommand,
 							BindingResult result) {
 		
 		if (result.hasErrors()) {
-			return new ModelAndView("register", result.getModel());
+//			return new ModelAndView("access/register", result.getModel());
+			return "access/register";
 		}
 		
 		/*Setting up default not null values*/
@@ -61,6 +62,7 @@ public class RegistrationController {
 		registrationCommand.getUser().setRole(role);
 		userService.saveUser(registrationCommand.getUser());
 		String message = "002340";
-		return new ModelAndView("redirect:/login?message="+message, result.getModel());
+//		return new ModelAndView("redirect:/login?message="+message, result.getModel());
+		return "redirect:/login?message="+message;
 	}
 }

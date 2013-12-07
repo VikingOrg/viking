@@ -74,6 +74,16 @@
 			        	<li>
 				          <a> ${userModel.lastName}&nbsp;${userModel.firstName}</a>
 				        </li>
+			        	<li>
+						    <a href="?lang=ru">
+						    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru">
+						    </a>
+					    </li>
+					    <li>
+						    <a href="?lang=en">
+						        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us">
+						    </a>
+						</li>
 				        <li>
 				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
 				        </li>

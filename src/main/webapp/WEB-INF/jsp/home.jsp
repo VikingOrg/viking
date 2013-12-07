@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!doctype html>
 <html lang="ru">
@@ -22,7 +23,16 @@
 		    <div class="page-header">
 		      <h1>Главная</h1>
 		    </div>
-		    <div class="alert alert-success show"><p><h4>Приветствуем вас, <span id="username">${userModel.lastName}&nbsp;${userModel.firstName}</span>!</p></h4>
+		    <div class="alert alert-success show">
+		    
+		    	  <h3><spring:message code="label.menu.main"/>&nbsp;
+		    	  	  <spring:message code="label.menu.ports"/>&nbsp;
+		    	  	  <spring:message code="label.menu.mech"/>&nbsp;
+		    	  	  <spring:message code="label.menu.reports"/>&nbsp;
+		    	  	  <spring:message code="label.menu.admin"/>&nbsp;
+		    	  </h3>
+		    
+		    		<p><h4>Приветствуем вас, <span id="username">${userModel.lastName}&nbsp;${userModel.firstName}</span>!</p></h4>
 		    		<p>Last Update from 12/05/2013 Рассматривал электрическую лампочку и остался ею доволен.(Даниил Хармс. Июль 1933)</p>
 					<p>Last Update from 11/01/2013 file 03</p>
 					<p>Last Update from 11/01/2013 Test dual config</p>

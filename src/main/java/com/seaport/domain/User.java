@@ -44,14 +44,14 @@ public class User implements Serializable {
 	private int portId;	
 	
 	
-	@NotNull
-	@Size(min = 1, max = 25)
+	@NotNull(message = "Бла, давай уже работай!")
+	@Size(min = 1, max = 25, message = "Делов-то на пять минут!")
 	@Pattern(regexp = "[A-Za-z ]*", message = "Имя может состоять только из букв и пробелов.")
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 	
-	@NotNull
-	@Size(min = 1, max = 25)
+	@NotNull(message = "Бла, давай уже работай!")
+	@Size(min = 1, max = 25, message = "Делов-то на пять минут!")
 	@Pattern(regexp = "[A-Za-z ]*", message = "Фамилия может состоять только из букв и пробелов.")	
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;

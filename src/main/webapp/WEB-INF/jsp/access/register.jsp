@@ -3,7 +3,7 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <html lang="ru">
 	<head>
@@ -31,7 +31,6 @@
 		      <div class="masthead">
 		        <div class="container">
 		          <div class="col-md-10 col-md-offset-1">
-		          
 		            <h4 class="text-muted page-header">ЗАПОЛНИТЕ ПОЛЯ ФОРМЫ РЕГИСТРАЦИИ</h4>
 		          </div>
 		        </div>

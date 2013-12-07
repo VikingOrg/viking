@@ -45,5 +45,15 @@
 		
 		.nowrap {
 		  white-space: nowrap ;
-		}		
+		}
+				
+		.flag {
+			width: 16px;
+			height: 11px;
+			background:url('../images/flags.png') no-repeat
+		}
 		
+		.flag.flag-de {background-position: -16px 0}
+		.flag.flag-lt {background-position: -32px 0}
+		.flag.flag-ru {background-position: 0 -11px}
+		.flag.flag-us {background-position: -16px -11px}		
