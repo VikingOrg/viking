@@ -3,6 +3,7 @@ package com.seaport.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,12 +57,15 @@ public class UserEditController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
-	public ModelAndView onSubmit(HttpServletRequest request, 
-								@ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
+	public String onSubmit(HttpServletRequest request, 
+								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result) {
-		Map model = result.getModel();
+		if (result.hasErrors()) {
+			return "admin/userEditAdmin";
+		}
+
 		registrationCommand.getUser().setRole(userRole.getRole(registrationCommand.getUserRole()));
 		userService.saveUser(registrationCommand.getUser());
-		return new ModelAndView("redirect:userSearchAdmin", model);
+		return "redirect:userSearchAdmin";
 	}
 }

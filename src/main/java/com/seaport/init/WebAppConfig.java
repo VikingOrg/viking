@@ -39,7 +39,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 	    ReloadableResourceBundleMessageSource messageSource=new ReloadableResourceBundleMessageSource();
 	    messageSource.setDefaultEncoding("UTF-8");        
 	    messageSource.setUseCodeAsDefaultMessage(true);  
-	    String[] resources= {"classpath:/i18n/labels","classpath:/i18n/messages"};
+	    String[] resources= {"classpath:/i18n/labels","classpath:/i18n/messages", "classpath:ValidationMessages"};
 	    messageSource.setBasenames(resources);
 	    return messageSource;
     }
