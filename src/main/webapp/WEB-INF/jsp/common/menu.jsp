@@ -30,8 +30,8 @@
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Порты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
 			              <li><a href="${stevidorSearchUrl}">Список Стивидоров</a></li>
-			              <li><a href="#">Список Портов</a></li>
-			              <li><a href="#">Список Стран</a></li>
+			              <li><a href="#">Список Портов *</a></li>
+			              <li><a href="#">Список Стран *</a></li>
 			              <li class="divider"></li>
 			              <li><a href="<c:url value="stevidorEdit"/>">Добавить Стивидора</a></li>
 			            </ul>
@@ -40,11 +40,11 @@
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="${deviceSearchUrl}">Список Механизмов</a></li>
+			              <li><a href="${deviceSearchUrl}">Перегрузочные машины</a></li>
 			              <li><a href="#">Список Групп*</a></li>
 			              <li><a href="#">Список Производителей*</a></li>
 			              <li class="divider"></li>
-			              <li><a href="<c:url value="deviceEdit"/>">Добавить Механизм</a></li>
+			              <li><a href="<c:url value="deviceEdit"/>">Добавить машину</a></li>
 			            </ul>
 			          </li>
 			          
@@ -54,7 +54,7 @@
 			              <li><a href="<c:url value="static/html/deviceReport.html"/>">Количественный состав</a></li>
 			              <li><a href="<c:url value="static/html/deviceYearsReport.html"/>">Разрез по годам</a></li>
 			              <li class="divider"></li>
-			              <li><a href="<c:url value="deviceEdit"/>">Добавить Отчет</a></li>
+			              <li><a href="<c:url value="deviceEdit"/>">Добавить Отчет *</a></li>
 			            </ul>
 			          </li>
 			  </sec:authorize>        
@@ -63,6 +63,7 @@
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
 				            <ul class="dropdown-menu">
 				              <li><a href="${userSearchUrl}">Список пользователей</a></li>
+				              <li><a href="#">Группы пользователей *</a></li>
 				              <li class="divider"></li>
 				              <li><a href="<c:url value="userEditAdmin"/>">Добавить Пользователя</a></li>
 				            </ul>				            

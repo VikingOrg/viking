@@ -167,7 +167,7 @@
 		      <div class="modal-body">
 		        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
 		      </div>
-		      <div class="modal-footer navbar-fixed-bottom">
+		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
 		        <button type="submit" class="btn btn-primary">СОХРАНИТЬ</button>
 		      </div>
