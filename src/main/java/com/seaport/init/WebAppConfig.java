@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -23,23 +22,13 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ImportResource("classpath:trace-context.xml")
 public class WebAppConfig extends WebMvcConfigurerAdapter{
 	
-//    @Bean  
-//    public ResourceBundleMessageSource messageSource() {  
-//        ResourceBundleMessageSource source = new ResourceBundleMessageSource();  
-////        source.setBasename("i18n/messages");
-//        source.setBasename("classpath:/i18n/messages");
-//        source.setDefaultEncoding("UTF-8");        
-//        source.setUseCodeAsDefaultMessage(true);  
-//        return source;  
-//    } 
-    
     @Bean
     public ReloadableResourceBundleMessageSource messageSource(){
     	/*Reloadable used to avoid JVM restart*/
 	    ReloadableResourceBundleMessageSource messageSource=new ReloadableResourceBundleMessageSource();
 	    messageSource.setDefaultEncoding("UTF-8");        
 	    messageSource.setUseCodeAsDefaultMessage(true);  
-	    String[] resources= {"classpath:/i18n/labels","classpath:/i18n/messages"};
+	    String[] resources= {"classpath:/i18n/labels","classpath:/i18n/messages", "classpath:ValidationMessages"};
 	    messageSource.setBasenames(resources);
 	    return messageSource;
     }
@@ -47,7 +36,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
     @Bean
     public SessionLocaleResolver localeResolver(){
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("en","en"));
+        localeResolver.setDefaultLocale(new Locale("ru","ru"));
         return localeResolver;
     }
     
