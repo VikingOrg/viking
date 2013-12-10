@@ -91,8 +91,11 @@
 		            <div class="row-fluid">
 		                 <div class="col col-md-3 col-xs-4">
 		                     <!--Sidebar content-->
-		                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
-
+		                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span>&nbsp;
+		                    <form:button class="btn btn-default"><span class="glyphicon glyphicon-remove" title="Сброс настроек фильтра"></span>&nbsp;</form:button>
+		                    <form:button class="btn btn-default"><span class="glyphicon glyphicon-floppy-disk" title="Сохранение настроек фильтра"></span>&nbsp;</form:button>
+							</h4>
+							
 					        	<label class="form-label">СТРАНА</label>
 								<form:select id="countrySelect" path="countryId" cssClass="form-control">
 									<form:option value="">Не установлен</form:option>
@@ -117,7 +120,7 @@
 						                </c:forEach>								
 									</form:select>
 						          <p>&nbsp;</p>
-
+						          
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
 							    <label class="form-label">ПОИСК</label>

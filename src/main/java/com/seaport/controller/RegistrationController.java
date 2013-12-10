@@ -49,7 +49,6 @@ public class RegistrationController {
 							BindingResult result) {
 		
 		if (result.hasErrors()) {
-//			return new ModelAndView("access/register", result.getModel());
 			return "access/register";
 		}
 		

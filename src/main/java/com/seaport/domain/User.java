@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+
 /**
  * The persistent class for the users database table. 
  * 
@@ -44,24 +46,29 @@ public class User implements Serializable {
 	private int portId;	
 	
 	
-	@NotNull(message = "Бла, давай уже работай!")
-	@Size(min = 1, max = 25, message = "Делов-то на пять минут!")
-	@Pattern(regexp = "[A-Za-z ]*", message = "Имя может состоять только из букв и пробелов.")
+	@NotNull
+	@Size(min = 1, max = 25, message = "{validation.size.firstName}")
+	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 	
-	@NotNull(message = "Бла, давай уже работай!")
-	@Size(min = 1, max = 25, message = "Делов-то на пять минут!")
-	@Pattern(regexp = "[A-Za-z ]*", message = "Фамилия может состоять только из букв и пробелов.")	
+	@NotNull
+	@Size(min = 1, max = 25, message = "{validation.size.lastName}")
+	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")	
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 	
+	@NotNull
+	@Size(min = 1, max = 25, message = "{validation.size.middleInitial}")
+	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")	
 	@Column(name = "MIDDLE_INITIAL")
 	private String middleInitial;
 	
+	@Email(message = "{validation.context.email}")
 	@Column(name = "USER_EMAIL", nullable = false)
 	private String userEmail;
 	
+//	@Size(min = 4, max = 25, message = "{validation.size.login}")
 	@Column(name = "LOGIN", nullable = false)
 	private String login;
 	

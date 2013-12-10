@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -48,32 +49,40 @@
 							   <form:option value="1" label="АДМИНИСТРАТОР"/>
 							</form:select>			            	
 			          	</div>
-			          <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">ФАМИЛИЯ</label>
-			              <form:input path="user.lastName" cssClass="form-control" сlass="has-error" title="Введите свою фамилию"/>
-			            </div>
-			          </div>
-			          <div class="form-group has-error">
-						  <input type="text" class="form-control" id="inputError">
-						  <label class="control-label" for="inputError">Исправьте ошибку в заполнении поля</label>
-					  </div>
-			          <div class="form-group">
-			            <div class="controls">
-			                <label class="form-label">ИМЯ</label>
-			                <form:input path="user.firstName" cssClass="form-control" title="Введите своё имя"/>
-			            </div>
-			          </div>
+			     
+			         <spring:bind path="user.lastName">
+				        <div class="form-group ${status.error ? 'has-error' : ''}">
+				        	<div class="controls">
+					            <label class="form-label">ФАМИЛИЯ</label>
+					            <form:input path="user.lastName" id="lastName" cssClass="form-control" title="Введите свою фамилию"/>
+					            <form:errors for="lastName" class="control-label" path="user.lastName"/>
+				            </div>
+				        </div>
+				     </spring:bind>
+				     
+			         <spring:bind path="user.firstName">
+				        <div class="form-group ${status.error ? 'has-error' : ''}">
+				        	<div class="controls">
+					            <label class="form-label">ИМЯ</label>
+					            <form:input path="user.firstName" cssClass="form-control" title="Введите своё имя"/>
+					            <form:errors class="control-label" path="user.firstName"/>
+				            </div>
+				        </div>
+				     </spring:bind>
+				     					  
+
 			          <div class="form-group">
 			            <div class="controls">
 			                <label class="form-label">ОТЧЕСТВО</label>
 			                <form:input path="user.middleInitial" cssClass="form-control" title="Введите своё отчество"/>
+			                <form:errors class="control-label" path="user.middleInitial"/>
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">E-MAIL</label>
 			            	<form:input path="user.userEmail" type="email" cssClass="form-control" title="Укажите свой e-mail в качестве логина"/>
+			            	<form:errors class="control-label" path="user.userEmail"/>
 			            </div>
 			          </div>
 			          <div class="form-group">
@@ -158,7 +167,7 @@
 		      <div class="modal-body">
 		        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
 		      </div>
-		      <div class="modal-footer navbar-fixed-bottom">
+		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
 		        <button type="submit" class="btn btn-primary">СОХРАНИТЬ</button>
 		      </div>
