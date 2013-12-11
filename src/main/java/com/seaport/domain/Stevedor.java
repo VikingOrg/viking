@@ -1,8 +1,16 @@
 package com.seaport.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -51,8 +59,29 @@ public class Stevedor implements Serializable {
 
 	@Column(name="update_user_id")
 	private int updateUserId;
-
+	
+	@Transient
+	private String portName;
+	@Transient
+	private String countryName;
+	
 	public Stevedor() {
+	}
+
+	public String getPortName() {
+		return portName;
+	}
+
+	public void setPortName(String portName) {
+		this.portName = portName;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 
 	public int getStevedorId() {

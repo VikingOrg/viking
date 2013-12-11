@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -73,9 +74,11 @@
 				<p><a href="<c:url value="passRecover"/>">Восстановить пароль</a></p>
 				
 			</form>
-	    </div>	
-	    <div class="form-message alert alert-success">
-	    	<h4>${message}</h4> 
-		</div>	
+	    </div>
+	    	<c:if test="${not empty message}">
+	    		<div class="form-message alert alert-success">
+	    			<h4><spring:message code="${message}" /></h4> 
+				</div>	
+			</c:if>		
 	</body>
 </html>

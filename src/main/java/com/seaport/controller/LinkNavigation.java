@@ -1,5 +1,7 @@
 package com.seaport.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.seaport.service.IUserService;
 
@@ -28,7 +31,8 @@ public class LinkNavigation {
 	public String getHomePage(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		session.setAttribute(com.seaport.utils.SessionConstants.USER_MODEL, 
-				userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));		
+		userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
+
 		return "home";
 	}	
 	@RequestMapping(value="/help.html")

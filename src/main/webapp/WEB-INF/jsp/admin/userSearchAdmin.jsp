@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -131,16 +132,13 @@
 		                <div class="col col-md-9  col-xs-8">
 		                    <!--Body content-->
 		                    
-		                    <!--                             Вывод сообщений и предупреждений -->
-							<div class="alert alert-success show">Изменения внесены
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							</div>
-							<div class="alert alert-danger show">Ошибка сохранения данных
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							</div>
-							<div class="alert alert-warning show">Не выбрано ни одной строки
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							</div>
+		                    <!--  Вывод сообщений и предупреждений  -->
+							<c:if test="${not empty message}"> 
+								<div class="alert alert-success show"><spring:message code="${message}" />
+									<button type="button" class="close" data-dismiss="alert">&times;</button>
+								</div>			
+							</c:if>
+							
 <!-- 		                    Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
                             <a href="<c:url value="userEditAdmin"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>

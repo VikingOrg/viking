@@ -35,7 +35,14 @@
 					      <c:otherwise>
 							<h4 class="text-muted page-header">ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ<br></h4>
 					      </c:otherwise>
-						</c:choose>			          
+						</c:choose>
+						
+						<c:if test="${not empty error}"> 
+							<div class="alert alert-danger show"><spring:message code="${error}" />
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>			
+						</c:if>
+															          
 			          </div>
 			        </div>
 			      </div>

@@ -15,13 +15,11 @@ public class SecurityNavigation {
 	public String login(HttpServletRequest request,
 						Model model, 
 						@RequestParam(required=false) String message) {
-		if (message!=null && message.equalsIgnoreCase("002340")) {
-			message = "Вы успешно зарегистрировались. Используйте новый Логин для входа в систему.";
-		} else if (message!=null && message.equalsIgnoreCase("002399")) {
+		if (message!=null && message.equalsIgnoreCase("002399")) {
 			message = "Логин и/или пароль не найден.";
 		}
-
-		model.addAttribute("message", message);
+		/*Check the Flash Scope message map.*/
+//		Map map = RequestContextUtils.getInputFlashMap(request);
 		return "access/login";
 	}
 	

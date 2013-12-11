@@ -3,7 +3,7 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <html lang="ru">
 	<head>
@@ -25,17 +25,26 @@
 		<div id="wrap">
    		  <!-- Begin page content -->
 		  <div class="container">
+		  
 		  <form:form id="registration" action="register" commandName="registrationCommand" method="post" accept-charset="UTF-8">
-
 		    <div class="container">
 		      <div class="masthead">
 		        <div class="container">
 		          <div class="col-md-10 col-md-offset-1">
 		            <h4 class="text-muted page-header">ЗАПОЛНИТЕ ПОЛЯ ФОРМЫ РЕГИСТРАЦИИ</h4>
+		            
+					<c:if test="${not empty error}"> 
+						<div class="alert alert-danger show"><spring:message code="${error}" />
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+						</div>			
+					</c:if>	
+					            
 		          </div>
 		        </div>
 		      </div>
 		      <div class="row">
+		        
+		      
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
 		          <div class="form-group">
 		            <div class="controls">
@@ -55,6 +64,7 @@
 		            <div class="controls">
 		                <label class="form-label">ОТЧЕСТВО</label>
 		            	<form:input path="user.middleInitial" cssClass="form-control" title="Введите своё отчество"/>
+		            	<form:errors class="invalid" path="user.middleInitial"/>
 		            </div>
 		          </div>
 		          <div class="form-group">

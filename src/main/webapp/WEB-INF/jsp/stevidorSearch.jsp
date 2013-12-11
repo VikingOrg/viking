@@ -38,7 +38,7 @@
                 } );
 
 
-                /* $('#dataTableSearch').on('input', function() {
+                $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 });   		 
                 $('#countrySelect').change(function() {
@@ -47,13 +47,10 @@
                 $('#portSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 7);
                 });
-                $('#stevedorSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 6);
-                }); */
+
                 $('#selectAll').click(function (e) {
                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
                 });
-
                 
             } );
 
@@ -72,6 +69,7 @@
 		   <jsp:include page="common/menu.jsp" />
 		   <!----- Begin page content ------>
 	        <div class="container">
+	        	<form:form id="stevedor_search_form" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
 	        	<div class="masthead">
 			        <div class="container">
 			            <div class="row">
@@ -85,18 +83,25 @@
 			                 <div class="col col-md-3 col-xs-4">
 			                     <!--Sidebar content-->
 			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
-			                    <label class="form-label">СТРАНА</label>
-			                    <select class="form-control" style="margin: 5px">
-			                    <option>Россия</option>
-			                    <option>Украина</option>
-			                    <option>Латвия</option>
-			                    </select>
-			                    <label class="form-label">ПОРТ</label>
-			                    <select class="form-control" style="margin: 5px">
-			                    <option>С-Петербургский</option>
-			                    <option>Высоцкий</option>
-			                    <option>Находкинский</option>
-			                    </select>
+			                    
+					        	<label class="form-label">СТРАНА</label>
+								<form:select id="countrySelect" path="countryId" cssClass="form-control">
+									<form:option value="">Не установлен</form:option>
+					                <c:forEach items="${stevidorSearchCommand.userCountry}" var="country">
+					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+					                </c:forEach>
+								</form:select>
+					          	<p>&nbsp;</p>
+						          <label class="form-label">ПОРТ</label>
+									<form:select id="portSelect" path="portId" cssClass="form-control">
+										<form:option value="">Не установлен</form:option>
+						                <c:forEach items="${stevidorSearchCommand.userPort}" var="port">
+						                    <form:option value="${port.value.name}" label="${port.value.name}" />
+						                </c:forEach>							
+									</form:select>		          
+						          <p>&nbsp;</p>
+			                    
+			                    
 			                    <hr>
 			                    <label class="form-label">ПОИСК</label>
 			                    <div class="input-group" style="margin: 5px">
@@ -130,24 +135,27 @@
 			                          <thead>
 			                              <tr>
 			                              <th><input type="checkbox" id="selectAll"></th>
-			                              <th>Порт&nbsp;&nbsp;</th>
 			                              <th>Наименование&nbsp;&nbsp;</th>
+			                              <th>Порт&nbsp;&nbsp;</th>
 			                              <th>Страна&nbsp;&nbsp;</th>
 			                              <th>Примечания&nbsp;&nbsp;</th>
 			                              </tr>
 			                          </thead>
 			                          <tbody>
-			                            <tr>
-			                              <td><input type="checkbox"></td>
-			                              <td>Порт 1</td>
-				                          <td class="nowrap">
-				                         		<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         	<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         	<c:out value="1-я Стивидорная"/>
-				                          </td>                              
-			                              <td>Россия</td>
-			                              <td>Балтика</td>
-			                            </tr>
+			                          	<c:forEach var="stevedor"  items="${stevidorSearchCommand.stevedorList}" >
+				                            <tr>
+				                              <td><input type="checkbox"></td>
+					                         	<td class="nowrap">
+					                         		<a href="<c:url value="stevidorEdit?stevedorId=${stevedor.stevedorId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
+					                         		<a href="<c:url value="stevidorEdit?stevedorId=${stevedor.stevedorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+					                         		<c:out value="${stevedor.name}"/>
+					                         	</td>
+					                         					                              
+				                              <td><c:out value="${stevedor.portName}"/></td>
+				                              <td><c:out value="${stevedor.countryName}"/></td>
+				                              <td><c:out value="${stevedor.stevedorNote}"/></td>
+				                            </tr>
+			                            </c:forEach>
 			                          </tbody>
 			                    </table>
 			                   </div>
@@ -173,7 +181,8 @@
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
-
+					
+				</form:form>
 		    </div> <!-- End Main Container -->
 		</div> <!-- Wrapper end -->
 

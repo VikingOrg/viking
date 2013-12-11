@@ -1,6 +1,8 @@
 package com.seaport.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.seaport.domain.Country;
+import com.seaport.domain.Role;
 import com.seaport.domain.User;
 import com.seaport.domain.UserDTO;
 
@@ -28,6 +31,8 @@ public class UserDAOImpl implements IUserDAO {
 	private SessionFactory sessionFactory;
 	@Autowired
 	private IPortDAO portDAO;
+	@Autowired
+	private IRoleDAO roleDAO;
 	
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
@@ -58,6 +63,15 @@ public class UserDAOImpl implements IUserDAO {
 	}
 	@Override
 	public void saveUser(User user){
+		/*Setting up default not null values*/
+		Timestamp updateDate = new Timestamp(new Date().getTime());
+		user.setUpdateDate(updateDate);
+		user.setLogin(user.getUserEmail());
+		if (user.getRole() == null) {
+			Role role = (Role) roleDAO.getRole(1);
+			user.setRole(role);
+			user.setCreateDate(updateDate);
+		}
 		openSession().saveOrUpdate(user);
 	}
 	
