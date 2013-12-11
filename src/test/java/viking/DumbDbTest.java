@@ -1,16 +1,6 @@
 package viking;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.seaport.dao.IRoleDAO;
-import com.seaport.dao.IUserDAO;
-import com.seaport.domain.Role;
-import com.seaport.domain.User;
-import com.seaport.init.RootConfig;
 
 
 public class DumbDbTest {

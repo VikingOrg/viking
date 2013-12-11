@@ -1,5 +1,6 @@
 package com.seaport.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -21,8 +22,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="roles")
-public class Role {
-	
+public class Role implements Serializable {
+	private static final long serialVersionUID = 3264160191441720067L;
+
 	@Id
 	@GeneratedValue
 	private Integer id;

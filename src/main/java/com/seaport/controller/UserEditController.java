@@ -1,7 +1,5 @@
 package com.seaport.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.RegistrationCommand;
@@ -51,7 +48,7 @@ public class UserEditController {
 		}
 		
 		registrationCommand.setUserPort(portService.getPortsMap());
-		registrationCommand.setUserStevedor(portService.getStevedorsMap());
+		registrationCommand.setUserStevidor(portService.getStevidorsMap());
 		registrationCommand.setUserCountry(userService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);
@@ -63,7 +60,7 @@ public class UserEditController {
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
-			model.addAttribute("error", "message.user.error.register");
+			model.addAttribute("error", "message.user.error.generic");
 			return "admin/userEditAdmin";
 		}
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");

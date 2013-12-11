@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.dao.IPortDAO;
 import com.seaport.domain.Port;
-import com.seaport.domain.Stevedor;
+import com.seaport.domain.Stevidor;
 
 /**
  * The Service layer for Port requests. 
@@ -41,18 +41,18 @@ public class PortServiceImpl implements IPortService {
 	}
 
 	@Override
-	public Stevedor getStevedor(int stevedorId) {
-		return portDAO.getStevedor(stevedorId);
+	public Stevidor getStevidor(int stevidorId) {
+		return portDAO.getStevidor(stevidorId);
 	}
 
 	@Override
-	public List<Stevedor> getStevedors() {
-		return portDAO.getStevedors();
+	public List<Stevidor> getStevidors() {
+		return portDAO.getStevidors();
 	}
 
 	@Override
-	public void saveStevedor(Stevedor stevedor) {
-		portDAO.saveStevedor(stevedor);
+	public void saveStevidor(Stevidor stevidor) {
+		portDAO.saveStevidor(stevidor);
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class PortServiceImpl implements IPortService {
 	}
 
 	@Override
-	public Map<Integer, Stevedor> getStevedorsMap() {
-		return portDAO.getStevedorsMap();
+	public Map<Integer, Stevidor> getStevidorsMap() {
+		return portDAO.getStevidorsMap();
 	}
 	
 	

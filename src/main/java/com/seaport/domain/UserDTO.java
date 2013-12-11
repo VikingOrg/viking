@@ -10,7 +10,7 @@ package com.seaport.domain;
 public class UserDTO {
 	private User user;
 	private Country countries;
-	private Stevedor stevedor;
+	private Stevidor stevidor;
 	private Port port;
 	public User getUser() {
 		return user;
@@ -24,11 +24,11 @@ public class UserDTO {
 	public void setCountries(Country countries) {
 		this.countries = countries;
 	}
-	public Stevedor getStevedor() {
-		return stevedor;
+	public Stevidor getStevidor() {
+		return stevidor;
 	}
-	public void setStevedor(Stevedor stevedor) {
-		this.stevedor = stevedor;
+	public void setStevidor(Stevidor stevidor) {
+		this.stevidor = stevidor;
 	}
 	public Port getPort() {
 		return port;

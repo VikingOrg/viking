@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.seaport.domain.Port;
-import com.seaport.domain.Stevedor;
+import com.seaport.domain.Stevidor;
 
 /**
  * The DAO class that serves any type of Port requests 
@@ -44,20 +44,20 @@ public class PortDAOImpl implements IPortDAO {
 	}
 
 	@Override
-	public Stevedor getStevedor(int stevedorId) {
-		Stevedor stevedor = (Stevedor)getCurrentSession().get(Stevedor.class, stevedorId);
-		return stevedor;
+	public Stevidor getStevidor(int stevidorId) {
+		Stevidor stevidor = (Stevidor)getCurrentSession().get(Stevidor.class, stevidorId);
+		return stevidor;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Stevedor> getStevedors() {
-		return getCurrentSession().createCriteria(Stevedor.class).list();
+	public List<Stevidor> getStevidors() {
+		return getCurrentSession().createCriteria(Stevidor.class).list();
 	}
 
 	@Override
-	public void saveStevedor(Stevedor stevedor) {
-		getCurrentSession().saveOrUpdate(stevedor);
+	public void saveStevidor(Stevidor stevidor) {
+		getCurrentSession().saveOrUpdate(stevidor);
 	}
 
 	@Override
@@ -71,13 +71,13 @@ public class PortDAOImpl implements IPortDAO {
 	}
 
 	@Override
-	public Map<Integer, Stevedor> getStevedorsMap() {
-		Map<Integer, Stevedor> stevedorMap = new LinkedHashMap<Integer, Stevedor>();
-		List<Stevedor> stevedorList = this.getStevedors();
-		for (Stevedor stevedor : stevedorList) {
-			stevedorMap.put(stevedor.getStevedorId(), stevedor);
+	public Map<Integer, Stevidor> getStevidorsMap() {
+		Map<Integer, Stevidor> stevidorMap = new LinkedHashMap<Integer, Stevidor>();
+		List<Stevidor> stevidorList = this.getStevidors();
+		for (Stevidor stevidor : stevidorList) {
+			stevidorMap.put(stevidor.getStevidorId(), stevidor);
 		}
-		return stevedorMap;
+		return stevidorMap;
 	}
 	
 }

@@ -5,11 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Column;
-
 import com.seaport.domain.Country;
 import com.seaport.domain.Port;
-import com.seaport.domain.Stevedor;
+import com.seaport.domain.Stevidor;
 import com.seaport.domain.UserDTO;
 
 /**
@@ -23,12 +21,12 @@ public class UserSearchCommand {
 	
 	private List<UserDTO> userDtoList = new ArrayList<UserDTO>();
 	private Map<Integer, Port> userPort = new LinkedHashMap<Integer,Port>();
-	private Map<Integer, Stevedor> userStevedor = new LinkedHashMap<Integer,Stevedor>();
+	private Map<Integer, Stevidor> userStevidor = new LinkedHashMap<Integer,Stevidor>();
 	private Map<Integer, Country> userCountry = new LinkedHashMap<Integer,Country>();
 	
 	private Integer portId;
 	private Integer countryId;
-	private Integer stevedorId;
+	private Integer stevidorId;
 
 
 	public Integer getPortId() {
@@ -47,12 +45,12 @@ public class UserSearchCommand {
 		this.countryId = countryId;
 	}
 
-	public Integer getStevedorId() {
-		return stevedorId;
+	public Integer getStevidorId() {
+		return stevidorId;
 	}
 
-	public void setStevedorId(Integer stevedorId) {
-		this.stevedorId = stevedorId;
+	public void setStevidorId(Integer stevidorId) {
+		this.stevidorId = stevidorId;
 	}
 
 	public Map<Integer, Port> getUserPort() {
@@ -63,12 +61,12 @@ public class UserSearchCommand {
 		this.userPort = userPort;
 	}
 
-	public Map<Integer, Stevedor> getUserStevedor() {
-		return userStevedor;
+	public Map<Integer, Stevidor> getUserStevidor() {
+		return userStevidor;
 	}
 
-	public void setUserStevedor(Map<Integer, Stevedor> userStevedor) {
-		this.userStevedor = userStevedor;
+	public void setUserStevidor(Map<Integer, Stevidor> userStevidor) {
+		this.userStevidor = userStevidor;
 	}
 
 	public Map<Integer, Country> getUserCountry() {

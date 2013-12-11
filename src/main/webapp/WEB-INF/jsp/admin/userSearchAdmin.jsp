@@ -53,7 +53,7 @@
                 $('#portSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 7);
                 });
-                $('#stevedorSelect').change(function() {
+                $('#stevidorSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 6);
                 });
                 $('#selectAll').click(function (e) {
@@ -114,10 +114,10 @@
 									</form:select>		          
 						          <p>&nbsp;</p>
 						          <label class="form-label">КОМПАНИЯ</label>
-									<form:select id="stevedorSelect" path="stevedorId" cssClass="form-control">
+									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
 									    <form:option value="">Не установлен</form:option>
-						                <c:forEach items="${userSearchCommand.userStevedor}" var="stevedor">
-						                    <form:option value="${stevedor.value.name}" label="${stevedor.value.name}" />
+						                <c:forEach items="${userSearchCommand.userStevidor}" var="stevidor">
+						                    <form:option value="${stevidor.value.name}" label="${stevidor.value.name}" />
 						                </c:forEach>								
 									</form:select>
 						          <p>&nbsp;</p>
@@ -177,7 +177,7 @@
 					                         	<td class="nowrap"><c:out value="${userDto.user.occupation}"/></td>
 					                         	<td class="nowrap"><c:out value="${userDto.user.role.role}"/></td>
 					                         	<td class="nowrap"><c:out value="${userDto.user.userEmail}"/></td>
-					                         	<td class="nowrap"><c:out value="${userDto.stevedor.name}"/></td>
+					                         	<td class="nowrap"><c:out value="${userDto.stevidor.name}"/></td>
 				                              	<td class="nowrap"><c:out value="${userDto.port.name}"/></td>
 				                              	<td class="nowrap"><c:out value="${userDto.countries.nameRus}"/></td>
 				                              	<td class="nowrap"><c:out value="${userDto.user.userNote}"/></td>

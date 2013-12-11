@@ -5,29 +5,33 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
- * The persistent class for the stevedors database table.
+ * The persistent class for the stevidors database table.
  * 
  * @Author Danil Ozherelyev
  * @version 1.0 12/04/13
  *          
  */
 @Entity
-@Table(name="stevedors")
-public class Stevedor implements Serializable {
+@Table(name="stevidors")
+public class Stevidor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="stevedor_id")
-	private int stevedorId;
+	@GeneratedValue
+	@Column(name="stevidor_id")
+	private Integer stevidorId;
 
 	private String archived;
 
@@ -37,10 +41,14 @@ public class Stevedor implements Serializable {
 
 	@Column(name="create_user_id")
 	private int createUserId;
-
+	
+	@NotNull
+	@Size(min = 1, max = 25, message = "{validation.size.generic}")
 	@Column(name="full_name")
 	private String fullName;
-
+	
+	@NotNull
+	@Size(min = 1, max = 25, message = "{validation.size.generic}")
 	private String name;
 
 	@Column(name="name_eng")
@@ -50,8 +58,8 @@ public class Stevedor implements Serializable {
 	private int portId;
 
 	@Lob
-	@Column(name="stevedor_note")
-	private String stevedorNote;
+	@Column(name="stevidor_note")
+	private String stevidorNote;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
@@ -65,7 +73,7 @@ public class Stevedor implements Serializable {
 	@Transient
 	private String countryName;
 	
-	public Stevedor() {
+	public Stevidor() {
 	}
 
 	public String getPortName() {
@@ -84,12 +92,12 @@ public class Stevedor implements Serializable {
 		this.countryName = countryName;
 	}
 
-	public int getStevedorId() {
-		return this.stevedorId;
+	public Integer getStevidorId() {
+		return this.stevidorId;
 	}
 
-	public void setStevedorId(int stevedorId) {
-		this.stevedorId = stevedorId;
+	public void setStevidorId(Integer stevidorId) {
+		this.stevidorId = stevidorId;
 	}
 
 	public String getArchived() {
@@ -148,12 +156,12 @@ public class Stevedor implements Serializable {
 		this.portId = portId;
 	}
 
-	public String getStevedorNote() {
-		return this.stevedorNote;
+	public String getStevidorNote() {
+		return this.stevidorNote;
 	}
 
-	public void setStevedorNote(String stevedorNote) {
-		this.stevedorNote = stevedorNote;
+	public void setStevidorNote(String stevidorNote) {
+		this.stevidorNote = stevidorNote;
 	}
 
 	public Date getUpdateDate() {
@@ -174,11 +182,11 @@ public class Stevedor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Stevedor [stevedorId=" + stevedorId + ", archived=" + archived
+		return "stevidor [stevidorId=" + stevidorId + ", archived=" + archived
 				+ ", createDate=" + createDate + ", createUserId="
 				+ createUserId + ", fullName=" + fullName + ", name=" + name
 				+ ", nameEng=" + nameEng + ", portId=" + portId
-				+ ", stevedorNote=" + stevedorNote + ", updateDate="
+				+ ", stevidorNote=" + stevidorNote + ", updateDate="
 				+ updateDate + ", updateUserId=" + updateUserId + "]";
 	}
 

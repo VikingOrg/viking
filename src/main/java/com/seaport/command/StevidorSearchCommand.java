@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.seaport.domain.Country;
 import com.seaport.domain.Port;
-import com.seaport.domain.Stevedor;
+import com.seaport.domain.Stevidor;
 
 /**
  * The abstract form class contains common data to be shared by others 
@@ -20,11 +20,11 @@ import com.seaport.domain.Stevedor;
 public class StevidorSearchCommand {
 	
 	private Map<Integer, Port> userPort = new LinkedHashMap<Integer,Port>();
-	private Map<Integer, Stevedor> userStevedor = new LinkedHashMap<Integer,Stevedor>();
+	private Map<Integer, Stevidor> userStevidor = new LinkedHashMap<Integer,Stevidor>();
 	private Map<Integer, Country> userCountry = new LinkedHashMap<Integer,Country>();
 	private Integer portId;
 	private Integer countryId;
-	private List<Stevedor> stevedorList = new ArrayList<Stevedor>();
+	private List<Stevidor> stevidorList = new ArrayList<Stevidor>();
 
 	
 	public Integer getPortId() {
@@ -51,12 +51,12 @@ public class StevidorSearchCommand {
 		this.userPort = userPort;
 	}
 
-	public Map<Integer, Stevedor> getUserStevedor() {
-		return userStevedor;
+	public Map<Integer, Stevidor> getUserstevidor() {
+		return userStevidor;
 	}
 
-	public void setUserStevedor(Map<Integer, Stevedor> userStevedor) {
-		this.userStevedor = userStevedor;
+	public void setUserStevidor(Map<Integer, Stevidor> userStevidor) {
+		this.userStevidor = userStevidor;
 	}
 
 	public Map<Integer, Country> getUserCountry() {
@@ -67,12 +67,12 @@ public class StevidorSearchCommand {
 		this.userCountry = userCountry;
 	}
 
-	public List<Stevedor> getStevedorList() {
-		return stevedorList;
+	public List<Stevidor> getStevidorList() {
+		return stevidorList;
 	}
 
-	public void setStevedorList(List<Stevedor> stevedorList) {
-		this.stevedorList = stevedorList;
+	public void setStevidorList(List<Stevidor> stevidorList) {
+		this.stevidorList = stevidorList;
 	}
 	
 	

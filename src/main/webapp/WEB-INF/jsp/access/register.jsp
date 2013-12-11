@@ -106,9 +106,9 @@
 						</form:select>		          
 			          <p>&nbsp;</p>
 			          <label class="form-label">КОМПАНИЯ</label>
-						<form:select path="user.stevedorId" cssClass="form-control">
-			                <c:forEach items="${registrationCommand.userStevedor}" var="stevedor">
-			                    <form:option value="${stevedor.key}" label="${stevedor.value.name}" />
+						<form:select path="user.stevidorId" cssClass="form-control">
+			                <c:forEach items="${registrationCommand.userStevidor}" var="stevidor">
+			                    <form:option value="${stevidor.key}" label="${stevidor.value.name}" />
 			                </c:forEach>								
 						</form:select>
 			          <p>&nbsp;</p>

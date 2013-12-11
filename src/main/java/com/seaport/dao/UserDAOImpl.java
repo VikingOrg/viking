@@ -99,7 +99,7 @@ public class UserDAOImpl implements IUserDAO {
 			userDTO.setUser(user);
 			userDTO.setCountries(this.getContriesMap().get(user.getCountryId()));
 			userDTO.setPort(portDAO.getPortsMap().get(user.getPortId()));
-			userDTO.setStevedor(portDAO.getStevedorsMap().get(user.getStevedorId()));
+			userDTO.setStevidor(portDAO.getStevidorsMap().get(user.getstevidorId()));
 			userDtoList.add(userDTO);
 		}
 		return userDtoList;

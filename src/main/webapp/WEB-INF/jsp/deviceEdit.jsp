@@ -120,7 +120,7 @@
 			          </select>
 			          <p>&nbsp;</p>
 			          <label class="form-label">КОМПАНИЯ</label>
-			          <select class="form-control" name="stevedor">
+			          <select class="form-control" name="stevidor">
 			          	<option>Выбрать</option>
 			            <option>1-я Стивидорная</option>
 			            <option>2-я Стивидорная</option>

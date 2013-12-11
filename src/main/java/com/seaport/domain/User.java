@@ -39,8 +39,8 @@ public class User implements Serializable {
 	@Column(name = "COUNTRY_ID")
 	private Integer countryId;
 	
-	@Column(name="STEVEDOR_ID")
-	private int stevedorId;
+	@Column(name="STEVIDOR_ID")
+	private int stevidorId;
 	
 	@Column(name="PORT_ID")
 	private int portId;	
@@ -116,12 +116,12 @@ public class User implements Serializable {
 		this.countryId = countryId;
 	}
 
-	public int getStevedorId() {
-		return stevedorId;
+	public int getstevidorId() {
+		return stevidorId;
 	}
 
-	public void setStevedorId(int stevedorId) {
-		this.stevedorId = stevedorId;
+	public void setstevidorId(int stevidorId) {
+		this.stevidorId = stevidorId;
 	}
 
 	public int getPortId() {
@@ -301,7 +301,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", countryId=" + countryId
-				+ ", stevedorId=" + stevedorId + ", portId=" + portId
+				+ ", stevidorId=" + stevidorId + ", portId=" + portId
 				+ ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", middleInitial=" + middleInitial + ", userEmail="
 				+ userEmail + ", login=" + login + ", password=" + password

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.seaport.domain.Port;
-import com.seaport.domain.Stevedor;
+import com.seaport.domain.Stevidor;
 
 /**
  * The DAO interface for Port requests 
@@ -17,9 +17,9 @@ public interface IPortDAO {
 	public Port getPort(int portId);
 	public List<Port> getPorts();
 	public void savePort(Port port);
-	public Stevedor getStevedor(int stevedorId);
-	public List<Stevedor> getStevedors();
-	public void saveStevedor(Stevedor stevedor);
+	public Stevidor getStevidor(int stevidorId);
+	public List<Stevidor> getStevidors();
+	public void saveStevidor(Stevidor stevidor);
 	public Map<Integer, Port> getPortsMap();
-	public Map<Integer, Stevedor> getStevedorsMap();
+	public Map<Integer, Stevidor> getStevidorsMap();
 }

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -22,7 +23,7 @@
 		
 		<script type="text/javascript">
             $(document).ready(function() {
-            	var oTable = $('#stevedor_table').dataTable( {
+            	var oTable = $('#stevidor_table').dataTable( {
             	"aoColumns": [
                 	               { "bSortable": false },
                 	               null,
@@ -42,10 +43,10 @@
                 	oTable.fnFilter( $(this).val());
                 });   		 
                 $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 8);
+                	oTable.fnFilter( $(this).val(), 3);
                 });
                 $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 7);
+                	oTable.fnFilter( $(this).val(), 2);
                 });
 
                 $('#selectAll').click(function (e) {
@@ -69,7 +70,7 @@
 		   <jsp:include page="common/menu.jsp" />
 		   <!----- Begin page content ------>
 	        <div class="container">
-	        	<form:form id="stevedor_search_form" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
+	        	<form:form id="stevidor_search_form" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
 	        	<div class="masthead">
 			        <div class="container">
 			            <div class="row">
@@ -105,33 +106,29 @@
 			                    <hr>
 			                    <label class="form-label">ПОИСК</label>
 			                    <div class="input-group" style="margin: 5px">
-			                        <input class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text">
+			                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
 			                    </div>
 			                 </div>
 			                <div class="col col-md-9 col-xs-8">
 			                    <!--Body content-->
 			                    
-			                    <!--                             Вывод сообщений и предупреждений -->
-							<div class="alert alert-success show">Изменения внесены
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							</div>
-							<div class="alert alert-danger show">Ошибка сохранения данных
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							</div>
-							<div class="alert alert-warning show">Не выбрано ни одной строки
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							</div>
+		                    <!--  Вывод сообщений и предупреждений  -->
+							<c:if test="${not empty message}"> 
+								<div class="alert alert-success show"><spring:message code="${message}" />
+									<button type="button" class="close" data-dismiss="alert">&times;</button>
+								</div>			
+							</c:if>
 							
 								<!-- 		                    Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
-                            <a href="<c:url value="userEditAdmin"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
                             
 
 <!-- 							Таблица со списком пользователей -->
 			                <div class="table-container">
-			                    <table id="stevedor_table" class="table table-striped table-bordered">
+			                    <table id="stevidor_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
 			                              <th><input type="checkbox" id="selectAll"></th>
@@ -142,18 +139,18 @@
 			                              </tr>
 			                          </thead>
 			                          <tbody>
-			                          	<c:forEach var="stevedor"  items="${stevidorSearchCommand.stevedorList}" >
+			                          	<c:forEach var="stevidor"  items="${stevidorSearchCommand.stevidorList}" >
 				                            <tr>
 				                              <td><input type="checkbox"></td>
 					                         	<td class="nowrap">
-					                         		<a href="<c:url value="stevidorEdit?stevedorId=${stevedor.stevedorId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         		<a href="<c:url value="stevidorEdit?stevedorId=${stevedor.stevedorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         		<c:out value="${stevedor.name}"/>
+					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
+					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+					                         		<c:out value="${stevidor.name}"/>
 					                         	</td>
 					                         					                              
-				                              <td><c:out value="${stevedor.portName}"/></td>
-				                              <td><c:out value="${stevedor.countryName}"/></td>
-				                              <td><c:out value="${stevedor.stevedorNote}"/></td>
+				                              <td><c:out value="${stevidor.portName}"/></td>
+				                              <td><c:out value="${stevidor.countryName}"/></td>
+				                              <td><c:out value="${stevidor.stevidorNote}"/></td>
 				                            </tr>
 			                            </c:forEach>
 			                          </tbody>

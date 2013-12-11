@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.seaport.domain.Country;
 import com.seaport.domain.Port;
-import com.seaport.domain.Stevedor;
+import com.seaport.domain.Stevidor;
 import com.seaport.domain.User;
 
 /**
@@ -27,7 +27,7 @@ public class RegistrationCommand {
 	private String pswordCheck = "";
 	
 	private Map<Integer, Port> userPort = new LinkedHashMap<Integer,Port>();
-	private Map<Integer, Stevedor> userStevedor = new LinkedHashMap<Integer,Stevedor>();
+	private Map<Integer, Stevidor> userStevidor = new LinkedHashMap<Integer,Stevidor>();
 	private Map<Integer, Country> userCountry = new LinkedHashMap<Integer,Country>();
 	private String formType = "N"; 
 	private Integer userRole;
@@ -72,12 +72,12 @@ public class RegistrationCommand {
 		this.userPort = userPort;
 	}
 
-	public Map<Integer, Stevedor> getUserStevedor() {
-		return userStevedor;
+	public Map<Integer, Stevidor> getUserStevidor() {
+		return userStevidor;
 	}
 
-	public void setUserStevedor(Map<Integer, Stevedor> userStevedor) {
-		this.userStevedor = userStevedor;
+	public void setUserStevidor(Map<Integer, Stevidor> userStevidor) {
+		this.userStevidor = userStevidor;
 	}
 
 	public Map<Integer, Country> getUserCountry() {

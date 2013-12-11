@@ -31,7 +31,7 @@ public class UserSearchController {
 		userSearchCommand.setUserDtoList(userService.getUserDTOs(new Object[]{}));
 		
 		userSearchCommand.setUserPort(portService.getPortsMap());
-		userSearchCommand.setUserStevedor(portService.getStevedorsMap());
+		userSearchCommand.setUserStevidor(portService.getStevidorsMap());
 		userSearchCommand.setUserCountry(userService.getContriesMap());
 		
 		model.put("userSearchCommand", userSearchCommand);
