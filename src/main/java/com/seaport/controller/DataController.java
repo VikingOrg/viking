@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.seaport.domain.DataTablesRequest;
 import com.seaport.domain.DataTablesResponse;
 
+/**
+ * The Controller class that invoke business logic and create a Model&View object. 
+ *
+ * @Author       Danil Ozherelyev
+ * @version      1.0 12/12/13 <P>
+ */
+
 @Controller
 @RequestMapping(value="/api")
 public class DataController {

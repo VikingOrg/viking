@@ -9,7 +9,7 @@ package com.seaport.command;
  * @version      1.0 12/05/13 <P>
  */
 
-public class DeviceEditCommand {
+public class MachineSearchCommand {
 //	private List<Object> genericList = new ArrayList<Object>();
 //	private String userId;
 //	private Map<String, String> generisStingMap;

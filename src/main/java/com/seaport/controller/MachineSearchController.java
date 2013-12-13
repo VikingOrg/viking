@@ -11,18 +11,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.BlankCommand;
-import com.seaport.command.DeviceSearchCommand;
+import com.seaport.command.MachineSearchCommand;
+
+/**
+ * The Controller class that invoke business logic and create a Model&View object. 
+ *
+ * @Author       Danil Ozherelyev
+ * @version      1.0 12/12/13 <P>
+ */
 
 @Controller
-@RequestMapping("/deviceSearch")
-public class DeviceSearchController {
+@RequestMapping("/machineSearch")
+public class MachineSearchController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
 		
-		model.put("blankCommand", new DeviceSearchCommand());
-		return "deviceSearch";
+		MachineSearchCommand machineSearchCommand = new MachineSearchCommand();
+		
+		model.put("machineSearchCommand", machineSearchCommand);
+		return "machineSearch";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
@@ -31,6 +40,6 @@ public class DeviceSearchController {
 								BindingResult result) {
 
 //		return new ModelAndView("redirect:nextViewHere", result.getModel());
-		return new ModelAndView("deviceSearch", result.getModel());
+		return new ModelAndView("machineSearch", result.getModel());
 	}
 }

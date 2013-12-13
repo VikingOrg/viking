@@ -12,6 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.PassRecoverCommand;
 
+/**
+ * The Controller class that invoke business logic and create a Model&View object. 
+ *
+ * @Author       Danil Ozherelyev
+ * @version      1.0 12/12/13 <P>
+ */
+
 @Controller
 @RequestMapping("/passRecover")
 public class PassRecoverController {

@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.seaport.service.IUserService;
 
+/**
+ * The Controller class that invoke business logic and create a Model&View object. 
+ *
+ * @Author       Danil Ozherelyev
+ * @version      1.0 12/12/13 <P>
+ */
+
 @Controller
 @RequestMapping("/")
 public class LinkNavigation {

@@ -11,18 +11,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.BlankCommand;
-import com.seaport.command.DeviceEditCommand;
+import com.seaport.command.MachineEditCommand;
+
+/**
+ * The Controller class that invoke business logic and create a Model&View object. 
+ *
+ * @Author       Danil Ozherelyev
+ * @version      1.0 12/12/13 <P>
+ */
 
 @Controller
-@RequestMapping("/deviceEdit")
-public class DeviceEditController {
+@RequestMapping("/machineEdit")
+public class MachineEditController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
 		
-		model.put("deviceEditCommand", new DeviceEditCommand());
-		return "deviceEdit";
+		model.put("machineEditCommand", new MachineEditCommand());
+		return "machineEdit";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
@@ -31,6 +38,6 @@ public class DeviceEditController {
 								BindingResult result) {
 
 //		return new ModelAndView("redirect:nextViewHere", result.getModel());
-		return new ModelAndView("deviceEdit", result.getModel());
+		return new ModelAndView("machineEdit", result.getModel());
 	}
 }

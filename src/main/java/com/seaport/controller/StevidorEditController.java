@@ -22,6 +22,13 @@ import com.seaport.domain.User;
 import com.seaport.service.IPortService;
 import com.seaport.utils.SessionConstants;
 
+/**
+ * The Controller class that invoke business logic and create a Model&View object. 
+ *
+ * @Author       Danil Ozherelyev
+ * @version      1.0 12/12/13 <P>
+ */
+
 @Controller
 @RequestMapping("/stevidorEdit")
 @SessionAttributes("stevidorEditCommand")
