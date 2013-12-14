@@ -2,6 +2,7 @@ package com.seaport.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.BlankCommand;
 import com.seaport.command.MachineSearchCommand;
+import com.seaport.service.IMachineService;
+import com.seaport.service.IPortService;
+import com.seaport.service.IUserService;
 
 /**
  * The Controller class that invoke business logic and create a Model&View object. 
@@ -23,13 +27,23 @@ import com.seaport.command.MachineSearchCommand;
 @Controller
 @RequestMapping("/machineSearch")
 public class MachineSearchController {
+	@Autowired
+	private IUserService userService;
+	@Autowired
+	private IPortService portService;
+	@Autowired
+	private IMachineService machineService;	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
 		
 		MachineSearchCommand machineSearchCommand = new MachineSearchCommand();
-		
+		machineSearchCommand.setUserCountry(userService.getContriesMap());
+		machineSearchCommand.setUserPort(portService.getPortsMap());
+		machineSearchCommand.setUserStevidor(portService.getStevidorsMap());
+		machineSearchCommand.setGroupMap(machineService.getGroupsMap());
+		machineSearchCommand.setMachineList(machineService.getMachines());
 		model.put("machineSearchCommand", machineSearchCommand);
 		return "machineSearch";
 	}

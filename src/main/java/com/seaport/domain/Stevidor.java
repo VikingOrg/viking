@@ -1,20 +1,24 @@
 package com.seaport.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 /**
  * The persistent class for the stevidors database table.
@@ -29,8 +33,8 @@ public class Stevidor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
-	@Column(name="stevidor_id")
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name="stevidor_id", unique = true, nullable = false)
 	private Integer stevidorId;
 
 	private String archived;
@@ -67,29 +71,20 @@ public class Stevidor implements Serializable {
 
 	@Column(name="update_user_id")
 	private int updateUserId;
-	
-	@Transient
-	private String portName;
-	@Transient
-	private String countryName;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
+	private Port port;
 	
 	public Stevidor() {
 	}
 
-	public String getPortName() {
-		return portName;
+	public Port getPort() {
+		return port;
 	}
 
-	public void setPortName(String portName) {
-		this.portName = portName;
-	}
-
-	public String getCountryName() {
-		return countryName;
-	}
-
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
+	public void setPort(Port port) {
+		this.port = port;
 	}
 
 	public Integer getStevidorId() {

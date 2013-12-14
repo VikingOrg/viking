@@ -22,7 +22,7 @@ public class Machine implements Serializable {
 
 	@Id
 	@Column(name="machine_id")
-	private int machineId;
+	private Integer machineId;
 
 	private String archived;
 
@@ -34,7 +34,7 @@ public class Machine implements Serializable {
 	private Date createDate;
 
 	@Column(name="create_user_id")
-	private int createUserId;
+	private Integer createUserId;
 
 	private String doc;
 
@@ -48,7 +48,7 @@ public class Machine implements Serializable {
 	private String location;
 
 	@Column(name="model_id")
-	private int modelId;
+	private Integer modelId;
 
 	private String nickname;
 
@@ -56,7 +56,7 @@ public class Machine implements Serializable {
 	private String note;
 
 	@Column(name="stevidor_id")
-	private int stevidorId;
+	private Integer stevidorId;
 
 	private String tranc;
 
@@ -65,7 +65,7 @@ public class Machine implements Serializable {
 	private Date updateDate;
 
 	@Column(name="update_user_id")
-	private int updateUserId;
+	private Integer updateUserId;
 
 	@Column(name="zav_number")
 	private String zavNumber;
@@ -73,16 +73,16 @@ public class Machine implements Serializable {
 	public Machine() {
 	}
 
-	public int getMachineId() {
-		return this.machineId;
+	public Integer getMachineId() {
+		return machineId;
 	}
 
-	public void setMachineId(int machineId) {
+	public void setMachineId(Integer machineId) {
 		this.machineId = machineId;
 	}
 
 	public String getArchived() {
-		return this.archived;
+		return archived;
 	}
 
 	public void setArchived(String archived) {
@@ -90,7 +90,7 @@ public class Machine implements Serializable {
 	}
 
 	public String getBdYear() {
-		return this.bdYear;
+		return bdYear;
 	}
 
 	public void setBdYear(String bdYear) {
@@ -98,23 +98,23 @@ public class Machine implements Serializable {
 	}
 
 	public Date getCreateDate() {
-		return this.createDate;
+		return createDate;
 	}
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public int getCreateUserId() {
-		return this.createUserId;
+	public Integer getCreateUserId() {
+		return createUserId;
 	}
 
-	public void setCreateUserId(int createUserId) {
+	public void setCreateUserId(Integer createUserId) {
 		this.createUserId = createUserId;
 	}
 
 	public String getDoc() {
-		return this.doc;
+		return doc;
 	}
 
 	public void setDoc(String doc) {
@@ -122,7 +122,7 @@ public class Machine implements Serializable {
 	}
 
 	public Date getInDate() {
-		return this.inDate;
+		return inDate;
 	}
 
 	public void setInDate(Date inDate) {
@@ -130,7 +130,7 @@ public class Machine implements Serializable {
 	}
 
 	public String getInvNumber() {
-		return this.invNumber;
+		return invNumber;
 	}
 
 	public void setInvNumber(String invNumber) {
@@ -138,23 +138,23 @@ public class Machine implements Serializable {
 	}
 
 	public String getLocation() {
-		return this.location;
+		return location;
 	}
 
 	public void setLocation(String location) {
 		this.location = location;
 	}
 
-	public int getModelId() {
-		return this.modelId;
+	public Integer getModelId() {
+		return modelId;
 	}
 
-	public void setModelId(int modelId) {
+	public void setModelId(Integer modelId) {
 		this.modelId = modelId;
 	}
 
 	public String getNickname() {
-		return this.nickname;
+		return nickname;
 	}
 
 	public void setNickname(String nickname) {
@@ -162,23 +162,23 @@ public class Machine implements Serializable {
 	}
 
 	public String getNote() {
-		return this.note;
+		return note;
 	}
 
 	public void setNote(String note) {
 		this.note = note;
 	}
 
-	public int getStevidorId() {
-		return this.stevidorId;
+	public Integer getStevidorId() {
+		return stevidorId;
 	}
 
-	public void setStevidorId(int stevidorId) {
+	public void setStevidorId(Integer stevidorId) {
 		this.stevidorId = stevidorId;
 	}
 
 	public String getTranc() {
-		return this.tranc;
+		return tranc;
 	}
 
 	public void setTranc(String tranc) {
@@ -186,82 +186,27 @@ public class Machine implements Serializable {
 	}
 
 	public Date getUpdateDate() {
-		return this.updateDate;
+		return updateDate;
 	}
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
-	public int getUpdateUserId() {
-		return this.updateUserId;
+	public Integer getUpdateUserId() {
+		return updateUserId;
 	}
 
-	public void setUpdateUserId(int updateUserId) {
+	public void setUpdateUserId(Integer updateUserId) {
 		this.updateUserId = updateUserId;
 	}
 
 	public String getZavNumber() {
-		return this.zavNumber;
+		return zavNumber;
 	}
 
 	public void setZavNumber(String zavNumber) {
 		this.zavNumber = zavNumber;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((invNumber == null) ? 0 : invNumber.hashCode());
-		result = prime * result + machineId;
-		result = prime * result + modelId;
-		result = prime * result + stevidorId;
-		result = prime * result
-				+ ((zavNumber == null) ? 0 : zavNumber.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Machine other = (Machine) obj;
-		if (invNumber == null) {
-			if (other.invNumber != null)
-				return false;
-		} else if (!invNumber.equals(other.invNumber))
-			return false;
-		if (machineId != other.machineId)
-			return false;
-		if (modelId != other.modelId)
-			return false;
-		if (stevidorId != other.stevidorId)
-			return false;
-		if (zavNumber == null) {
-			if (other.zavNumber != null)
-				return false;
-		} else if (!zavNumber.equals(other.zavNumber))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Machine [machineId=" + machineId + ", archived=" + archived
-				+ ", bdYear=" + bdYear + ", createDate=" + createDate
-				+ ", createUserId=" + createUserId + ", doc=" + doc
-				+ ", inDate=" + inDate + ", invNumber=" + invNumber
-				+ ", location=" + location + ", modelId=" + modelId
-				+ ", nickname=" + nickname + ", note=" + note + ", stevidorId="
-				+ stevidorId + ", tranc=" + tranc + ", updateDate="
-				+ updateDate + ", updateUserId=" + updateUserId
-				+ ", zavNumber=" + zavNumber + "]";
 	}
 
 }

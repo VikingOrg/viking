@@ -3,9 +3,9 @@ package com.seaport.service;
 import java.util.List;
 import java.util.Map;
 
+import com.seaport.command.UserDTO;
 import com.seaport.domain.Country;
 import com.seaport.domain.User;
-import com.seaport.domain.UserDTO;
 
 /**
  * The Service layer interface for User requests 

@@ -1,4 +1,9 @@
-package com.seaport.domain;
+package com.seaport.command;
+
+import com.seaport.domain.Country;
+import com.seaport.domain.Port;
+import com.seaport.domain.Stevidor;
+import com.seaport.domain.User;
 
 /**
  * The data transfer class for the user database table. 

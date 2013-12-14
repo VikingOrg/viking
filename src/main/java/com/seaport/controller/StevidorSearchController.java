@@ -1,7 +1,5 @@
 package com.seaport.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seaport.command.StevidorSearchCommand;
-import com.seaport.domain.Port;
-import com.seaport.domain.Stevidor;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
@@ -41,13 +37,7 @@ public class StevidorSearchController {
 
 		stevidorSearchCommand.setUserPort(portService.getPortsMap());
 		stevidorSearchCommand.setUserCountry(userService.getContriesMap());
-		List<Stevidor> stevidorList = portService.getStevidors();
-		for (Stevidor stevidor : stevidorList) {
-			Port port = stevidorSearchCommand.getUserPort().get(stevidor.getPortId());
-			stevidor.setPortName(port.getName());
-			stevidor.setCountryName(stevidorSearchCommand.getUserCountry().get(port.getCountryId()).getNameRus());
-		}
-		stevidorSearchCommand.setStevidorList(stevidorList);
+		stevidorSearchCommand.setStevidorList(portService.getStevidors());
 		
 		model.put("stevidorSearchCommand", stevidorSearchCommand);
 		return "stevidorSearch";

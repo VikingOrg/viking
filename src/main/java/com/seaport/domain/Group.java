@@ -26,7 +26,7 @@ public class Group implements Serializable {
 	private Date createDate;
 
 	@Column(name="create_user_id")
-	private int createUserId;
+	private Integer createUserId;
 
 	private String name;
 
@@ -35,7 +35,7 @@ public class Group implements Serializable {
 	private Date updateDate;
 
 	@Column(name="update_user_id")
-	private int updateUserId;
+	private Integer updateUserId;
 
 	public Group() {
 	}
@@ -56,11 +56,11 @@ public class Group implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public int getCreateUserId() {
+	public Integer getCreateUserId() {
 		return this.createUserId;
 	}
 
-	public void setCreateUserId(int createUserId) {
+	public void setCreateUserId(Integer createUserId) {
 		this.createUserId = createUserId;
 	}
 
@@ -80,11 +80,11 @@ public class Group implements Serializable {
 		this.updateDate = updateDate;
 	}
 
-	public int getUpdateUserId() {
+	public Integer getUpdateUserId() {
 		return this.updateUserId;
 	}
 
-	public void setUpdateUserId(int updateUserId) {
+	public void setUpdateUserId(Integer updateUserId) {
 		this.updateUserId = updateUserId;
 	}
 

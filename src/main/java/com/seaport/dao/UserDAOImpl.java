@@ -13,10 +13,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.seaport.command.UserDTO;
 import com.seaport.domain.Country;
 import com.seaport.domain.Role;
 import com.seaport.domain.User;
-import com.seaport.domain.UserDTO;
 
 /**
  * The DAO class that serves any type of User requests 

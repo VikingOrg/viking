@@ -148,8 +148,8 @@
 					                         		<c:out value="${stevidor.name}"/>
 					                         	</td>
 					                         					                              
-				                              <td><c:out value="${stevidor.portName}"/></td>
-				                              <td><c:out value="${stevidor.countryName}"/></td>
+				                              <td><c:out value="${stevidor.port.name}"/></td>
+				                              <td><c:out value="${stevidor.port.country.nameRus}"/></td>
 				                              <td><c:out value="${stevidor.stevidorNote}"/></td>
 				                            </tr>
 			                            </c:forEach>

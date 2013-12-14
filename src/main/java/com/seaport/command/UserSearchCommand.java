@@ -8,7 +8,6 @@ import java.util.Map;
 import com.seaport.domain.Country;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
-import com.seaport.domain.UserDTO;
 
 /**
  * The abstract form class contains common data to be shared by others 
