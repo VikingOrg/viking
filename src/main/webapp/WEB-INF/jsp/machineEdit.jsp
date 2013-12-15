@@ -119,7 +119,7 @@
 				            <option>Экскаваторы</option>
 				          </select>
 			        	</div>
-		        		<div class="form-group">
+		        		<!-- <div class="form-group">
 				          <label class="form-label">СТРАНА</label>
 				          <select class="form-control" name="stevidor">
 				          	<option>Выбрать</option>
@@ -136,7 +136,7 @@
 				            <option>Выборгский</option>
 				            <option>Высоцкий</option>
 				          </select>
-			        	</div>	
+			        	</div>	 -->
 			        	<div class="form-group">
 				          <label class="form-label">КОМПАНИЯ(Собственник)</label>
 				          <select class="form-control" name="stevidor">

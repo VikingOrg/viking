@@ -19,7 +19,7 @@
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 	    <script src="static/js/jqBootstrapValidation.js"></script>
 		<script>
-		  $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+		  $(function () { $("input,select,textarea").jqBootstrapValidation(); } );
 		</script>	
 		
 	</head>
@@ -49,10 +49,10 @@
 		        
 		      
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
-		          <div class="form-group">
+		         <div class="form-group">
 		            <div class="controls">
 		            	<label class="form-label">ФАМИЛИЯ</label>
-		            	<form:input path="user.lastName" cssClass="form-control" type="text" minlength="2" title="Введите свою фамилию" />
+		            	<form:input path="user.lastName" cssClass="form-control" type="text" title="Введите свою фамилию" />
 		            	<p class="help-block"></p>
 		            	<form:errors class="invalid" path="user.lastName"/>
 		            </div>
