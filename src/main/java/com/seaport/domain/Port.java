@@ -1,6 +1,7 @@
 package com.seaport.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -49,14 +50,17 @@ public class Port implements Serializable {
 	@Column(name="update_user_id")
 	private int updateUserId;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	public Country country;
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@PrimaryKeyJoinColumn
+//	public Country country;
+
+	@OneToOne()
+	@JoinColumn(name = "country_id", insertable = false, updatable = false)
+	private Country country;
 	
 	public Port() {
 	}
 
-	
 	public Country getCountry() {
 		return country;
 	}

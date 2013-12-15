@@ -145,7 +145,7 @@
 					                         	<td class="nowrap">
 					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
 					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         		<c:out value="${stevidor.name}"/>
+					                         		<c:out value="${stevidor.fullName}"/>
 					                         	</td>
 					                         					                              
 				                              <td><c:out value="${stevidor.port.name}"/></td>

@@ -13,6 +13,7 @@ import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Model;
+import com.seaport.domain.Port;
 
 /**
  * The DAO class that serves any type of Port requests 
@@ -32,8 +33,7 @@ public class MachineDAOImpl implements IMachineDAO {
 
 	@Override
 	public Machine getMachine(Integer machineId) {
-		// TODO Auto-generated method stub
-		return null;
+		return (Machine) getCurrentSession().get(Machine.class, machineId);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -42,11 +42,9 @@ public class MachineDAOImpl implements IMachineDAO {
 		return getCurrentSession().createCriteria(Machine.class).list();
 	}
 	
-	
 	@Override
 	public void saveMachine(Machine machine) {
-		// TODO Auto-generated method stub
-		
+		getCurrentSession().saveOrUpdate(machine);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -60,7 +58,7 @@ public class MachineDAOImpl implements IMachineDAO {
 		Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 		List<Group> portList = this.getGroups();
 		for (Group group : portList) {
-			groupMap.put(group.getId(), group);
+			groupMap.put(group.getGroupId(), group);
 		}
 		return groupMap;
 	}
@@ -92,7 +90,7 @@ public class MachineDAOImpl implements IMachineDAO {
 		Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
 		List<Manufacturer> manufacturerList = this.getManufacturers();
 		for (Manufacturer manufacturer : manufacturerList) {
-			manufacturerMap.put(manufacturer.getId(), manufacturer);
+			manufacturerMap.put(manufacturer.getManufacturerId(), manufacturer);
 		}
 		return manufacturerMap;
 	}

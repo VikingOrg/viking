@@ -1,7 +1,9 @@
 package com.seaport.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -51,7 +53,31 @@ public class Model implements Serializable {
 	@Column(name="update_user_id")
 	private int updateUserId;
 
+	@OneToOne()
+	@JoinColumn(name = "group_id", insertable = false, updatable = false)
+	private Group group;
+	
+	@OneToOne()
+	@JoinColumn(name = "manufacturer_id", insertable = false, updatable = false)
+	private Manufacturer manufacturer;	
+	
 	public Model() {
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 	public int getModelId() {

@@ -19,7 +19,8 @@ public class Manufacturer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	@Column(name="manufacturer_id")
+	private Integer manufacturerId;
 
 	private String address;
 
@@ -53,12 +54,12 @@ public class Manufacturer implements Serializable {
 	public Manufacturer() {
 	}
 
-	public int getId() {
-		return this.id;
+	public Integer getManufacturerId() {
+		return manufacturerId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setManufacturerId(Integer manufacturerId) {
+		this.manufacturerId = manufacturerId;
 	}
 
 	public String getAddress() {

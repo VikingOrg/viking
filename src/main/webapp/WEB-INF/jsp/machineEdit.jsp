@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!doctype html>
 <html lang="ru">
@@ -19,31 +20,44 @@
 		<jsp:include page="common/menu.jsp" />
 			<!-- Begin page content -->
 		    <div class="container">
-
+				<form:form id="machine_edit_form" action="machineEdit" commandName="machineEditCommand" method="post" accept-charset="UTF-8">
 			    <div class="container">
 			      <div class="masthead">
 			        <div class="container">
 			          <div class="col-md-10 col-md-offset-1">
-			            <h4 class="text-muted page-header">ЗАПОЛНИТЕ ПОЛЯ ДАННЫХ</h4>
+			      		<c:choose>
+					      <c:when test="${registrationCommand.formType=='E'}">
+					      	<h4 class="text-muted page-header">РЕДАКТИРОВАНИЕ МЕХАНИЗМА<br></h4>
+					      </c:when>
+					      <c:when test="${registrationCommand.formType=='C'}">
+					      	<h4 class="text-muted page-header">КОПИРОВАНИЕ МЕХАНИЗМА<br></h4>
+					      </c:when>					      
+					      <c:otherwise>
+							<h4 class="text-muted page-header">ДОБАВЛЕНИЕ МЕХАНИЗМА<br></h4>
+					      </c:otherwise>
+						</c:choose>
+						
+						<c:if test="${not empty error}"> 
+							<div class="alert alert-danger show"><spring:message code="${error}" />
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>			
+						</c:if>
 			          </div>
 			        </div>
 			      </div>
 			      <div class="row">
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-			          <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">НАИМЕНОВАНИЕ</label>
-			              <input type="text" class="form-control" name="name" title="Введите наименование">
-			            </div>
-			          </div>
-			          <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
-			          <select class="form-control" name="manufacturer">
-			          	<option>Выбрать</option>
-			            <option>TOYOTA</option>
-			            <option>LIEBHERR</option>
-			            <option>HUYSTER</option>
-			          </select>
-			          <p>&nbsp;</p>
+			        
+			          <spring:bind path="machine.model.name">
+				        <div class="form-group ${status.error ? 'has-error' : ''}">
+				        	<div class="controls">
+					            <label class="form-label">НАИМЕНОВАНИЕ(Модели)</label>
+					            <form:input path="machine.model.name" id="model_name" cssClass="form-control" title="Модель"/>
+					            <form:errors for="model_name" class="control-label" path="machine.model.name"/>
+				            </div>
+				        </div>
+				      </spring:bind>
+
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">ХАРАКТЕРИСТИКИ МОДЕЛИ</label>
@@ -56,14 +70,7 @@
 			              <input type="text" class="form-control" name="reg_number" title="Введите инвентарный номер">
 			            </div>
 			          </div>
-			                <label class="form-label">ГОД ПРОИЗВОДСТВА</label>
-			                <select class="form-control" name="prod_year">
-			          		<option>Выбрать</option>
-			                <option>1950</option>
-			                <option>1960</option>
-			                <option>1970</option>
-			                </select>
-			                <p>&nbsp;</p>
+
 			            <div class="form-group">
 				            <div class="controls">
 				            <label class="form-label">ДАТА ВВОДА ВЭКСПЛУАТАЦИЮ</label>
@@ -103,43 +110,57 @@
 			          
 			        </div>
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-			        <label class="form-label">СТРАНА</label>
-			          <select class="form-control" name="port">
-			          	<option>Выбрать</option>
-			            <option>Россия</option>
-			            <option>Украина</option>
-			            <option>Латвия</option>
-			          </select>
-			          <p>&nbsp;</p>
-			          <label class="form-label">ПОРТ</label>
-			          <select class="form-control" name="port">
-			          	<option>Выбрать</option>
-			            <option>Порт 1</option>
-			            <option>Порт 2</option>
-			            <option>Порт 3</option>
-			          </select>
-			          <p>&nbsp;</p>
-			          <label class="form-label">КОМПАНИЯ</label>
-			          <select class="form-control" name="stevidor">
-			          	<option>Выбрать</option>
-			            <option>1-я Стивидорная</option>
-			            <option>2-я Стивидорная</option>
-			            <option>3-я Стивидорная</option>
-			          </select>
-			          <p>&nbsp;</p>
-			          <div class="form-group">
+			        	<div class="form-group">
+				          <label class="form-label">ГРУППА</label>
+				          <select class="form-control" name="stevidor">
+				          	<option>Выбрать</option>
+				            <option>1-я Стивидорная</option>
+				            <option>2-я Стивидорная</option>
+				            <option>3-я Стивидорная</option>
+				          </select>
+			        	</div>
+		        		
+			        	<div class="form-group">
+				          <label class="form-label">КОМПАНИЯ(Собственник)</label>
+				          <select class="form-control" name="stevidor">
+				          	<option>Выбрать</option>
+				            <option>1-я Стивидорная</option>
+				            <option>2-я Стивидорная</option>
+				            <option>3-я Стивидорная</option>
+				          </select>
+			        	</div>			        		
+			        	<div class="form-group">
+				          <label class="form-label">ПРОИЗВОДИТЕЛЬ(Оборудования)</label>
+				          <select class="form-control" name="manufacturer">
+				          	<option>Выбрать</option>
+				            <option>TOYOTA</option>
+				            <option>LIEBHERR</option>
+				            <option>HUYSTER</option>
+				          </select>
+			        	</div>			        		
+			        	<div class="form-group">
+			                <label class="form-label">ГОД ПРОИЗВОДСТВА</label>
+			                <select class="form-control" name="prod_year">
+				          		<option>Выбрать</option>
+				                <option>1950</option>
+				                <option>1960</option>
+				                <option>1970</option>
+			                </select>
+			        	
+			        	</div>			        		
+			          	<div class="form-group">
 			                <div class="controls">
 			                  <label class="form-label">МЕСТО УСТАНОВКИ</label>
 			                  <input type="password" class="form-control" title="Укажите место установки" name="location">
 			                </div>
 			            </div>
 			            <div class="form-group">
-			            <label class="form-label">ПРИМЕЧАНИЯ</label>
-			            <div class="controls">
-			                <textarea class="form-control" name="comments" title="Примечания" type="text" rows="3">
-			                </textarea>
-			            </div>
-			          </div>
+				            <label class="form-label">ПРИМЕЧАНИЯ</label>
+				            <div class="controls">
+				                <textarea class="form-control" name="comments" title="Примечания" rows="3">
+				                </textarea>
+			                </div>
+			        	</div>
 			        </div>
 			      </div>
 			    </div>
@@ -153,7 +174,7 @@
 			        </div>
 			      </div>
 			    </div>
-					
+			</form:form>		
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
 		<div id="footer">

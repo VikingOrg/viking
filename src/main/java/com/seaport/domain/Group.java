@@ -19,7 +19,8 @@ public class Group implements Serializable {
 	private static final long serialVersionUID = -7693200082841883559L;
 
 	@Id
-	private int id;
+	@Column(name="group_id")	
+	private Integer groupId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_date")
@@ -40,12 +41,12 @@ public class Group implements Serializable {
 	public Group() {
 	}
 
-	public int getId() {
-		return this.id;
+	public Integer getGroupId() {
+		return groupId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 
 	public Date getCreateDate() {
@@ -90,7 +91,7 @@ public class Group implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", createDate=" + createDate
+		return "Group [id=" + groupId + ", createDate=" + createDate
 				+ ", createUserId=" + createUserId + ", name=" + name
 				+ ", updateDate=" + updateDate + ", updateUserId="
 				+ updateUserId + "]";

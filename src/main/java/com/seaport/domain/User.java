@@ -47,19 +47,19 @@ public class User implements Serializable {
 	
 	
 	@NotNull
-	@Size(min = 1, max = 25, message = "{validation.size.firstName}")
+	@Size(min = 2, max = 45, message = "{validation.size.firstName}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 	
 	@NotNull
-	@Size(min = 1, max = 25, message = "{validation.size.lastName}")
+	@Size(min = 2, max = 45, message = "{validation.size.lastName}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")	
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 	
 	@NotNull
-	@Size(min = 1, max = 25, message = "{validation.size.middleInitial}")
+	@Size(min = 1, max = 45, message = "{validation.size.middleInitial}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")	
 	@Column(name = "MIDDLE_INITIAL")
 	private String middleInitial;
@@ -68,7 +68,6 @@ public class User implements Serializable {
 	@Column(name = "USER_EMAIL", nullable = false)
 	private String userEmail;
 	
-//	@Size(min = 4, max = 25, message = "{validation.size.login}")
 	@Column(name = "LOGIN", nullable = false)
 	private String login;
 	

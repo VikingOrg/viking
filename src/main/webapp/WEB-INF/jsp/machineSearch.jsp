@@ -2,16 +2,84 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!doctype html>
 <html lang="ru">
 	<head>
 	    <title>Таблица подъемно-транспортного оборудования</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
-	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+	    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
+		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="static/css/page.css">
+		<link rel="stylesheet" type="text/css" href="static/css/table.css">
+
+		<script type="text/javascript" src="static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
+	    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
+        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
+		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
+
+        <script type="text/javascript">
+	        $(document).ready(function() {
+	        	var oTable = $('#stevidor_table').dataTable( {
+	        		"bProcessing": true,
+	            	"aoColumns": [
+               	               { "bSortable": false },
+               	               null,
+               	               null,
+               	               null,
+               	               null,
+               	               null,
+               	               { "bSortable": false },
+               	               null,
+               	               null,
+               	               null,
+               	               { "bSortable": false },
+		               	       { "bSortable": false },
+		               	       { "bSortable": false },
+		               	       { "bSortable": false },
+		               	 	   { "bSortable": false },
+				               { "bSortable": false },
+				               { "bSortable": false }
+               	           ],
+	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+	                "sPaginationType": "bootstrap"
+                
+	            } );
+
+
+                $('#dataTableSearch').on('input', function() {
+                	oTable.fnFilter( $(this).val());
+                });   		 
+                $('#countrySelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 14);
+                });
+                $('#portSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 13);
+                });
+                $('#stevidorSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 3);
+                });
+                $('#groupSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 1);
+                });                
+                $('#selectAll').click(function (e) {
+                    $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+                });
+
+                
+            } );
+
+    
+        </script>
+        <style type="text/css">
+			.dataTables_filter {
+			     display: none;
+			}
+        </style>
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
@@ -55,7 +123,7 @@
 									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
 									    <form:option value="">Не установлен</form:option>
 						                <c:forEach items="${machineSearchCommand.userStevidor}" var="stevidor">
-						                    <form:option value="${stevidor.value.name}" label="${stevidor.value.name}" />
+						                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
 						                </c:forEach>								
 									</form:select>
 						          <p>&nbsp;</p>
@@ -78,114 +146,89 @@
 			                    <option>1980</option>
 			                    </select>
 			                    <hr>
-			                    <label class="form-label">НАИМЕНОВАНИЕ</label>
 			                    <div class="input-group" style="margin: 5px">
-			                        <input class="form-control" placeholder="Поиск" title="Введите для поиска по Наименованию" type="text">
-			                        <div class="form-actions" style="margin: 5px">
-			                            <button type="submit" class="btn btn-primary">НАЙТИ</button>
-			                        </div>
+								    <label class="form-label">ПОИСК</label>
+								    <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>  
+			                        <br><br>
 			                    </div>
 			                 </div>
 			                <div class="col col-md-9  col-xs-8">
 			                    <!--Body content-->
+			                    
+			                    <!--  Вывод сообщений и предупреждений  -->
+								<c:if test="${not empty message}"> 
+									<div class="alert alert-success show"><spring:message code="${message}" />
+										<button type="button" class="close" data-dismiss="alert">&times;</button>
+									</div>			
+								</c:if>
+								
+	<!-- 		                    Операции с данными в таблице -->
 			                    <div class="btn-group" style="margin: 5px">
-			                    <a href="#" class="btn btn-default" title="Ввод нового">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
-			                    <a href="#" class="btn btn-default" title="Удалить">&nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
-			                </div>
-			                    <div class="table-container">
-			                    <table class="table table-bordered">
+		                            <a href="<c:url value="machineEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+		                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
+	                            </div>
+	                            
+	                            
+	                            
+<!-- 							Таблица со списком пользователей -->
+			                <div class="table-container">
+			                    <table id="stevidor_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-			                              <th><input type="checkbox"></th>
-			                              <th>Наименование&nbsp;<span class="caret"></span></th>
-			                              <th>Производитель</th>
-			                              <th>Модель</th>
-			                              <th>Кол-во</th>
-			                              <th>Год выпуска</th>
-			                              <th>Дата ввода в эксплуатацию</th>
-			                              <th>Документ ввода в эксплуатацию</th>
-			                              <th>Инв. номер</th>
-			                              <th>TRANC</th>
-			                              <th>Зав. номер</th>
-			                              <th>Место установк</th>
-			                              <th>Группа</th>
-			                              <th>Компания</th>
-			                              <th>Порт</th>
-			                              <th>Страна</th>
-			                              <th>Примечания</th>
-			                            </tr>
+				                              <th><input type="checkbox" id="selectAll"></th>
+				                              <th>Группа(machine.group.name)&nbsp;<span class="caret"></span></th>
+				                              <th>Наименование(machine.model.name)&nbsp;<span class="caret"></span></th>
+				                              <th>Компания(machine.stevidor.fullName)</th>
+				                              <th>Модель(machine.model.details)</th>
+				                              <th>Год выпуска</th>
+				                              <th>Дата ввода в эксплуатацию</th>
+				                              <th>Документ ввода в эксплуатацию</th>
+				                              <th>Инв. номер</th>
+				                              <th>TRANC</th>
+				                              <th>Зав. номер</th>
+				                              <th>Место установк</th>
+				                              <th>Производитель</th>
+				                              <th>Порт</th>
+				                              <th>Страна</th>
+				                              <th>Примечания</th>
+				                              <th>Описание Машины</th>
+			                              </tr>
 			                          </thead>
 			                          <tbody>
-				                          <c:forEach var="machine"  items="${machineSearchCommand.machineList}" >
-				                          <tr>
-						                      <td><input type="checkbox"></td>
+			                          	<c:forEach var="machine"  items="${machineSearchCommand.machineList}" >
+				                            <tr>
+				                              <td><input type="checkbox"></td>
+				                              <td class="nowrap">
+					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
+					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+				                              		<c:out value="${machine.group.name}"/>
+				                              </td>
 					                          <td class="nowrap">
-					                          	<a href="<c:url value="userEditAdmin?userId=${machine.machineId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         	<a href="<c:url value="userEditAdmin?userId=${machine.machineId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         	<c:out value="${machine.nickname}"/>
+					                         		<c:out value="${machine.model.name}"/>
 					                          </td>
-				                              <td class="nowrap">Kranbau</td>
-				                              <td class="nowrap">Колея 15,3м</td>
-				                              <td class="nowrap">2</td>
-				                              <td class="nowrap">1960</td>
-				                              <td class="nowrap">01.04.1999</td>
-				                              <td class="nowrap">№123</td>
-				                              <td class="nowrap">87087134</td>
-				                              <td class="nowrap">-193248-10923</td>
-				                              <td class="nowrap">98798999</td>
-				                              <td class="nowrap">1-ый причал</td>
-				                              <td class="nowrap">Портальные краны</td>
-				                              <td class="nowrap">1-я Стивидорная</td>
-				                              <td class="nowrap">С-Петербургский</td>
-				                              <td class="nowrap">Россия</td>
-				                              <td class="nowrap">Работает хорошо</td>
-				                          </tr>    
-				                          </c:forEach>
-			                            <tr>
-			                              <td><input type="checkbox"></td>
-			                              <td class="nowrap">
-				                         		<a href="<c:url value="deviceEdit?deviceId=1"/>">Edit</a>&nbsp;
-				                         		<c:out value="Портальный кран АЛЬБАТРОС&nbsp; 10/20тн"/>                              
-			                              </td>
-			                              <td class="nowrap">Kranbau</td>
-			                              <td class="nowrap">Колея 15,3м</td>
-			                              <td class="nowrap">2</td>
-			                              <td class="nowrap">1960</td>
-			                              <td class="nowrap">01.04.1999</td>
-			                              <td class="nowrap">№123</td>
-			                              <td class="nowrap">87087134</td>
-			                              <td class="nowrap">-193248-10923</td>
-			                              <td class="nowrap">98798999</td>
-			                              <td class="nowrap">1-ый причал</td>
-			                              <td class="nowrap">Портальные краны</td>
-			                              <td class="nowrap">1-я Стивидорная</td>
-			                              <td class="nowrap">С-Петербургский</td>
-			                              <td class="nowrap">Россия</td>
-			                              <td class="nowrap">Работает хорошо</td>
-			                            </tr>
-			 
+				                              <td class="nowrap"><c:out value="${machine.stevidor.fullName}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.model.details}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.releaseYear}"/></td>
+				                              <td class="nowrap"><spring:eval expression="machine.startDate" /></td>
+				                              <td class="nowrap">№<c:out value="${machine.doc}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.inventoryNumb}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.transNumb}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.factoryNumb}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.location}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.model.manufacturer.name}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.stevidor.port.name}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.stevidor.port.country.nameRus}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.note}"/></td>
+				                              <td class="nowrap"><c:out value="${machine.name}"/></td>
+											   
+				                            </tr>
+			                            </c:forEach>
 			                          </tbody>
 			                    </table>
-			                    </div>
-					                <div class="container">
-					                    <div class="row">
-					                        <div class="col col-md-12 text-center"> 
-					                            <ul class="pagination">
-					                            <li><a href="#">Назад</a>
-					                            </li>
-					                            <li><a href="#">1</a>
-					                            </li>
-					                            <li><a href="#">2</a>
-					                            </li>
-					                            <li><a href="#">3</a>
-					                            </li>
-					                            <li><a href="#">Следующая</a>
-					                            </li>
-					                            </ul>
-					                        </div>
-					                    </div>
-					                </div>	                    
-			                </div>
+			                   </div>
+			                   
+			                   
+			                   
 			            </div>
 			        </div>
 			    </div>

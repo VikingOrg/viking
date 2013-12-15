@@ -4,15 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 
 /**
  * The persistent class for the machines database table.
  * 
- * @Author Danil Ozherelyev
- * @version 1.0 12/12/13
- *          
  */
 @Entity
 @Table(name="machines")
@@ -26,52 +25,108 @@ public class Machine implements Serializable {
 
 	private String archived;
 
-	@Column(name="bd_year")
-	private String bdYear;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_date")
-	private Date createDate;
+	private String createDate;
 
 	@Column(name="create_user_id")
 	private Integer createUserId;
 
 	private String doc;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="in_date")
-	private Date inDate;
+	@Column(name="factory_numb")
+	private String factoryNumb;
 
-	@Column(name="inv_number")
-	private String invNumber;
+	@Column(name="group_id")
+	private Integer groupId;
+
+	@Column(name="inventory_numb")
+	private String inventoryNumb;
 
 	private String location;
 
 	@Column(name="model_id")
 	private Integer modelId;
 
-	private String nickname;
+	private String name;
 
-	@Lob
 	private String note;
+
+	@Column(name="`release _year`")
+	private String releaseYear;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="start_date")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date startDate;
 
 	@Column(name="stevidor_id")
 	private Integer stevidorId;
 
-	private String tranc;
+	@Column(name="trans_numb")
+	private String transNumb;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
-	private Date updateDate;
+	private String updateDate;
 
 	@Column(name="update_user_id")
 	private Integer updateUserId;
 
-	@Column(name="zav_number")
-	private String zavNumber;
-
+	@OneToOne()
+	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
+	private Stevidor stevidor;
+	
+	@OneToOne()
+	@JoinColumn(name = "model_id", insertable = false, updatable = false)
+	private Model model;
+	
+	@OneToOne()
+	@JoinColumn(name = "group_id", insertable = false, updatable = false)
+	private Group group;
+	
 	public Machine() {
+		this.model = new Model();
 	}
+
+	
+	public String getReleaseYear() {
+		return releaseYear;
+	}
+
+
+	public void setReleaseYear(String releaseYear) {
+		this.releaseYear = releaseYear;
+	}
+
+
+	public Stevidor getStevidor() {
+		return stevidor;
+	}
+
+
+	public void setStevidor(Stevidor stevidor) {
+		this.stevidor = stevidor;
+	}
+
+
+	public Model getModel() {
+		return model;
+	}
+
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
+
+	public Group getGroup() {
+		return group;
+	}
+
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 
 	public Integer getMachineId() {
 		return machineId;
@@ -89,19 +144,11 @@ public class Machine implements Serializable {
 		this.archived = archived;
 	}
 
-	public String getBdYear() {
-		return bdYear;
-	}
-
-	public void setBdYear(String bdYear) {
-		this.bdYear = bdYear;
-	}
-
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
@@ -121,20 +168,28 @@ public class Machine implements Serializable {
 		this.doc = doc;
 	}
 
-	public Date getInDate() {
-		return inDate;
+	public String getFactoryNumb() {
+		return factoryNumb;
 	}
 
-	public void setInDate(Date inDate) {
-		this.inDate = inDate;
+	public void setFactoryNumb(String factoryNumb) {
+		this.factoryNumb = factoryNumb;
 	}
 
-	public String getInvNumber() {
-		return invNumber;
+	public Integer getGroupId() {
+		return groupId;
 	}
 
-	public void setInvNumber(String invNumber) {
-		this.invNumber = invNumber;
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getInventoryNumb() {
+		return inventoryNumb;
+	}
+
+	public void setInventoryNumb(String inventoryNumb) {
+		this.inventoryNumb = inventoryNumb;
 	}
 
 	public String getLocation() {
@@ -153,12 +208,12 @@ public class Machine implements Serializable {
 		this.modelId = modelId;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getName() {
+		return name;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getNote() {
@@ -169,6 +224,16 @@ public class Machine implements Serializable {
 		this.note = note;
 	}
 
+
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
 	public Integer getStevidorId() {
 		return stevidorId;
 	}
@@ -177,19 +242,19 @@ public class Machine implements Serializable {
 		this.stevidorId = stevidorId;
 	}
 
-	public String getTranc() {
-		return tranc;
+	public String getTransNumb() {
+		return transNumb;
 	}
 
-	public void setTranc(String tranc) {
-		this.tranc = tranc;
+	public void setTransNumb(String transNumb) {
+		this.transNumb = transNumb;
 	}
 
-	public Date getUpdateDate() {
+	public String getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
 
@@ -201,12 +266,19 @@ public class Machine implements Serializable {
 		this.updateUserId = updateUserId;
 	}
 
-	public String getZavNumber() {
-		return zavNumber;
+	@Override
+	public String toString() {
+		return "Machine [machineId=" + machineId + ", archived=" + archived
+				+ ", createDate=" + createDate + ", createUserId="
+				+ createUserId + ", doc=" + doc + ", factoryNumb="
+				+ factoryNumb + ", groupId=" + groupId + ", inventoryNumb="
+				+ inventoryNumb + ", location=" + location + ", modelId="
+				+ modelId + ", name=" + name + ", note=" + note
+				+ ", releaseYear=" + releaseYear + ", startDate=" + startDate
+				+ ", stevidorId=" + stevidorId + ", transNumb=" + transNumb
+				+ ", updateDate=" + updateDate + ", updateUserId="
+				+ updateUserId + "]";
 	}
 
-	public void setZavNumber(String zavNumber) {
-		this.zavNumber = zavNumber;
-	}
-
+	
 }

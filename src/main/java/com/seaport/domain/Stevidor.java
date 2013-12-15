@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,13 +13,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.ForeignKey;
 
 /**
  * The persistent class for the stevidors database table.
@@ -47,12 +52,12 @@ public class Stevidor implements Serializable {
 	private int createUserId;
 	
 	@NotNull
-	@Size(min = 1, max = 25, message = "{validation.size.generic}")
+	@Size(min = 3, max = 45, message = "{validation.size.generic}")
 	@Column(name="full_name")
 	private String fullName;
 	
 	@NotNull
-	@Size(min = 1, max = 25, message = "{validation.size.generic}")
+	@Size(min = 3, max = 45, message = "{validation.size.generic}")
 	private String name;
 
 	@Column(name="name_eng")
@@ -72,8 +77,8 @@ public class Stevidor implements Serializable {
 	@Column(name="update_user_id")
 	private int updateUserId;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
+	@OneToOne()
+	@JoinColumn(name = "port_id", insertable = false, updatable = false)
 	private Port port;
 	
 	public Stevidor() {
