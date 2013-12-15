@@ -7,14 +7,14 @@
 <html lang="ru">
 	<head>
 	    <title>Список пользователей системы</title>
-	    <meta name="viewport" content="width=device-width">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
 
-		<script type="text/javascript" src="static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
 	    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
@@ -69,6 +69,9 @@
 			.dataTables_filter {
 			     display: none;
 			}
+			.filter_select {
+				padding-top: 10px;
+			}
         </style>
                		  
 	</head>
@@ -81,38 +84,40 @@
 	  			<form:form id="user_search_form" action="userSearchAdmin" commandName="userSearchCommand" method="post" accept-charset="UTF-8">
 
 				<div class="masthead">
-				    <div class="container">
-				        <div class="row">
+				    <div class="container-fluid">
+				        <div class="row-fluid">
+			         	 <div class="col-md-10 col-md-offset-1">
 				        	<h4 class="text-muted page-header">СПИСОК ПОЛЬЗОВАТЕЛЕЙ СИСТЕМЫ<br></h4>
+				        </div>
 				        </div>
 				    </div>
 				</div>
 				
 		        <div class="container-fluid">
 		            <div class="row-fluid">
-		                 <div class="col col-md-3 col-xs-4">
+		                 <div class="col col-sm-4 col-md-3">
 		                     <!--Sidebar content-->
 		                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span>&nbsp;
-		                    <form:button class="btn btn-default"><span class="glyphicon glyphicon-remove" title="Сброс настроек фильтра"></span>&nbsp;</form:button>
-		                    <form:button class="btn btn-default"><span class="glyphicon glyphicon-floppy-disk" title="Сохранение настроек фильтра"></span>&nbsp;</form:button>
 							</h4>
-							
+								<div class="filter_select">
 					        	<label class="form-label">СТРАНА</label>
-								<form:select id="countrySelect" path="countryId" cssClass="form-control">
-									<form:option value="">Не установлен</form:option>
-					                <c:forEach items="${userSearchCommand.userCountry}" var="country">
-					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-					                </c:forEach>
-								</form:select>
-					          	<p>&nbsp;</p>
+									<form:select id="countrySelect" path="countryId" cssClass="form-control">
+										<form:option value="">Не установлен</form:option>
+						                <c:forEach items="${userSearchCommand.userCountry}" var="country">
+						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+						                </c:forEach>
+									</form:select>
+								</div>	
+								<div class="filter_select">
 						          <label class="form-label">ПОРТ</label>
 									<form:select id="portSelect" path="portId" cssClass="form-control">
 										<form:option value="">Не установлен</form:option>
 						                <c:forEach items="${userSearchCommand.userPort}" var="port">
 						                    <form:option value="${port.value.name}" label="${port.value.name}" />
 						                </c:forEach>							
-									</form:select>		          
-						          <p>&nbsp;</p>
+									</form:select>
+								</div>	
+								<div class="filter_select">	          
 						          <label class="form-label">КОМПАНИЯ</label>
 									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
 									    <form:option value="">Не установлен</form:option>
@@ -120,16 +125,19 @@
 						                    <form:option value="${stevidor.value.name}" label="${stevidor.value.name}" />
 						                </c:forEach>								
 									</form:select>
-						          <p>&nbsp;</p>
-						          
+								</div>	
+								<div class="filter_select">
+									<form:button class="btn btn-primary">СБРОС&nbsp;<span class="glyphicon glyphicon-remove" title="Сброс настроек фильтра"></span></form:button>
+						        </div>	
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
 							    <label class="form-label">ПОИСК</label>
 							    <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>  
-		                        <br><br>
+		                        <br>
+		                        <br>
 		                    </div>
 		                 </div>
-		                <div class="col col-md-9  col-xs-8">
+		                <div class="col col-sm-8 col-md-9">
 		                    <!--Body content-->
 		                    
 		                    <!--  Вывод сообщений и предупреждений  -->

@@ -15,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
 
-		<script type="text/javascript" src="static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
 	    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
@@ -79,6 +79,9 @@
 			.dataTables_filter {
 			     display: none;
 			}
+			.filter_select {
+				padding-top: 10px;
+			}
         </style>
 	</head>
 	<body>
@@ -103,6 +106,7 @@
 			                     <!--Sidebar content-->
 			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
 			                    
+								<div class="filter_select">
 					        	<label class="form-label">СТРАНА</label>
 								<form:select id="countrySelect" path="countryId" cssClass="form-control">
 									<form:option value="">Не установлен</form:option>
@@ -110,7 +114,8 @@
 					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 					                </c:forEach>
 								</form:select>
-					          	<p>&nbsp;</p>
+					          	</div>	
+								<div class="filter_select">
 						          <label class="form-label">ПОРТ</label>
 									<form:select id="portSelect" path="portId" cssClass="form-control">
 										<form:option value="">Не установлен</form:option>
@@ -118,7 +123,8 @@
 						                    <form:option value="${port.value.name}" label="${port.value.name}" />
 						                </c:forEach>							
 									</form:select>		          
-						          <p>&nbsp;</p>
+						          </div>	
+								<div class="filter_select">
 						          <label class="form-label">КОМПАНИЯ</label>
 									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
 									    <form:option value="">Не установлен</form:option>
@@ -126,9 +132,8 @@
 						                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
 						                </c:forEach>								
 									</form:select>
-						          <p>&nbsp;</p>
-			                    
-			                    
+						          </div>	
+								<div class="filter_select">
 			                    <label class="form-label">ГРУППА</label>
 								<form:select id="groupSelect" path="groupId" cssClass="form-control">
 								    <form:option value="">Не установлен</form:option>
@@ -136,15 +141,37 @@
 					                    <form:option value="${group.value.name}" label="${group.value.name}" />
 					                </c:forEach>								
 								</form:select>
-			                    <p>&nbsp;</p>
+			                    </div>	
+								<div class="filter_select">
 			                    
 			                    <label class="form-label">ГОД ВЫПУСКА</label>
-			                    <select class="form-control" style="margin: 5px" title="Выборка по году выпуска">
-			                    <option>1950</option>
+			                    <select class="form-control" title="Выборка по году выпуска">
+			                    <option>Не установлен</option>
 			                    <option>1960</option>
 			                    <option>1970</option>
 			                    <option>1980</option>
 			                    </select>
+			                    </div>	
+			                    
+			                    <div class="filter_select">
+			                    <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
+			                    <select class="form-control" title="Выборка по производителю">
+			                    <option>Не установлен</option>
+			                    <option>Кранбау-Эберсвальде</option>
+			                    <option>Ганц</option>
+			                    <option>СММ</option>
+			                    </select>
+			                    </div>	
+			                    
+			                    <div class="filter_select">
+			                    <label class="form-label">МОДЕЛЬ</label>
+			                    <select class="form-control" title="Выборка по модели">
+			                    <option>Не установлен</option>
+			                    <option>Альбатрос 10/20т</option>
+			                    <option>Кондор 16/20/32т</option>
+			                    <option>Сокол 16/20/32т</option>
+			                    </select>
+			                    </div>	
 			                    <hr>
 			                    <div class="input-group" style="margin: 5px">
 								    <label class="form-label">ПОИСК</label>

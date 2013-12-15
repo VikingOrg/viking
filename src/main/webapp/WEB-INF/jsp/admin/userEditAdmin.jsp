@@ -24,6 +24,7 @@
 			    <div class="container">
 			      <div class="masthead">
 			        <div class="container">
+			        <div class="row">
 			          <div class="col-md-10 col-md-offset-1">
 			      		<c:choose>
 					      <c:when test="${registrationCommand.formType=='E'}">
@@ -42,12 +43,12 @@
 								<button type="button" class="close" data-dismiss="alert">&times;</button>
 							</div>			
 						</c:if>
-															          
+						</div>									          
 			          </div>
 			        </div>
 			      </div>
 			      <div class="row">
-			        <div class="col-md-4 col-md-offset-1 col-xs-6">
+			        <div class="col-sm-4 col-sm-offset-1">
 			        	<div class="form-group">
 			            	<label class="form-label">РОЛЬ В СИСТЕМЕ</label>
 							<form:select path="userRole" cssClass="form-control">
@@ -105,7 +106,7 @@
 			            </div>
 			          </div>
 			        </div>
-			        <div class="col-md-4 col-md-offset-1 col-xs-6">
+			        <div class="col-sm-4 col-sm-offset-1">
 			        	<label class="form-label">СТРАНА</label>
 						<form:select path="user.countryId" cssClass="form-control"> 
 			                <c:forEach items="${registrationCommand.userCountry}" var="country">
@@ -152,7 +153,7 @@
 				
 		    <div class="container">
 		      <div class="row">
-		        <div class="col-md-4 col-md-offset-1">
+		        <div class="col-sm-4 col-sm-offset-1">
 		          <div class="form-actions">
 		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">СОХРАНИТЬ &raquo;</button>
 		            <button type="button" class="btn btn-default" 

@@ -72,7 +72,7 @@
 			      <div class="row">
 			        <div class="col-md-4 col-md-offset-1">
 			          <div class="form-actions">
-			            <button type="submit" class="btn btn-primary">ОТПРАВИТЬ »</button>
+			            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmSend">ОТПРАВИТЬ »</button>
 			            <button type="button" class="btn btn-default" 
 			            	onclick="window.location.href = '<c:url value="login"/>';" 
 			            	value="Klick">ОТМЕНИТЬ &raquo;
@@ -81,7 +81,24 @@
 			        </div>
 			      </div>
 			    </div>
-					
+				<!-- 		Модальное окно подтверждения запроса восстановления пароля -->
+					<div class="modal" id="confirmSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title">ВНИМАНИЕ!</h4>
+					      </div>
+					      <div class="modal-body" align="center">
+					        <h3>ЗАПРОС НА ВОССТАНОВЛЕНИЕ ПАРОЛЯ ПРИНЯТ!</h3>
+					        <h5>В течение суток на ваш E-Mail будет выслана ссылка на форму смены пароля</h5>
+					      </div>
+					      <div class="modal-footer">
+					        <a href="<c:url value="login" />" class="btn btn-primary" type="submit" class="btn btn-primary">ОК</a>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->	
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
 		<div id="footer">

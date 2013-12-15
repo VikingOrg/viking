@@ -17,7 +17,10 @@
 	    
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-
+	    <script src="static/js/jqBootstrapValidation.js"></script>
+		<script>
+		  $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+		</script>	
 		
 	</head>
 	<body>
@@ -49,7 +52,8 @@
 		          <div class="form-group">
 		            <div class="controls">
 		            	<label class="form-label">ФАМИЛИЯ</label>
-		            	<form:input path="user.lastName" cssClass="form-control" title="Введите свою фамилию"/>
+		            	<form:input path="user.lastName" cssClass="form-control" type="text" minlength="2" title="Введите свою фамилию" />
+		            	<p class="help-block"></p>
 		            	<form:errors class="invalid" path="user.lastName"/>
 		            </div>
 		          </div>
@@ -141,7 +145,7 @@
 		          </div>
 		          	<div class="row text-left">
 		            	<p>&nbsp;</p>
-		            	<a href="#">* УСЛОВИЯ ПОЛЬЗОВАНИЯ</a>
+		            	<a href="<c:url value="static/html/rules.html"/>">* УСЛОВИЯ ПОЛЬЗОВАНИЯ</a>
 		            </div>
 		        </div>
 		      </div>

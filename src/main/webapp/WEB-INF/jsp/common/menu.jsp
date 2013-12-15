@@ -10,6 +10,7 @@
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
         
 			   <!-- Fixed navbar -->
+			   <nav class="navbar navbar-default" role="navigation">
 			  <div class="navbar navbar-default navbar-fixed-top">
 			    <div class="container">
 			      <div class="navbar-header">
@@ -88,9 +89,11 @@
 				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
 				        </li>
 				    </ul>
-			       </div><!--/.nav-collapse -->
+			       </div>
+			       <!--/.nav-collapse -->
 			       
 			    </div>
 			  </div>   
+			  </nav>
 
 
