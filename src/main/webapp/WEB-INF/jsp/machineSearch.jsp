@@ -31,15 +31,18 @@
                	               null,
                	               null,
                	               null,
+               	            { "bSortable": false },
                	               null,
-               	               null,
+               	            	null,
                	               { "bSortable": false },
+               	        	    { "bSortable": false },
+               	      		   { "bSortable": false },
+               	     			 { "bSortable": false },
+               	   				{ "bSortable": false },
                	               null,
+               	            	{ "bSortable": false },
                	               null,
-               	               null,
-               	               { "bSortable": false },
-		               	       { "bSortable": false },
-		               	       { "bSortable": false },
+               	            	null,
 		               	       { "bSortable": false },
 		               	 	   { "bSortable": false },
 				               { "bSortable": false },
@@ -82,6 +85,13 @@
 			.filter_select {
 				padding-top: 10px;
 			}
+			th {
+            text-align: center;
+            white-space:nowrap;
+          }
+          td {
+            white-space:nowrap;
+          }
         </style>
 	</head>
 	<body>
@@ -203,20 +213,23 @@
 			                          <thead>
 			                              <tr>
 				                              <th><input type="checkbox" id="selectAll"></th>
-				                              <th>Группа(machine.group.name)&nbsp;<span class="caret"></span></th>
-				                              <th>Наименование(machine.model.name)&nbsp;<span class="caret"></span></th>
-				                              <th>Компания(machine.stevidor.fullName)</th>
-				                              <th>Модель(machine.model.details)</th>
-				                              <th>Год выпуска</th>
+				                              <th>Группа(machine.group.name)&nbsp;&nbsp;</th>
+				                              <th>Модель(machine.model.name)&nbsp;&nbsp;</th>
+				                              <th>Компания(machine.stevidor.fullName)&nbsp;&nbsp;</th>
+				                              <th>Характеристики(machine.model.details)&nbsp;&nbsp;</th>
+				                              <th>Производитель&nbsp;&nbsp;</th>
+				                              <th>Год выпуска&nbsp;&nbsp;</th>
 				                              <th>Дата ввода в эксплуатацию</th>
-				                              <th>Документ ввода в эксплуатацию</th>
-				                              <th>Инв. номер</th>
-				                              <th>TRANC</th>
-				                              <th>Зав. номер</th>
-				                              <th>Место установк</th>
-				                              <th>Производитель</th>
-				                              <th>Порт</th>
-				                              <th>Страна</th>
+				                              <th>Контракт №</th>
+				                              <th>Инвентарный №</th>
+				                              <th>Транс №</th>
+				                              <th>Заводской №</th>
+				                              <th>Страна призводства&nbsp;&nbsp;</th>
+				                              <th>Место установки</th>
+				                              <th>Порт&nbsp;&nbsp;</th>
+				                              <th>Страна&nbsp;&nbsp;</th>
+				                              <th>Номенклатурный №</th>
+				                              <th>Регистрационный №</th>
 				                              <th>Примечания</th>
 				                              <th>Описание Машины</th>
 			                              </tr>
@@ -225,28 +238,31 @@
 			                          	<c:forEach var="machine"  items="${machineSearchCommand.machineList}" >
 				                            <tr>
 				                              <td><input type="checkbox"></td>
-				                              <td class="nowrap">
+				                              <td>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
 				                              		<c:out value="${machine.group.name}"/>
 				                              </td>
-					                          <td class="nowrap">
+					                          <td>
 					                         		<c:out value="${machine.model.name}"/>
 					                          </td>
-				                              <td class="nowrap"><c:out value="${machine.stevidor.fullName}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.model.details}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.releaseYear}"/></td>
-				                              <td class="nowrap"><spring:eval expression="machine.startDate" /></td>
-				                              <td class="nowrap">№<c:out value="${machine.doc}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.inventoryNumb}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.transNumb}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.factoryNumb}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.location}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.model.manufacturer.name}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.stevidor.port.name}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.stevidor.port.country.nameRus}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.note}"/></td>
-				                              <td class="nowrap"><c:out value="${machine.name}"/></td>
+				                              <td><c:out value="${machine.stevidor.fullName}"/></td>
+				                              <td><c:out value="${machine.model.details}"/></td>
+				                              <td><c:out value="${machine.model.manufacturer.name}"/></td>
+				                              <td><c:out value="${machine.releaseYear}"/></td>
+				                              <td><spring:eval expression="machine.startDate" /></td>
+				                              <td>№<c:out value="${machine.doc}"/></td>
+				                              <td><c:out value="${machine.inventoryNumb}"/></td>
+				                              <td><c:out value="${machine.transNumb}"/></td>
+				                              <td><c:out value="${machine.factoryNumb}"/></td>
+				                              <td></td>
+				                              <td><c:out value="${machine.location}"/></td>
+				                              <td><c:out value="${machine.stevidor.port.name}"/></td>
+				                              <td><c:out value="${machine.stevidor.port.country.nameRus}"/></td>
+				                              <td></td>
+				                              <td></td>
+				                              <td><c:out value="${machine.note}"/></td>
+				                              <td><c:out value="${machine.name}"/></td>
 											   
 				                            </tr>
 			                            </c:forEach>

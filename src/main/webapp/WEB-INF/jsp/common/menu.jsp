@@ -19,7 +19,7 @@
 			          <span class="icon-bar"></span>
 			          <span class="icon-bar"></span>
 			        </button>
-			        <a class="navbar-brand" href="#">ИТТ24</a>
+			        <a class="navbar-brand" href="#" style="color: #569EF0">ИТТ24</a>
 			      </div>
 			      <div class="collapse navbar-collapse">
 			        <ul class="nav navbar-nav">
@@ -73,7 +73,7 @@
 			        </ul>
 			        <ul class="nav navbar-nav navbar-right">
 			        	<li>
-				          <a> ${userModel.lastName}&nbsp;${userModel.firstName}</a>
+				          <a style="color: #569EF0"> ${userModel.lastName}&nbsp;${userModel.firstName}</a>
 				        </li>
 			        	<li>
 						    <a href="?lang=ru">

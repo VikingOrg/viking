@@ -46,12 +46,12 @@
 			        </div>
 			      </div>
 			      <div class="row">
-			        <div class="col-md-4 col-md-offset-1 col-xs-6">
+			        <div class="col-sm-4 col-sm-offset-1">
 			        
 			          <spring:bind path="machine.model.name">
 				        <div class="form-group ${status.error ? 'has-error' : ''}">
 				        	<div class="controls">
-					            <label class="form-label">НАИМЕНОВАНИЕ(Модели)</label>
+					            <label class="form-label">МОДЕЛЬ</label>
 					            <form:input path="machine.model.name" id="model_name" cssClass="form-control" title="Модель"/>
 					            <form:errors for="model_name" class="control-label" path="machine.model.name"/>
 				            </div>
@@ -60,7 +60,7 @@
 
 			          <div class="form-group">
 			            <div class="controls">
-			            <label class="form-label">ХАРАКТЕРИСТИКИ МОДЕЛИ</label>
+			            <label class="form-label">ХАРАКТЕРИСТИКИ</label>
 			              <input type="email" class="form-control" name="details" title="Укажите характеристики модели">
 			            </div>
 			          </div>
@@ -73,60 +73,77 @@
 
 			            <div class="form-group">
 				            <div class="controls">
-				            <label class="form-label">ДАТА ВВОДА ВЭКСПЛУАТАЦИЮ</label>
-				              <input type="email" class="form-control" name="begin_date" title="Укажите дату ввода в эксплуатацию">
+				            <label class="form-label">ДАТА ВВОДА В ЭКСПЛУАТАЦИЮ</label>
+				              <input type="text" class="form-control" name="begin_date" title="Укажите дату ввода в эксплуатацию">
 				            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			                <label class="form-label">КОНТРАКТ №</label>
-			              <input type="password" class="form-control" title="Укажите документ ввода в эксплуатацию" name="doc">
+			              <input type="text" class="form-control" title="Укажите документ ввода в эксплуатацию" name="doc">
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">ТРАНС №</label>
-			              <input type="password" class="form-control" name="tranc" title="Укажите TRANC">
+			              <input type="text" class="form-control" name="tranc" title="Укажите номер Транса">
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">ЗАВОДСКОЙ №</label>
-			              <input type="password" class="form-control" name="serial" title="Укажите заводской номер">
+			              <input type="text" class="form-control" name="serial" title="Укажите заводской номер">
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">НОМЕНКЛАТУРНЫЙ №</label>
-			              <input type="password" class="form-control" name="serial" title="Укажите заводской номер">
+			              <input type="text" class="form-control" name="serial" title="Укажите номенклатурный номер">
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">РЕГИСТРАЦИОННЫЙ №</label>
-			              <input type="password" class="form-control" name="serial" title="Укажите заводской номер">
+			              <input type="text" class="form-control" name="serial" title="Укажите регистрационный номер">
 			            </div>
 			          </div>
 			          
 			        </div>
-			        <div class="col-md-4 col-md-offset-1 col-xs-6">
+			        <div class="col-sm-4 col-sm-offset-1">
 			        	<div class="form-group">
 				          <label class="form-label">ГРУППА</label>
 				          <select class="form-control" name="stevidor">
 				          	<option>Выбрать</option>
-				            <option>1-я Стивидорная</option>
-				            <option>2-я Стивидорная</option>
-				            <option>3-я Стивидорная</option>
+				            <option>Портальные краны</option>
+				            <option>Погрузчики</option>
+				            <option>Экскаваторы</option>
 				          </select>
 			        	</div>
-		        		
+		        		<div class="form-group">
+				          <label class="form-label">СТРАНА</label>
+				          <select class="form-control" name="stevidor">
+				          	<option>Выбрать</option>
+				            <option>РОССИЯ</option>
+				            <option>УКРАИНА</option>
+				            <option>ЛАТВИЯ</option>
+				          </select>
+			        	</div>	
+			        	<div class="form-group">
+				          <label class="form-label">ПОРТ</label>
+				          <select class="form-control" name="stevidor">
+				          	<option>Выбрать</option>
+				            <option>С-Петербургски</option>
+				            <option>Выборгский</option>
+				            <option>Высоцкий</option>
+				          </select>
+			        	</div>	
 			        	<div class="form-group">
 				          <label class="form-label">КОМПАНИЯ(Собственник)</label>
 				          <select class="form-control" name="stevidor">
 				          	<option>Выбрать</option>
-				            <option>1-я Стивидорная</option>
-				            <option>2-я Стивидорная</option>
-				            <option>3-я Стивидорная</option>
+				            <option>Петролеспор</option>
+				            <option>ББТ</option>
+				            <option>С-Петербург</option>
 				          </select>
 			        	</div>			        		
 			        	<div class="form-group">
@@ -137,7 +154,16 @@
 				            <option>LIEBHERR</option>
 				            <option>HUYSTER</option>
 				          </select>
-			        	</div>			        		
+			        	</div>	
+			        	<div class="form-group">
+				          <label class="form-label">СТРАНА ПРОИЗВОДСТВА</label>
+				          <select class="form-control" name="manufacturer">
+				          	<option>Выбрать</option>
+				            <option>РОССИЯ</option>
+				            <option>ГЕРМАНИЯ</option>
+				            <option>ЯПОНИЯ</option>
+				          </select>
+			        	</div>		        		
 			        	<div class="form-group">
 			                <label class="form-label">ГОД ПРОИЗВОДСТВА</label>
 			                <select class="form-control" name="prod_year">
@@ -166,7 +192,7 @@
 			    </div>
 			    <div class="container">
 			      <div class="row">
-			        <div class="col-md-4 col-md-offset-1">
+			        <div class="col-sm-4 col-sm-offset-1">
 			          <div class="form-actions">
 			            <button type="submit" class="btn btn-primary">СОХРАНИТЬ &raquo;</button>
 			            <button type="button" class="btn btn-default">ОТМЕНА &raquo;</button>
