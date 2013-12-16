@@ -129,7 +129,7 @@
 				
 		    <div class="container">
 		      <div class="row">
-		        <div class="col-sm-4 col-sm-offset-1">
+		        <div class="col-sm-10 col-sm-offset-1">
 		          <div class="form-actions">
 		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">СОХРАНИТЬ &raquo;</button>
 		            <button type="button" class="btn btn-default" 
@@ -144,10 +144,6 @@
 		<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title">ВНИМАНИЕ!</h4>
-		      </div>
 		      <div class="modal-body">
 		        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
 		      </div>

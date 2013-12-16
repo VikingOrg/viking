@@ -21,6 +21,7 @@
 			<!-- Begin page content -->
 		    <div class="container">
 			<form:form id="registration" action="stevidorEdit" commandName="stevidorEditCommand" method="post" accept-charset="UTF-8">
+			    <!-- 			    Контейнер заголовка блока контента -->
 			    <div class="container">
 			      <div class="masthead">
 			        <div class="container">
@@ -48,7 +49,7 @@
 			        </div>
 			      </div>
 			      <div class="row">
-			        <div class="col-md-4 col-md-offset-1 col-xs-6">
+			        <div class="col-sm-4 col-sm-offset-1">
 			        
 			         <spring:bind path="stevidor.name">
 				        <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -71,7 +72,7 @@
 				     </spring:bind>				     			        
 
 			        </div>
-			        <div class="col-md-4 col-md-offset-1 col-xs-6">
+			        <div class="col-sm-4 col-sm-offset-1">
 						<label class="form-label">ПОРТ</label>
 						<form:select path="stevidor.portId" cssClass="form-control">
 						      <c:forEach items="${stevidorEditCommand.userPort}" var="port">
@@ -92,7 +93,7 @@
 			    </div>
 			    <div class="container">
 			      <div class="row">
-			        <div class="col-md-4 col-md-offset-1">
+			        <div class="col-sm-10 col-sm-offset-1">
 			          <div class="form-actions">
 			            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">СОХРАНИТЬ &raquo;</button>
 		           		<button type="button" class="btn btn-default" 
@@ -107,14 +108,10 @@
 				<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				        <h4 class="modal-title">ВНИМАНИЕ!</h4>
-				      </div>
 				      <div class="modal-body">
 				        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
 				      </div>
-				      <div class="modal-footer navbar-fixed-bottom">
+				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
 				        <button type="submit" class="btn btn-primary">СОХРАНИТЬ</button>
 				      </div>

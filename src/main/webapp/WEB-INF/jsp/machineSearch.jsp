@@ -89,7 +89,7 @@
             text-align: center;
             white-space:nowrap;
           }
-          td {
+          	td {
             white-space:nowrap;
           }
         </style>
@@ -112,7 +112,7 @@
 			        
 			        <div class="container-fluid">
 			            <div class="row-fluid">
-			                 <div class="col col-md-3 col-xs-4">
+			                 <div class="col col-sm-4 col-md-3">
 			                     <!--Sidebar content-->
 			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
 			                    
@@ -182,6 +182,9 @@
 			                    <option>Сокол 16/20/32т</option>
 			                    </select>
 			                    </div>	
+			                    <div class="filter_select">
+									<form:button class="btn btn-primary">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></form:button>
+						        </div>
 			                    <hr>
 			                    <div class="input-group" style="margin: 5px">
 								    <label class="form-label">ПОИСК</label>
@@ -189,7 +192,7 @@
 			                        <br><br>
 			                    </div>
 			                 </div>
-			                <div class="col col-md-9  col-xs-8">
+			                <div class="col col-sm-8 col-md-9">
 			                    <!--Body content-->
 			                    
 			                    <!--  Вывод сообщений и предупреждений  -->
@@ -207,7 +210,7 @@
 	                            
 	                            
 	                            
-<!-- 							Таблица со списком пользователей -->
+<!-- 							Таблица со списком машин -->
 			                <div class="table-container">
 			                    <table id="stevidor_table" class="table table-striped table-bordered">
 			                          <thead>

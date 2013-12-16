@@ -24,6 +24,7 @@
 		    <div class="container">
 				<form:form id="machine_edit_form" action="machineEdit" commandName="machineEditCommand" method="post" accept-charset="UTF-8">
 			    <div class="container">
+<!-- 			    Контейнер заголовка блок контента -->
 			      <div class="masthead">
 			        <div class="container">
 			          <div class="col-md-10 col-md-offset-1">
@@ -154,10 +155,10 @@
 			    </div>
 			    <div class="container">
 			      <div class="row">
-			        <div class="col-sm-4 col-sm-offset-1">
+			        <div class="col-sm-10 col-sm-offset-1">
 			          <br>
 			          <div class="form-actions">
-			            <button type="submit" class="btn btn-primary">СОХРАНИТЬ &raquo;</button>
+			            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">СОХРАНИТЬ &raquo;</button>
 			            <button type="button" class="btn btn-default" 
 			            	onclick="window.location.href = '<c:url value="machineSearch"/>';" 
 			            	value="Klick">ОТМЕНА &raquo;</button>
@@ -165,6 +166,23 @@
 			        </div>
 			      </div>
 			    </div>
+			    
+			    
+		    <!-- 		Модальное окно подтверждения сохранения введенных данных -->
+		<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+		        <button type="submit" class="btn btn-primary">СОХРАНИТЬ</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+			    
 			</form:form>		
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->

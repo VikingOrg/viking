@@ -127,7 +127,7 @@
 									</form:select>
 								</div>	
 								<div class="filter_select">
-									<form:button class="btn btn-primary">СБРОС&nbsp;<span class="glyphicon glyphicon-remove" title="Сброс настроек фильтра"></span></form:button>
+									<form:button class="btn btn-primary">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></form:button>
 						        </div>	
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">

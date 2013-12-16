@@ -64,8 +64,6 @@
 				            <ul class="dropdown-menu">
 				              <li><a href="${userSearchUrl}">Список пользователей</a></li>
 				              <li><a href="#">Группы пользователей *</a></li>
-				              <li class="divider"></li>
-				              <li><a href="<c:url value="userEditAdmin"/>">Добавить Пользователя</a></li>
 				            </ul>				            
 				          </li>
 			          </sec:authorize>
