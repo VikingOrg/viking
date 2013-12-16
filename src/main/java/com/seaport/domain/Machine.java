@@ -51,7 +51,7 @@ public class Machine implements Serializable {
 
 	private String note;
 
-	@Column(name="`release _year`")
+	@Column(name="release_year")
 	private String releaseYear;
 
 	@Temporal(TemporalType.TIMESTAMP)

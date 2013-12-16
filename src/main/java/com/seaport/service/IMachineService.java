@@ -19,7 +19,7 @@ public interface IMachineService {
 	public Machine getMachine(Integer machineId);
 	public List<Machine> getMachines();
 	public void saveMachine(Machine machine);
-
+	public Map<Integer, Integer> getYearMap();
 	
 	public Map<Integer, Group> getGroupsMap();
 	public Map<Integer, Model> getModelsMap();

@@ -56,4 +56,7 @@ public class MachineServiceImpl implements IMachineService {
 	public Map<Integer, Manufacturer> getManufacturerMap() {
 		return machineDAO.getManufacturerMap();
 	}
+	public Map<Integer, Integer> getYearMap(){
+		return machineDAO.getYearMap();
+	}
 }

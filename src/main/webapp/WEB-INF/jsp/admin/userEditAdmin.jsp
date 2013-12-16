@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-
+<%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -57,35 +57,11 @@
 							   <form:option value="1" label="АДМИНИСТРАТОР"/>
 							</form:select>			            	
 			          	</div>
-			     
-			         <spring:bind path="user.lastName">
-				        <div class="form-group ${status.error ? 'has-error' : ''}">
-				        	<div class="controls">
-					            <label class="form-label">ФАМИЛИЯ</label>
-					            <form:input path="user.lastName" id="lastName" cssClass="form-control" title="Введите свою фамилию"/>
-					            <form:errors for="lastName" class="control-label" path="user.lastName"/>
-				            </div>
-				        </div>
-				     </spring:bind>
 				     
-			         <spring:bind path="user.firstName">
-				        <div class="form-group ${status.error ? 'has-error' : ''}">
-				        	<div class="controls">
-					            <label class="form-label">ИМЯ</label>
-					            <form:input path="user.firstName" cssClass="form-control" title="Введите своё имя"/>
-					            <form:errors class="control-label" path="user.firstName"/>
-				            </div>
-				        </div>
-				     </spring:bind>
-				     					  
+				     <v:input path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
+				     <v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
+					 <v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
 
-			          <div class="form-group">
-			            <div class="controls">
-			                <label class="form-label">ОТЧЕСТВО</label>
-			                <form:input path="user.middleInitial" cssClass="form-control" title="Введите своё отчество"/>
-			                <form:errors class="control-label" path="user.middleInitial"/>
-			            </div>
-			          </div>
 			          <div class="form-group">
 			            <div class="controls">
 			            <label class="form-label">E-MAIL</label>

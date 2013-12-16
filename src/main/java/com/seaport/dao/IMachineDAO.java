@@ -26,4 +26,5 @@ public interface IMachineDAO {
 	public Map<Integer, Group> getGroupsMap();
 	public Map<Integer, Model> getModelsMap();
 	public Map<Integer, Manufacturer> getManufacturerMap();
+	public Map<Integer, Integer> getYearMap();
 }

@@ -144,13 +144,13 @@
 									</form:select>
 						          </div>	
 								<div class="filter_select">
-			                    <label class="form-label">ГРУППА</label>
-								<form:select id="groupSelect" path="groupId" cssClass="form-control">
-								    <form:option value="">Не установлен</form:option>
-					                <c:forEach items="${machineSearchCommand.groupMap}" var="group">
-					                    <form:option value="${group.value.name}" label="${group.value.name}" />
-					                </c:forEach>								
-								</form:select>
+				                    <label class="form-label">ГРУППА</label>
+									<form:select id="groupSelect" path="groupId" cssClass="form-control">
+									    <form:option value="">Не установлен</form:option>
+						                <c:forEach items="${machineSearchCommand.groupMap}" var="group">
+						                    <form:option value="${group.value.name}" label="${group.value.name}" />
+						                </c:forEach>								
+									</form:select>
 			                    </div>	
 								<div class="filter_select">
 			                    

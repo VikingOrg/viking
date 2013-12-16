@@ -22,7 +22,7 @@ public class Model implements Serializable {
 
 	@Id
 	@Column(name="model_id")
-	private int modelId;
+	private Integer modelId;
 
 	private String archived;
 
@@ -31,15 +31,15 @@ public class Model implements Serializable {
 	private Date createDate;
 
 	@Column(name="create_user_id")
-	private int createUserId;
+	private Integer createUserId;
 
 	private String details;
 
 	@Column(name="group_id")
-	private int groupId;
+	private Integer groupId;
 
 	@Column(name="manufacturer_id")
-	private int manufacturerId;
+	private Integer manufacturerId;
 
 	private String name;
 
@@ -51,7 +51,7 @@ public class Model implements Serializable {
 	private Date updateDate;
 
 	@Column(name="update_user_id")
-	private int updateUserId;
+	private Integer updateUserId;
 
 	@OneToOne()
 	@JoinColumn(name = "group_id", insertable = false, updatable = false)
@@ -62,6 +62,94 @@ public class Model implements Serializable {
 	private Manufacturer manufacturer;	
 	
 	public Model() {
+	}
+
+	public Integer getModelId() {
+		return modelId;
+	}
+
+	public void setModelId(Integer modelId) {
+		this.modelId = modelId;
+	}
+
+	public String getArchived() {
+		return archived;
+	}
+
+	public void setArchived(String archived) {
+		this.archived = archived;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Integer getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(Integer createUserId) {
+		this.createUserId = createUserId;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
+	public Integer getManufacturerId() {
+		return manufacturerId;
+	}
+
+	public void setManufacturerId(Integer manufacturerId) {
+		this.manufacturerId = manufacturerId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public Integer getUpdateUserId() {
+		return updateUserId;
+	}
+
+	public void setUpdateUserId(Integer updateUserId) {
+		this.updateUserId = updateUserId;
 	}
 
 	public Group getGroup() {
@@ -78,104 +166,6 @@ public class Model implements Serializable {
 
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
-	}
-
-	public int getModelId() {
-		return this.modelId;
-	}
-
-	public void setModelId(int modelId) {
-		this.modelId = modelId;
-	}
-
-	public String getArchived() {
-		return this.archived;
-	}
-
-	public void setArchived(String archived) {
-		this.archived = archived;
-	}
-
-	public Date getCreateDate() {
-		return this.createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public int getCreateUserId() {
-		return this.createUserId;
-	}
-
-	public void setCreateUserId(int createUserId) {
-		this.createUserId = createUserId;
-	}
-
-	public String getDetails() {
-		return this.details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
-
-	public int getGroupId() {
-		return this.groupId;
-	}
-
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
-	}
-
-	public int getManufacturerId() {
-		return this.manufacturerId;
-	}
-
-	public void setManufacturerId(int manufacturerId) {
-		this.manufacturerId = manufacturerId;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getNote() {
-		return this.note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public Date getUpdateDate() {
-		return this.updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public int getUpdateUserId() {
-		return this.updateUserId;
-	}
-
-	public void setUpdateUserId(int updateUserId) {
-		this.updateUserId = updateUserId;
-	}
-
-	@Override
-	public String toString() {
-		return "Model [modelId=" + modelId + ", archived=" + archived
-				+ ", createDate=" + createDate + ", createUserId="
-				+ createUserId + ", details=" + details + ", groupId="
-				+ groupId + ", manufacturerId=" + manufacturerId + ", name="
-				+ name + ", note=" + note + ", updateDate=" + updateDate
-				+ ", updateUserId=" + updateUserId + "]";
 	}
 
 }

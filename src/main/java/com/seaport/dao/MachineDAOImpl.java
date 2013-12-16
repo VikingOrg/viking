@@ -1,5 +1,6 @@
 package com.seaport.dao;
 
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Model;
-import com.seaport.domain.Port;
 
 /**
  * The DAO class that serves any type of Port requests 
@@ -94,5 +94,18 @@ public class MachineDAOImpl implements IMachineDAO {
 		}
 		return manufacturerMap;
 	}
+	
+	public Map<Integer, Integer> getYearMap() {
+		Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
+		Calendar now = Calendar.getInstance();
+		int year = now.get(Calendar.YEAR);		
+		for (int i = 1944; i <= year; i++) {
+			yearMap.put(i, i);
+		}
+		return yearMap;
+	}
+	
+	
+	
 	
 }

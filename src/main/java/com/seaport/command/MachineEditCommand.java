@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
+import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Stevidor;
 
 
@@ -20,12 +21,24 @@ public class MachineEditCommand {
 	private Machine machine = new Machine();
 	private Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 	private Map<Integer, Stevidor> stevidorMap = new LinkedHashMap<Integer,Stevidor>();
+	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
+	private Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
+	
 	private String formType = "N";
 	
-	private Integer groupId;
-	private Integer stevidorId;
 
-	
+	public Map<Integer, Integer> getYearMap() {
+		return yearMap;
+	}
+	public void setYearMap(Map<Integer, Integer> yearMap) {
+		this.yearMap = yearMap;
+	}
+	public Map<Integer, Manufacturer> getManufacturerMap() {
+		return manufacturerMap;
+	}
+	public void setManufacturerMap(Map<Integer, Manufacturer> manufacturerMap) {
+		this.manufacturerMap = manufacturerMap;
+	}
 	public Map<Integer, Stevidor> getStevidorMap() {
 		return stevidorMap;
 	}
@@ -49,18 +62,6 @@ public class MachineEditCommand {
 	}
 	public void setFormType(String formType) {
 		this.formType = formType;
-	}
-	public Integer getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
-	}
-	public Integer getStevidorId() {
-		return stevidorId;
-	}
-	public void setStevidorId(Integer stevidorId) {
-		this.stevidorId = stevidorId;
 	}
 
 	
