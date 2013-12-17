@@ -36,7 +36,7 @@
                 	               null,
                 	               { "bSortable": false },
                 	           ],
-                    "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                    "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
                         "sUrl": "static/js/ru_RU.txt"
@@ -56,9 +56,9 @@
                 $('#stevidorSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 6);
                 });
-                $('#selectAll').click(function (e) {
-                    $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-                });
+//                 $('#selectAll').click(function (e) {
+//                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+//                 });
 
                 
             } );
@@ -66,12 +66,16 @@
     
         </script>
         <style type="text/css">
-			.dataTables_filter {
-			     display: none;
-			}
 			.filter_select {
 				padding-top: 10px;
 			}
+			th {
+            text-align: center;
+            white-space:nowrap;
+          }
+          	td {
+            white-space:nowrap;
+          }
         </style>
                		  
 	</head>
@@ -86,9 +90,9 @@
 				<div class="masthead">
 				    <div class="container-fluid">
 				        <div class="row-fluid">
-			         	 <div class="col-md-10 col-md-offset-1">
-				        	<h4 class="text-muted page-header">СПИСОК ПОЛЬЗОВАТЕЛЕЙ СИСТЕМЫ<br></h4>
-				        </div>
+				         	 <div class="col-md-10 col-md-offset-1">
+					        	<h4 class="text-muted page-header">СПИСОК ПОЛЬЗОВАТЕЛЕЙ СИСТЕМЫ<br></h4>
+					        </div>
 				        </div>
 				    </div>
 				</div>
@@ -126,9 +130,6 @@
 						                </c:forEach>								
 									</form:select>
 								</div>	
-								<div class="filter_select">
-									<form:button class="btn btn-primary">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></form:button>
-						        </div>	
 		                    <hr>
 		                    <div class="input-group" style="margin: 5px">
 							    <label class="form-label">ПОИСК</label>
@@ -160,7 +161,7 @@
 			                    <table id="user_table" class="table table-striped table-bordered">
 			                          <thead>
 			                            <tr>
-			                              <th><input type="checkbox" id="selectAll"></th>
+			                              <th>&nbsp;</th>
 			                              <th>ФИО&nbsp;&nbsp;</th>
 			                              <th>Подразделение&nbsp;&nbsp;</th>
 			                              <th>Должность&nbsp;&nbsp;</th>

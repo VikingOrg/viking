@@ -13,7 +13,6 @@
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
-		<link rel="stylesheet" type="text/css" href="static/css/ColVis.css">
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
@@ -21,7 +20,6 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-		<script type="text/javascript" src="static/js/ColVis.js"></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {
@@ -33,7 +31,7 @@
                 	               null,
                 	               { "bSortable": false },
                 	           ],
-                	           "sDom": 'C<"clear">lfrtip',
+                	           "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
                         "sUrl": "static/js/ru_RU.txt"
@@ -51,18 +49,15 @@
                 	oTable.fnFilter( $(this).val(), 2);
                 });
 
-                $('#selectAll').click(function (e) {
-                    $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-                });
+//                 $('#selectAll').click(function (e) {
+//                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+//                 });
                 
             } );
 
     
         </script>
         <style type="text/css">
-			.dataTables_filter {
-			     display: none;
-			}
 			.filter_select {
 				padding-top: 10px;
 			}
@@ -84,9 +79,11 @@
 	        <div class="container">
 	        	<form:form id="stevidor_search_form" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
 	        	<div class="masthead">
-			        <div class="container">
-			            <div class="row">
+			        <div class="container-fluid">
+			            <div class="row-fluid">
+			            	<div class="col-md-10 col-md-offset-1">
 			                    <h4 class="text-muted page-header">СПИСОК СТИВИДОРНЫХ КОМПАНИЙ<br></h4>
+			            	</div>
 			            </div>
 			        </div>
 		        </div>
@@ -114,9 +111,6 @@
 						                </c:forEach>							
 									</form:select>		          
 						          </div>	
-						          <div class="filter_select">
-									<button class="btn btn-primary" type="reset">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></button>
-						        </div>
 			                    <hr>
 			                    <label class="form-label">ПОИСК</label>
 			                    <div class="input-group" style="margin: 5px">
@@ -145,8 +139,8 @@
 			                    <table id="stevidor_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-			                              <th><input type="checkbox" id="selectAll"></th>
-			                              <th>Наименование&nbsp;&nbsp;</th>
+			                              <th>&nbsp;</th>
+			                              <th>Стивидорная компания&nbsp;&nbsp;</th>
 			                              <th>Порт&nbsp;&nbsp;</th>
 			                              <th>Страна&nbsp;&nbsp;</th>
 			                              <th>Примечания&nbsp;&nbsp;</th>

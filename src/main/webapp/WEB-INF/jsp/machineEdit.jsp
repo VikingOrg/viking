@@ -20,7 +20,7 @@
 		  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		  <script>
 		  $(function() {
-			  $( "#datepicker" ).datepicker( { dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
+			  $( "#datepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
 				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
 // 			us_style  $( "#datepicker" ).datepicker( { dateFormat: "mm/dd/yy", firstDay: 0 });
 		  });

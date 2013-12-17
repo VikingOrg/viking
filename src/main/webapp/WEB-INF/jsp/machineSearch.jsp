@@ -14,7 +14,6 @@
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
-		<link rel="stylesheet" type="text/css" href="static/css/ColVis.css">
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
@@ -22,11 +21,10 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-		<script type="text/javascript" src="static/js/ColVis.js"></script>
 
         <script type="text/javascript">
 	        $(document).ready(function() {
-	        	var oTable = $('#machine_table').dataTable( {
+	        	var oTable = $('#stevidor_table').dataTable( {
 	        		"bProcessing": true,
 	            	"aoColumns": [
                	               { "bSortable": false },
@@ -50,7 +48,7 @@
 				               { "bSortable": false },
 				               { "bSortable": false }
                	           ],
-               	        "sDom": 'C<"clear">lfrtip',
+	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
 	                "sPaginationType": "bootstrap"
                 
 	            } );
@@ -71,23 +69,16 @@
                 $('#groupSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 1);
                 });                
-                $('#selectAll').click(function (e) {
-                    $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-                });
-				$('#resetButton').click(function(r) {
-					var oTable = $('#stevidor_table').dataTable();
-					  // Re-draw the table 
-					  oTable.fnDraw();
-					});
+//                 $('#selectAll').click(function (e) {
+//                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+//                 });
+
                 
             } );
 
     
         </script>
         <style type="text/css">
-			.dataTables_filter {
-			     display: none;
-			}
 			.filter_select {
 				padding-top: 10px;
 			}
@@ -107,10 +98,11 @@
 			<!-- Begin page content -->
 		    <div class="container">
 				<form:form id="machine_search_form" action="machineSearch" commandName="machineSearchCommand" method="post" accept-charset="UTF-8">
+			       
 			            <div class="masthead">
-			                <div class="container">
-			                    <div class="row">
-			                    <div class="col col-md-6">
+			                <div class="container-fluid">
+			                    <div class="row-fluid">
+			                    <div class="col-md-10 col-md-offset-1">
 			                    <h4 class="text-muted page-header">ПОДЪЕМНО-ТРАНСПОРТНОЕ ОБОРУДОВАНИЕ<br></h4></div></div>
 			                </div>
 			            </div>
@@ -187,9 +179,6 @@
 			                    <option>Сокол 16/20/32т</option>
 			                    </select>
 			                    </div>	
-			                    <div class="filter_select">
-									<form:button class="btn btn-primary" id="resetButton">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></form:button>
-						        </div>
 			                    <hr>
 			                    <div class="input-group" style="margin: 5px">
 								    <label class="form-label">ПОИСК</label>
@@ -217,10 +206,10 @@
 	                            
 <!-- 							Таблица со списком машин -->
 			                <div class="table-container">
-			                    <table id="machine_table" class="table table-striped table-bordered">
+			                    <table id="stevidor_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-				                              <th><input type="checkbox" id="selectAll"></th>
+				                              <th>&nbsp;</th>
 				                              <th>Группа(machine.model.group.name)&nbsp;&nbsp;</th>
 				                              <th>Модель(machine.model.name)&nbsp;&nbsp;</th>
 				                              <th>Компания(machine.stevidor.fullName)&nbsp;&nbsp;</th>
