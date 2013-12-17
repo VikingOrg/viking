@@ -1,5 +1,7 @@
 package com.seaport.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.UserSearchCommand;
+import com.seaport.domain.User;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
@@ -50,7 +53,12 @@ public class UserSearchController {
 								@ModelAttribute UserSearchCommand userSearchCommand,
 								BindingResult result, RedirectAttributes redirectAttributes) {
 
-		
+		List<User> userList = userSearchCommand.getUserList();
+		for (User user : userList) {
+//			if (user.) {
+//				
+//			}
+		}
 		return "admin/userSearchAdmin";
 	}
 }
