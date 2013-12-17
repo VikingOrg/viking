@@ -13,7 +13,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.seaport.command.UserDTO;
 import com.seaport.domain.Country;
 import com.seaport.domain.Role;
 import com.seaport.domain.User;
@@ -58,9 +57,10 @@ public class UserDAOImpl implements IUserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getUser(Object[] params){
+	public List<User> getUsers(){
 		return sessionFactory.getCurrentSession().createCriteria(User.class).list();
 	}
+	
 	@Override
 	public void saveUser(User user){
 		/*Setting up default not null values*/
@@ -88,20 +88,5 @@ public class UserDAOImpl implements IUserDAO {
 			countriesMap.put(countries.getCountryId(), countries);
 		}
 		return countriesMap;
-	}
-	
-	@Override
-	public List<UserDTO> getUserDTOs(Object[] params){
-		List<UserDTO> userDtoList = new ArrayList<UserDTO>();
-		List<User> users = getUser(params);
-		for (User user : users) {
-			UserDTO userDTO = new UserDTO();
-			userDTO.setUser(user);
-			userDTO.setCountries(this.getContriesMap().get(user.getCountryId()));
-			userDTO.setPort(portDAO.getPortsMap().get(user.getPortId()));
-			userDTO.setStevidor(portDAO.getStevidorsMap().get(user.getstevidorId()));
-			userDtoList.add(userDTO);
-		}
-		return userDtoList;
 	}
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.seaport.command.UserDTO;
 import com.seaport.dao.IUserDAO;
 import com.seaport.domain.Country;
 import com.seaport.domain.User;
@@ -36,8 +35,8 @@ public class UserServiceImpl implements IUserService {
 		userDAO.saveUser(user);
 	}
 	@Override
-	public List<User> getUser(Object[] params) {
-		return userDAO.getUser(params);
+	public List<User> getUsers() {
+		return userDAO.getUsers();
 	}
 	@Override
 	public User getUser(Integer userId){
@@ -50,10 +49,6 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public Map<Integer, Country> getContriesMap() {
 		return userDAO.getContriesMap();
-	}
-	@Override
-	public List<UserDTO> getUserDTOs(Object[] params) {
-		return userDAO.getUserDTOs(params);
 	}
 	
 }

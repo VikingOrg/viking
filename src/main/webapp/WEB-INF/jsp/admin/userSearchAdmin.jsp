@@ -122,7 +122,7 @@
 									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
 									    <form:option value="">Не установлен</form:option>
 						                <c:forEach items="${userSearchCommand.userStevidor}" var="stevidor">
-						                    <form:option value="${stevidor.value.name}" label="${stevidor.value.name}" />
+						                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
 						                </c:forEach>								
 									</form:select>
 								</div>	
@@ -157,43 +157,42 @@
 <!-- 							Таблица со списком пользователей -->
 		                    <div class="table-container">
 		                    
-		                    <table id="user_table" class="table table-striped table-bordered">
-		                          <thead>
-		                            <tr>
-		                              <th><input type="checkbox" id="selectAll"></th>
-		                              <th>ФИО&nbsp;&nbsp;</th>
-		                              <th>Подразделение&nbsp;&nbsp;</th>
-		                              <th>Должность&nbsp;&nbsp;</th>
-		                              <th>Роль&nbsp;&nbsp;</th>
-		                              <th>E-mail&nbsp;&nbsp;</th>
-		                              <th>Компания&nbsp;&nbsp;</th>
-		                              <th>Порт&nbsp;&nbsp;</th>
-		                              <th>Страна&nbsp;&nbsp;</th>
-		                              <th>Примечания&nbsp;&nbsp;</th>
-		                            </tr>
-		                          </thead>
-		                          <tbody>
-								       <c:forEach var="userDto"  items="${userSearchCommand.userDtoList}" >
-					                       <tr>
-					                       		<td><input type="checkbox"></td>
-					                         	<td class="nowrap">
-					                         		<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         		<a href="<c:url value="userEditAdmin?userId=${userDto.user.userId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         		<c:out value="${userDto.user.lastName} ${userDto.user.firstName} ${userDto.user.middleInitial}"/>
-					                         	</td>
-					                         	<td class="nowrap"><c:out value="${userDto.user.division}"/></td>
-					                         	<td class="nowrap"><c:out value="${userDto.user.occupation}"/></td>
-					                         	<td class="nowrap"><c:out value="${userDto.user.role.role}"/></td>
-					                         	<td class="nowrap"><c:out value="${userDto.user.userEmail}"/></td>
-					                         	<td class="nowrap"><c:out value="${userDto.stevidor.name}"/></td>
-				                              	<td class="nowrap"><c:out value="${userDto.port.name}"/></td>
-				                              	<td class="nowrap"><c:out value="${userDto.countries.nameRus}"/></td>
-				                              	<td class="nowrap"><c:out value="${userDto.user.userNote}"/></td>
-					                       </tr>
-										</c:forEach>                              
-		                          </tbody>
-		                    </table>
-		                    
+			                    <table id="user_table" class="table table-striped table-bordered">
+			                          <thead>
+			                            <tr>
+			                              <th><input type="checkbox" id="selectAll"></th>
+			                              <th>ФИО&nbsp;&nbsp;</th>
+			                              <th>Подразделение&nbsp;&nbsp;</th>
+			                              <th>Должность&nbsp;&nbsp;</th>
+			                              <th>Роль&nbsp;&nbsp;</th>
+			                              <th>E-mail&nbsp;&nbsp;</th>
+			                              <th>Компания&nbsp;&nbsp;</th>
+			                              <th>Порт&nbsp;&nbsp;</th>
+			                              <th>Страна&nbsp;&nbsp;</th>
+			                              <th>Примечания&nbsp;&nbsp;</th>
+			                            </tr>
+			                          </thead>
+			                          <tbody>
+									       <c:forEach var="user"  items="${userSearchCommand.userList}" >
+						                       <tr>
+						                       		<td><input type="checkbox"></td>
+						                         	<td class="nowrap">
+						                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
+						                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+						                         		<c:out value="${user.lastName} ${user.firstName} ${user.middleInitial}"/>
+						                         	</td>
+						                         	<td class="nowrap"><c:out value="${user.division}"/></td>
+						                         	<td class="nowrap"><c:out value="${user.occupation}"/></td>
+						                         	<td class="nowrap"><c:out value="${user.role.role}"/></td>
+						                         	<td class="nowrap"><c:out value="${user.userEmail}"/></td>
+						                         	<td class="nowrap"><c:out value="${user.stevidor.fullName}"/></td>
+					                              	<td class="nowrap"><c:out value="${user.port.name}"/></td>
+					                              	<td class="nowrap"><c:out value="${user.country.nameRus}"/></td>
+					                              	<td class="nowrap"><c:out value="${user.userNote}"/></td>
+						                       </tr>
+											</c:forEach>                              
+			                          </tbody>
+			                    </table>
 	                    
 		                    </div>
 		                </div>

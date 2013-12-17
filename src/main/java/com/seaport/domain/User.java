@@ -36,6 +36,18 @@ public class User implements Serializable {
 	@Column(name = "ID")
 	private Integer userId;
 
+	@OneToOne()
+	@JoinColumn(name = "COUNTRY_ID", insertable = false, updatable = false)
+	private Country country;
+	
+	@OneToOne()
+	@JoinColumn(name = "STEVIDOR_ID", insertable = false, updatable = false)
+	private Stevidor stevidor;
+	
+	@OneToOne()
+	@JoinColumn(name = "PORT_ID", insertable = false, updatable = false)
+	private Port port;
+	
 	@Column(name = "COUNTRY_ID")
 	private Integer countryId;
 	
@@ -44,7 +56,6 @@ public class User implements Serializable {
 	
 	@Column(name="PORT_ID")
 	private int portId;	
-	
 	
 	@NotNull
 	@Size(min = 2, max = 45, message = "{validation.size.firstName}")
@@ -97,7 +108,32 @@ public class User implements Serializable {
 		joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},
 		inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}
 	)
+	
 	private Role role;
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public Stevidor getStevidor() {
+		return stevidor;
+	}
+
+	public void setStevidor(Stevidor stevidor) {
+		this.stevidor = stevidor;
+	}
+
+	public Port getPort() {
+		return port;
+	}
+
+	public void setPort(Port port) {
+		this.port = port;
+	}
 
 	public Integer getUserId() {
 		return userId;
@@ -105,30 +141,6 @@ public class User implements Serializable {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
-	}
-
-	public Integer getCountryId() {
-		return countryId;
-	}
-
-	public void setCountryId(Integer countryId) {
-		this.countryId = countryId;
-	}
-
-	public int getstevidorId() {
-		return stevidorId;
-	}
-
-	public void setstevidorId(int stevidorId) {
-		this.stevidorId = stevidorId;
-	}
-
-	public int getPortId() {
-		return portId;
-	}
-
-	public void setPortId(int portId) {
-		this.portId = portId;
 	}
 
 	public String getFirstName() {
@@ -235,75 +247,37 @@ public class User implements Serializable {
 		this.division = division;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((countryId == null) ? 0 : countryId.hashCode());
-		result = prime * result
-				+ ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result
-				+ ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + portId;
-		result = prime * result
-				+ ((userEmail == null) ? 0 : userEmail.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
+	public Integer getCountryId() {
+		return countryId;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (countryId == null) {
-			if (other.countryId != null)
-				return false;
-		} else if (!countryId.equals(other.countryId))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		if (portId != other.portId)
-			return false;
-		if (userEmail == null) {
-			if (other.userEmail != null)
-				return false;
-		} else if (!userEmail.equals(other.userEmail))
-			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
-		return true;
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
+	}
+
+	public int getStevidorId() {
+		return stevidorId;
+	}
+
+	public void setStevidorId(int stevidorId) {
+		this.stevidorId = stevidorId;
+	}
+
+	public int getPortId() {
+		return portId;
+	}
+
+	public void setPortId(int portId) {
+		this.portId = portId;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", countryId=" + countryId
-				+ ", stevidorId=" + stevidorId + ", portId=" + portId
-				+ ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", middleInitial=" + middleInitial + ", userEmail="
-				+ userEmail + ", login=" + login + ", password=" + password
+		return "User [userId=" + userId + ", country=" + country
+				+ ", stevidor=" + stevidor + ", port=" + port + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", middleInitial="
+				+ middleInitial + ", userEmail=" + userEmail + ", login="
+				+ login + ", password=" + password + ", division=" + division
 				+ ", occupation=" + occupation + ", userNote=" + userNote
 				+ ", createDate=" + createDate + ", updateUserId="
 				+ updateUserId + ", updateDate=" + updateDate + ", role="

@@ -8,6 +8,7 @@ import java.util.Map;
 import com.seaport.domain.Country;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
+import com.seaport.domain.User;
 
 /**
  * The abstract form class contains common data to be shared by others 
@@ -18,7 +19,7 @@ import com.seaport.domain.Stevidor;
  */
 public class UserSearchCommand {
 	
-	private List<UserDTO> userDtoList = new ArrayList<UserDTO>();
+	private List<User> userList = new ArrayList<User>();
 	private Map<Integer, Port> userPort = new LinkedHashMap<Integer,Port>();
 	private Map<Integer, Stevidor> userStevidor = new LinkedHashMap<Integer,Stevidor>();
 	private Map<Integer, Country> userCountry = new LinkedHashMap<Integer,Country>();
@@ -27,6 +28,14 @@ public class UserSearchCommand {
 	private Integer countryId;
 	private Integer stevidorId;
 
+
+	public List<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
 
 	public Integer getPortId() {
 		return portId;
@@ -76,12 +85,4 @@ public class UserSearchCommand {
 		this.userCountry = userCountry;
 	}
 
-	public List<UserDTO> getUserDtoList() {
-		return userDtoList;
-	}
-
-	public void setUserDtoList(List<UserDTO> userDtoList) {
-		this.userDtoList = userDtoList;
-	}
-	
 }
