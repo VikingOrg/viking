@@ -216,7 +216,7 @@
 			                          <thead>
 			                              <tr>
 				                              <th><input type="checkbox" id="selectAll"></th>
-				                              <th>Группа(machine.group.name)&nbsp;&nbsp;</th>
+				                              <th>Группа(machine.model.group.name)&nbsp;&nbsp;</th>
 				                              <th>Модель(machine.model.name)&nbsp;&nbsp;</th>
 				                              <th>Компания(machine.stevidor.fullName)&nbsp;&nbsp;</th>
 				                              <th>Характеристики(machine.model.details)&nbsp;&nbsp;</th>
@@ -240,11 +240,14 @@
 			                          <tbody>
 			                          	<c:forEach var="machine"  items="${machineSearchCommand.machineList}" >
 				                            <tr>
-				                              <td><input type="checkbox"></td>
+				                              <td>
+				                              	<input type="checkbox">
+				                              	<c:out value="(${machine.machineId})"/>
+				                              </td>
 				                              <td>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-				                              		<c:out value="${machine.group.name}"/>
+				                              		<c:out value="${machine.model.group.name}"/>
 				                              </td>
 					                          <td>
 					                         		<c:out value="${machine.model.name}"/>

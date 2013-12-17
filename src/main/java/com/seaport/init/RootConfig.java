@@ -16,6 +16,8 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.seaport.utils.SessionConstants;
+
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("com.seaport")
@@ -55,6 +57,15 @@ public class RootConfig {
 		String value = System.getenv(envVarName);
 		if (value == null || value.length() == 0) value = defaultValue;
 		return value;
+	}
+	
+	@Bean
+//	@Scope("prototype")
+	public SessionConstants sessionConstants(){
+		SessionConstants sessionConstants = new SessionConstants();
+		String value = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+		if (value != null) sessionConstants.setLocalConfig(true);		
+		return sessionConstants;
 	}
 	
 	@Bean

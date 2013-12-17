@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.seaport.command.BlankCommand;
 import com.seaport.command.MachineEditCommand;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
@@ -71,7 +69,7 @@ public class MachineEditController {
 			return "machineSearch";
 		}
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-//		machineService.saveMachine(machineEditCommand.getMachine());
+		machineService.saveMachine(machineEditCommand.getMachine());
 		return "redirect:machineSearch";
 	}
 	

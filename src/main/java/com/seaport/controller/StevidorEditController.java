@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.StevidorEditCommand;
+import com.seaport.dao.ISystemDAO;
 import com.seaport.domain.User;
 import com.seaport.service.IPortService;
 import com.seaport.utils.SessionConstants;
@@ -35,6 +36,8 @@ import com.seaport.utils.SessionConstants;
 public class StevidorEditController {
 	@Autowired
 	private IPortService portService;
+	@Autowired
+	private ISystemDAO systemRepo;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
@@ -66,7 +69,7 @@ public class StevidorEditController {
 			return "stevidorEdit";
 		}
 		
-		/*Setting up default not null values*/
+		/*Setting up default not null values.*/
 		Timestamp updateDate = new Timestamp(new Date().getTime());
 		User user = (User)request.getSession().getAttribute(SessionConstants.USER_MODEL);
 		if (stevidorEditCommand.getStevidor().getStevidorId()== null) {

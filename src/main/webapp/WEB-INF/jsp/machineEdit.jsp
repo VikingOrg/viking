@@ -78,7 +78,7 @@
 			        <div class="col-sm-4 col-sm-offset-1">
 			        	<div class="form-group">
 		                    <label class="form-label">ГРУППА</label>
-							<form:select id="groupSelect" path="machine.groupId" cssClass="form-control">
+							<form:select id="groupSelect" path="machine.model.groupId" cssClass="form-control">
 							    <form:option value="">Не выбрана</form:option>
 				                <c:forEach items="${machineEditCommand.groupMap}" var="group">
 				                    <form:option value="${group.key}" label="${group.value.name}" />

@@ -20,16 +20,11 @@ public class Machine implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	@Column(name="machine_id")
 	private Integer machineId;
 
 	private String archived;
-
-	@Column(name="create_date")
-	private String createDate;
-
-	@Column(name="create_user_id")
-	private Integer createUserId;
 
 	private String doc;
 
@@ -44,8 +39,8 @@ public class Machine implements Serializable {
 
 	private String location;
 
-	@Column(name="model_id")
-	private Integer modelId;
+//	@Column(name="model_id")
+//	private Integer modelId;
 
 	private String name;
 
@@ -65,18 +60,26 @@ public class Machine implements Serializable {
 	@Column(name="trans_numb")
 	private String transNumb;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="create_date")
+	private Date createDate;
+
+	@Column(name="create_user_id")
+	private int createUserId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
-	private String updateDate;
+	private Date updateDate;
 
 	@Column(name="update_user_id")
-	private Integer updateUserId;
-
+	private int updateUserId;
+	
 	@OneToOne()
 	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
 	private Stevidor stevidor;
 	
-	@OneToOne()
-	@JoinColumn(name = "model_id", insertable = false, updatable = false)
+	@OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "model_id", insertable = true, updatable = true)
 	private Model model;
 	
 	@OneToOne()
@@ -144,21 +147,6 @@ public class Machine implements Serializable {
 		this.archived = archived;
 	}
 
-	public String getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-	public Integer getCreateUserId() {
-		return createUserId;
-	}
-
-	public void setCreateUserId(Integer createUserId) {
-		this.createUserId = createUserId;
-	}
 
 	public String getDoc() {
 		return doc;
@@ -200,13 +188,13 @@ public class Machine implements Serializable {
 		this.location = location;
 	}
 
-	public Integer getModelId() {
-		return modelId;
-	}
-
-	public void setModelId(Integer modelId) {
-		this.modelId = modelId;
-	}
+//	public Integer getModelId() {
+//		return modelId;
+//	}
+//
+//	public void setModelId(Integer modelId) {
+//		this.modelId = modelId;
+//	}
 
 	public String getName() {
 		return name;
@@ -250,21 +238,45 @@ public class Machine implements Serializable {
 		this.transNumb = transNumb;
 	}
 
-	public String getUpdateDate() {
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+
+	public int getCreateUserId() {
+		return createUserId;
+	}
+
+
+	public void setCreateUserId(int createUserId) {
+		this.createUserId = createUserId;
+	}
+
+
+	public Date getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(String updateDate) {
+
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
-	public Integer getUpdateUserId() {
+
+	public int getUpdateUserId() {
 		return updateUserId;
 	}
 
-	public void setUpdateUserId(Integer updateUserId) {
+
+	public void setUpdateUserId(int updateUserId) {
 		this.updateUserId = updateUserId;
 	}
+
 
 	@Override
 	public String toString() {
@@ -273,7 +285,7 @@ public class Machine implements Serializable {
 				+ createUserId + ", doc=" + doc + ", factoryNumb="
 				+ factoryNumb + ", groupId=" + groupId + ", inventoryNumb="
 				+ inventoryNumb + ", location=" + location + ", modelId="
-				+ modelId + ", name=" + name + ", note=" + note
+				+  ", name=" + name + ", note=" + note
 				+ ", releaseYear=" + releaseYear + ", startDate=" + startDate
 				+ ", stevidorId=" + stevidorId + ", transNumb=" + transNumb
 				+ ", updateDate=" + updateDate + ", updateUserId="
