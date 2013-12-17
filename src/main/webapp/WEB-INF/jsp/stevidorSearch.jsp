@@ -26,13 +26,13 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#stevidor_table').dataTable( {
-//             	"aoColumns": [
-//                 	               { "bSortable": false },
-//                 	               null,
-//                 	               null,
-//                 	               null,
-//                 	               { "bSortable": false },
-//                 	           ],
+            	"aoColumns": [
+                	               { "bSortable": false },
+                	               null,
+                	               null,
+                	               null,
+                	               { "bSortable": false },
+                	           ],
                 	           "sDom": 'C<"clear">lfrtip',
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
