@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-    
-    <head>
+   <head>
     <meta charset="utf-8">
         <title>Отчет по количественному составу механизмов</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,8 +39,44 @@
             
 		</script>
     </head>
+    <body class="">	    
+			   <!-- Fixed navbar -->
+			   <nav class="navbar navbar-default" role="navigation">
+			  <div class="navbar navbar-default navbar-fixed-top">
+			    <div class="container">
+			      <div class="navbar-header">
+			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			          <span class="icon-bar"></span>
+			          <span class="icon-bar"></span>
+			          <span class="icon-bar"></span>
+			        </button>
+			        <a class="navbar-brand" href="#" style="color: #569EF0">ИТТ24</a>
+			      </div>
+			      <div class="collapse navbar-collapse">
+			        <ul class="nav navbar-nav">
+						<li ><a href="/home">Главная</a></li>
+			          <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
+			            <ul class="dropdown-menu">
+			              <li><a href="deviceReport.html">Количественный состав</a></li>
+			              <li><a href="deviceYearsReport.html">Разрез по годам</a></li>
+			            </ul>
+			          </li>
+			          
+			        </ul>
+			        <ul class="nav navbar-nav navbar-right">
+				        <li>
+				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
+				        </li>
+				    </ul>
+			       </div>
+			       <!--/.nav-collapse -->
+			       
+			    </div>
+			  </div>   
+			  </nav>
+   
     
-    <body class="">
         <div class="container-fluid">
             <div class="masthead">
                 <div class="container">
@@ -62,25 +97,24 @@
                     <table class="table table-striped table-bordered" id="example">
                           <thead>
                               <tr>
-    		<th>Компания</td>
-			<th>Портальный кран</td>
-			<th>Полупортальный кран</td>
-			<th>Пневмоколесный кран</td>
-			<th>Автомобильный кран</td>
-			<th>Железнодорожный кран</td>
-			<th>Мобильный кран</td>
-			<th>Гусеничный кран</td>
-			<th>Плавучий кран</td>
-			<th>ВСЕГО</td>
+    		<th>Компания</th>
+			<th>Портальный кран</th>
+			<th>Полупортальный кран</th>
+			<th>Пневмоколесный кран</th>
+			<th>Автомобильный кран</th>
+			<th>Железнодорожный кран</th>
+			<th>Мобильный кран</th>
+			<th>Гусеничный кран</th>
+			<th>Плавучий кран</th>
+			<th>ВСЕГО</th>
 		</tr>
                           </thead>
                           <tbody>
-						  </tr>
 						  <tr><td  nowrap>ББТ</td><td>1</td><td>3</td><td>0</td><td>5</td><td>2</td><td>0</td><td>2</td><td>0</td><td>13</td></tr>
 						  <tr><td  nowrap>ПЛП</td><td>2</td><td>5</td><td>6</td><td>7</td><td>1</td><td>1</td><td>0</td><td>0</td><td>22</td></tr>
 						  <tr><td  nowrap>МТП Усть-Луга</td><td>2</td><td>6</td><td>2</td><td>0</td><td>0</td><td>5</td><td>3</td><td>2</td><td>20</td></tr>
 						  <tr><td  nowrap>Выборг</td><td>2</td><td>10</td><td>3</td><td>0</td><td>5</td><td>6</td><td>3</td><td>1</td><td>30</td></tr>
-						  <tr><td c nowrap>Высоцк</td><td>4</td><td>6</td><td>7</td><td>3</td><td>0</td><td>5</td><td>7</td><td>3</td><td>35</td></tr>
+						  <tr><td  nowrap>Высоцк</td><td>4</td><td>6</td><td>7</td><td>3</td><td>0</td><td>5</td><td>7</td><td>3</td><td>35</td></tr>
 						  <tr><td  nowrap>Мурманск</td><td>4</td><td>4</td><td>6</td><td>2</td><td>0</td><td>6</td><td>7</td><td>2</td><td>31</td></tr>
 						  <tr><td  nowrap>Кандалакша</td><td>10</td><td>3</td><td>4</td><td>5</td><td>0</td><td>8</td><td>0</td><td>0</td><td>30</td></tr>
                           
@@ -94,19 +128,48 @@
 
 
 
+<div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-1">
+          <div class="form-actions">
+            <INPUT TYPE="button" class="btn btn-default" VALUE="НАЗАД" onClick="history.go(-1);">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<!-- Site footer -->
+   <div class="footer">
+     <p class="text-center"><a href="about.html">О Системе</a>
+     	&nbsp;|&nbsp;
+     	<a href="participants.html">&nbsp;Участники</a>
+     	&nbsp;|&nbsp;
+     	<a href="rules.html">&nbsp;Правила</a>
+     	&nbsp;|&nbsp;
+     	<a href="support.html">&nbsp;Поддержка</a>
+     	&nbsp;|&nbsp;
+     	<a href="help.html">Справка</a>
 
-
-
-
-
-
-
-
-
-
-
-
-
+     </p>
+     <p class="text-center">&copy; ООО "ИТТ", 2013&nbsp;</p>
+   </div>
+   
+    		        
+					    <!-- 		Модальное окно подтверждения выхода из системы -->
+					<div class="modal" id="confirmLogout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-body" align="center">
+					        <h4>ВЫХОД ИЗ СИСТЕМЫ</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+			      </div><!--/.nav-collapse -->
 
 
 </body>

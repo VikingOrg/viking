@@ -53,8 +53,6 @@
 			            <ul class="dropdown-menu">
 			              <li><a href="<c:url value="static/html/deviceReport.html"/>">Количественный состав</a></li>
 			              <li><a href="<c:url value="static/html/deviceYearsReport.html"/>">Разрез по годам</a></li>
-			              <li class="divider"></li>
-			              <li><a href="<c:url value="deviceEdit"/>">Добавить Отчет *</a></li>
 			            </ul>
 			          </li>
 			  </sec:authorize>        

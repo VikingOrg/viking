@@ -32,12 +32,12 @@
 		    	  	  <spring:message code="label.menu.admin"/>&nbsp;
 		    	  </h3>
 		    
-		    		<p><h4>Приветствуем вас, <span id="username">${userModel.lastName}&nbsp;${userModel.firstName}</span>!</p></h4>
-		    		<p>Last Update from 12/05/2013 Рассматривал электрическую лампочку и остался ею доволен.(Даниил Хармс. Июль 1933)</p>
-					<p>Last Update from 11/01/2013 file 03</p>
-					<p>Last Update from 11/01/2013 Test dual config</p>
-					<p>Last Update from 10/30/2013 from new config "Origin"</p>
-					<p>Last Update from 10/30/2013</p>
+		    		<p><h4>Приветствуем вас, <span id="username">${userModel.firstName}&nbsp;${userModel.lastName}</span>!</p></h4>
+		    		<p>Перед началом работы пожалуйста ознакомьтесь с Правилами пользования Системой.</p>
+					<p>&nbsp;</p>
+					<p>Непременным условием является трезвость ума и ясность рассудка на всем протяжении сессии!</p>
+					<p>&nbsp;</p>
+					<p>При замеченных признаках явного "Торможения" системы и задержке отклика на действия рекомендуем "перезагрузку" мозга или кратковременный переход в режим STANDBY!</p>
 			</div>
 					
 		  </div>

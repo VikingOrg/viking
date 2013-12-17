@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
-    
-    <head>
+   <head>
     <meta charset="utf-8">
-        <title>Таблица пользователей системы</title>
+        <title>Отчет по количественному составу механизмов</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -41,7 +40,43 @@
 		</script>
     </head>
     
+    
     <body class="">
+    	<!-- Fixed navbar -->
+			   <nav class="navbar navbar-default" role="navigation">
+			  <div class="navbar navbar-default navbar-fixed-top">
+			    <div class="container">
+			      <div class="navbar-header">
+			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			          <span class="icon-bar"></span>
+			          <span class="icon-bar"></span>
+			          <span class="icon-bar"></span>
+			        </button>
+			        <a class="navbar-brand" href="#" style="color: #569EF0">ИТТ24</a>
+			      </div>
+			      <div class="collapse navbar-collapse">
+			        <ul class="nav navbar-nav">
+						<li ><a href="/home">Главная</a></li>
+			          <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
+			            <ul class="dropdown-menu">
+			              <li><a href="deviceReport.html">Количественный состав</a></li>
+			              <li><a href="deviceYearsReport.html">Разрез по годам</a></li>
+			            </ul>
+			          </li>
+			          
+			        </ul>
+			        <ul class="nav navbar-nav navbar-right">
+				        <li>
+				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
+				        </li>
+				    </ul>
+			       </div>
+			       <!--/.nav-collapse -->
+			       
+			    </div>
+			  </div>   
+			  </nav>
         <div class="container">
             <div class="masthead">
                 <div class="container">
@@ -173,19 +208,49 @@
     </div>
 
 
+<div class="container">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-1">
+          <div class="form-actions">
+            <INPUT TYPE="button" class="btn btn-default" VALUE="НАЗАД" onClick="history.go(-1);">
+          </div>
+        </div>
+      </div>
+    </div>
 
 
+<!-- Site footer -->
+   <div class="footer">
+     <p class="text-center"><a href="about.html">О Системе</a>
+     	&nbsp;|&nbsp;
+     	<a href="participants.html">&nbsp;Участники</a>
+     	&nbsp;|&nbsp;
+     	<a href="rules.html">&nbsp;Правила</a>
+     	&nbsp;|&nbsp;
+     	<a href="support.html">&nbsp;Поддержка</a>
+     	&nbsp;|&nbsp;
+     	<a href="help.html">Справка</a>
 
-
-
-
-
-
-
-
-
-
-
+     </p>
+     <p class="text-center">&copy; ООО "ИТТ", 2013&nbsp;</p>
+   </div>
+   
+    		        
+					    <!-- 		Модальное окно подтверждения выхода из системы -->
+					<div class="modal" id="confirmLogout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-body" align="center">
+					        <h4>ВЫХОД ИЗ СИСТЕМЫ</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+			      </div><!--/.nav-collapse -->
 
 
 
