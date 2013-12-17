@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
+		<link rel="stylesheet" type="text/css" href="static/css/ColVis.css">
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
@@ -20,18 +21,19 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
+		<script type="text/javascript" src="static/js/ColVis.js"></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#stevidor_table').dataTable( {
-            	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	           ],
-                    "sDom": "<'row'<'col-xs-6'T><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+//             	"aoColumns": [
+//                 	               { "bSortable": false },
+//                 	               null,
+//                 	               null,
+//                 	               null,
+//                 	               { "bSortable": false },
+//                 	           ],
+                	           "sDom": 'C<"clear">lfrtip',
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
                         "sUrl": "static/js/ru_RU.txt"
@@ -113,7 +115,7 @@
 									</form:select>		          
 						          </div>	
 						          <div class="filter_select">
-									<form:button class="btn btn-primary">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></form:button>
+									<button class="btn btn-primary" type="reset">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></button>
 						        </div>
 			                    <hr>
 			                    <label class="form-label">ПОИСК</label>
@@ -176,12 +178,8 @@
 					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					        <h4 class="modal-title">ВНИМАНИЕ!</h4>
-					      </div>
-					      <div class="modal-body">
-					        <p>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</p>
+					      <div class="modal-body" align="center">
+					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>

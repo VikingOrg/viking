@@ -72,7 +72,11 @@
                 $('#selectAll').click(function (e) {
                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
                 });
-
+				$('#resetButton').click(function(r) {
+					var oTable = $('#stevidor_table').dataTable();
+					  // Re-draw the table 
+					  oTable.fnDraw();
+					});
                 
             } );
 
@@ -183,7 +187,7 @@
 			                    </select>
 			                    </div>	
 			                    <div class="filter_select">
-									<form:button class="btn btn-primary">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></form:button>
+									<form:button class="btn btn-primary" id="resetButton">СБРОС&nbsp;<span class="glyphicon glyphicon-refresh" title="Сброс настроек фильтра"></span></form:button>
 						        </div>
 			                    <hr>
 			                    <div class="input-group" style="margin: 5px">
@@ -281,7 +285,21 @@
 			            </div>
 			        </div>
 			    </div>
-
+		        
+				    <!-- 		Модальное окно подтверждения удаления данных -->
+					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-body" align="center">
+					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
 			</form:form>
 					
 			</div> <!-- End of Main Container -->

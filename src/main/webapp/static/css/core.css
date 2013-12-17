@@ -27,7 +27,7 @@
 		/* Not required for template or sticky footer method. */
 		
 		#wrap > .container {
-		  padding: 30px 15px 0;
+		  padding: 0px 15px 0;
 		  margin: 0px 0;
 		}
 		.container .credit {

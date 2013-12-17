@@ -15,6 +15,17 @@
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+	    
+		  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		  <script>
+		  $(function() {
+			  $( "#datepicker" ).datepicker( { dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
+				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
+// 			us_style  $( "#datepicker" ).datepicker( { dateFormat: "mm/dd/yy", firstDay: 0 });
+		  });
+		  </script>
+  
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
@@ -54,11 +65,11 @@
 				      	<v:input path="machine.model.name" label="МОДЕЛЬ" required="true" title="Модель"/>
 						<v:input path="machine.model.details" label="ХАРАКТЕРИСТИКИ" required="true" title="Укажите характеристики модели"/>
 			            <v:input path="machine.inventoryNumb" label="ИНВЕНТАРНЫЙ №" required="true" title="Введите инвентарный номер"/>
-			            <v:input path="machine.startDate" label="ДАТА ВВОДА В ЭКСПЛУАТАЦИЮ" required="true" title="Укажите дату ввода в эксплуатацию"/>
+			            <v:input path="machine.startDate" label="ДАТА ВВОДА В ЭКСПЛУАТАЦИЮ" required="true" title="Укажите дату ввода в эксплуатацию" id="datepicker"/>
 						<v:input path="machine.doc" label="КОНТРАКТ №" required="true" title="Укажите документ ввода в эксплуатацию"/>
 						<v:input path="machine.transNumb" label="ТРАНС №" required="true" title="Укажите номер Транса"/>
 			            <v:input path="machine.factoryNumb" label="ЗАВОДСКОЙ №" required="true" title="Укажите заводской номер"/>
-
+			            
 			           <!--  
 			          <div class="form-group">
 			            <div class="controls">
@@ -172,8 +183,8 @@
 		<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
-		      <div class="modal-body">
-		        <p>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</p>
+		      <div class="modal-body" align="center">
+		        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</h4>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>

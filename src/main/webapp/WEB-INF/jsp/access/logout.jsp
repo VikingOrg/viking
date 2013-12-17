@@ -18,11 +18,11 @@
 		<div id="wrap">
 		  <!-- Begin page content -->
 		  <div class="container">
-		    <div class="page-header">
-		      <h1>Сессия завершена.</h1>
+		    <div class="page-header" align="center">
+		      <h2>Сессия завершена.</h2>
 		    </div>
-			<p>Списибо, что вы использовали нашу систему. Для разработчика:Уровень снижен до <span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p>
-					<p>Если вы хотите продолжить работу - <a href="<c:url value="login" />" > Войти Заново</a></p>
+			<p>Списибо, что вы использовали нашу систему. Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!</p>
+					<p>Если вы хотите продолжить работу <a href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p>
 		  </div>
 		</div>
 
