@@ -107,7 +107,6 @@
 			<!-- Begin page content -->
 		    <div class="container">
 				<form:form id="machine_search_form" action="machineSearch" commandName="machineSearchCommand" method="post" accept-charset="UTF-8">
-			       <div class="container">
 			            <div class="masthead">
 			                <div class="container">
 			                    <div class="row">
