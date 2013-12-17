@@ -1,47 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="ru">
-	<head>
-	    <title>Таблица Стивидоров</title>
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    
+    <head>
+    <meta charset="utf-8">
+    	<title>Таблица пользователей системы</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		
 		<style type="text/css" title="currentStyle">
+		
 			@import "static/css/ColVis.css";
 		</style>
-		  <style type="text/css">
-			table {
+        <style type="text/css">
+            
+            table {
                 margin: 1em 0;
                 clear: both;
             }
-			th {
+          th {
             text-align: center;
             white-space:nowrap;
           }
-          	td {
+          td {
             white-space:nowrap;
           }
         </style>
-		
-
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script type="text/javascript" src="static/js/jquery.dataTables.js"></script>
-	    <script type="text/javascript" src="ttp://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="static/js/ColVis.js"></script>
-		
-		
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript" language="javascript" src="static/js/jquery.js"></script>
+		<script type="text/javascript" language="javascript" src="static/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="static/js/ColVis.js"></script>
+        
 		<script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-            	$('#stevidor_table').dataTable( {
-                	           "sDom": 'C<"clear">lrtip',
-                } );
-
-            } );
-
+			$(document).ready(function() {
+				$('#example').dataTable( {
+                    
+                    "sDom": 'C<"clear">lfrtip',
+				} );
+               
+			} );
+            
+		</script>
+    </head>
     
-        </script>
-      
-	</head>
-	<body class="">
+    <body class="">
         <div class="container-fluid">
             <div class="masthead">
                 <div class="container">
@@ -85,7 +88,7 @@
                             <a href="#" class="btn btn-primary" title="Удалить">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                 </div>
                 <div class="table-container">
-                    <table class="table table-bordered" id="stevidor_table">
+                    <table class="table table-bordered" id="example">
                           <thead>
                               <tr>
                               <th><input type="checkbox"></th>
@@ -123,4 +126,5 @@
 
 
 </body>
+
 </html>
