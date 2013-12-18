@@ -10,7 +10,6 @@
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
         
 			   <!-- Fixed navbar -->
-			   <nav class="navbar navbar-default" role="navigation">
 			  <div class="navbar navbar-default navbar-fixed-top">
 			    <div class="container">
 			      <div class="navbar-header">
@@ -90,6 +89,5 @@
 			       
 			    </div>
 			  </div>   
-			  </nav>
 
 
