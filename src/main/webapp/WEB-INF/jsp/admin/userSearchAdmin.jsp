@@ -147,7 +147,11 @@
 									<button type="button" class="close" data-dismiss="alert">&times;</button>
 								</div>			
 							</c:if>
-							
+							<c:if test="${not empty error}"> 
+								<div class="alert alert-danger show"><spring:message code="${error}" />
+									<button type="button" class="close" data-dismiss="alert">&times;</button>
+								</div>			
+							</c:if>							
 <!-- 		                    Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
                             <a href="<c:url value="userEditAdmin"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
@@ -174,9 +178,11 @@
 			                            </tr>
 			                          </thead>
 			                          <tbody>
-									       <c:forEach var="user"  items="${userSearchCommand.userList}" >
+									       <c:forEach var="user" varStatus="loop" items="${userSearchCommand.userList}" >
 						                       <tr>
-						                       		<td><input type="checkbox"></td>
+						                       		<td>
+						                       			<form:checkbox path="userList[${loop.index}].archived" value="Y"></form:checkbox>
+						                       		</td>
 						                         	<td class="nowrap">
 						                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
 						                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>

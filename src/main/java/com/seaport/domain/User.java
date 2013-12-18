@@ -93,6 +93,8 @@ public class User implements Serializable {
 
 	@Column(name="USER_NOTE")
 	private String userNote;
+
+	private String archived;
 	
 	@Column(name = "CREATE_DATE", nullable = false)
 	private Timestamp createDate;
@@ -110,6 +112,14 @@ public class User implements Serializable {
 	)
 	
 	private Role role;
+
+	public String getArchived() {
+		return archived;
+	}
+
+	public void setArchived(String archived) {
+		this.archived = archived;
+	}
 
 	public Country getCountry() {
 		return country;
