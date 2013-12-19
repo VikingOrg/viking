@@ -179,9 +179,15 @@
 			                          </thead>
 			                          <tbody>
 									       <c:forEach var="user" varStatus="loop" items="${userSearchCommand.userList}" >
+										   <c:if test="${user.archived != 'Y'}" > 
 						                       <tr>
 						                       		<td>
 						                       			<form:checkbox path="userList[${loop.index}].archived" value="Y"></form:checkbox>
+						                              	<c:if test="${system.localConfig}" >
+						                              		<span class="alert-danger">
+						                              			<c:out value="(${user.userId})"/>
+						                              		</span>
+						                              	</c:if>							                       			
 						                       		</td>
 						                         	<td class="nowrap">
 						                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
@@ -197,6 +203,7 @@
 					                              	<td class="nowrap"><c:out value="${user.country.nameRus}"/></td>
 					                              	<td class="nowrap"><c:out value="${user.userNote}"/></td>
 						                       </tr>
+						                    </c:if>   
 											</c:forEach>                              
 			                          </tbody>
 			                    </table>

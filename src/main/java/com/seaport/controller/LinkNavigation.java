@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.seaport.service.IUserService;
+import com.seaport.utils.SessionConstants;
 
 /**
  * The Controller class that invoke business logic and create a Model&View object. 
@@ -22,13 +23,12 @@ import com.seaport.service.IUserService;
 public class LinkNavigation {
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private SessionConstants sessionConstants;
 	
 	@RequestMapping
 	public String getLogin(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		session.setAttribute(com.seaport.utils.SessionConstants.USER_MODEL, 
-				userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
-		return "home";
+		return "redirect:home";
 	}
 
 	@RequestMapping(value="/home")
@@ -36,9 +36,10 @@ public class LinkNavigation {
 		HttpSession session = request.getSession(false);
 		session.setAttribute(com.seaport.utils.SessionConstants.USER_MODEL, 
 		userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
-
+		session.setAttribute("system", sessionConstants);
 		return "home";
-	}	
+	}
+	
 	@RequestMapping(value="/help.html")
 	public String getHelpPage() {
 		return "common/help.html";

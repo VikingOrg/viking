@@ -8,6 +8,7 @@ import java.util.Map;
 import com.seaport.domain.Country;
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
+import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
 
@@ -26,13 +27,41 @@ public class MachineSearchCommand {
 	private Map<Integer, Stevidor> userStevidor = new LinkedHashMap<Integer,Stevidor>();
 	private Map<Integer, Country> userCountry = new LinkedHashMap<Integer,Country>();
 	private Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
+	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
+	private Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
 	
 	private Integer groupId;
 	private Integer portId;
 	private Integer countryId;
 	private Integer stevidorId;
-	
+	private Integer releaseYear;
+	private Integer manufacturerId;
 
+	public Map<Integer, Manufacturer> getManufacturerMap() {
+		return manufacturerMap;
+	}
+	public void setManufacturerMap(Map<Integer, Manufacturer> manufacturerMap) {
+		this.manufacturerMap = manufacturerMap;
+	}
+	public Map<Integer, Integer> getYearMap() {
+		return yearMap;
+	}
+	public void setYearMap(Map<Integer, Integer> yearMap) {
+		this.yearMap = yearMap;
+	}
+
+	public Integer getReleaseYear() {
+		return releaseYear;
+	}
+	public void setReleaseYear(Integer releaseYear) {
+		this.releaseYear = releaseYear;
+	}
+	public Integer getManufacturerId() {
+		return manufacturerId;
+	}
+	public void setManufacturerId(Integer manufacturerId) {
+		this.manufacturerId = manufacturerId;
+	}
 	public List<Machine> getMachineList() {
 		return machineList;
 	}

@@ -126,7 +126,11 @@
 									<button type="button" class="close" data-dismiss="alert">&times;</button>
 								</div>			
 							</c:if>
-							
+							<c:if test="${not empty error}"> 
+								<div class="alert alert-danger show"><spring:message code="${error}" />
+									<button type="button" class="close" data-dismiss="alert">&times;</button>
+								</div>			
+							</c:if>								
 								<!-- 		                    Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
                             <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
@@ -147,9 +151,17 @@
 			                              </tr>
 			                          </thead>
 			                          <tbody>
-			                          	<c:forEach var="stevidor"  items="${stevidorSearchCommand.stevidorList}" >
+			                          	<c:forEach var="stevidor" varStatus="loop" items="${stevidorSearchCommand.stevidorList}" >
+			                          	<c:if test="${stevidor.archived != 'Y'}" >
 				                            <tr>
-				                              <td><input type="checkbox"></td>
+				                                <td>
+				                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
+					                              	<c:if test="${system.localConfig}" >
+					                              		<span class="alert-danger">
+					                              			<c:out value="(${stevidor.stevidorId})"/>
+					                              		</span>
+					                              	</c:if>				                                	
+				                                </td>
 					                         	<td class="nowrap">
 					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
 					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
@@ -160,6 +172,7 @@
 				                              <td><c:out value="${stevidor.port.country.nameRus}"/></td>
 				                              <td><c:out value="${stevidor.stevidorNote}"/></td>
 				                            </tr>
+				                        </c:if>    
 			                            </c:forEach>
 			                          </tbody>
 			                    </table>

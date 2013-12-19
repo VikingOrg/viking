@@ -1,17 +1,23 @@
 package com.seaport.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.StevidorSearchCommand;
+import com.seaport.domain.Stevidor;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
@@ -24,6 +30,7 @@ import com.seaport.service.IUserService;
 
 @Controller
 @RequestMapping("/stevidorSearch")
+@SessionAttributes("stevidorSearchCommand")
 public class StevidorSearchController {
 	@Autowired
 	private IUserService userService;
@@ -44,10 +51,21 @@ public class StevidorSearchController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
-	public ModelAndView onSubmit(HttpServletRequest request, 
-								@ModelAttribute StevidorSearchCommand portSearchCommand,
-								BindingResult result) {
+	public String onSubmit(HttpServletRequest request, Model model,
+								@Valid @ModelAttribute("stevidorSearchCommand") StevidorSearchCommand portSearchCommand,
+								BindingResult result, RedirectAttributes redirectAttributes) {
 
-		return new ModelAndView("stevidorSearch", result.getModel());
+		if (result.hasErrors()) {
+			model.addAttribute("error", "message.user.error.generic");
+			return "stevidorSearch";
+		}
+		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		List<Stevidor> stevidorList = portSearchCommand.getStevidorList();
+		for (Stevidor stevidor : stevidorList) {
+			if (stevidor.getArchived()!=null && stevidor.getArchived().equalsIgnoreCase("Y")) {
+				portService.saveStevidor(stevidor);	
+			}
+		}
+		return "redirect:stevidorSearch";		
 	}
 }

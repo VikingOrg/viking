@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2013 at 02:07 AM
+-- Generation Time: Dec 18, 2013 at 08:41 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.4.22
 
@@ -4483,11 +4483,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `division` varchar(45) DEFAULT NULL,
   `occupation` varchar(45) DEFAULT NULL,
   `user_note` text,
+  `archived` varchar(1) DEFAULT NULL,
   `create_date` date NOT NULL,
   `update_date` date NOT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `country_id`, `stevidor_id`, `port_id`, `first_name`, `last_name`, `middle_initial`, `user_email`, `login`, `password`, `division`, `occupation`, `user_note`, `archived`, `create_date`, `update_date`, `update_user_id`) VALUES
+(1, 1, 64, 64, 'Ozherelyev', 'Danil', 'А', 'test@test.com', 'test@test.com', '111', 'Division#1', 'BigBoss', NULL, NULL, '2013-12-18', '2013-12-18', NULL),
+(2, 1, 64, 64, 'Ozherelyev', 'Danil', 'Аb', 'test@test.com', 'test@test.com', '111', 'Division#1', 'BigBoss', '', 'Y', '2013-12-18', '2013-12-18', NULL),
+(3, 1, 64, 64, 'Ozherelyev', 'Danil', 'Аbc', 'test@test.com', 'test@test.com', '111', 'Division#1', 'BigBoss', '', NULL, '2013-12-18', '2013-12-18', NULL),
+(4, 1, 64, 64, 'Ozherelyev', 'Danil', 'Аbcd', 'test@test.com', 'test@test.com', '111', 'Division#1', 'BigBoss', '11', NULL, '2013-12-18', '2013-12-18', NULL),
+(5, 1, 64, 64, 'Ozherelyev', 'Danil', 'Аbcde', 'test@test.com', 'test@test.com', '111', 'Division#1', 'BigBoss', '', NULL, '2013-12-18', '2013-12-18', NULL);
 
 -- --------------------------------------------------------
 
@@ -4504,6 +4516,17 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   KEY `user` (`user_id`),
   KEY `role` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

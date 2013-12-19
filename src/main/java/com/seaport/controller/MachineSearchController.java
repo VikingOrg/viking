@@ -1,18 +1,23 @@
 package com.seaport.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.seaport.command.BlankCommand;
 import com.seaport.command.MachineSearchCommand;
+import com.seaport.domain.Machine;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
@@ -26,6 +31,7 @@ import com.seaport.service.IUserService;
 
 @Controller
 @RequestMapping("/machineSearch")
+@SessionAttributes("machineSearchCommand")
 public class MachineSearchController {
 	@Autowired
 	private IUserService userService;
@@ -43,17 +49,29 @@ public class MachineSearchController {
 		machineSearchCommand.setUserPort(portService.getPortsMap());
 		machineSearchCommand.setUserStevidor(portService.getStevidorsMap());
 		machineSearchCommand.setGroupMap(machineService.getGroupsMap());
+		machineSearchCommand.setManufacturerMap(machineService.getManufacturerMap());
+		machineSearchCommand.setYearMap(machineService.getYearMap());		
 		machineSearchCommand.setMachineList(machineService.getMachines());
 		model.put("machineSearchCommand", machineSearchCommand);
 		return "machineSearch";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST) 
-	public ModelAndView onSubmit(HttpServletRequest request, 
-								@ModelAttribute BlankCommand blankCommand,
-								BindingResult result) {
+	public String onSubmit(HttpServletRequest request, Model model,
+								@Valid @ModelAttribute("machineSearchCommand") MachineSearchCommand machineSearchCommand,
+								BindingResult result, RedirectAttributes redirectAttributes) {
 
-//		return new ModelAndView("redirect:nextViewHere", result.getModel());
-		return new ModelAndView("machineSearch", result.getModel());
+		if (result.hasErrors()) {
+			model.addAttribute("error", "message.user.error.generic");
+			return "machineSearch";
+		}
+		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		List<Machine> machineList = machineSearchCommand.getMachineList();
+		for (Machine machine : machineList) {
+			if (machine.getArchived()!=null && machine.getArchived().equalsIgnoreCase("Y")) {
+				machineService.saveMachine(machine);	
+			}
+		}
+		return "machineSearch";
 	}
 }

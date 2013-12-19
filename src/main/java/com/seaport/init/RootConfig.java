@@ -64,7 +64,9 @@ public class RootConfig {
 	public SessionConstants sessionConstants(){
 		SessionConstants sessionConstants = new SessionConstants();
 		String value = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
-		if (value != null) sessionConstants.setLocalConfig(true);		
+		if (value == null) {
+			sessionConstants.setLocalConfig(true);
+		}
 		return sessionConstants;
 	}
 	
