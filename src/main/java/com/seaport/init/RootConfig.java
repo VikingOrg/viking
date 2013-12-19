@@ -36,6 +36,8 @@ public class RootConfig {
     private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
     
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
+    private static final String PROPERTY_RESPONSIVE_SETTING = "responsive.design";
+    
     	
 	@Resource
 	private Environment env;
@@ -66,6 +68,10 @@ public class RootConfig {
 		String value = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
 		if (value == null) {
 			sessionConstants.setLocalConfig(true);
+		}
+		String respDesign = env.getRequiredProperty(PROPERTY_RESPONSIVE_SETTING);
+		if (respDesign.equalsIgnoreCase("true")) {
+			sessionConstants.setResponsiveDesign(true);
 		}
 		return sessionConstants;
 	}
