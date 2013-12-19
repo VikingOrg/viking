@@ -74,7 +74,7 @@
 		          <div class="form-group">
 		            <div class="controls">
 		            <label class="form-label">E-MAIL</label>
-		              <form:input path="user.userEmail" type="email" cssClass="form-control"title="Укажите свой e-mail в качестве логина"/>
+		              <form:input path="user.userEmail" type="email" cssClass="form-control" title="Укажите свой e-mail в качестве логина"/>
 		            </div>
 		          </div>
 		          <div class="form-group">

@@ -46,6 +46,7 @@ public class MachineEditController {
 			if (request.getParameter("copy")!= null) {
 				machineEditCommand.setFormType("C");
 				machineEditCommand.getMachine().setMachineId(null);
+				machineEditCommand.getMachine().getModel().setModelId(null);
 			} else {
 				machineEditCommand.setFormType("E");
 			}
