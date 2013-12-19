@@ -25,19 +25,9 @@
 		    </div>
 		    <div class="alert alert-success show">
 		    
-		    	  <h3><spring:message code="label.menu.main"/>&nbsp;
-		    	  	  <spring:message code="label.menu.ports"/>&nbsp;
-		    	  	  <spring:message code="label.menu.mech"/>&nbsp;
-		    	  	  <spring:message code="label.menu.reports"/>&nbsp;
-		    	  	  <spring:message code="label.menu.admin"/>&nbsp;
-		    	  </h3>
-		    
-		    		<p><h4>Приветствуем вас, <span id="username">${userModel.firstName}&nbsp;${userModel.lastName}</span>!</p></h4>
+		    		<p><h4>Приветствуем вас, <span id="username">${userModel.firstName}&nbsp;</span>!</p></h4>
 		    		<p>Перед началом работы пожалуйста ознакомьтесь с Правилами пользования Системой.</p>
 					<p>&nbsp;</p>
-					<p>Непременным условием является трезвость ума и ясность рассудка на всем протяжении сессии!</p>
-					<p>&nbsp;</p>
-					<p>При замеченных признаках явного "Торможения" системы и задержке отклика на действия рекомендуем "перезагрузку" мозга или кратковременный переход в режим STANDBY!</p>
 			</div>
 					
 		  </div>

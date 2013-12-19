@@ -9,6 +9,7 @@
 <c:url value="stevidorSearch" var="stevidorSearchUrl"/>
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
             
+            <link rel="stylesheet" type="text/css" media="screen" href="static/css/non-responsive.css"/>
 			    <!-- Fixed navbar -->
 			  <div class="navbar navbar-default navbar-fixed-top">
 			    <div class="container">
@@ -70,16 +71,16 @@
 			        	<li>
 				          <a style="color: #569EF0"> ${userModel.lastName}&nbsp;${userModel.firstName}</a>
 				        </li>
-			        	<li>
-						    <a href="?lang=ru">
-						    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru">
-						    </a>
-					    </li>
-					    <li>
-						    <a href="?lang=en">
-						        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us">
-						    </a>
-						</li>
+<!-- 			        	<li> -->
+<!-- 						    <a href="?lang=ru"> -->
+<%-- 						    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru"> --%>
+<!-- 						    </a> -->
+<!-- 					    </li> -->
+<!-- 					    <li> -->
+<!-- 						    <a href="?lang=en"> -->
+<%-- 						        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us"> --%>
+<!-- 						    </a> -->
+<!-- 						</li> -->
 				        <li>
 				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
 				        </li>

@@ -24,11 +24,10 @@
 
         <script type="text/javascript">
 	        $(document).ready(function() {
-	        	var oTable = $('#stevidor_table').dataTable( {
-	        		"bProcessing": true,
+	        	var oTable = $('#machine_table').dataTable( {
 	            	"aoColumns": [
                	               { "bSortable": false },
-               	               null,
+               	           	 null,
                	               null,
                	               null,
                	            { "bSortable": false },
@@ -47,11 +46,16 @@
 		               	 	   { "bSortable": false },
 				               { "bSortable": false },
 				               { "bSortable": false },
-				               { "bSortable": false }
+				               { "bSortable": false },
                	           ],
 	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-	                "sPaginationType": "bootstrap"
-                
+	                "sPaginationType": "bootstrap",
+	                "bStateSave": true,
+	                "bProcessing": true,
+	                "iDisplayLength": 15,
+	                "oLanguage": {
+                        "sUrl": "static/js/dataTable_ru_RU.txt"
+                     } 
 	            } );
 
 
@@ -212,7 +216,7 @@
 	                            
 <!-- 							Таблица со списком машин -->
 			                <div class="table-container">
-			                    <table id="stevidor_table" class="table table-striped table-bordered">
+			                    <table id="machine_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
 				                              <th>&nbsp;</th>
@@ -235,7 +239,7 @@
 				                              <th>Регистрационный №</th>
 				                              <th>Примечания</th>
 				                              <th>Описание Машины</th>
-				                              <th>group Id&nbsp;&nbsp;</th>
+				                              <th class="hide">group Id&nbsp;&nbsp;</th>
 			                              </tr>
 			                          </thead>
 			                          <tbody>
@@ -255,8 +259,7 @@
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
 				                              		<c:out value="${machine.model.group.name}"/>
 				                              </td>
-					                          <td>
-					                         		<c:out value="${machine.model.name}"/>
+					                          <td><c:out value="${machine.model.name}"/>
 					                          </td>
 				                              <td><c:out value="${machine.stevidor.fullName}"/></td>
 				                              <td><c:out value="${machine.model.details}"/></td>
@@ -275,7 +278,7 @@
 				                              <td></td>
 				                              <td><c:out value="${machine.note}"/></td>
 				                              <td><c:out value="${machine.name}"/></td>
-											  <td><c:out value="${machine.model.group.groupId}"/></td>											   
+											  <td class="hide"><c:out value="${machine.model.group.groupId}"/></td>											   
 				                            </tr>
 				                        </c:if>    
 			                            </c:forEach>

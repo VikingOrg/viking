@@ -7,13 +7,15 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-        
+        <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
+        <link rel="stylesheet" type="text/css" href="static/css/page.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     </head>
     
     
     <body class="">
+    <div id="wrap">
     	<!-- Fixed navbar -->
 			   <nav class="navbar navbar-default" role="navigation">
 			  <div class="navbar navbar-default navbar-fixed-top">
@@ -79,6 +81,22 @@
       </div>
     </div>
 
+    		        
+					    <!-- 		Модальное окно подтверждения выхода из системы -->
+					<div class="modal" id="confirmLogout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-body" align="center">
+					        <h4>ВЫХОД ИЗ СИСТЕМЫ</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+
 
 <!-- Site footer -->
    <div class="footer">
@@ -95,26 +113,7 @@
      </p>
      <p class="text-center">&copy; ООО "ИТТ", 2013&nbsp;</p>
    </div>
-   
-    		        
-					    <!-- 		Модальное окно подтверждения выхода из системы -->
-					<div class="modal" id="confirmLogout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-body" align="center">
-					        <h4>ВЫХОД ИЗ СИСТЕМЫ</h4>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
-			      </div><!--/.nav-collapse -->
-
-
-
+	</div>
 </body>
 
 </html>

@@ -33,8 +33,9 @@
                 	           ],
                 	           "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "sPaginationType": "bootstrap",
+	                "iDisplayLength": 15,
                     "oLanguage": {
-                        "sUrl": "static/js/ru_RU.txt"
+                        "sUrl": "static/js/dataTable_ru_RU.txt"
                      }                    
                 } );
 
