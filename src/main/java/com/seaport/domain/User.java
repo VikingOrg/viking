@@ -76,6 +76,7 @@ public class User implements Serializable {
 	private String middleInitial;
 	
 	@Email(message = "{validation.context.email}")
+	@Pattern(regexp=".+@.+\\..+", message = "{validation.context.email}")
 	@Column(name = "USER_EMAIL", nullable = false)
 	private String userEmail;
 	

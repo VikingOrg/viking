@@ -61,14 +61,8 @@
 				     <v:input path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
 				     <v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
 					 <v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
-
-			          <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">E-MAIL</label>
-			            	<form:input path="user.userEmail" type="email" cssClass="form-control" title="Укажите свой e-mail в качестве логина"/>
-			            	<form:errors class="control-label" path="user.userEmail"/>
-			            </div>
-			          </div>
+					 <v:input path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>
+			          
 			          <div class="form-group">
 			            <div class="controls">
 			                <label class="form-label">ПАРОЛЬ</label>

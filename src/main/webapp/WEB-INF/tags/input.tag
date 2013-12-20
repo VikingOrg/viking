@@ -9,6 +9,7 @@
 <%@attribute name="required" required="false" type="java.lang.Boolean"%>
 <%@attribute name="title" required="false" type="java.lang.String"%>
 <%@attribute name="id" required="false" type="java.lang.String"%>
+<%@attribute name="type" required="false" type="java.lang.String"%>
 
 <c:if test="${empty label}">
     <c:set var="label" value="${fn:toUpperCase(fn:substring(path, 0, 1))}${fn:toLowerCase(fn:substring(path, 1,fn:length(path)))}" />
@@ -17,7 +18,12 @@
     <div class="form-group ${status.error ? 'has-error' : '' }">
         <label class="form-label" for="${path}">${label}<c:if test="${required}"><span class="required">*</span></c:if></label>
         <div class="controls">
-            <form:input id="${empty id ? path : id}" path="${path}" cssClass="${empty cssClass ? 'form-control' : cssClass}" title="${empty title ? '' : title}"/>
+            <form:input 
+            	id="${empty id ? path : id}" 
+            	path="${path}" 
+            	cssClass="${empty cssClass ? 'form-control' : cssClass}"
+            	type="${empty type ? 'text' : type}"
+            	title="${empty title ? '' : title}"/>
            	<form:errors path="${path}" cssClass="control-label"/>
         </div>
     </div>

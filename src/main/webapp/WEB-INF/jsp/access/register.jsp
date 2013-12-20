@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 
 <html lang="ru">
 	<head>
@@ -46,37 +47,12 @@
 		        </div>
 		      </div>
 		      <div class="row">
-		        
-		      
-		        <div class="col-md-4 col-md-offset-1 col-xs-6">
-		         <div class="form-group">
-		            <div class="controls">
-		            	<label class="form-label">ФАМИЛИЯ</label>
-		            	<form:input path="user.lastName" cssClass="form-control" type="text" title="Введите свою фамилию" />
-		            	<p class="help-block"></p>
-		            	<form:errors class="invalid" path="user.lastName"/>
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <div class="controls">
-		                <label class="form-label">ИМЯ</label>
-		                <form:input path="user.firstName" cssClass="form-control" title="Введите своё имя"/>
-		                <form:errors class="invalid" path="user.firstName"/>
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <div class="controls">
-		                <label class="form-label">ОТЧЕСТВО</label>
-		            	<form:input path="user.middleInitial" cssClass="form-control" title="Введите своё отчество"/>
-		            	<form:errors class="invalid" path="user.middleInitial"/>
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <div class="controls">
-		            <label class="form-label">E-MAIL</label>
-		              <form:input path="user.userEmail" type="email" cssClass="form-control" title="Укажите свой e-mail в качестве логина"/>
-		            </div>
-		          </div>
+		      	<div class="col-md-4 col-md-offset-1 col-xs-6">
+					<v:input path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
+					<v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
+					<v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
+					<v:input path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>		
+
 		          <div class="form-group">
 		            <div class="controls">
 		                <label class="form-label">ПАРОЛЬ</label>
@@ -150,6 +126,7 @@
 		        </div>
 		      </div>
 		    </div>
+		    
 		  </form:form>
 		  </div>
 	  	</div><!-- End of wrapper-->

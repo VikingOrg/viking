@@ -67,10 +67,12 @@ public class UserDAOImpl implements IUserDAO {
 		Timestamp updateDate = new Timestamp(new Date().getTime());
 		user.setUpdateDate(updateDate);
 		user.setLogin(user.getUserEmail());
+		if (user.getUserId() == null) {
+			user.setCreateDate(updateDate);
+		}
 		if (user.getRole() == null) {
 			Role role = (Role) roleDAO.getRole(1);
 			user.setRole(role);
-			user.setCreateDate(updateDate);
 		}
 		openSession().saveOrUpdate(user);
 	}

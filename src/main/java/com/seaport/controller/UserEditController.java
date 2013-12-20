@@ -65,6 +65,7 @@ public class UserEditController {
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result, RedirectAttributes redirectAttributes) {
+		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
 			return "admin/userEditAdmin";
