@@ -8,19 +8,19 @@
 	<head>
 	    <title>Список пользователей системы</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
-		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="static/css/page.css">
-		<link rel="stylesheet" type="text/css" href="static/css/table.css">
+	    <link rel="stylesheet" type="text/css" href="<c:url value="/static/css/bootstrap.min.css"/>"/>
+	    <link rel="stylesheet" type="text/css" href="<c:url value="/static/css/core.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/dataTables.bootstrap.csstic"/>">
+		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/page.css"/>">
+		<link rel="stylesheet" type="text/css" href="<c:url value="/static/css/table.css"/>">
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
-        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
-		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-
+		<script type="text/javascript" src="<c:url value="/static/js/jquery.dataTables.min.js"/>"></script>
+	    <script type="text/javascript" src="<c:url value="/static/js/bootstrap.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/dataTables.bootstrap.js"/>"> </script>
+        <script type="text/javascript" src="<c:url value="/static/js/dataTables.bootstrapPagination.js"/>"> </script>
+		<script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>" ></script>
+		<spring:url var = "sUrlRussian" value='/static/js/ru_RU.txt'/>
         <script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#user_table').dataTable( {
@@ -39,11 +39,13 @@
                     "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
-                        "sUrl": "static/js/ru_RU.txt"
+                        "sUrl": "${sUrlRussian}"
                      }                    
                 } );
 
-
+            	// Highlight every second row
+            	//oTable.$('tr:odd').css('backgroundColor', 'blue');
+            	  
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 });   		 
@@ -56,11 +58,36 @@
                 $('#stevidorSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 6);
                 });
-//                 $('#selectAll').click(function (e) {
-//                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-//                 });
 
+                $("a[rel^='userTableRowEdit_']").click(function(e){
+                    e.preventDefault();
+                	$('#user_search_form').attr('action', "userEditAdmin/edit/"+this.dataset['param1']);
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                });
                 
+                $("a[rel^='userTableRowCopy_']").click(function(e){
+                    e.preventDefault();
+                	$('#user_search_form').attr('action', "userEditAdmin/copy/"+this.dataset['param1']);
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                });
+                $("#submitDelete").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "userSearchAdmin/delete/");
+                	$('#user_search_form').attr('method', "post");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });
+                $("#submitNewUser").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "userEditAdmin/new/");
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });                
             } );
 
     
@@ -154,7 +181,7 @@
 							</c:if>							
 <!-- 		                    Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
-                            <a href="<c:url value="userEditAdmin"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+                            <a id="submitNewUser" href="<c:url value="/userEditAdmin"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
                             
@@ -190,8 +217,12 @@
 						                              	</c:if>							                       			
 						                       		</td>
 						                         	<td class="nowrap">
-						                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-						                         		<a href="<c:url value="userEditAdmin?userId=${user.userId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+						                         		<a href="#" rel="userTableRowEdit_${loop.index}" data-param1="${user.userId}">
+						                         			&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span>
+						                         		</a>
+						                         		<a href="#" rel="userTableRowCopy_${loop.index}" data-param1="${user.userId}">
+						                         			&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
+						                         		</a>
 						                         		<c:out value="${user.lastName} ${user.firstName} ${user.middleInitial}"/>
 						                         	</td>
 						                         	<td class="nowrap"><c:out value="${user.division}"/></td>
@@ -223,7 +254,7 @@
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+					        <button id="submitDelete" type="button" class="btn btn-danger">УДАЛИТЬ</button>
 					      </div>
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->

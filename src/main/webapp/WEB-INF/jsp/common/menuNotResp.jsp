@@ -9,8 +9,8 @@
 <c:url value="stevidorSearch" var="stevidorSearchUrl"/>
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
             
-            <link rel="stylesheet" type="text/css" media="screen" href="static/css/non-responsive.css"/>
-			    <!-- Fixed navbar -->
+            <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/non-responsive.css"/>"/>
+              <!-- Fixed navbar -->
 			  <div class="navbar navbar-default navbar-fixed-top">
 			    <div class="container">
 			      <div class="navbar-header">
@@ -25,34 +25,35 @@
 			        <ul class="nav navbar-nav">
 			
 			  		  <li ><a href="<c:url value="/home"/>">Главная</a></li>
-			<sec:authorize access="hasRole('ROLE_USER')">                
+			<sec:authorize access="hasRole('ROLE_ADMIN')">                
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Порты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="${stevidorSearchUrl}">Список Стивидоров</a></li>
+			              <li><a href="<c:url value="/stevidorSearch"/>">Список Стивидоров</a></li>
 			              <li><a href="#">Список Портов *</a></li>
 			              <li><a href="#">Список Стран *</a></li>
 			              <li class="divider"></li>
-			              <li><a href="<c:url value="stevidorEdit"/>">Добавить Стивидора</a></li>
+			              <li><a href="<c:url value="/stevidorEdit"/>">Добавить Стивидора</a></li>
 			            </ul>
-			          </li> 
-			
+			          </li>
+			</sec:authorize>            
+			<sec:authorize access="hasRole('ROLE_USER')">
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="<c:url value="machineSearch"/>">Перегрузочные машины</a></li>
+			              <li><a href="<c:url value="/machineSearch"/>">Перегрузочные машины</a></li>
 			              <li><a href="#">Список Групп*</a></li>
 			              <li><a href="#">Список Производителей*</a></li>
 			              <li class="divider"></li>
-			              <li><a href="<c:url value="machineEdit"/>">Добавить машину</a></li>
+			              <li><a href="<c:url value="/machineEdit"/>">Добавить машину</a></li>
 			            </ul>
 			          </li>
 			          
 			          <li class="dropdown">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="<c:url value="static/html/deviceReport.html"/>">Количественный состав</a></li>
-			              <li><a href="<c:url value="static/html/deviceYearsReport.html"/>">Разрез по годам</a></li>
+			              <li><a href="<c:url value="/static/html/deviceReport.html"/>">Количественный состав</a></li>
+			              <li><a href="<c:url value="/static/html/deviceYearsReport.html"/>">Разрез по годам</a></li>
 			            </ul>
 			          </li>
 			  </sec:authorize>        
@@ -60,7 +61,7 @@
 				          <li class="dropdown">
 				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
 				            <ul class="dropdown-menu">
-				              <li><a href="${userSearchUrl}">Список пользователей</a></li>
+				              <li><a href="<c:url value="/userSearchAdmin"/>">Список пользователей</a></li>
 				              <li><a href="#">Группы пользователей *</a></li>
 				            </ul>				            
 				          </li>

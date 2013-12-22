@@ -50,5 +50,7 @@ public class UserServiceImpl implements IUserService {
 	public Map<Integer, Country> getContriesMap() {
 		return userDAO.getContriesMap();
 	}
-	
+	public boolean hasRole(String role){
+		return userDAO.hasRole(role);
+	}
 }

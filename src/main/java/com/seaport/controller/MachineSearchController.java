@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.MachineSearchCommand;
 import com.seaport.domain.Machine;
+import com.seaport.domain.User;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
@@ -43,7 +45,7 @@ public class MachineSearchController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) {
-		
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.SystemConstants.USER_MODEL);
 		MachineSearchCommand machineSearchCommand = new MachineSearchCommand();
 		machineSearchCommand.setUserCountry(userService.getContriesMap());
 		machineSearchCommand.setUserPort(portService.getPortsMap());
@@ -51,7 +53,7 @@ public class MachineSearchController {
 		machineSearchCommand.setGroupMap(machineService.getGroupsMap());
 		machineSearchCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineSearchCommand.setYearMap(machineService.getYearMap());		
-		machineSearchCommand.setMachineList(machineService.getMachines());
+		machineSearchCommand.setMachineList(machineService.getMachines(user));
 		model.put("machineSearchCommand", machineSearchCommand);
 		return "machineSearch";
 	}

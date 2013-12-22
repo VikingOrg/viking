@@ -7,6 +7,7 @@ import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Model;
+import com.seaport.domain.User;
 
 /**
  * The Service layer interface for Port requests 
@@ -20,7 +21,7 @@ public interface IMachineService {
 	public List<Machine> getMachines();
 	public void saveMachine(Machine machine);
 	public Map<Integer, Integer> getYearMap();
-	
+	public List<Machine> getMachines(User user);	
 	public Map<Integer, Group> getGroupsMap();
 	public Map<Integer, Model> getModelsMap();
 	public Map<Integer, Manufacturer> getManufacturerMap();

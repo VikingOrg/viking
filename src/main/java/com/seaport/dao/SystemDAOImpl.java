@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.seaport.service.IUserService;
-import com.seaport.utils.SessionConstants;
+import com.seaport.utils.SystemConstants;
 
 @Repository
 public class SystemDAOImpl implements ISystemDAO {
 	@Autowired
-	private SessionConstants sessionConstants;
+	private SystemConstants sessionConstants;
 	@Autowired
 	private IUserService userService;
 

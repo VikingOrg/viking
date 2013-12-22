@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -36,23 +37,32 @@ public class UserEditController {
 	@Autowired
 	private IPortService portService;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public String setUpForm(HttpServletRequest request, 
+	@RequestMapping(value="/edit/{userId}", method = RequestMethod.GET)
+	public String editUser(@PathVariable String userId,
 							ModelMap model) {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
-		String userId = request.getParameter("userId");
-		if (userId != null) {
-			registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
-			registrationCommand.setUserRole(registrationCommand.getUser().getRole().getId());
-			registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
-			if (request.getParameter("copy")!= null) {
-				registrationCommand.setFormType("C");
-				registrationCommand.getUser().setUserId(null);
-			} else {
-				registrationCommand.setFormType("E");
-			}
-		}
-		
+		registrationCommand.setFormType("E");
+		registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
+		registrationCommand.setUserRole(registrationCommand.getUser().getRole().getId());
+		registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
+		registrationCommand.setUserPort(portService.getPortsMap());
+		registrationCommand.setUserStevidor(portService.getStevidorsMap());
+		registrationCommand.setUserCountry(userService.getContriesMap());
+    	
+		model.put("registrationCommand", registrationCommand);
+		return "admin/userEditAdmin";
+	}
+
+	@RequestMapping(value="/copy/{userId}", method = RequestMethod.GET)
+	public String copyUser(HttpServletRequest request,
+							@PathVariable String userId,
+							ModelMap model) {
+		RegistrationCommand registrationCommand = new RegistrationCommand();
+		registrationCommand.setFormType("C");		
+		registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
+		registrationCommand.setUserRole(registrationCommand.getUser().getRole().getId());
+		registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
+		registrationCommand.getUser().setUserId(null);
 		registrationCommand.setUserPort(portService.getPortsMap());
 		registrationCommand.setUserStevidor(portService.getStevidorsMap());
 		registrationCommand.setUserCountry(userService.getContriesMap());
@@ -61,6 +71,23 @@ public class UserEditController {
 		return "admin/userEditAdmin";
 	}
 	
+	/**
+	 * Set forms for a new user.
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/new/", method = RequestMethod.GET)
+	public String newUser(ModelMap model) {
+		RegistrationCommand registrationCommand = new RegistrationCommand();
+		registrationCommand.setUserPort(portService.getPortsMap());
+		registrationCommand.setUserStevidor(portService.getStevidorsMap());
+		registrationCommand.setUserCountry(userService.getContriesMap());
+    	
+		model.put("registrationCommand", registrationCommand);
+		return "admin/userEditAdmin";
+	}
+	
+	
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
@@ -68,11 +95,13 @@ public class UserEditController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
-			return "admin/userEditAdmin";
+			return "/admin/userEditAdmin";
 		}
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		redirectAttributes.addFlashAttribute(registrationCommand);
+		
 		registrationCommand.getUser().setRole(userRole.getRole(registrationCommand.getUserRole()));
 		userService.saveUser(registrationCommand.getUser());
-		return "redirect:userSearchAdmin";
+		return "redirect:/userSearchAdmin";
 	}
 }

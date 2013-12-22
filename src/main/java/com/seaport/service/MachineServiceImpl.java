@@ -12,6 +12,7 @@ import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Model;
+import com.seaport.domain.User;
 
 /**
  * The Service layer for Port requests. 
@@ -58,5 +59,8 @@ public class MachineServiceImpl implements IMachineService {
 	}
 	public Map<Integer, Integer> getYearMap(){
 		return machineDAO.getYearMap();
+	}
+	public List<Machine> getMachines(User user){
+		return machineDAO.getMachines(user);
 	}
 }

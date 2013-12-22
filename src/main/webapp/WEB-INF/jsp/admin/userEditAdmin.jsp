@@ -20,7 +20,8 @@
 			<jsp:include page="../common/menu.jsp" />
 			<!-- Begin page content -->
 	  		<div class="container">
-	  		<form:form id="registration" action="userEditAdmin" commandName="registrationCommand" method="post" accept-charset="UTF-8">
+			<spring:url var = "action" value='/userEditAdmin'/>
+	  		<form:form id="userEditAdmin" action="${action}" commandName="registrationCommand" method="post" accept-charset="UTF-8">
 			    <div class="container">
 			      <div class="masthead">
 			        <div class="container">
@@ -127,7 +128,7 @@
 		          <div class="form-actions">
 		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">СОХРАНИТЬ &raquo;</button>
 		            <button type="button" class="btn btn-default" 
-		            	onclick="window.location.href = '<c:url value="userSearchAdmin"/>';" 
+		            	onclick="window.location.href = '<c:url value="/userSearchAdmin"/>';" 
 		            	value="Klick">ВЕРНУТЬСЯ &raquo;</button>
 		          </div>
 		        </div>

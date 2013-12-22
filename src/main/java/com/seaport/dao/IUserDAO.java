@@ -20,4 +20,5 @@ public interface IUserDAO {
 	public User getUser(Integer userId);
 	public List<Country> getContries();
 	public Map<Integer, Country> getContriesMap();
+	public boolean hasRole(String role);
 }

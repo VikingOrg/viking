@@ -3,6 +3,8 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 
 <!doctype html>
 <html lang="ru">
@@ -46,7 +48,6 @@
 		               	 	   { "bSortable": false },
 				               { "bSortable": false },
 				               { "bSortable": false },
-				               { "bSortable": false },
                	           ],
 	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
 	                "sPaginationType": "bootstrap",
@@ -72,7 +73,7 @@
                 	oTable.fnFilter( $(this).val(), 3);
                 });
                 $('#groupSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 20);
+                	oTable.fnFilter( $(this).val(), 19);
                 });
                 $('#manufacturerSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 5);
@@ -121,15 +122,16 @@
 			                 <div class="col col-sm-4 col-md-3">
 			                     <!--Sidebar content-->
 			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
-			                    
+
+							<sec:authorize access="hasRole('ROLE_ADMIN')">			                    
 								<div class="filter_select">
-					        	<label class="form-label">СТРАНА</label>
-								<form:select id="countrySelect" path="countryId" cssClass="form-control">
-									<form:option value="">Не установлен</form:option>
-					                <c:forEach items="${machineSearchCommand.userCountry}" var="country">
-					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-					                </c:forEach>
-								</form:select>
+						        	<label class="form-label">СТРАНА</label>
+									<form:select id="countrySelect" path="countryId" cssClass="form-control">
+										<form:option value="">Не установлен</form:option>
+						                <c:forEach items="${machineSearchCommand.userCountry}" var="country">
+						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+						                </c:forEach>
+									</form:select>
 					          	</div>	
 								<div class="filter_select">
 						          <label class="form-label">ПОРТ</label>
@@ -139,7 +141,7 @@
 						                    <form:option value="${port.value.name}" label="${port.value.name}" />
 						                </c:forEach>							
 									</form:select>		          
-						          </div>	
+						        </div>	
 								<div class="filter_select">
 						          <label class="form-label">КОМПАНИЯ</label>
 									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
@@ -148,7 +150,8 @@
 						                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
 						                </c:forEach>								
 									</form:select>
-						          </div>	
+						        </div>
+						    </sec:authorize>    	
 								<div class="filter_select">
 				                    <label class="form-label">ГРУППА</label>
 									<form:select id="groupSelect" path="groupId" cssClass="form-control">
@@ -238,7 +241,6 @@
 				                              <th>Номенклатурный №</th>
 				                              <th>Регистрационный №</th>
 				                              <th>Примечания</th>
-				                              <th>Описание Машины</th>
 				                              <th class="hide">group Id&nbsp;&nbsp;</th>
 			                              </tr>
 			                          </thead>
@@ -277,7 +279,6 @@
 				                              <td></td>
 				                              <td></td>
 				                              <td><c:out value="${machine.note}"/></td>
-				                              <td><c:out value="${machine.name}"/></td>
 											  <td class="hide"><c:out value="${machine.model.group.groupId}"/></td>											   
 				                            </tr>
 				                        </c:if>    

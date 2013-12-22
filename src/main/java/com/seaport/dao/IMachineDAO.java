@@ -7,6 +7,7 @@ import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Model;
+import com.seaport.domain.User;
 
 /**
  * The DAO interface for Machine related requests 
@@ -19,7 +20,7 @@ public interface IMachineDAO {
 	public Machine getMachine(Integer machineId);
 	public List<Machine> getMachines();
 	public void saveMachine(Machine machine);
-
+	public List<Machine> getMachines(User user);
 	public List<Group> getGroups();
 	public List<Model> getModels();
 	public List<Manufacturer> getManufacturers();
@@ -27,4 +28,5 @@ public interface IMachineDAO {
 	public Map<Integer, Model> getModelsMap();
 	public Map<Integer, Manufacturer> getManufacturerMap();
 	public Map<Integer, Integer> getYearMap();
+	
 }

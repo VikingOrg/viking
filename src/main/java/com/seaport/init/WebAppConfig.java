@@ -40,13 +40,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
         return localeResolver;
     }
     
-//    @Bean
-//    public CookieLocaleResolver localeResolver(){
-//    	CookieLocaleResolver localeResolver = new CookieLocaleResolver();
-//        localeResolver.setDefaultLocale(new Locale("en","EN"));
-//        return localeResolver;
-//    }    
-    
     @Bean 
     public LocaleChangeInterceptor localeChangeInterceptor(){
         LocaleChangeInterceptor localeChangeInterceptor=new LocaleChangeInterceptor();

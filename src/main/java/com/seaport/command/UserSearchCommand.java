@@ -27,7 +27,15 @@ public class UserSearchCommand {
 	private Integer portId;
 	private Integer countryId;
 	private Integer stevidorId;
+	private Integer userId;
 
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public List<User> getUserList() {
 		return userList;

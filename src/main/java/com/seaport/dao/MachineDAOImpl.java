@@ -1,16 +1,20 @@
 package com.seaport.dao;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Repository;
 
 import com.seaport.domain.Group;
@@ -47,6 +51,18 @@ public class MachineDAOImpl implements IMachineDAO {
 	@Override
 	public List<Machine> getMachines() {
 		return getCurrentSession().createCriteria(Machine.class).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Machine> getMachines(User user){
+		if (user.getRole().getId().intValue() > 1) {
+			Query query = getCurrentSession().createQuery("from Machine m where m.stevidorId = :stevidorId");
+			query.setParameter("stevidorId", user.getStevidorId());
+			return query.list();
+		} else {
+			return getCurrentSession().createCriteria(Machine.class).list();	
+		}
 	}
 	
 	@Override

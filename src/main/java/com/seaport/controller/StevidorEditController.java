@@ -21,7 +21,7 @@ import com.seaport.command.StevidorEditCommand;
 import com.seaport.dao.ISystemDAO;
 import com.seaport.domain.User;
 import com.seaport.service.IPortService;
-import com.seaport.utils.SessionConstants;
+import com.seaport.utils.SystemConstants;
 
 /**
  * The Controller class that invoke business logic and create a Model&View object. 
@@ -71,7 +71,7 @@ public class StevidorEditController {
 		
 		/*Setting up default not null values.*/
 		Timestamp updateDate = new Timestamp(new Date().getTime());
-		User user = (User)request.getSession().getAttribute(SessionConstants.USER_MODEL);
+		User user = (User)request.getSession().getAttribute(SystemConstants.USER_MODEL);
 		if (stevidorEditCommand.getStevidor().getStevidorId()== null) {
 			stevidorEditCommand.getStevidor().setCreateUserId(user.getUserId());
 			stevidorEditCommand.getStevidor().setCreateDate(updateDate);
