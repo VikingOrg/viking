@@ -63,7 +63,7 @@
 			        <div class="col-sm-4 col-sm-offset-1">
 			        	
 				      	<v:input path="machine.model.name" label="МОДЕЛЬ" required="true" title="Модель"/>
-						<v:input path="machine.model.details" label="ХАРАКТЕРИСТИКИ" required="true" title="Укажите характеристики модели"/>
+						<v:input path="machine.details" label="ХАРАКТЕРИСТИКИ" required="true" title="Укажите характеристики модели"/>
 			            <v:input path="machine.inventoryNumb" label="ИНВЕНТАРНЫЙ №" required="true" title="Введите инвентарный номер"/>
 			            <v:input path="machine.startDate" label="ДАТА ВВОДА В ЭКСПЛУАТАЦИЮ" required="true" title="Укажите дату ввода в эксплуатацию" id="datepicker"/>
 						<v:input path="machine.doc" label="КОНТРАКТ №" required="true" title="Укажите документ ввода в эксплуатацию"/>

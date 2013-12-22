@@ -264,7 +264,7 @@
 					                          <td><c:out value="${machine.model.name}"/>
 					                          </td>
 				                              <td><c:out value="${machine.stevidor.fullName}"/></td>
-				                              <td><c:out value="${machine.model.details}"/></td>
+				                              <td><c:out value="${machine.details}"/></td>
 				                              <td><c:out value="${machine.model.manufacturer.name}"/></td>
 				                              <td><c:out value="${machine.releaseYear}"/></td>
 				                              <td><spring:eval expression="machine.startDate" /></td>

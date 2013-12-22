@@ -45,7 +45,7 @@ public class Stevidor implements Serializable {
 	private int createUserId;
 	
 	@NotNull
-	@Size(min = 3, max = 45, message = "{validation.size.generic}")
+	@Size(min = 3, max = 100, message = "{validation.size.generic}")
 	@Column(name="full_name")
 	private String fullName;
 	

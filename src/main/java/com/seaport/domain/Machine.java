@@ -39,8 +39,7 @@ public class Machine implements Serializable {
 
 	private String location;
 
-//	@Column(name="model_id")
-//	private Integer modelId;
+	private String details;
 
 	private String name;
 
@@ -275,6 +274,16 @@ public class Machine implements Serializable {
 
 	public void setUpdateUserId(int updateUserId) {
 		this.updateUserId = updateUserId;
+	}
+
+
+	public String getDetails() {
+		return details;
+	}
+
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
 

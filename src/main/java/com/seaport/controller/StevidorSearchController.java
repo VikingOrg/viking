@@ -50,6 +50,15 @@ public class StevidorSearchController {
 		return "stevidorSearch";
 	}
 	
+	/**
+	 * Currently used as Delete function.
+	 * @param request
+	 * @param model
+	 * @param portSearchCommand
+	 * @param result
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
 								@Valid @ModelAttribute("stevidorSearchCommand") StevidorSearchCommand portSearchCommand,
