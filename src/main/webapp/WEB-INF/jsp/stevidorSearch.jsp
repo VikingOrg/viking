@@ -158,9 +158,9 @@
 				                                <td>
 				                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
 					                              	<c:if test="${system.localConfig}" >
-					                              		<span class="alert-danger">
+					                              		<%-- <span class="alert-danger">
 					                              			<c:out value="(${stevidor.stevidorId})"/>
-					                              		</span>
+					                              		</span> --%>
 					                              	</c:if>				                                	
 				                                </td>
 					                         	<td class="nowrap">

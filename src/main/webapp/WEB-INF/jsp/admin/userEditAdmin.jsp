@@ -8,8 +8,8 @@
 	<head>
 	    <title>Редактирование данных пользователя</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" href="<c:url value="/static/css/bootstrap.min.css"/>"/>
+	    <link rel="stylesheet" type="text/css" href="<c:url value="/static/css/core.css"/>"/>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>	
 	</head>
@@ -23,8 +23,6 @@
 			<spring:url var = "action" value='/userEditAdmin'/>
 	  		<form:form id="userEditAdmin" action="${action}" commandName="registrationCommand" method="post" accept-charset="UTF-8">
 			    <div class="container">
-			      <div class="masthead">
-			        <div class="container">
 			        <div class="row">
 			          <div class="col-md-10 col-md-offset-1">
 			      		<c:choose>
@@ -46,8 +44,6 @@
 						</c:if>
 						</div>									          
 			          </div>
-			        </div>
-			      </div>
 			      <div class="row">
 			        <div class="col-sm-4 col-sm-offset-1">
 			        	<div class="form-group">
@@ -135,6 +131,7 @@
 		      </div>
 		    </div>
 		    
+
 		    <!-- 		Модальное окно подтверждения сохранения введенных данных -->
 		<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
@@ -148,17 +145,12 @@
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		
+		</div><!-- /.modal -->		
 		
 			</form:form>    
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
-		<div id="footer navbar-fixed-bottom">
-		  <div class="container">
 		   <jsp:include page="../common/footer.jsp" />
-		  </div>
-		</div>
 		
 
 	</body>

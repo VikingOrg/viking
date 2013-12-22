@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
         
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -33,10 +34,11 @@
             
 		</script>
     </head>
-    <body class="">	    
+    <body>	
+            <!-- Wrap all page content here -->
+    <div id="wrap">    
 			   <!-- Fixed navbar -->
-			   <nav class="navbar navbar-default" role="navigation">
-			  <div class="navbar navbar-default navbar-fixed-top">
+			   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			    <div class="container">
 			      <div class="navbar-header">
 			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -67,23 +69,16 @@
 			       <!--/.nav-collapse -->
 			       
 			    </div>
-			  </div>   
 			  </nav>
    
     
-        <div class="container-fluid">
-            <div class="masthead">
-                <div class="container">
-                    <div class="row">
+        <div class="container">
                         <div class="col col-md-12">
                         <h4 class="text-muted page-header">ПОДЪЕМНО-ТРАНСПОРТНОЕ ОБОРУДОВАНИЕ "ПОРТЫ - ГРУППЫ"<br></h4>
                         </div>
-                    </div>
-                </div>
-            </div>
         
-        <div class="container-fluid">
-            <div class="row-fluid">
+        <div class="container">
+            <div class="row">
                  
                 <div class="col col-md-12  col-xs-12">
                     <!--Body content-->
@@ -131,7 +126,7 @@
         </div>
       </div>
     </div>
-    
+ </div>   
 <!-- Site footer -->
    <div class="footer">
      <p class="text-center"><a href="about.html">О Системе</a>
@@ -158,12 +153,11 @@
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
+					        <a href="#" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
 					      </div>
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
-			      </div><!--/.nav-collapse -->
 
 
 </body>

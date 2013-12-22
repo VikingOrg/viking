@@ -93,6 +93,7 @@
     
         </script>
         <style type="text/css">
+        
 			.filter_select {
 				padding-top: 10px;
 			}
@@ -114,18 +115,12 @@
 	  		<div class="container">
 	  			<form:form id="user_search_form" action="userSearchAdmin" commandName="userSearchCommand" method="post" accept-charset="UTF-8">
 
-				<div class="masthead">
-				    <div class="container-fluid">
-				        <div class="row-fluid">
 				         	 <div class="col-md-10 col-md-offset-1">
 					        	<h4 class="text-muted page-header">СПИСОК ПОЛЬЗОВАТЕЛЕЙ СИСТЕМЫ<br></h4>
 					        </div>
-				        </div>
-				    </div>
-				</div>
 				
-		        <div class="container-fluid">
-		            <div class="row-fluid">
+		        <div class="container">
+		            <div class="row">
 		                 <div class="col col-sm-4 col-md-3">
 		                     <!--Sidebar content-->
 		                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span>&nbsp;
@@ -211,9 +206,9 @@
 						                       		<td>
 						                       			<form:checkbox path="userList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<c:if test="${system.localConfig}" >
-						                              		<span class="alert-danger">
+						                              		<%-- <span class="alert-danger">
 						                              			<c:out value="(${user.userId})"/>
-						                              		</span>
+						                              		</span> --%>
 						                              	</c:if>							                       			
 						                       		</td>
 						                         	<td class="nowrap">

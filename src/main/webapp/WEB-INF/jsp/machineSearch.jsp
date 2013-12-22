@@ -51,7 +51,6 @@
                	           ],
 	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
 	                "sPaginationType": "bootstrap",
-	                "bStateSave": true,
 	                "bProcessing": true,
 	                "iDisplayLength": 15,
 	                "oLanguage": {
@@ -251,9 +250,9 @@
 				                              <td>
 				                              	<form:checkbox path="machineList[${loop.index}].archived" value="Y"></form:checkbox>
 				                              	<c:if test="${system.localConfig}" >
-				                              		<span class="alert-danger">
+				                              		<%-- <span class="alert-danger">
 				                              			<c:out value="(${machine.machineId})"/>
-				                              		</span>
+				                              		</span> --%>
 				                              	</c:if>
 				                              </td>
 				                              <td>

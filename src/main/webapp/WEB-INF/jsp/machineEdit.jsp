@@ -5,6 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 
 <!doctype html>
 <html lang="ru">
@@ -35,7 +37,7 @@
 		    <div class="container">
 				<form:form id="machine_edit_form" action="machineEdit" commandName="machineEditCommand" method="post" accept-charset="UTF-8">
 			    <div class="container">
-<!-- 			    Контейнер заголовка блок контента -->
+<!-- 			    Контейнер заголовка блока контента -->
 			      <div class="masthead">
 			        <div class="container">
 			          <div class="col-md-10 col-md-offset-1">
@@ -114,6 +116,7 @@
 				            <option>Высоцкий</option>
 				          </select>
 			        	</div>	 -->
+			        	<sec:authorize access="hasRole('ROLE_ADMIN')">
 			        	<div class="form-group">
   				            <label class="form-label">КОМПАНИЯ</label>
 							<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control">
@@ -122,7 +125,8 @@
 				                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
 				                </c:forEach>								
 							</form:select>
-			        	</div>			        		
+			        	</div>		
+			        	</sec:authorize>    		
 			        	
 				        <div class="form-group">
   				            <label class="form-label">ПРОИЗВОДИТЕЛЬ(Оборудования)</label>
@@ -198,9 +202,7 @@
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
 		<div id="footer">
-		  <div class="container">
 		   <jsp:include page="common/footer.jsp" />
-		  </div>
 		</div>
 	</body>
 </html>

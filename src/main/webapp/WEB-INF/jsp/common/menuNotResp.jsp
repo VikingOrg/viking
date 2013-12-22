@@ -11,7 +11,7 @@
             
             <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/non-responsive.css"/>"/>
               <!-- Fixed navbar -->
-			  <div class="navbar navbar-default navbar-fixed-top">
+			  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			    <div class="container">
 			      <div class="navbar-header">
 			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -90,7 +90,6 @@
 			       <!--/.nav-collapse -->
 			       
 			    </div>
-			  </div>   
-
+			  </nav>   
 
  

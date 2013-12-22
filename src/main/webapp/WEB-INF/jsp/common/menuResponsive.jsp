@@ -10,7 +10,7 @@
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
             
 			    <!-- Fixed navbar -->
-			  <div class="navbar navbar-default navbar-fixed-top">
+			  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			    <div class="container">
 			      <div class="navbar-header">
 			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,6 +20,8 @@
 			        </button>
 			        <a class="navbar-brand" href="#" style="color: #569EF0">ИТТ24</a>
 			      </div>
+			      
+			      
 			      <div class="collapse navbar-collapse">
 			        <ul class="nav navbar-nav">
 			
@@ -67,7 +69,8 @@
 			          </sec:authorize>
 			          
 			        </ul>
-			        <ul class="nav navbar-nav navbar-right">
+			        
+			      <ul class="nav navbar-nav navbar-right">
 			        	<li>
 				          <a style="color: #569EF0"> ${userModel.lastName}&nbsp;${userModel.firstName}</a>
 				        </li>
@@ -89,7 +92,7 @@
 			       <!--/.nav-collapse -->
 			       
 			    </div>
-			  </div>   
+			  </nav>   
 
 
  
