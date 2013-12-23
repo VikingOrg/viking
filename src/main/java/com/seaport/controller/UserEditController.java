@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.RegistrationCommand;
@@ -91,7 +92,7 @@ public class UserEditController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
-								BindingResult result, RedirectAttributes redirectAttributes) {
+								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
@@ -102,6 +103,9 @@ public class UserEditController {
 		
 		registrationCommand.getUser().setRole(userRole.getRole(registrationCommand.getUserRole()));
 		userService.saveUser(registrationCommand.getUser());
+		
+		//clear the command object from the session
+		status.setComplete();
 		return "redirect:/userSearchAdmin";
 	}
 }

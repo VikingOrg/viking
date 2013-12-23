@@ -18,6 +18,7 @@ import com.seaport.command.RegistrationCommand;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
+import com.seaport.validator.RegistrationValidator;
 
 /**
  * The Controller class that invoke business logic and create a Model&View object. 
@@ -53,15 +54,35 @@ public class RegistrationController {
 	public String onSubmit(HttpServletRequest request, Model model, 
 							@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 							BindingResult result, RedirectAttributes redirectAttributes) {
+		/*Db validations.*/
+		new RegistrationValidator(userService).validate(registrationCommand, result);
 		
-		/*JSR 303 Validations.*/
+		/*JSR 303 Validations via @Valid.*/
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
+			/*Didn't pass security so session is flaky..*/
+			model.addAttribute("registrationCommand", registrationCommand);
 			return "access/register";
-		} 
+		}
+		
+		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.register");
 		registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
 		userService.saveUser(registrationCommand.getUser());
 		return "redirect:/login";
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
