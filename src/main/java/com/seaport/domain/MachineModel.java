@@ -3,6 +3,8 @@ package com.seaport.domain;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -16,10 +18,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name="models")
-@NamedQuery(name="Model.findAll", query="SELECT m FROM Model m")
-public class Model implements Serializable {
+@NamedQuery(name="MachineModel.findAll", query="SELECT m FROM MachineModel m")
+public class MachineModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Min(1)
 	@Id
 	@GeneratedValue
 	@Column(name="model_id")
@@ -36,6 +39,8 @@ public class Model implements Serializable {
 
 	private String details;
 
+	@NotNull
+	@Min(1)
 	@Column(name="group_id")
 	private Integer groupId;
 
@@ -62,7 +67,7 @@ public class Model implements Serializable {
 	@JoinColumn(name = "manufacturer_id", insertable = false, updatable = false)
 	private Manufacturer manufacturer;	
 	
-	public Model() {
+	public MachineModel() {
 	}
 
 	public Integer getModelId() {

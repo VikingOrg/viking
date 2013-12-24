@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * The Controller class that invoke business logic and create a Model&View object. 
+ * The Controller class that invoke business logic and create a MachineModel&View object. 
  *
  * @Author       Danil Ozherelyev
  * @version      1.0 12/12/13 <P>

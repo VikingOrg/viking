@@ -3,6 +3,10 @@ package com.seaport.domain;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,6 +35,7 @@ public class Machine implements Serializable {
 	@Column(name="factory_numb")
 	private String factoryNumb;
 
+	@Min(1)
 	@Column(name="group_id")
 	private Integer groupId;
 
@@ -55,7 +60,7 @@ public class Machine implements Serializable {
 
 	@Column(name="stevidor_id")
 	private Integer stevidorId;
-
+	
 	@Column(name="trans_numb")
 	private String transNumb;
 
@@ -77,29 +82,40 @@ public class Machine implements Serializable {
 	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
 	private Stevidor stevidor;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "model_id", insertable = true, updatable = true)
-	private Model model;
+	@Min(1)
+	@Column(name="model_id")
+	private Integer modelId;
 	
+//	@Valid
+//	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
+	@JoinColumn(name = "model_id", insertable = false, updatable = false)
+	private MachineModel machineModel;
+
 	@OneToOne()
 	@JoinColumn(name = "group_id", insertable = false, updatable = false)
 	private Group group;
-	
+
 	public Machine() {
-		this.model = new Model();
 	}
 
 	
+	public Integer getModelId() {
+		return modelId;
+	}
+
+
+	public void setModelId(Integer modelId) {
+		this.modelId = modelId;
+	}
+
+
 	public String getReleaseYear() {
 		return releaseYear;
 	}
-
-
 	public void setReleaseYear(String releaseYear) {
 		this.releaseYear = releaseYear;
 	}
-
-
 	public Stevidor getStevidor() {
 		return stevidor;
 	}
@@ -110,13 +126,13 @@ public class Machine implements Serializable {
 	}
 
 
-	public Model getModel() {
-		return model;
+	public MachineModel getMachineModel() {
+		return machineModel;
 	}
 
 
-	public void setModel(Model model) {
-		this.model = model;
+	public void setMachineModel(MachineModel machineModel) {
+		this.machineModel = machineModel;
 	}
 
 

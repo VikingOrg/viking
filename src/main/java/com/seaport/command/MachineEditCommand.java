@@ -3,8 +3,12 @@ package com.seaport.command;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
+import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Stevidor;
 
@@ -18,15 +22,23 @@ import com.seaport.domain.Stevidor;
  */
 
 public class MachineEditCommand {
+	@NotNull
+	@Valid	
 	private Machine machine = new Machine();
 	private Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 	private Map<Integer, Stevidor> stevidorMap = new LinkedHashMap<Integer,Stevidor>();
 	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
 	private Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
+	private Map<Integer, MachineModel> machineModelMap = new LinkedHashMap<Integer, MachineModel>();
 	
 	private String formType = "N";
-	
 
+	public Map<Integer, MachineModel> getMachineModelMap() {
+		return machineModelMap;
+	}
+	public void setMachineModelMap(Map<Integer, MachineModel> machineModelMap) {
+		this.machineModelMap = machineModelMap;
+	}
 	public Map<Integer, Integer> getYearMap() {
 		return yearMap;
 	}

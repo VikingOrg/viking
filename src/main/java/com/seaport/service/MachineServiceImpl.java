@@ -11,7 +11,7 @@ import com.seaport.dao.IMachineDAO;
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Manufacturer;
-import com.seaport.domain.Model;
+import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 
 /**
@@ -49,7 +49,7 @@ public class MachineServiceImpl implements IMachineService {
 	}
 
 	@Override
-	public Map<Integer, Model> getModelsMap() {
+	public Map<Integer, MachineModel> getModelsMap() {
 		return machineDAO.getModelsMap();
 	}
 
@@ -62,5 +62,23 @@ public class MachineServiceImpl implements IMachineService {
 	}
 	public List<Machine> getMachines(User user){
 		return machineDAO.getMachines(user);
+	}
+
+	@Override
+	public List<MachineModel> getModels() {
+		return machineDAO.getModels();
+	}
+
+	@Override
+	public List<MachineModel> getModels(Integer groupId) {
+		return machineDAO.getModels(groupId);
+	}
+
+	@Override
+	public Map<Integer, MachineModel> getModelsMap(Integer groupId) {
+		return machineDAO.getModelsMap(groupId);
+	}
+	public MachineModel getModel(Integer modelId){
+		return machineDAO.getModel(modelId);
 	}
 }

@@ -250,21 +250,32 @@
 				                              <td>
 				                              	<form:checkbox path="machineList[${loop.index}].archived" value="Y"></form:checkbox>
 				                              	<c:if test="${system.localConfig}" >
-				                              		<%-- <span class="alert-danger">
+				                              		<span class="alert-danger">
 				                              			<c:out value="(${machine.machineId})"/>
-				                              		</span> --%>
+				                              		</span>
 				                              	</c:if>
 				                              </td>
 				                              <td>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-				                              		<c:out value="${machine.model.group.name}"/>
+					                              	<c:if test="${system.localConfig}" >
+					                              		<span class="alert-danger">
+					                              			<c:out value="(${machine.machineModel.group.groupId})"/>
+					                              		</span>
+					                              	</c:if>						                              		
+				                              		<c:out value="${machine.machineModel.group.name}"/>
 				                              </td>
-					                          <td><c:out value="${machine.model.name}"/>
+					                          <td>
+				                              	<c:if test="${system.localConfig}" >
+				                              		<span class="alert-danger">
+				                              			<c:out value="(${machine.machineModel.modelId})"/>
+				                              		</span>
+				                              	</c:if>							                          
+					                          	<c:out value="${machine.machineModel.name}"/>
 					                          </td>
 				                              <td><c:out value="${machine.stevidor.fullName}"/></td>
 				                              <td><c:out value="${machine.details}"/></td>
-				                              <td><c:out value="${machine.model.manufacturer.name}"/></td>
+				                              <td><c:out value="${machine.machineModel.manufacturer.name}"/></td>
 				                              <td><c:out value="${machine.releaseYear}"/></td>
 				                              <td><spring:eval expression="machine.startDate" /></td>
 				                              <td>№<c:out value="${machine.doc}"/></td>
@@ -278,7 +289,7 @@
 				                              <td></td>
 				                              <td></td>
 				                              <td><c:out value="${machine.note}"/></td>
-											  <td class="hide"><c:out value="${machine.model.group.groupId}"/></td>											   
+											  <td class="hide"><c:out value="${machine.machineModel.group.groupId}"/></td>											   
 				                            </tr>
 				                        </c:if>    
 			                            </c:forEach>

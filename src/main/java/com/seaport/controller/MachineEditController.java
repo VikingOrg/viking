@@ -1,5 +1,7 @@
 package com.seaport.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -9,18 +11,21 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.MachineEditCommand;
+import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 
 /**
- * The Controller class that invoke business logic and create a Model&View object. 
+ * The Controller class that invoke business logic and create a MachineModel&View object. 
  *
  * @Author       Danil Ozherelyev
  * @version      1.0 12/12/13 <P>
@@ -43,12 +48,11 @@ public class MachineEditController {
 		
 		String machineId = request.getParameter("machineId");
 		if (machineId != null) {
-			machineEditCommand.setMachine(machineService.getMachine(Integer.parseInt(machineId))); 
-			
+			machineEditCommand.setMachine(machineService.getMachine(Integer.parseInt(machineId)));
+			machineEditCommand.setMachineModelMap(machineService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));	
 			if (request.getParameter("copy")!= null) {
 				machineEditCommand.setFormType("C");
-				machineEditCommand.getMachine().setMachineId(null);
-				machineEditCommand.getMachine().getModel().setModelId(null);
+				machineEditCommand.getMachine().setMachineId(null);;
 			} else {
 				machineEditCommand.setFormType("E");
 			}
@@ -63,9 +67,17 @@ public class MachineEditController {
 		machineEditCommand.setStevidorMap(portService.getStevidorsMap());
 		machineEditCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineEditCommand.setYearMap(machineService.getYearMap());
+		
 		model.put("machineEditCommand", machineEditCommand);
 		return "machineEdit";
 	}
+	
+	@RequestMapping(value="/model/{groupId}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MachineModel> getModels(@PathVariable String groupId,
+							ModelMap model) {
+		return machineService.getModels(Integer.parseInt(groupId));
+	}	
 	
 	/**
 	 * Takes care post from machine page. Edit|New|Copy machine.
@@ -83,10 +95,14 @@ public class MachineEditController {
 								BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
-			return "machineSearch";
+			return "machineEdit";
 		}
 		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		if (machineEditCommand.getMachine().getMachineModel().getModelId() == null) {
+			MachineModel machineModel = machineService.getModel(machineEditCommand.getMachine().getModelId());
+			machineEditCommand.getMachine().setMachineModel(machineModel);
+		}
 		machineService.saveMachine(machineEditCommand.getMachine());
 		return "redirect:machineSearch";
 	}

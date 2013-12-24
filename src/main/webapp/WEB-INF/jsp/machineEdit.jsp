@@ -21,10 +21,24 @@
 		  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		  <script>
-		  $(function() {
-			  $( "#datepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
+		  $(document).ready(function() {
+		      $( "#datepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
 				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
-// 			us_style  $( "#datepicker" ).datepicker( { dateFormat: "mm/dd/yy", firstDay: 0 });
+
+              $('#groupSelect').change(function() {
+            	  var groupId = $(this).val();
+            	  if(groupId=='0'){
+            		  $('#modelSelect').html("<option value='0'>Не выбрана</option>");
+                  } else {
+	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
+	                      var options='';
+	                      $.each(machineModel, function (i, e) {
+	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
+	                      });
+	                      $('#modelSelect').html(options);
+	                  });
+                  }
+              });
 		  });
 		  </script>
   
@@ -63,8 +77,7 @@
 			      </div>
 			      <div class="row">
 			        <div class="col-sm-4 col-sm-offset-1">
-			        	
-				      	<v:input path="machine.model.name" label="МОДЕЛЬ" required="true" title="Модель"/>
+				      	
 						<v:input path="machine.details" label="ХАРАКТЕРИСТИКИ" required="true" title="Укажите характеристики модели"/>
 			            <v:input path="machine.inventoryNumb" label="ИНВЕНТАРНЫЙ №" required="true" title="Введите инвентарный номер"/>
 			            <v:input path="machine.startDate" label="ДАТА ВВОДА В ЭКСПЛУАТАЦИЮ" required="true" title="Укажите дату ввода в эксплуатацию" id="datepicker"/>
@@ -89,15 +102,31 @@
 			          -->
 			        </div>
 			        <div class="col-sm-4 col-sm-offset-1">
-			        	<div class="form-group">
-		                    <label class="form-label">ГРУППА</label>
-							<form:select id="groupSelect" path="machine.model.groupId" cssClass="form-control">
-							    <form:option value="">Не выбрана</form:option>
-				                <c:forEach items="${machineEditCommand.groupMap}" var="group">
-				                    <form:option value="${group.key}" label="${group.value.name}" />
-				                </c:forEach>								
-							</form:select>
-			        	</div>
+			        	<spring:bind path="machine.groupId">
+				        	<div class="form-group ${status.error ? 'has-error' : '' }">
+			                    <label class="form-label">ГРУППА</label>
+								<form:select id="groupSelect" path="machine.groupId" cssClass="form-control">
+								    <form:option value="0">Не выбрана</form:option>
+					                <c:forEach items="${machineEditCommand.groupMap}" var="group">
+					                    <form:option value="${group.key}" label="${group.value.name}" />
+					                </c:forEach>								
+								</form:select>
+								<form:errors path="machine.groupId" cssClass="control-label"/>
+				        	</div>
+			        	</spring:bind>
+			        	<spring:bind path="machine.modelId">
+				        	<div class="form-group ${status.error ? 'has-error' : '' }">
+			                    <label class="form-label">МОДЕЛЬ</label>
+								<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
+									<form:option value="0">Не выбрана</form:option>
+					                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
+					                    <form:option value="${model.key}" label="${model.value.name}" />
+					                </c:forEach>									
+								</form:select>
+								<form:errors path="machine.modelId" cssClass="control-label"/>
+				        	</div>
+			        	</spring:bind>
+					        	
 		        		<!-- <div class="form-group">
 				          <label class="form-label">СТРАНА</label>
 				          <select class="form-control" name="stevidor">
@@ -128,17 +157,17 @@
 			        	</div>		
 			        	</sec:authorize>    		
 			        	
+			        	<!--
 				        <div class="form-group">
   				            <label class="form-label">ПРОИЗВОДИТЕЛЬ(Оборудования)</label>
-							<form:select id="stevidorSelect" path="machine.model.manufacturerId" cssClass="form-control">
+							<form:select id="stevidorSelect" path="machine.machineModel.manufacturerId" cssClass="form-control">
 							    <form:option value="">Не выбран</form:option>
 				                <c:forEach items="${machineEditCommand.manufacturerMap}" var="manufacturer">
 				                    <form:option value="${manufacturer.key}" label="${manufacturer.value.name}" />
 				                </c:forEach>								
 							</form:select>
 			        	</div>		        	
-			        	
-			        	<!-- 	
+			        	 	
 			        	<div class="form-group">
 				          <label class="form-label">СТРАНА ПРОИЗВОДСТВА</label>
 				          <select class="form-control" name="manufacturer">

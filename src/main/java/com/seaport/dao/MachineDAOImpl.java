@@ -1,7 +1,6 @@
 package com.seaport.dao;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -12,15 +11,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Repository;
 
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Manufacturer;
-import com.seaport.domain.Model;
+import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
 
@@ -74,8 +71,6 @@ public class MachineDAOImpl implements IMachineDAO {
 		if (machine.getMachineId()==null) {
 			machine.setCreateUserId(user.getUserId());
 			machine.setCreateDate(updateDate);
-			machine.getModel().setCreateUserId(user.getUserId());
-			machine.getModel().setCreateDate(updateDate);
 		}
 		machine.setUpdateUserId(user.getUserId());
 		machine.setUpdateDate(updateDate);
@@ -100,19 +95,46 @@ public class MachineDAOImpl implements IMachineDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Model> getModels() {
-		return getCurrentSession().createCriteria(Model.class).list();
+	public List<MachineModel> getModels() {
+		return getCurrentSession().createCriteria(MachineModel.class).list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MachineModel> getModels(Integer groupId) {
+		Query query = getCurrentSession().createQuery("from MachineModel m where m.groupId = :groupId");
+		query.setParameter("groupId", groupId);
+		return query.list();
+	}	
+
+	@Override
+	public MachineModel getModel(Integer modelId) {
+		Query query = getCurrentSession().createQuery("from MachineModel m where m.modelId = :modelId");
+		query.setParameter("modelId", modelId);
+		return (MachineModel)query.list().get(0);
+	}	
+	
 	
 	@Override
-	public Map<Integer, Model> getModelsMap() {
-		Map<Integer, Model> modelMap = new LinkedHashMap<Integer, Model>();
-		List<Model> modelList = this.getModels();
-		for (Model model : modelList) {
-			modelMap.put(model.getModelId(), model);
+	public Map<Integer, MachineModel> getModelsMap(Integer groupId) {
+		Map<Integer, MachineModel> modelMap = new LinkedHashMap<Integer, MachineModel>();
+		List<MachineModel> modelList = this.getModels(groupId);
+		for (MachineModel machineModel : modelList) {
+			modelMap.put(machineModel.getModelId(), machineModel);
 		}
 		return modelMap;
 	}
+	
+	@Override
+	public Map<Integer, MachineModel> getModelsMap() {
+		Map<Integer, MachineModel> modelMap = new LinkedHashMap<Integer, MachineModel>();
+		List<MachineModel> modelList = this.getModels();
+		for (MachineModel machineModel : modelList) {
+			modelMap.put(machineModel.getModelId(), machineModel);
+		}
+		return modelMap;
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	@Override	

@@ -21,7 +21,7 @@ import com.seaport.service.IUserService;
 import com.seaport.validator.RegistrationValidator;
 
 /**
- * The Controller class that invoke business logic and create a Model&View object. 
+ * The Controller class that invoke business logic and create a MachineModel&View object. 
  *
  * @Author       Danil Ozherelyev
  * @version      1.0 12/12/13 <P>
