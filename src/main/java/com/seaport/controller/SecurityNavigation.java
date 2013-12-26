@@ -21,7 +21,7 @@ public class SecurityNavigation {
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,
 						Model model, 
-						@RequestParam(required=false) String message) {
+						@RequestParam(required=false) String message) throws Exception {
 		if (message!=null && message.equalsIgnoreCase("002399")) {
 			message = "Логин и/или пароль не найден.";
 		}
@@ -31,23 +31,23 @@ public class SecurityNavigation {
 	}
 	
 	@RequestMapping(value = "/denied")
- 	public String denied() {
+ 	public String denied() throws Exception {
 		return "access/denied";
 	}
 	
 	@RequestMapping(value = "/login/failure")
- 	public String loginFailure() {
+ 	public String loginFailure() throws Exception {
 		String message = "002399";
 		return "redirect:/login?message="+message;
 	}
 	
 	@RequestMapping(value = "/logout")
- 	public String logout() {
+ 	public String logout() throws Exception {
 		return "/access/logout";
 	}
 	
 	@RequestMapping(value="/404.html")
-	public String getErrorPage() {
+	public String getErrorPage() throws Exception {
 		return "blank";
 	}	
 }

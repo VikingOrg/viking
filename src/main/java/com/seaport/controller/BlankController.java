@@ -25,7 +25,7 @@ public class BlankController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		
 		model.put("blankCommand", new BlankCommand());
 		return "nextViewHere";
@@ -34,9 +34,8 @@ public class BlankController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public ModelAndView onSubmit(HttpServletRequest request, 
 								@ModelAttribute BlankCommand blankCommand,
-								BindingResult result) {
+								BindingResult result) throws Exception {
 
-//		return new ModelAndView("redirect:nextViewHere", result.getModel());
 		return new ModelAndView("nextViewHere", result.getModel());
 	}
 }

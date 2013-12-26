@@ -27,12 +27,12 @@ public class LinkNavigation {
 	private SystemConstants systemConstants;
 	
 	@RequestMapping
-	public String getLogin(HttpServletRequest request) {
+	public String getLogin(HttpServletRequest request) throws Exception {
 		return "redirect:home";
 	}
 
 	@RequestMapping(value="/home")
-	public String getHomePage(HttpServletRequest request) {
+	public String getHomePage(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		session.setAttribute(com.seaport.utils.SystemConstants.USER_MODEL, 
 				userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -41,7 +41,7 @@ public class LinkNavigation {
 	}
 	
 	@RequestMapping(value="/help.html")
-	public String getHelpPage() {
+	public String getHelpPage() throws Exception {
 		return "common/help.html";
 	}
 }

@@ -48,7 +48,7 @@ public class UserSearchController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		
 		UserSearchCommand userSearchCommand = new UserSearchCommand();
 		userSearchCommand.setUserList(userService.getUsers());
@@ -75,7 +75,7 @@ public class UserSearchController {
 	@RequestMapping(value="/delete/", method = RequestMethod.POST)
 	public String deleteUsers(Model model,
 									@ModelAttribute("userSearchCommand") UserSearchCommand userSearchCommand,
-									BindingResult result, RedirectAttributes redirectAttributes) {
+									BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		List<User> userList = userSearchCommand.getUserList();
 		boolean nothingToDelete = true;
 		
@@ -93,7 +93,6 @@ public class UserSearchController {
 		if (nothingToDelete) {
 			model.addAttribute("error", "message.user.error.generic");
 			return "admin/userSearchAdmin";			
-//			redirectAttributes.addFlashAttribute("message", "message.user.noselection.generic");	
 		} else {
 			redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
 		}
@@ -113,20 +112,13 @@ public class UserSearchController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
 								@Valid @ModelAttribute("userSearchCommand") UserSearchCommand userSearchCommand,
-								BindingResult result, RedirectAttributes redirectAttributes) {
+								BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
 			return "admin/userSearchAdmin";
 		}
 		return "redirect:userEditAdmin";
-	}
-	
-	@RequestMapping(value="/edit/{userId}", method = RequestMethod.POST)
-	public String editUser(@PathVariable String userId,
-							ModelMap model) {
-
-		return "admin/userEditAdmin";
 	}
 	
 }

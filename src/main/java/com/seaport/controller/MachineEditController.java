@@ -43,7 +43,7 @@ public class MachineEditController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		MachineEditCommand machineEditCommand = new MachineEditCommand();
 		
 		String machineId = request.getParameter("machineId");
@@ -75,7 +75,7 @@ public class MachineEditController {
 	@RequestMapping(value="/model/{groupId}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MachineModel> getModels(@PathVariable String groupId,
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		return machineService.getModels(Integer.parseInt(groupId));
 	}	
 	
@@ -92,7 +92,7 @@ public class MachineEditController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
 								@Valid @ModelAttribute("machineEditCommand") MachineEditCommand machineEditCommand,
-								BindingResult result, RedirectAttributes redirectAttributes) {
+								BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
 			return "machineEdit";

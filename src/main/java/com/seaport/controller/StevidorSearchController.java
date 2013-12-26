@@ -39,7 +39,7 @@ public class StevidorSearchController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		StevidorSearchCommand stevidorSearchCommand = new StevidorSearchCommand();
 
 		stevidorSearchCommand.setUserPort(portService.getPortsMap());
@@ -62,7 +62,7 @@ public class StevidorSearchController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
 								@Valid @ModelAttribute("stevidorSearchCommand") StevidorSearchCommand portSearchCommand,
-								BindingResult result, RedirectAttributes redirectAttributes) {
+								BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");

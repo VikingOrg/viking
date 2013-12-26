@@ -41,7 +41,7 @@ public class StevidorEditController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		String stevidorId = request.getParameter("stevidorId");
 		StevidorEditCommand stevidorEditCommand = new StevidorEditCommand();
 		if (stevidorId != null) {
@@ -62,7 +62,7 @@ public class StevidorEditController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("stevidorEditCommand") StevidorEditCommand stevidorEditCommand,
-								BindingResult result, RedirectAttributes redirectAttributes) {
+								BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");

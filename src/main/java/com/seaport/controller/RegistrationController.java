@@ -40,7 +40,7 @@ public class RegistrationController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setUserPort(portService.getPortsMap());
 		registrationCommand.setUserStevidor(portService.getStevidorsMap());
@@ -53,7 +53,7 @@ public class RegistrationController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 							@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
-							BindingResult result, RedirectAttributes redirectAttributes) {
+							BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		/*Db validations.*/
 		new RegistrationValidator(userService).validate(registrationCommand, result);
 		

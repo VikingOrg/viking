@@ -40,7 +40,7 @@ public class UserEditController {
 	
 	@RequestMapping(value="/edit/{userId}", method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId,
-							ModelMap model) {
+							ModelMap model)  throws Exception{
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setFormType("E");
 		registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
@@ -57,7 +57,7 @@ public class UserEditController {
 	@RequestMapping(value="/copy/{userId}", method = RequestMethod.GET)
 	public String copyUser(HttpServletRequest request,
 							@PathVariable String userId,
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setFormType("C");		
 		registrationCommand.setUser(userService.getUser(Integer.parseInt(userId)));
@@ -78,7 +78,7 @@ public class UserEditController {
 	 * @return
 	 */
 	@RequestMapping(value="/new/", method = RequestMethod.GET)
-	public String newUser(ModelMap model) {
+	public String newUser(ModelMap model) throws Exception {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setUserPort(portService.getPortsMap());
 		registrationCommand.setUserStevidor(portService.getStevidorsMap());
@@ -92,7 +92,7 @@ public class UserEditController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
-								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) {
+								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");

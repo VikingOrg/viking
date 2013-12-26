@@ -25,7 +25,7 @@ public class PassRecoverController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) {
+							ModelMap model) throws Exception {
 		
 		model.put("passRecoverCommand", new PassRecoverCommand());
 		return "passRecover";
@@ -34,7 +34,7 @@ public class PassRecoverController {
 	@RequestMapping(method = RequestMethod.POST) 
 	public ModelAndView onSubmit(HttpServletRequest request, 
 								@ModelAttribute PassRecoverCommand passRecoverCommand,
-								BindingResult result) {
+								BindingResult result) throws Exception {
 
 		return new ModelAndView("passRecover", result.getModel());
 	}
