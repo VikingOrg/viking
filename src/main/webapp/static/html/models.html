@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	    <title>Таблица моделей подъемно-транспортного оборудования</title>
+	    <meta name="viewport" content="width=device-width">
+	    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+        
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+	        $(document).ready(function() {
+	        	var oTable = $('#machine_table').dataTable( {
+	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+	                "sPaginationType": "bootstrap",
+	                "iDisplayLength": 15,
+	                "oLanguage": {
+                        "sUrl": "static/js/dataTable_ru_RU.txt"
+                     } 
+	            } );
+        </script>
+        <style type="text/css">
+			.filter_select {
+				padding-top: 10px;
+			}
+			th {
+            text-align: center;
+            white-space:nowrap;
+            background-color: blue;
+            color: white;
+          }
+          	td {
+            white-space:nowrap;
+          }
+        </style>
+	</head>
+	<body style="">
+		<!-- Wrap all page content here -->
+		<div id="wrap">
+ 
+			<!-- Begin page content -->
+		    <div class="container">
+				<form id="machine_search_form" accept-charset="UTF-8" action="./models_files/models.html" method="post">
+			       
+			            <div class="masthead">
+			                <div class="container">
+			                    <div class="row">
+			                    <div class="col-md-10 col-md-offset-1">
+			                    <h4 class="text-muted page-header">МОДЕЛИ ПОДЪЕМНО-ТРАНСПОРТНОГО ОБОРУДОВАНИЯ<br></h4></div></div>
+			                </div>
+			            </div>
+			        
+			        <div class="container">
+			            <div class="row">
+			                 <div class="col col-sm-4 col-md-3">
+			                     <!--Sidebar content-->
+			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
+								<div class="filter_select">
+				                    <label class="form-label">ГРУППА</label>
+									<select class="form-control">
+									    <option value="">Не установлен</option>
+						                    <option>Портальный кран</option>
+						                    <option>Мобильный портальный кран</option>
+						                    <option>Мобильный кран</option> 								
+									</select>
+			                    </div>	
+						        <div class="filter_select">
+		  				            <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
+									<select class="form-control" title="Выборка по модели">
+    				                    <option>Не установлен</option>
+					                    <option>Toyota</option>
+					                    <option>Кранбау-Эберсвальде</option>
+					                    <option>Коне</option>
+				                    </select>
+					        	</div>
+                                <div class="filter_select">
+    	  				            <label class="form-label">СТРАНА ПРОИЗВОДСТВА</label>
+									<select class="form-control" title="Выборка по году выпуска">
+									   <option>Не выбран</option>
+									   <option>Россия</option>
+                                       <option>Германия</option>
+									</select>  				            
+					        	</div>				                    
+			                    
+			                    <hr>
+			                    <div class="input-group" style="margin: 5px">
+								    <label class="form-label">ПОИСК</label>
+								    <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text">  
+			                        <br><br>
+			                    </div>
+			                 </div>
+			                <div class="col col-sm-8 col-md-9">
+			                    <!--Body content-->
+			                    
+			                    <!--  Вывод сообщений и предупреждений  -->
+								
+																	
+	<!-- 		                    Операции с данными в таблице -->
+			                    <div class="btn-group" style="margin: 5px">
+		                            <a href="http://localhost:8080/viking/machineEdit" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+		                            <a href="http://localhost:8080/viking/machineSearch#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
+	                            </div>
+	                            
+<!-- 							Таблица со списком машин -->
+			                <div class="table-container">
+			                    <div>
+                                    <table class="table table-striped table-bordered dataTable">
+			                          <thead>
+			                              <tr>
+                                            <th>&nbsp;</th>
+                                            <th>Группа&nbsp;&nbsp;</th>
+                                            <th>Модель&nbsp;&nbsp;</th>
+                                            <th>Производитель&nbsp;&nbsp;</th>
+                                            <th>Страна производства&nbsp;&nbsp;</th>
+                                            <th>Примечания</th>
+                                          </tr>
+			                          </thead>
+        			                  <tbody>
+                                          <tr>
+				                             <td><input type="checkbox"></td>
+				                              <td>&nbsp;
+                                              <span class="glyphicon glyphicon-pencil" title="Редактировать"></span>&nbsp;
+                                              <span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
+				                              </td>
+					                          <td>ДИЕР-65  12,5т</td>
+				                              <td>Тяжмаш</td>
+				                              <td>Россия</td>
+				                              <td>Рига "АО Рикон"</td>											   
+				                        </tr> 
+				                        </tbody>
+    			                    </table>
+    			                   </div>
+			                   </div>
+			            </div>
+			        </div>
+			    </div>
+		        
+				    <!-- 		Модальное окно подтверждения удаления данных -->
+					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-body" align="center">
+					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+			</form>
+					
+			</div> <!-- End of Main Container -->
+		</div> <!-- End of Wrapping -->
+		<div id="footer">
+		  <div class="container">
+		      
+   
+   <!-- Site footer -->
+  
+		  </div>
+		</div>
+	
+</body>
+    
+</html>
