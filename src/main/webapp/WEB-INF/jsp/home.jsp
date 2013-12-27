@@ -29,6 +29,7 @@
 		    		<p><h4>Приветствуем вас, <span id="username">${userModel.firstName}&nbsp;</span>!</p></h4>
 		    		<p>Перед началом работы пожалуйста ознакомьтесь с Правилами пользования Системой.</p>
 					<p>&nbsp;</p>
+					<!-- 
 					<p><h4>Мы работали днем и ночью! Теперь <strong>заслуженный</strong> отдых с музыкой!</h4>
 						Так же, если кто-то не полениться и установит риспонсив - он увидит удивительные вещи...
 					</p>
@@ -36,7 +37,7 @@
 		    		<div class="video-container">
 						<iframe width="560" height="315" src="//www.youtube.com/embed/ORKhtOs35Ok" frameborder="0" allowfullscreen></iframe>						
 					</div>
-					
+					 -->
 			</div>
 					
 		  </div>

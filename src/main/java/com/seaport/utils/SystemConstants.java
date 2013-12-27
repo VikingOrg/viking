@@ -2,11 +2,17 @@ package com.seaport.utils;
 
 public class SystemConstants {
 	public static final String USER_MODEL = "userModel";
-	public static final String PAGE_STATE_USER_SEARCH = "pageStatusUserSearch";
 	
 	public boolean localConfig;
 	public boolean responsiveDesign;
+	public boolean applPhaseII;
 	
+	public boolean isApplPhaseII() {
+		return applPhaseII;
+	}
+	public void setApplPhaseII(boolean applPhaseII) {
+		this.applPhaseII = applPhaseII;
+	}
 	public boolean isLocalConfig() {
 		return localConfig;
 	}

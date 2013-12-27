@@ -19,7 +19,7 @@
 	    <script type="text/javascript" src="<c:url value="/static/js/bootstrap.min.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/static/js/dataTables.bootstrap.js"/>"> </script>
         <script type="text/javascript" src="<c:url value="/static/js/dataTables.bootstrapPagination.js"/>"> </script>
-		<script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>" ></script>
+		
 		<spring:url var = "sUrlRussian" value='/static/js/ru_RU.txt'/>
         <script type="text/javascript">
             $(document).ready(function() {

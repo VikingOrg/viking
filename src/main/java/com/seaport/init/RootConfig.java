@@ -37,6 +37,7 @@ public class RootConfig {
     
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_RESPONSIVE_SETTING = "responsive.design";
+    private static final String PROPERTY_APPL_PHASEII = "application.phaseII";
     
     	
 	@Resource
@@ -65,13 +66,14 @@ public class RootConfig {
 //	@Scope("prototype")
 	public SystemConstants systemConstants(){
 		SystemConstants systemConstants = new SystemConstants();
-		String value = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
-		if (value == null) {
+		if (System.getenv("OPENSHIFT_MYSQL_DB_HOST") == null) {
 			systemConstants.setLocalConfig(true);
 		}
-		String respDesign = env.getRequiredProperty(PROPERTY_RESPONSIVE_SETTING);
-		if (respDesign.equalsIgnoreCase("true")) {
+		if (env.getRequiredProperty(PROPERTY_RESPONSIVE_SETTING).equalsIgnoreCase("true")) {
 			systemConstants.setResponsiveDesign(true);
+		}
+		if (env.getRequiredProperty(PROPERTY_APPL_PHASEII).equalsIgnoreCase("true")) {
+			systemConstants.setApplPhaseII(true);
 		}
 		return systemConstants;
 	}
