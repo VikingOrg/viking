@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -46,7 +47,9 @@ public class MachineModel implements Serializable {
 
 	@Column(name="manufacturer_id")
 	private Integer manufacturerId;
-
+	
+	@NotNull
+	@Size(min = 3, max = 60, message = "{validation.size.generic}")
 	private String name;
 
 	@Lob

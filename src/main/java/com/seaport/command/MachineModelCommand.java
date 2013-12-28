@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import com.seaport.domain.Country;
 import com.seaport.domain.Group;
 import com.seaport.domain.MachineModel;
@@ -17,12 +19,13 @@ import com.seaport.domain.Manufacturer;
  * @Author       Danil Ozherelyev
  * @version      1.0 12/05/13 <P>
  */
-public class ModelSearchCommand {
+public class MachineModelCommand {
 	
 	private List<MachineModel> machineModelList = new ArrayList<MachineModel>();
 	private Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
 	private Map<Integer, Country> countryMap = new LinkedHashMap<Integer,Country>();
+	@Valid
 	private MachineModel machineModel = new MachineModel();
 	
 	

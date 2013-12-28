@@ -43,8 +43,8 @@
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
 			              <li><a href="<c:url value="/machineSearch"/>">Перегрузочные машины</a></li>
-			              <li><a href="<c:url value="/modelSearch"/>">Модели Маханизмов</a></li>
-			              <li><a href="#">Группы Моделей</a></li>
+			              <li><a href="<c:url value="/machineModel"/>">Модели Маханизмов</a></li>
+			              <li><a href="#">Группы Моделей*</a></li>
 			              <li><a href="#">Производители*</a></li>
 			              <li class="divider"></li>
 			              <li><a href="<c:url value="/machineEdit"/>">Добавить машину</a></li>

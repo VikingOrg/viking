@@ -53,6 +53,42 @@
                 	oTable.fnFilter( $(this).val(), 4);
                 });
 
+                $("a[rel^='tableRowEdit']").click(function(e){
+
+                    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#machineModelModalContent").html(response.responseText);
+                            $('#machineModelModal').modal('show');
+                            
+                        }
+                    });
+                });
+                
+                $("a[rel^='tableRowCopy']").click(function(e){
+                    e.preventDefault();
+                	$('#user_search_form').attr('action', "machineModel/copy/"+this.dataset['param1']);
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                });
+                $("#submitDelete").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "userSearchAdmin/delete/");
+                	$('#user_search_form').attr('method', "post");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });
+                $("#submitNewUser").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "userEditAdmin/new/");
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });                 
 
                 $(".modal-wide").on("show.bs.modal", function() {
                 	  var height = $(window).height() - 200;
@@ -66,33 +102,24 @@
 				padding-top: 10px;
 			}
 			th {
-            text-align: center;
-            white-space:nowrap;
-            background-color: blue;
-            color: white;
-          }
-          	td {
-            white-space:nowrap;
-          }
-          
-
-
-.modal.modal-wide .modal-dialog {
-  width: 90%;
-}
-.modal-wide .modal-body {
-  overflow-y: auto;
-}
-
-/* irrelevant styling */
-body { text-align: center; }
-body p { 
-  max-width: 400px; 
-  margin: 20px auto; 
-}
-#tallModal .modal-body p { margin-bottom: 900px }
-
-      
+	            text-align: center;
+	            white-space:nowrap;
+	            background-color: blue;
+	            color: white;
+	          }
+	          	td {
+	            white-space:nowrap;
+	          }
+		
+			.modal.modal-wide .modal-dialog {
+			  width: 90%;
+			}
+			.modal-wide .modal-body {
+			  overflow-y: auto;
+			}
+			.modal-dialog {
+			  padding-top: 15%;
+			}
         </style>
 	</head>
 	<body style="">
@@ -188,9 +215,12 @@ body p {
 						                              	</c:if>						                             	
 						                             </td>
 						                             <td>&nbsp;
-		                                               <span class="glyphicon glyphicon-pencil" title="Редактировать"></span>&nbsp;
-		                                               <span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
-		                                               <a data-toggle="modal" href="#tallModal">Edit(Modal)</a>&nbsp;
+						                         		<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
+						                         			&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span>
+						                         		</a>
+						                         		<a href="#" rel="tableRowCopy" data-param1="${machineModel.modelId}">
+						                         			&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
+						                         		</a>
 		                                               <c:out value="${machineModel.group.name}"/>
 						                             </td>
 							                         <td><c:out value="${machineModel.name}"/></td>
@@ -224,84 +254,16 @@ body p {
 					  </div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
 					
+			</form:form>
 
+				<div id="machineModelModal" class="modal modal-wide fade">
+				  <div class="modal-dialog">
+				    <div id="machineModelModalContent" class="modal-content">
 
-					<div id="tallModal" class="modal modal-wide fade">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					        <h4 class="text-muted">РЕДАКТИРОВАНИЕ МОДЕЛИ</h4>
-					      </div>
-					      <div class="modal-body">
-   					    <div class="container">
-					      <div class="masthead">
-					        <div class="container">
-					          <div class="col-md-10 col-md-offset-1">
-						      									
-								<c:if test="${not empty error}"> 
-									<div class="alert alert-danger show"><spring:message code="${error}" />
-										<button type="button" class="close" data-dismiss="alert">&times;</button>
-									</div>			
-								</c:if>
-		
-					          </div>
-					        </div>
-					      </div>
-					      <div class="row">
-					        <div class="col-sm-4 col-sm-offset-1">
-					        	<v:input path="machineModel.name" label="МОДЕЛЬ" required="true" title="Укажите модель"/>
-					            <div class="form-group">
-						            <label class="form-label">ПРИМЕЧАНИЯ</label>
-						            <div class="controls">
-						            	<form:textarea path="machineModel.note" rows="3" cssClass="form-control"/>
-						            </div>				            
-					        	</div>
-					        </div>
-					        <div class="col-sm-4 col-sm-offset-1">
-
-								<div class="filter_select">
-				                    <label class="form-label">ГРУППА</label>
-									<form:select id="groupSelect" path="groupId" cssClass="form-control">
-									    <form:option value="">Не установлен</form:option>
-						                <c:forEach items="${modelSearchCommand.groupMap}" var="group">
-						                    <form:option value="${group.key}" label="(${group.key})${group.value.name}" />
-						                </c:forEach>								
-									</form:select>
-			                    </div>
-						        <div class="filter_select">
-		  				            <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
-									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
-									    <form:option value="">Не выбран</form:option>
-						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
-						                    <form:option value="${manufacturer.value.name}" label="${manufacturer.value.name}" />
-						                </c:forEach>								
-									</form:select>
-					        	</div>
-					        	<div class="filter_select">
-					        		<label class="form-label">СТРАНА</label>
-									<form:select id="countrySelect" path="countryId" cssClass="form-control">
-										<form:option value="">Не установлен</form:option>
-						                <c:forEach items="${modelSearchCommand.countryMap}" var="country">
-						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-						                </c:forEach>
-									</form:select>
-								</div>
-
-
-					        </div>
-					      </div>
-					    </div>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary">Save changes</button>
-				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
-					
-			</form:form>
+
 					
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
