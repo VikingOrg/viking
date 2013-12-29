@@ -83,8 +83,6 @@
 //		        	        },
 	                        complete : function( response ) {
 	                            $("#machineModelModalContent").html(response.responseText);
-	                            $('#machineModelModal').modal('show');
-	                            
 	                        },	        	        
 		        	        error: function(){
 		        	        	alert("failure");

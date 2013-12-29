@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!doctype html>
 <html lang="ru">
@@ -16,6 +18,8 @@
 	<body>
 		<!-- Wrap all page content here -->
 		<div id="wrap">
+			<form:form id="user_search_form" action="passRecover" commandName="registrationCommand" method="post" accept-charset="UTF-8">
+			
 			<!-- Begin page content -->
 		    <div class="container">
 
@@ -24,29 +28,22 @@
 			        <div class="container">
 			          <div class="col-md-10 col-md-offset-1">
 			            <h4 class="text-muted page-header">ЗАПРОС НА ВОССТАНОВЛЕНИЕ ПАРОЛЯ<br></h4>
+			            
+						<c:if test="${not empty error}"> 
+							<div class="alert alert-danger show"><spring:message code="${error}" />
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>			
+						</c:if>
+								            
 			          </div>
 			        </div>
 			      </div>
 			      <div class="row">
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-			          <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">ИМЯ</label>
-			              <input class="form-control" name="name" title="Введите наименование" type="text">
-			            </div>
-			          </div>
-			          <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">ФАМИЛИЯ</label>
-			              <input class="form-control" name="full-name" title="Введите полное наименование" type="text">
-			            </div>
-			          </div>
-			          <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">E-MAIL</label>
-			              <input type="email" class="form-control" name="email" title="Укажите свой e-mail">
-			            </div>
-			          </div>
+						<v:input path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
+						<v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
+						<v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
+						<v:input path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>	
 			        </div>
 			        
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
@@ -72,7 +69,7 @@
 			      <div class="row">
 			        <div class="col-md-4 col-md-offset-1">
 			          <div class="form-actions">
-			            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmSend">ОТПРАВИТЬ »</button>
+			          	<button type="submit" class="btn btn-primary">ОТПРАВИТЬ »</button>
 			            <button type="button" class="btn btn-default" 
 			            	onclick="window.location.href = '<c:url value="login"/>';" 
 			            	value="Klick">ОТМЕНИТЬ &raquo;
@@ -81,21 +78,9 @@
 			        </div>
 			      </div>
 			    </div>
-				<!-- 		Модальное окно подтверждения запроса восстановления пароля -->
-					<div class="modal" id="confirmSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-body" align="center">
-					        <h3>ЗАПРОС НА ВОССТАНОВЛЕНИЕ ПАРОЛЯ ПРИНЯТ!</h3>
-					        <h5>В течение суток на ваш E-Mail будет выслана ссылка на форму смены пароля</h5>
-					      </div>
-					      <div class="modal-footer">
-					        <a href="<c:url value="login" />" class="btn btn-primary" type="submit" class="btn btn-primary">ОК</a>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->	
+	
 			</div> <!-- End of Main Container -->
+		</form:form>	
 		</div> <!-- End of Wrapping -->
 		<div id="footer">
 		  <div class="container">

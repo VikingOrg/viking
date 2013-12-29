@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.MachineModelCommand;
 import com.seaport.command.MachineModelEditCommand;
-import com.seaport.command.RegistrationCommand;
 import com.seaport.domain.MachineModel;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IUserService;
@@ -33,7 +32,7 @@ import com.seaport.service.IUserService;
  */
 @Controller
 @RequestMapping("/machineModel")
-@SessionAttributes("modelSearchCommand")
+@SessionAttributes({"modelSearchCommand","machineModalEditCommand"})
 public class MachineModelController {
 	@Autowired
 	private IMachineService machineService;
@@ -87,9 +86,8 @@ public class MachineModelController {
 	 */
 	@RequestMapping(value="/save/{machineModelId}", method = RequestMethod.POST)
 	public String createEditNewModel(Model model,
-									@Valid @ModelAttribute MachineModelEditCommand machineModelEditCommand,
+									@Valid @ModelAttribute("machineModalEditCommand") MachineModelEditCommand machineModelEditCommand,
 									BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
-		model.addAttribute("machineModalEditCommand", machineModelEditCommand);
 		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");

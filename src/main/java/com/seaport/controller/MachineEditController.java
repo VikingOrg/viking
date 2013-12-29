@@ -72,6 +72,13 @@ public class MachineEditController {
 		return "machineEdit";
 	}
 	
+	/**
+	 * JSON formatted response of Models. 
+	 * @param groupId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/model/{groupId}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MachineModel> getModels(@PathVariable String groupId,

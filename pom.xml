@@ -194,7 +194,13 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-		
+		<!-- JavaMail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.5.0-b01</version>
+		</dependency>
+		<!-- Jackson Data Mapping For Ajax -->		
 		<dependency>
 		    <groupId>org.codehaus.jackson</groupId>
 		    <artifactId>jackson-mapper-asl</artifactId>
