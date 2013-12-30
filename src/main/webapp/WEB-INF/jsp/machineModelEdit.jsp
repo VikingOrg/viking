@@ -31,11 +31,11 @@
 					      </div>
 					      <div class="row">
 					        <div class="col-sm-4 col-sm-offset-1">
-					        	<v:input path="machineModel.name" label="МОДЕЛЬ" required="true" title="Укажите модель"/>
+					        	<v:input id="machineModelName" path="machineModel.name" label="МОДЕЛЬ" required="true" title="Укажите модель"/>
 					            <div class="form-group">
 						            <label class="form-label">ПРИМЕЧАНИЯ</label>
 						            <div class="controls">
-						            	<form:textarea path="machineModel.note" rows="3" cssClass="form-control"/>
+						            	<form:textarea id="macnineModelNote" path="machineModel.note" rows="3" cssClass="form-control"/>
 						            </div>				            
 					        	</div>
 					        </div>
@@ -43,16 +43,16 @@
 
 								<div class="filter_select">
 				                    <label class="form-label">ГРУППА</label>
-									<form:select id="groupSelect" path="machineModel.groupId" cssClass="form-control">
+									<form:select id="groupSelectModal" path="machineModel.groupId" cssClass="form-control">
 									    <form:option value="">Не установлен</form:option>
 						                <c:forEach items="${machineModalEditCommand.groupMap}" var="group">
-						                    <form:option value="${group.key}" label="(${group.key})${group.value.name}" />
+						                    <form:option value="${group.key}" label="${group.value.name}" />
 						                </c:forEach>								
 									</form:select>
 			                    </div>
 						        <div class="filter_select">
 		  				            <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
-									<form:select id="manufacturerSelect" path="machineModel.manufacturerId" cssClass="form-control" title="Выборка по производителю">
+									<form:select id="manufacturerSelectModal" path="machineModel.manufacturerId" cssClass="form-control" title="Выборка по производителю">
 									    <form:option value="">Не выбран</form:option>
 						                <c:forEach items="${machineModalEditCommand.manufacturerMap}" var="manufacturer">
 						                    <form:option value="${manufacturer.key}" label="${manufacturer.value.name}" />
@@ -60,6 +60,7 @@
 									</form:select>
 					        	</div>
 								<form:hidden id="machineModelId" path="machineModel.modelId" />
+								<form:hidden id="machineModelSuccessFlag" path="successFlag" />
 					        </div>
 					      </div>
 					    </div>
@@ -72,17 +73,32 @@
 				 <script type="text/javascript">
 	                $("#submitMachineModel").click(function(e) {
 	                	e.preventDefault();
-	                	machineModelId = $('#machineModelId').val();
+	                	machineModelId =  $("#machineModelId").val();
 		                $.ajax({
 		                	type: "POST",
 		        		    url: "${pageContext.request.contextPath}/machineModel/save/"+machineModelId,
 		        		    data: $("#machineEditForm").serialize(),
-//		        	        success: function(msg){
-//		        	             $("#thanks").html(msg)
-//		       	             	 $("#form-content").modal('hide');    
-//		        	        },
 	                        complete : function( response ) {
 	                            $("#machineModelModalContent").html(response.responseText);
+	                            check = $("#machineModelSuccessFlag").val();
+	                            if(check=='true'){
+		                            /*For Ajax DataTable.*/
+	                        		//var rowData = [];
+	                        		//$('#'+machineModelId).children('td').each(function(i, data) {
+	                        			//console.log("Debugging:"+$(this).html()+":End");	
+	                        			//rowData.push($(this).html());
+	                       			//});
+	                        		//oTable.fnUpdate( rowData, document.getElementById(machineModelId) );
+	                        		//oTable.fnUpdate( $('#machineModelName').val(), document.getElementById(machineModelId), 2 );
+	                        		/*For DOM DataTable.*/
+	                        		$('#group'+machineModelId).text($('#groupSelectModal option:selected').text());
+	                        		$('#name'+machineModelId).text($('#machineModelName').val());
+	                        		$('#manafacturer'+machineModelId).text($( "#manufacturerSelectModal option:selected" ).text() );
+	                        		$('#note'+machineModelId).text($('#macnineModelNote').val());
+
+	                        		/*Closing Modal.*/
+		                        	closingModal(machineModelId);	
+		                        }
 	                        },	        	        
 		        	        error: function(){
 		        	        	alert("failure");

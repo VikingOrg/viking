@@ -29,4 +29,5 @@ public interface IMachineService {
 	public List<MachineModel> getModels(Integer groupId);
 	public Map<Integer, MachineModel> getModelsMap(Integer groupId);
 	public MachineModel getModel(Integer modelId);
+	public void saveMachineModel(MachineModel machineModel);
 }

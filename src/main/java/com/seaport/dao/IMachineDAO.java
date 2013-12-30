@@ -31,4 +31,5 @@ public interface IMachineDAO {
 	public Map<Integer, Integer> getYearMap();
 	public Map<Integer, MachineModel> getModelsMap(Integer groupId);
 	public MachineModel getModel(Integer modelId);
+	public void saveMachineModel(MachineModel machineModel);
 }

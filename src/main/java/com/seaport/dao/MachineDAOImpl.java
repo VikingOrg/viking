@@ -135,6 +135,20 @@ public class MachineDAOImpl implements IMachineDAO {
 		return modelMap;
 	}
 	
+	@Override
+	public void saveMachineModel(MachineModel machineModel) {
+		Timestamp updateDate = new Timestamp(new Date().getTime());
+		User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		/*for insert.*/
+		if (machineModel.getModelId() ==null) {
+			machineModel.setCreateUserId(user.getUserId());
+			machineModel.setCreateDate(updateDate);
+		}
+		machineModel.setUpdateUserId(user.getUserId());
+		machineModel.setUpdateDate(updateDate);
+		getCurrentSession().saveOrUpdate(machineModel);
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override	

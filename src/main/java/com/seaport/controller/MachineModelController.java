@@ -93,7 +93,8 @@ public class MachineModelController {
 			model.addAttribute("error", "message.user.error.generic");
 			return "machineModelEdit";
 		}
-
+		machineService.saveMachineModel(machineModelEditCommand.getMachineModel());
+		machineModelEditCommand.setSuccessFlag("true");
 		model.addAttribute("message", "message.user.success.generic");
 		return "machineModelEdit";
 	}

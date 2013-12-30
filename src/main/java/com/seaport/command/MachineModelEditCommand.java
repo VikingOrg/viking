@@ -21,7 +21,7 @@ import com.seaport.domain.Manufacturer;
  */
 public class MachineModelEditCommand {
 	
-
+	private String successFlag = "false";
 	private Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
 	private Map<Integer, Country> countryMap = new LinkedHashMap<Integer,Country>();
@@ -39,6 +39,12 @@ public class MachineModelEditCommand {
 	private Integer groupId;
 	private Integer manufacturerId;
 	
+	public String getSuccessFlag() {
+		return successFlag;
+	}
+	public void setSuccessFlag(String successFlag) {
+		this.successFlag = successFlag;
+	}
 	public Integer getCountryId() {
 		return countryId;
 	}

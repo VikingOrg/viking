@@ -81,4 +81,10 @@ public class MachineServiceImpl implements IMachineService {
 	public MachineModel getModel(Integer modelId){
 		return machineDAO.getModel(modelId);
 	}
+
+	@Override
+	public void saveMachineModel(MachineModel machineModel) {
+		machineDAO.saveMachineModel(machineModel);
+	}
+	
 }

@@ -22,8 +22,9 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
         <script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>" ></script>
         <script type="text/javascript">
+        	var oTable = {};
 	        $(document).ready(function() {
-	        	var oTable = $('#modelSearchTable').dataTable( {
+	        	oTable = $('#modelSearchTable').dataTable( {
 	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
 	                "sPaginationType": "bootstrap",
 	                "bProcessing": true,
@@ -77,14 +78,14 @@
                 });
                 $("#submitDelete").click(function(e) {
                 	e.preventDefault();
-                	$('#user_search_form').attr('action', "userSearchAdmin/delete/");
+                	$('#user_search_form').attr('action', "machineModel/delete/");
                 	$('#user_search_form').attr('method', "post");
                 	$('#user_search_form').attr('accept-charset', "UTF-8");
                 	$('#user_search_form').submit();
                  });
-                $("#submitNewUser").click(function(e) {
+                $("#submitNewModel").click(function(e) {
                 	e.preventDefault();
-                	$('#user_search_form').attr('action', "userEditAdmin/new/");
+                	$('#user_search_form').attr('action', "machineModel/new/");
                 	$('#user_search_form').attr('method', "get");
                 	$('#user_search_form').attr('accept-charset', "UTF-8");
                 	$('#user_search_form').submit();
@@ -93,9 +94,17 @@
                 $(".modal-wide").on("show.bs.modal", function() {
                 	  var height = $(window).height() - 200;
                 	  $(this).find(".modal-body").css("max-height", height);
-                	});
+                });
             } );
-    
+               
+        	function closingModal(machineModelId){
+        		$('#machineModelModal').modal('hide');
+        		//$('#'+machineModelId).removeClass("odd even");
+        		$('#'+machineModelId).addClass( "edited-row" );
+        		//var myClass = $('#'+machineModelId).attr('class');        		
+        		//alert("classes = " + myClass);
+            }
+            
         </script>
         <style type="text/css">
 			.filter_select {
@@ -120,6 +129,13 @@
 			.modal-dialog {
 			  padding-top: 15%;
 			}
+
+			.edited-row {
+			     background-color: red !important;
+			     background-image: none !important;
+			     color: #000000 !important;
+			}
+						
         </style>
 	</head>
 	<body style="">
@@ -132,8 +148,21 @@
 			            <div class="masthead">
 			                <div class="container">
 			                    <div class="row">
-			                    <div class="col-md-10 col-md-offset-1">
-			                    <h4 class="text-muted page-header">МОДЕЛИ ПОДЪЕМНО-ТРАНСПОРТНОГО ОБОРУДОВАНИЯ<br></h4></div></div>
+				                    <div class="col-md-10 col-md-offset-1">
+					                    <h4 class="text-muted page-header">МОДЕЛИ ПОДЪЕМНО-ТРАНСПОРТНОГО ОБОРУДОВАНИЯ<br></h4>
+					                    <!--  Вывод сообщений и предупреждений  -->
+										<c:if test="${not empty message}"> 
+											<div class="alert alert-success show"><spring:message code="${message}" />
+												<button type="button" class="close" data-dismiss="alert">&times;</button>
+											</div>			
+										</c:if>
+										<c:if test="${not empty error}"> 
+											<div class="alert alert-danger show"><spring:message code="${error}" />
+												<button type="button" class="close" data-dismiss="alert">&times;</button>
+											</div>			
+										</c:if>						                    
+				                    </div>
+			                    </div>
 			                </div>
 			            </div>
 			        
@@ -190,7 +219,7 @@
 <!-- 							Таблица со списком машин -->
 			                <div class="table-container">
 			                    <div>
-                                    <table id="modelSearchTable" class="table table-striped table-bordered dataTable">
+                                    <table id="modelSearchTable" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
                                             <th>&nbsp;</th>
@@ -205,7 +234,7 @@
         			                  <tbody>
 	        			                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
 		        			                  <c:if test="${machineModel.archived != 'Y'}" >
-		                                          <tr>
+		                                          <tr id="${machineModel.modelId}">
 						                             <td>
 						                             	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<c:if test="${system.localConfig}" >
@@ -221,12 +250,12 @@
 						                         		<a href="#" rel="tableRowCopy" data-param1="${machineModel.modelId}">
 						                         			&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
 						                         		</a>
-		                                               <c:out value="${machineModel.group.name}"/>
+		                                               <span id="group${machineModel.modelId}"><c:out value="${machineModel.group.name}"/></span>
 						                             </td>
-							                         <td><c:out value="${machineModel.name}"/></td>
-						                             <td><c:out value="${machineModel.manufacturer.name}"/></td>
-						                             <td><c:out value="${machineModel.manufacturer.country}"/></td>
-						                             <td><c:out value="${machineModel.note}"/></td>
+							                         <td><span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></td>
+						                             <td><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.name}"/></span></td>
+						                             <td><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country}"/></span></td>
+						                             <td><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
 						                             <td  class="hide"><c:out value="${machineModel.group.groupId}"/></td>											   
 						                        </tr> 
 		        			                  </c:if>
