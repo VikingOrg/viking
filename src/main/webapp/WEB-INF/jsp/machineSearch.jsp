@@ -26,6 +26,27 @@
 
         <script type="text/javascript">
 	        $(document).ready(function() {
+				/** ajax intitialization of the datatable
+        	    var oTable = $('#machine_table').dataTable( {
+        	    	"bProcessing": true,
+        	    	"bAutoWidth": false,
+        	    	"sPaginationType": "bootstrap",
+        	        "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+        	        "sAjaxSource": "${pageContext.request.contextPath}/machineSearch/getMachine/null",
+        	        "sAjaxDataProp": "",
+        	        "oLanguage": {
+        	            "sLoadingRecords": "Please wait - loading...",
+        	            "sProcessing": "Идет обработка..."
+        	        },        	        
+        	        "aoColumns": [
+        	            { "mData": "machineId" },
+        	            { "mData": "group.name", "sDefaultContent":"" },
+        	            { "mData": "machineModel.name", "sDefaultContent":"" },
+        	            { "mData": "group.groupId", "sDefaultContent":"" }
+        	        ]
+        	    } );
+		        **/
+		        
 	        	var oTable = $('#machine_table').dataTable( {
 	            	"aoColumns": [
                	               { "bSortable": false },
@@ -80,7 +101,7 @@
                 $('#releaseYearSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 6);
                 });
-                 
+                
 //                 $('#selectAll').click(function (e) {
 //                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
 //                 });

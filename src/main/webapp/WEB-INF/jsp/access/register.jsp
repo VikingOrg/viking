@@ -15,14 +15,102 @@
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	    
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 	    <script src="static/js/jqBootstrapValidation.js"></script>
+	    <script type="text/javascript" src="static/js/jquery.complexify.js"></script>
+
 		<script>
 		  $(function () { $("input,select,textarea").jqBootstrapValidation(); } );
 		</script>	
-		
+		<script type="text/javascript">
+		$(document).ready(function() {
+		    $(function () {
+		        $("#password").complexify({}, function (valid, complexity) {
+		            if (!valid) {
+		                $('#progress').css({'width':complexity + '%'}).removeClass('progressbarValid').addClass('progressbarInvalid');
+		            } else {
+		                $('#progress').css({'width':complexity + '%'}).removeClass('progressbarInvalid').addClass('progressbarValid');
+		            }
+		            $('#complexity').html(Math.round(complexity) + '%');
+		        });
+		    });
+		    
+        } );	    
+		</script>
+
+
+
+<style type="text/css">
+    #progressbar {
+        width:350px;
+        height:48px;
+        display:block;
+        border-left:1px solid #ccc;
+        border-right:1px solid #ccc;
+        border-top:1px solid #ccc;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+        overflow:hidden;
+        background-color: white;
+    }
+
+    #progress {
+        display:block;
+        height:100px;
+        width:0%;
+    }
+
+    .progressbarValid {
+        background-color:green;
+        background-image: -o-linear-gradient(-90deg, #8AD702 0%, #389100 100%);
+      background-image: -moz-linear-gradient(-90deg, #8AD702 0%, #389100 100%);
+      background-image: -webkit-linear-gradient(-90deg, #8AD702 0%, #389100 100%);
+      background-image: -ms-linear-gradient(-90deg, #8AD702 0%, #389100 100%);
+      background-image: linear-gradient(-90deg, #8AD702 0%, #389100 100%);
+    }
+
+    .progressbarInvalid {
+        background-color:red;
+        background-image: -o-linear-gradient(-90deg, #F94046 0%, #92080B 100%);
+      background-image: -moz-linear-gradient(-90deg, #F94046 0%, #92080B 100%);
+      background-image: -webkit-linear-gradient(-90deg, #F94046 0%, #92080B 100%);
+      background-image: -ms-linear-gradient(-90deg, #F94046 0%, #92080B 100%);
+      background-image: linear-gradient(-90deg, #F94046 0%, #92080B 100%);
+    }
+
+    #status {
+        height:100px;
+        width:350px;
+        border:1px solid #ccc;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        background-color: white;
+    }
+
+    #complexityLabel {
+        width:100%;
+        text-align:center;
+        margin-top:8px;
+        font-size:20px;
+        line-height:20px;
+    }
+
+    #complexity {
+        width:100%;
+        text-align:center;
+        font-family:"Helvetica Neue", "Helvetica", Arial, sans-serif;
+        font-weight:bold;
+        font-size:40px;
+        line-height:40px;
+        margin-top:8px;
+    }
+.input-recaptcha {
+width:50px;
+}
+</style>			
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
@@ -52,8 +140,16 @@
 					<v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
 					<v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
 					<v:input path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>		
-					<v:input path="user.password" type="password" label="ПАРОЛЬ" title="Укажите пароль для входа"/>
-		          
+					<v:input id="password" path="user.password" type="password" label="ПАРОЛЬ" title="Укажите пароль для входа"/>
+				    <div id="progressbar"><div id="progress"></div></div>
+
+					<div class="form-group">
+					    <div id="status">
+					        <div id="complexity">0%</div>
+					        <div id="complexityLabel">Индекс Сложности</div>
+					    </div>					
+					</div>
+              
 		          <div class="form-group">
 		            <div class="controls">
 		            <label class="form-label">ПОВТОРИТЕ ПАРОЛЬ</label>
@@ -94,11 +190,59 @@
 		            </div>
 		          </div>
 		          <div class="form-group">
+		          
 		            <div class="controls">
 		                <label class="form-label">ДОЛЖНОСТЬ</label>
 		              <form:input path="user.occupation" type="text" cssClass="form-control" title="Должность"/>
 		            </div>
-		          </div>		          
+		          </div>
+		          		          
+		          	 <script type="text/javascript">
+					     var RecaptchaOptions = {
+					        theme : 'custom',
+					        custom_theme_widget: 'recaptcha_widget'
+					     };
+					</script>        
+                      
+                      <div id="recaptcha_widget" style="display:none">
+
+                        <div class="form-group">
+                            <label class="control-label">Проверка регистрации.</label>
+                            <div class="controls">
+                                <a id="recaptcha_image" href="#" class="thumbnail"></a>
+                                <div class="recaptcha_only_if_incorrect_sol" style="color:red">Incorrect please try again</div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                              <label class="recaptcha_only_if_image control-label">Enter the words above:</label>
+                              <label class="recaptcha_only_if_audio control-label">Enter the numbers you hear:</label>
+
+                              <div class="controls">
+                                  <div class="input-append">
+                                      <input type="text" id="recaptcha_response_field" name="recaptcha_response_field" class="input-recaptcha" />
+                                      <a class="btn" href="javascript:Recaptcha.reload()"><i class="icon-refresh"></i></a>
+                                      <a class="btn recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')"><i title="Get an audio CAPTCHA" class="icon-headphones"></i></a>
+                                      <a class="btn recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type('image')"><i title="Get an image CAPTCHA" class="icon-picture"></i></a>
+                                    <a class="btn" href="javascript:Recaptcha.showhelp()"><i class="icon-question-sign"></i></a>
+                                  </div>
+                              </div>
+                              
+                        </div>
+
+                    </div>
+            
+
+					<script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k=6LcrK9cSAAAAALEcjG9gTRPbeA0yAVsKd8sBpFpR"></script>
+<noscript>
+<iframe src="<?php echo $recaptcha_noscript_url; ?>"
+height="300" width="500" frameborder="0"></iframe><br>
+<textarea name="recaptcha_challenge_field" rows="3" cols="40">
+</textarea>
+<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+</noscript>
+		          
 		          
 		        </div>
 		      </div>
@@ -123,6 +267,7 @@
 		    </div>
 		    
 		  </form:form>
+		  
 		  </div>
 	  	</div><!-- End of wrapper-->
 		<div id="footer">

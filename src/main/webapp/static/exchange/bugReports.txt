@@ -1,0 +1,16 @@
+		
+		String input = " ç¥žæˆ¸å¸‚ å…µåº«çœŒ";
+		String output = TextUtils.replaceNonStandardCharsTrimAndTruncate(input, 60);
+		System.out.println("DEBUG: TextUtils.replaceNonStandardCharsTrimAndTruncate() : input=="+input+", output=="+output); // DEBUG
+		
+		input = "?a??c??a????";
+		output = TextUtils.replaceNonStandardCharsTrimAndTruncate(input, 60);
+		System.out.println("DEBUG: TextUtils.replaceNonStandardCharsTrimAndTruncate() : input=="+input+", output=="+output); // DEBUG
+		
+		
+		input = "5109879358";
+		boolean phoneIsValid = ValidationUtils.validateTenDigitUSPhone(input);
+		if (phoneIsValid) 
+			System.out.println("Phone "+input+" is valid.");
+		else 
+			System.out.println("Phone "+input+" is NOT valid.");

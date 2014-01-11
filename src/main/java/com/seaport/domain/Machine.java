@@ -78,16 +78,14 @@ public class Machine implements Serializable {
 	@Column(name="update_user_id")
 	private int updateUserId;
 	
-	@OneToOne()
-	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
-	private Stevidor stevidor;
-	
 	@Min(1)
 	@Column(name="model_id")
 	private Integer modelId;
-	
-//	@Valid
-//	@OneToOne(cascade = CascadeType.ALL)
+
+	@OneToOne()
+	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
+	private Stevidor stevidor;	
+
 	@OneToOne()
 	@JoinColumn(name = "model_id", insertable = false, updatable = false)
 	private MachineModel machineModel;
@@ -98,17 +96,14 @@ public class Machine implements Serializable {
 
 	public Machine() {
 	}
-
 	
 	public Integer getModelId() {
 		return modelId;
 	}
 
-
 	public void setModelId(Integer modelId) {
 		this.modelId = modelId;
 	}
-
 
 	public String getReleaseYear() {
 		return releaseYear;

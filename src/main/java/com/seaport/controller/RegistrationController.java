@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -65,9 +66,11 @@ public class RegistrationController {
 			return "access/register";
 		}
 		
-		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.register");
 		registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getUser().getPassword());
+		registrationCommand.getUser().setPassword(encPassword);
 		userService.saveUser(registrationCommand.getUser());
 		return "redirect:/login";
 	}
