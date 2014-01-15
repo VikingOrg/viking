@@ -109,6 +109,18 @@
     }
 .input-recaptcha {
 width:50px;
+
+.btn-group-custom .btn {
+  border-right-width: 0;
+}
+
+.btn-group-custom .btn:hover {
+  border-right-width: 1px;
+}
+.btn-group-custom .btn:hover + .btn{
+  border-left-width: 0;
+}
+
 }
 </style>			
 	</head>
@@ -117,8 +129,8 @@ width:50px;
 		<div id="wrap">
    		  <!-- Begin page content -->
 		  <div class="container">
-		  
-		  <form:form id="registration" action="register" commandName="registrationCommand" method="post" accept-charset="UTF-8">
+		  <spring:url var = "action" value='/register'/>
+		  <form:form id="registration" action="${action}" commandName="registrationCommand" method="post" accept-charset="UTF-8">
 		    <div class="container">
 		      <div class="masthead">
 		        <div class="container">
@@ -162,27 +174,39 @@ width:50px;
 		          </div>
 		        </div>
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
-		        	<label class="form-label">СТРАНА</label>
-					<form:select path="user.countryId" cssClass="form-control"> 
-		                <c:forEach items="${registrationCommand.userCountry}" var="country">
-		                    <form:option value="${country.key}" label="${country.value.nameRus}" />
-		                </c:forEach>
-					</form:select>
-		          	<p>&nbsp;</p>
-			          <label class="form-label">ПОРТ</label>
-						<form:select path="user.portId" cssClass="form-control">
-			                <c:forEach items="${registrationCommand.userPort}" var="port">
-			                    <form:option value="${port.key}" label="${port.value.name}" />
-			                </c:forEach>							
-						</form:select>		          
-			          <p>&nbsp;</p>
-			          <label class="form-label">КОМПАНИЯ</label>
-						<form:select path="user.stevidorId" cssClass="form-control">
-			                <c:forEach items="${registrationCommand.userStevidor}" var="stevidor">
-			                    <form:option value="${stevidor.key}" label="${stevidor.value.name}" />
-			                </c:forEach>								
-						</form:select>
-			          <p>&nbsp;</p>
+		  			<div class="form-group">
+			            <div class="controls">
+				        	<label class="form-label">СТРАНА</label>
+							<form:select path="user.countryId" cssClass="form-control"> 
+				                <c:forEach items="${registrationCommand.userCountry}" var="country">
+				                    <form:option value="${country.key}" label="${country.value.nameRus}" />
+				                </c:forEach>
+							</form:select>
+			            </div>
+		          	</div>      
+					
+			        <div class="form-group">
+			        	<div class="controls">
+				        	<label class="form-label">ПОРТ</label>
+							<form:select path="user.portId" cssClass="form-control">
+				                <c:forEach items="${registrationCommand.userPort}" var="port">
+				                    <form:option value="${port.key}" label="${port.value.name}" />
+				                </c:forEach>							
+							</form:select>	
+			            </div>
+			        </div>
+
+			        <div class="form-group">
+			        	<div class="controls">
+				        	<label class="form-label">КОМПАНИЯ</label>
+							<form:select path="user.stevidorId" cssClass="form-control">
+				                <c:forEach items="${registrationCommand.userStevidor}" var="stevidor">
+				                    <form:option value="${stevidor.key}" label="${stevidor.value.name}" />
+				                </c:forEach>								
+							</form:select>			        	
+			        	</div>
+			        </div>		          
+
 		          <div class="form-group">
 		            <div class="controls">
 		              <label class="form-label">ПОДРАЗДЕЛЕНИЕ</label>
@@ -207,42 +231,56 @@ width:50px;
                       <div id="recaptcha_widget" style="display:none">
 
                         <div class="form-group">
-                            <label class="control-label">Проверка регистрации.</label>
+                            <label class="form-label">ПРОВЕРКА РЕГИСТРАЦИИ</label>
                             <div class="controls">
                                 <a id="recaptcha_image" href="#" class="thumbnail"></a>
                                 <div class="recaptcha_only_if_incorrect_sol" style="color:red">Incorrect please try again</div>
                             </div>
                         </div>
 
-
                         <div class="form-group">
-                              <label class="recaptcha_only_if_image control-label">Enter the words above:</label>
-                              <label class="recaptcha_only_if_audio control-label">Enter the numbers you hear:</label>
+                              <label class="recaptcha_only_if_image control-label">Впечатайте текст с изображения:</label>
+                              <label class="recaptcha_only_if_audio control-label">Введите цифры, которые вы услышали:</label>
 
-                              <div class="controls">
-                                  <div class="input-append">
-                                      <input type="text" id="recaptcha_response_field" name="recaptcha_response_field" class="input-recaptcha" />
-                                      <a class="btn" href="javascript:Recaptcha.reload()"><i class="icon-refresh"></i></a>
-                                      <a class="btn recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')"><i title="Get an audio CAPTCHA" class="icon-headphones"></i></a>
-                                      <a class="btn recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type('image')"><i title="Get an image CAPTCHA" class="icon-picture"></i></a>
-                                    <a class="btn" href="javascript:Recaptcha.showhelp()"><i class="icon-question-sign"></i></a>
-                                  </div>
+								<div class="controls">
+									<spring:bind path="recaptcha_response_field">
+									    <div class="input-group ${status.error ? 'has-error' : '' }">
+										    <div class="input-group input-group-sm ">
+									            	<form:input 
+										            	id="recaptcha_response_field" 
+										            	path="recaptcha_response_field" 
+										            	cssClass="form-control"
+										            	type="text"
+										            	title="Впечатайте текст с картинки"
+										            	style="width: 250px;"
+										            	placeholder="Впечатайте текст с картинки"/>										    
+										        <span class="input-group-btn btn-group-custom">
+
+												
+												    <a class="btn btn-default btn-sm" href="javascript:Recaptcha.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+												    <a class="btn btn-default btn-sm recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')"><span class="glyphicon glyphicon-headphones"></span></a>
+												    <a class="btn btn-default btn-sm recaptcha_only_if_audio"  href="javascript:Recaptcha.switch_type('image')"><span class="glyphicon glyphicon-picture"></span></a>
+												    <a class="btn btn-default btn-sm" href="javascript:Recaptcha.showhelp()"><span class="glyphicon glyphicon-question-sign"></span></a>
+												</span>
+										    </div>
+										    <form:errors path="recaptcha_response_field" cssClass="control-label error"/>
+								    	</div>
+								    </spring:bind>								    
                               </div>
                               
                         </div>
 
                     </div>
-            
 
-					<script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k=6LcrK9cSAAAAALEcjG9gTRPbeA0yAVsKd8sBpFpR"></script>
-<noscript>
-<iframe src="<?php echo $recaptcha_noscript_url; ?>"
-height="300" width="500" frameborder="0"></iframe><br>
-<textarea name="recaptcha_challenge_field" rows="3" cols="40">
-</textarea>
-<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
-</noscript>
-		          
+					<script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k=6LcPCO0SAAAAAJyY9a_7lV8-t1CYfhjPc6C45fat"></script>
+					<noscript>
+						<iframe src="<?php echo $recaptcha_noscript_url; ?>"
+							height="330" width="500" frameborder="0">
+						</iframe><br>
+						<textarea name="recaptcha_challenge_field" rows="4" cols="40">
+						</textarea>
+						<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+					</noscript>
 		          
 		        </div>
 		      </div>
@@ -253,7 +291,7 @@ height="300" width="500" frameborder="0"></iframe><br>
 		      <div class="row">
 		        <div class="col-md-4 col-md-offset-1">
 		          <div class="form-actions">
-		          <button type="submit" class="btn btn-primary">ОТПРАВИТЬ &raquo;</button>
+		          	<button type="submit" class="btn btn-primary">ОТПРАВИТЬ &raquo;</button>
 		            <button type="button" class="btn btn-default" 
 		            	onclick="window.location.href = '<c:url value="login"/>';" 
 		            	value="Klick">ОТМЕНИТЬ &raquo;</button>

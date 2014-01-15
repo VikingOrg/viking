@@ -147,6 +147,13 @@
 			<version>1.0.0.M1</version>
 		</dependency>
 		
+		<!-- Recaptcha validation. -->
+		<dependency>
+			<groupId>net.tanesha.recaptcha4j</groupId>
+			<artifactId>recaptcha4j</artifactId>
+			<version>0.0.7</version>
+		</dependency>
+            		
 		<!-- Logger -->
 	    <dependency>
 	    	<groupId>log4j</groupId>
