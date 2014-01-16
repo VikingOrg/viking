@@ -19,12 +19,12 @@
 	    
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-	    <script src="static/js/jqBootstrapValidation.js"></script>
-	    <script type="text/javascript" src="static/js/jquery.complexify.js"></script>
 
-		<script>
-		  $(function () { $("input,select,textarea").jqBootstrapValidation(); } );
-		</script>	
+	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_ru.js"></script>
+
+	    <script type="text/javascript" src="static/js/jquery.complexify.js"></script>
+	    
 		<script type="text/javascript">
 		$(document).ready(function() {
 		    $(function () {
@@ -37,6 +37,35 @@
 		            $('#complexity').html(Math.round(complexity) + '%');
 		        });
 		    });
+
+		    //jQuery.validator.setDefaults({
+		    //	debug: true,
+		    //	success: "valid"
+		    //	});
+		    
+		    $('form').validate({
+		        highlight: function(element) {
+		            $(element).closest('.form-group').addClass('has-error');
+		        },
+		        unhighlight: function(element) {
+		            $(element).closest('.form-group').removeClass('has-error');
+		        },
+		        errorElement: 'span',
+		        errorClass: 'help-block',
+		        errorPlacement: function(error, element) {
+		            if(element.parent('.input-group').length) {
+		                error.insertAfter(element.parent());
+		            } else {
+		                error.insertAfter(element);
+		            }
+		        }
+		    });
+
+		    $("#lastName").rules("add", {required:true});
+		    $("#firstName").rules("add", {required:true});
+		    $("#middleInitial").rules("add", {required:true});
+		    $("#email").rules("add", {required:true});
+		    $("#password").rules("add", {required:true});
 		    
         } );	    
 		</script>
@@ -107,19 +136,19 @@
         line-height:40px;
         margin-top:8px;
     }
-.input-recaptcha {
-width:50px;
-
-.btn-group-custom .btn {
-  border-right-width: 0;
-}
-
-.btn-group-custom .btn:hover {
-  border-right-width: 1px;
-}
-.btn-group-custom .btn:hover + .btn{
-  border-left-width: 0;
-}
+	.input-recaptcha {
+	width:50px;
+	
+	.btn-group-custom .btn {
+	  border-right-width: 0;
+	}
+	
+	.btn-group-custom .btn:hover {
+	  border-right-width: 1px;
+	}
+	.btn-group-custom .btn:hover + .btn{
+	  border-left-width: 0;
+	}
 
 }
 </style>			
@@ -148,10 +177,10 @@ width:50px;
 		      </div>
 		      <div class="row">
 		      	<div class="col-md-4 col-md-offset-1 col-xs-6">
-					<v:input path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
-					<v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
-					<v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
-					<v:input path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>		
+					<v:input id="lastName" path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
+					<v:input id="firstName" path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
+					<v:input id="middleInitial" path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
+					<v:input id="email" path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>		
 					<v:input id="password" path="user.password" type="password" label="ПАРОЛЬ" title="Укажите пароль для входа"/>
 				    <div id="progressbar"><div id="progress"></div></div>
 
@@ -170,7 +199,7 @@ width:50px;
 		          </div>
 		          <div class="checkbox">
 		            <label>
-		              <input type="checkbox" value="true">Я СОГЛАСЕН С УСЛОВИЯМИ ПОЛЬЗОВАНИЯ *</label>
+		              <input type="checkbox" value="true" name="agreeCheckBox">Я СОГЛАСЕН С УСЛОВИЯМИ ПОЛЬЗОВАНИЯ *</label>
 		          </div>
 		        </div>
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
@@ -269,7 +298,15 @@ width:50px;
                               </div>
                               
                         </div>
-
+					<!-- Test object 
+					    <div class="form-group">
+					        <label class="control-label" for="firstname.test">Test Validation Form</label>
+					        <div class="input-group">
+					            <span class="input-group-addon">$</span>
+					            <input id="firstName" class="form-control" placeholder="Insira o seu nome próprio" name="firstname.test" type="text" />
+					        </div>
+					    </div>
+					 -->
                     </div>
 
 					<script type="text/javascript" src="https://www.google.com/recaptcha/api/challenge?k=6LcPCO0SAAAAAJyY9a_7lV8-t1CYfhjPc6C45fat"></script>

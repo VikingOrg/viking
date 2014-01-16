@@ -27,12 +27,12 @@
 		    		<p><h4>Приветствуем вас, <span id="username">${userModel.firstName}&nbsp;</span>!</h4></p>
 		    		<p>Перед началом работы пожалуйста ознакомьтесь с Правилами пользования Системой.</p>
 					<p>&nbsp;</p>
-					<!-- 
-					<p><h4>Какие же звуки издает лесной зверёк Лиса?!</h4></p>
+					<!-- -->
+					<p><h4>Турбо!</h4></p>
 		    		<div class="video-container">
-						<iframe width="560" height="315" src="//www.youtube.com/embed/jofNR_WkoCE" frameborder="0" allowfullscreen></iframe>						
+						<iframe width="560" height="315" src="//www.youtube.com/embed/aTSdOt62Mpg" frameborder="0" allowfullscreen></iframe>						
 					</div>
-					--> 
+					 
 			</div>
 		  </div>
 		</div>
