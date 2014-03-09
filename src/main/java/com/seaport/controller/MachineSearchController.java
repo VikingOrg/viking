@@ -1,22 +1,19 @@
 package com.seaport.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -48,7 +45,6 @@ public class MachineSearchController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) throws Exception {
-		
 		User user = (User)request.getSession().getAttribute(com.seaport.utils.SystemConstants.USER_MODEL);
 		MachineSearchCommand machineSearchCommand = new MachineSearchCommand();
 		machineSearchCommand.setUserCountry(userService.getContriesMap());
@@ -61,30 +57,6 @@ public class MachineSearchController {
 		model.put("machineSearchCommand", machineSearchCommand);
 		return "machineSearch";
 	}
-
-	/**
-	 * JSON formatted response of Machines list. 
-	 * @param groupId
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/getMachine/{machineId}", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Machine> getModels(@PathVariable String machineId,
-							HttpServletRequest request,
-							ModelMap model) throws Exception {
-
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.SystemConstants.USER_MODEL);
-		if (StringUtils.isNumeric(machineId)) {
-			List<Machine> machineList = new ArrayList<Machine>();
-			machineList.add(machineService.getMachine(Integer.parseInt(machineId)));
-			return machineList;
-		} else {
-			return machineService.getMachines(user);	
-		}
-	}	
-	
 	
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
