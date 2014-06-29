@@ -57,19 +57,16 @@ public class User implements Serializable {
 	@Column(name="PORT_ID")
 	private int portId;	
 	
-	@NotNull
 	@Size(min = 2, max = 45, message = "{validation.size.firstName}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 	
-	@NotNull
 	@Size(min = 2, max = 45, message = "{validation.size.lastName}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")	
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 	
-	@NotNull
 	@Size(min = 1, max = 45, message = "{validation.size.middleInitial}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")	
 	@Column(name = "MIDDLE_INITIAL")

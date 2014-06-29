@@ -45,7 +45,18 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.1.Final</version>
+			<!--<scope>provided</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+			<version>4.4.0.Final</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -56,11 +67,7 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.12.1.GA</version>
-		</dependency>
+		
 
 		<!-- SPRING -->
 		<dependency>
@@ -140,6 +147,13 @@
 			<version>1.0.0.M1</version>
 		</dependency>
 		
+		<!-- Recaptcha validation. -->
+		<dependency>
+			<groupId>net.tanesha.recaptcha4j</groupId>
+			<artifactId>recaptcha4j</artifactId>
+			<version>0.0.7</version>
+		</dependency>
+            		
 		<!-- Logger -->
 	    <dependency>
 	    	<groupId>log4j</groupId>
@@ -215,18 +229,7 @@
 			<scope>provided</scope>
 		</dependency>
 		 -->	
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.0.1.Final</version>
-			<!--<scope>provided</scope>-->
-		</dependency>
-			
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-search</artifactId>
-			<version>4.4.0.Final</version>
-		</dependency>
+
 	</dependencies>
 	
 	<build>
