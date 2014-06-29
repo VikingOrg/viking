@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
-	    <title>Таблица Стивидоров</title>
+	    <title>Таблица Стран</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
@@ -25,7 +25,7 @@
 		
 		<script type="text/javascript">
             $(document).ready(function() {
-            	var oTable = $('#stevidor_table').dataTable( {
+            	var oTable = $('#port_table').dataTable( {
             	"aoColumns": [
                 	               { "bSortable": false },
                 	               null,
@@ -34,9 +34,9 @@
                 	               { "bSortable": false },
                 	           ],
                 	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-                  /*   "oTableTools": {
+                    "oTableTools": {
                     	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
-                    }, */
+                    },
                     "sPaginationType": "bootstrap",
 	                "iDisplayLength": 15,
                     "oLanguage": {
@@ -88,7 +88,7 @@
 			        <div class="container-fluid">
 			            <div class="row-fluid">
 			            	<div class="col-md-10 col-md-offset-1">
-			                    <h4 class="text-muted page-header">СПИСОК КОМПАНИЙ-ОПЕРАТОРОВ<br></h4>
+			                    <h4 class="text-muted page-header">СПИСОК СТРАН<br></h4>
 			            	</div>
 			            </div>
 			        </div>
@@ -98,26 +98,6 @@
 			            <div class="row-fluid">
 			                 <div class="col col-sm-4 col-md-3">
 			                     <!--Sidebar content-->
-			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
-								<div class="filter_select">
-					        	<label class="form-label">СТРАНА</label>
-								<form:select id="countrySelect" path="countryId" cssClass="form-control">
-									<form:option value="">ВСЕ</form:option>
-					                <c:forEach items="${stevidorSearchCommand.userCountry}" var="country">
-					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-					                </c:forEach>
-								</form:select>
-					          	</div>	
-								<div class="filter_select">
-						          <label class="form-label">ПОРТ</label>
-									<form:select id="portSelect" path="portId" cssClass="form-control">
-										<form:option value="">ВСЕ</form:option>
-						                <c:forEach items="${stevidorSearchCommand.userPort}" var="port">
-						                    <form:option value="${port.value.name}" label="${port.value.name}" />
-						                </c:forEach>							
-									</form:select>		          
-						          </div>	
-			                    <hr>
 			                    <label class="form-label">ПОИСК</label>
 			                    <div class="input-group" style="margin: 5px">
 			                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
@@ -144,15 +124,14 @@
                             </div>
                             
 
-<!-- 							Таблица со списком стивидоров -->
+<!-- 							Таблица со списком стран -->
 			                <div class="table-container">
-			                    <table id="stevidor_table" class="table table-striped table-bordered">
+			                    <table id="country_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
 			                              <th>&nbsp;</th>
-			                              <th>Компания-оператор&nbsp;&nbsp;</th>
-			                              <th>Порт&nbsp;&nbsp;</th>
-			                              <th>Страна&nbsp;&nbsp;</th>
+			                              <th>Страна (RUS)&nbsp;&nbsp;</th>
+			                              <th>Страна (ENG)&nbsp;&nbsp;</th>
 			                              <th>Примечания&nbsp;&nbsp;</th>
 			                              </tr>
 			                          </thead>
@@ -173,8 +152,6 @@
 					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
 					                         		<c:out value="${stevidor.fullName}"/>
 					                         	</td>
-					                         					                              
-				                              <td><c:out value="${stevidor.port.name}"/></td>
 				                              <td><c:out value="${stevidor.port.country.nameRus}"/></td>
 				                              <td><c:out value="${stevidor.stevidorNote}"/></td>
 				                            </tr>
