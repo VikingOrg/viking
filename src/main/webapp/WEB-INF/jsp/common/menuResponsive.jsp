@@ -28,14 +28,12 @@
 			  		  <li ><a href="<c:url value="/home"/>">Главная</a></li>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">             
 			          <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Порты<b class="caret"></b></a>
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники<b class="caret"></b></a>
 			            <ul class="dropdown-menu">
-			              <li><a href="<c:url value="/stevidorSearch"/>">Список Стивидоров</a></li>
-			              <li><a href="#">Список Портов *</a></li>
-			              <li><a href="#">Список Стран *</a></li>
-			              <li class="divider"></li>
-			              <li><a href="<c:url value="/stevidorEdit"/>">Добавить Стивидора</a></li>
-			            </ul>
+			              <li><a href="<c:url value="/stevidorSearch"/>">Справочник Компаний</a></li>
+			              <li><a href="#">Справочник Портов</a></li>
+			              <li><a href="#">Справочник Стран</a></li>
+			              </ul>
 			          </li> 
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_USER')"> 

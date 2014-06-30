@@ -41,6 +41,9 @@ public class MachineDAOImpl implements IMachineDAO {
 
 	@Override
 	public Machine getMachine(Integer machineId) {
+		Machine testMachineObject = (Machine)getCurrentSession().get(Machine.class, machineId); 
+		testMachineObject = (Machine)getCurrentSession().get(Machine.class, machineId);
+		System.out.println(testMachineObject.toString());
 		return (Machine) getCurrentSession().get(Machine.class, machineId);
 	}
 	

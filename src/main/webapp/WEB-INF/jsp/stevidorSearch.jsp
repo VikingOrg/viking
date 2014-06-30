@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
+		<link rel="stylesheet" type="text/css" href="static/css/dataTables.tableTools.css">
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
@@ -20,6 +21,7 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
+		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {
@@ -31,7 +33,10 @@
                 	               null,
                 	               { "bSortable": false },
                 	           ],
-                	           "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                  /*   "oTableTools": {
+                    	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
+                    }, */
                     "sPaginationType": "bootstrap",
 	                "iDisplayLength": 15,
                     "oLanguage": {
@@ -83,7 +88,7 @@
 			        <div class="container-fluid">
 			            <div class="row-fluid">
 			            	<div class="col-md-10 col-md-offset-1">
-			                    <h4 class="text-muted page-header">СПИСОК СТИВИДОРНЫХ КОМПАНИЙ<br></h4>
+			                    <h4 class="text-muted page-header">СПИСОК КОМПАНИЙ-ОПЕРАТОРОВ<br></h4>
 			            	</div>
 			            </div>
 			        </div>
@@ -97,7 +102,7 @@
 								<div class="filter_select">
 					        	<label class="form-label">СТРАНА</label>
 								<form:select id="countrySelect" path="countryId" cssClass="form-control">
-									<form:option value="">Не установлен</form:option>
+									<form:option value="">ВСЕ</form:option>
 					                <c:forEach items="${stevidorSearchCommand.userCountry}" var="country">
 					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 					                </c:forEach>
@@ -106,7 +111,7 @@
 								<div class="filter_select">
 						          <label class="form-label">ПОРТ</label>
 									<form:select id="portSelect" path="portId" cssClass="form-control">
-										<form:option value="">Не установлен</form:option>
+										<form:option value="">ВСЕ</form:option>
 						                <c:forEach items="${stevidorSearchCommand.userPort}" var="port">
 						                    <form:option value="${port.value.name}" label="${port.value.name}" />
 						                </c:forEach>							
@@ -145,7 +150,7 @@
 			                          <thead>
 			                              <tr>
 			                              <th>&nbsp;</th>
-			                              <th>Стивидорная компания&nbsp;&nbsp;</th>
+			                              <th>Компания-оператор&nbsp;&nbsp;</th>
 			                              <th>Порт&nbsp;&nbsp;</th>
 			                              <th>Страна&nbsp;&nbsp;</th>
 			                              <th>Примечания&nbsp;&nbsp;</th>

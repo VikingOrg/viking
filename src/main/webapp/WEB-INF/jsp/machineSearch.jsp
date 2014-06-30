@@ -26,49 +26,28 @@
 
         <script type="text/javascript">
 	        $(document).ready(function() {
-				/** ajax intitialization of the datatable
-        	    var oTable = $('#machine_table').dataTable( {
-        	    	"bProcessing": true,
-        	    	"bAutoWidth": false,
-        	    	"sPaginationType": "bootstrap",
-        	        "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-        	        "sAjaxSource": "${pageContext.request.contextPath}/machineSearch/getMachine/null",
-        	        "sAjaxDataProp": "",
-        	        "oLanguage": {
-        	            "sLoadingRecords": "Please wait - loading...",
-        	            "sProcessing": "Идет обработка..."
-        	        },        	        
-        	        "aoColumns": [
-        	            { "mData": "machineId" },
-        	            { "mData": "group.name", "sDefaultContent":"" },
-        	            { "mData": "machineModel.name", "sDefaultContent":"" },
-        	            { "mData": "group.groupId", "sDefaultContent":"" }
-        	        ]
-        	    } );
-		        **/
-		        
 	        	var oTable = $('#machine_table').dataTable( {
 	            	"aoColumns": [
                	               { "bSortable": false },
                	           	 null,
-               	               null,
-               	               null,
+               	             null,
+               	             null,
                	            { "bSortable": false },
-               	               null,
-               	            	null,
+               	         	{ "bVisible": false },
+               	        	{ "bVisible": false },
                	               { "bSortable": false },
-               	        	    { "bSortable": false },
-               	      		   { "bSortable": false },
-               	     			 { "bSortable": false },
-               	   				{ "bSortable": false },
-               	               null,
-               	            	{ "bSortable": false },
-               	               null,
-               	            	null,
-		               	       { "bSortable": false },
-		               	 	   { "bSortable": false },
-				               { "bSortable": false },
-				               { "bSortable": false },
+                  	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
+                   	        	{ "bVisible": false },
                	           ],
 	                "sDom": "<'row'<'col-xs-6'T><'col-xs-6'>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
 	                "sPaginationType": "bootstrap",
@@ -101,7 +80,7 @@
                 $('#releaseYearSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 6);
                 });
-                
+                 
 //                 $('#selectAll').click(function (e) {
 //                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
 //                 });
@@ -147,7 +126,7 @@
 								<div class="filter_select">
 						        	<label class="form-label">СТРАНА</label>
 									<form:select id="countrySelect" path="countryId" cssClass="form-control">
-										<form:option value="">Не установлен</form:option>
+										<form:option value="">ВСЕ</form:option>
 						                <c:forEach items="${machineSearchCommand.userCountry}" var="country">
 						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 						                </c:forEach>
@@ -156,7 +135,7 @@
 								<div class="filter_select">
 						          <label class="form-label">ПОРТ</label>
 									<form:select id="portSelect" path="portId" cssClass="form-control">
-										<form:option value="">Не установлен</form:option>
+										<form:option value="">ВСЕ</form:option>
 						                <c:forEach items="${machineSearchCommand.userPort}" var="port">
 						                    <form:option value="${port.value.name}" label="${port.value.name}" />
 						                </c:forEach>							
@@ -165,7 +144,7 @@
 								<div class="filter_select">
 						          <label class="form-label">КОМПАНИЯ</label>
 									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
-									    <form:option value="">Не установлен</form:option>
+									    <form:option value="">ВСЕ</form:option>
 						                <c:forEach items="${machineSearchCommand.userStevidor}" var="stevidor">
 						                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
 						                </c:forEach>								
@@ -175,7 +154,7 @@
 								<div class="filter_select">
 				                    <label class="form-label">ГРУППА</label>
 									<form:select id="groupSelect" path="groupId" cssClass="form-control">
-									    <form:option value="">Не установлен</form:option>
+									    <form:option value="">ВСЕ</form:option>
 						                <c:forEach items="${machineSearchCommand.groupMap}" var="group">
 						                    <form:option value="${group.key}" label="${group.value.name}" />
 						                </c:forEach>								
@@ -184,7 +163,7 @@
 					        	<div class="filter_select">
 		  				            <label class="form-label">ГОД ВЫПУСКА</label>
 									<form:select id="releaseYearSelect" path="releaseYear" cssClass="form-control" title="Выборка по году выпуска">
-									   <form:option value="" label="Не выбран"/>
+									   <form:option value="" label="ВСЕ"/>
 									   <form:options items="${machineSearchCommand.yearMap}" />
 									</form:select>  				            
 					        	</div>				                    
@@ -192,7 +171,7 @@
 						        <div class="filter_select">
 		  				            <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
 									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
-									    <form:option value="">Не выбран</form:option>
+									    <form:option value="">ВСЕ</form:option>
 						                <c:forEach items="${machineSearchCommand.manufacturerMap}" var="manufacturer">
 						                    <form:option value="${manufacturer.value.name}" label="${manufacturer.value.name}" />
 						                </c:forEach>								
@@ -271,26 +250,26 @@
 				                              <td>
 				                              	<form:checkbox path="machineList[${loop.index}].archived" value="Y"></form:checkbox>
 				                              	<c:if test="${system.localConfig}" >
-				                              		<span class="alert-danger">
+				                              	<%-- 	<span class="alert-danger">
 				                              			<c:out value="(${machine.machineId})"/>
-				                              		</span>
+				                              		</span> --%>
 				                              	</c:if>
 				                              </td>
 				                              <td>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
 					                         		<a href="<c:url value="machineEdit?machineId=${machine.machineId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
 					                              	<c:if test="${system.localConfig}" >
-					                              		<span class="alert-danger">
+					                              	<%-- 	<span class="alert-danger">
 					                              			<c:out value="(${machine.machineModel.group.groupId})"/>
-					                              		</span>
+					                              		</span> --%>
 					                              	</c:if>						                              		
 				                              		<c:out value="${machine.machineModel.group.name}"/>
 				                              </td>
 					                          <td>
 				                              	<c:if test="${system.localConfig}" >
-				                              		<span class="alert-danger">
+				                              		<%-- <span class="alert-danger">
 				                              			<c:out value="(${machine.machineModel.modelId})"/>
-				                              		</span>
+				                              		</span> --%>
 				                              	</c:if>							                          
 					                          	<c:out value="${machine.machineModel.name}"/>
 					                          </td>

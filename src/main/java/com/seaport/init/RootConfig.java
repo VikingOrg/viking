@@ -1,5 +1,9 @@
 package com.seaport.init;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -53,6 +57,20 @@ public class RootConfig {
 		dataSource.setUrl("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbDb + "?characterEncoding=utf8&useUnicode=true");
 		dataSource.setUsername(envVarWithDefault("OPENSHIFT_MYSQL_DB_USERNAME", env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME)));
 		dataSource.setPassword(envVarWithDefault("OPENSHIFT_MYSQL_DB_PASSWORD", env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD)));
+		
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = dataSource.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("select * from users");
+            while(rs.next()){
+                System.out.println("Employee ID="+rs.getInt("id")+", EMail="+rs.getString("user_email"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }		
 		return dataSource;
 	}
  
@@ -93,6 +111,13 @@ public class RootConfig {
 		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
 		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 		properties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
+		properties.put("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
+		properties.put("hibernate.cache.use_structured_entries", "true");
+		properties.put("hibernate.cache.use_second_level_cache", "true");
+		//properties.put("hibernate.generate_statistics", "true");
+		//properties.put("hibernate.hbm2ddl.auto", "validate");
+		//properties.put("hibernate.cache.use_query_cache", "true");
+		properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
 		return properties;	
 	}
 	

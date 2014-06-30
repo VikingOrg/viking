@@ -62,6 +62,21 @@ public class UserDAOImpl implements IUserDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsers(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<User> userList = session.createCriteria(User.class).list();
+        //first level cache test
+		userList = session.createCriteria(User.class).list();
+        session.getTransaction().commit();
+        session.close();
+        
+        Session anotherSession = sessionFactory.openSession();
+        anotherSession.beginTransaction();
+        //second level cache test
+		userList = anotherSession.createCriteria(User.class).list();     
+        anotherSession.getTransaction().commit();
+        anotherSession.close();
+        
 		return sessionFactory.getCurrentSession().createCriteria(User.class).list();
 	}
 	
