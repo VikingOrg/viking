@@ -15,16 +15,10 @@
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	    
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-<<<<<<< HEAD
-	    <script src="static/js/jqBootstrapValidation.js"></script>
-		<script>
-		  $(function () { $("input,select,textarea").jqBootstrapValidation(); } );
-		</script>	
-		
-=======
 
 	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_ru.js"></script>
@@ -158,7 +152,6 @@
 
 }
 </style>			
->>>>>>> branch 'master' of https://github.com/VikingOrg/viking.git
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
@@ -184,14 +177,6 @@
 		      </div>
 		      <div class="row">
 		      	<div class="col-md-4 col-md-offset-1 col-xs-6">
-<<<<<<< HEAD
-					<v:input path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
-					<v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
-					<v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
-					<v:input path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>		
-					<v:input path="user.password" type="password" label="ПАРОЛЬ" title="Укажите пароль для входа"/>
-		          
-=======
 					<v:input id="lastName" path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
 					<v:input id="firstName" path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
 					<v:input id="middleInitial" path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
@@ -206,7 +191,6 @@
 					    </div>					
 					</div>
               
->>>>>>> branch 'master' of https://github.com/VikingOrg/viking.git
 		          <div class="form-group">
 		            <div class="controls">
 		            <label class="form-label">ПОВТОРИТЕ ПАРОЛЬ</label>
@@ -259,13 +243,11 @@
 		            </div>
 		          </div>
 		          <div class="form-group">
+		          
 		            <div class="controls">
 		                <label class="form-label">ДОЛЖНОСТЬ</label>
 		              <form:input path="user.occupation" type="text" cssClass="form-control" title="Должность"/>
 		            </div>
-<<<<<<< HEAD
-		          </div>		          
-=======
 		          </div>
 		          		          
 		          	 <script type="text/javascript">
@@ -336,7 +318,6 @@
 						</textarea>
 						<input type="hidden" name="recaptcha_response_field" value="manual_challenge">
 					</noscript>
->>>>>>> branch 'master' of https://github.com/VikingOrg/viking.git
 		          
 		        </div>
 		      </div>
@@ -361,6 +342,7 @@
 		    </div>
 		    
 		  </form:form>
+		  
 		  </div>
 	  	</div><!-- End of wrapper-->
 		<div id="footer">
