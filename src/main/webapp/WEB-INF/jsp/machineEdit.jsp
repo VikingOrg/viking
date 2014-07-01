@@ -11,7 +11,7 @@
 <!doctype html>
 <html lang="ru">
 	<head>
-	    <title>Редактирование Механизмов</title>
+	    <title>Редактирование Порта</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
