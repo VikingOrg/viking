@@ -1,7 +1,5 @@
 package com.seaport.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -16,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.seaport.command.StevidorSearchCommand;
-import com.seaport.domain.Stevidor;
+import com.seaport.command.CountrySearchCommand;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
@@ -29,9 +26,9 @@ import com.seaport.service.IUserService;
  */
 
 @Controller
-@RequestMapping("/stevidorSearch")
-@SessionAttributes("stevidorSearchCommand")
-public class StevidorSearchController {
+@RequestMapping("/countrySearch")
+@SessionAttributes("countrySearchCommand")
+public class CountrySearchController {
 	@Autowired
 	private IUserService userService;
 	@Autowired
@@ -40,14 +37,10 @@ public class StevidorSearchController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) throws Exception {
-		StevidorSearchCommand stevidorSearchCommand = new StevidorSearchCommand();
-
-		stevidorSearchCommand.setUserPort(portService.getPortsMap());
-		stevidorSearchCommand.setUserCountry(userService.getContriesMap());
-		stevidorSearchCommand.setStevidorList(portService.getStevidors());
-		
-		model.put("stevidorSearchCommand", stevidorSearchCommand);
-		return "stevidorSearch";
+		CountrySearchCommand countrySearchCommand = new CountrySearchCommand();
+		countrySearchCommand.setCountryList(userService.getContries());
+		model.put("countrySearchCommand", countrySearchCommand);
+		return "countrySearch";
 	}
 	
 	/**
@@ -61,20 +54,14 @@ public class StevidorSearchController {
 	 */
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
-								@Valid @ModelAttribute("stevidorSearchCommand") StevidorSearchCommand stevidorSearchCommand,
+								@Valid @ModelAttribute("countrySearchCommand") CountrySearchCommand countrySearchCommand,
 								BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
-			return "stevidorSearch";
+			return "countrySearch";
 		}
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		List<Stevidor> stevidorList = stevidorSearchCommand.getStevidorList();
-		for (Stevidor stevidor : stevidorList) {
-			if (stevidor.getArchived()!=null && stevidor.getArchived().equalsIgnoreCase("Y")) {
-				portService.saveStevidor(stevidor);	
-			}
-		}
-		return "redirect:stevidorSearch";		
+		return "redirect:countrySearch";		
 	}
 }

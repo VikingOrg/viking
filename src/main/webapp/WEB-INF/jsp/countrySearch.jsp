@@ -54,10 +54,6 @@
                 $('#portSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 2);
                 });
-
-//                 $('#selectAll').click(function (e) {
-//                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-//                 });
                 
             } );
 
@@ -83,7 +79,7 @@
 		   <jsp:include page="common/menu.jsp" />
 		   <!----- Begin page content ------>
 	        <div class="container">
-	        	<form:form id="stevidor_search_form" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
+	        	<form:form id="country_search_form" action="countrySearch" commandName="countrySearchCommand" method="post" accept-charset="UTF-8">
 	        	<div class="masthead">
 			        <div class="container-fluid">
 			            <div class="row-fluid">
@@ -104,7 +100,6 @@
 			                    </div>
 			                 </div>
 			                <div class="col col-sm-8 col-md-9">
-			                    <!--Body content-->
 			                    
 		                    <!--  Вывод сообщений и предупреждений  -->
 							<c:if test="${not empty message}"> 
@@ -117,43 +112,43 @@
 									<button type="button" class="close" data-dismiss="alert">&times;</button>
 								</div>			
 							</c:if>								
-								<!-- 		                    Операции с данными в таблице -->
+							<!--  Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
-                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
                             
 
-<!-- 							Таблица со списком стран -->
+							<!-- Таблица со списком стран -->
 			                <div class="table-container">
 			                    <table id="country_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-			                              <th>&nbsp;</th>
-			                              <th>Страна (RUS)&nbsp;&nbsp;</th>
-			                              <th>Страна (ENG)&nbsp;&nbsp;</th>
-			                              <th>Примечания&nbsp;&nbsp;</th>
+				                              <th>&nbsp;</th>
+				                              <th>Страна (RUS)&nbsp;&nbsp;</th>
+				                              <th>Страна (ENG)&nbsp;&nbsp;</th>
+				                              <th>Примечания&nbsp;&nbsp;</th>
 			                              </tr>
 			                          </thead>
 			                          <tbody>
-			                          	<c:forEach var="stevidor" varStatus="loop" items="${stevidorSearchCommand.stevidorList}" >
-			                          	<c:if test="${stevidor.archived != 'Y'}" >
+			                          	<c:forEach var="country" varStatus="loop" items="${countrySearchCommand.countryList}" >
+			                          	<c:if test="${country.archived != 'Y'}" >
 				                            <tr>
 				                                <td>
-				                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
+				                                	<form:checkbox path="countryList[${loop.index}].archived" value="Y"></form:checkbox>
 					                              	<c:if test="${system.localConfig}" >
 					                              		<span class="alert-danger">
-					                              			<c:out value="(${stevidor.stevidorId})"/>
+					                              			<c:out value="(${country.countryId})"/>
 					                              		</span>
 					                              	</c:if>				                                	
 				                                </td>
 					                         	<td class="nowrap">
-					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         		<c:out value="${stevidor.fullName}"/>
+					                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
+					                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+					                         		<c:out value="${country.nameRus}"/>
 					                         	</td>
-				                              <td><c:out value="${stevidor.port.country.nameRus}"/></td>
-				                              <td><c:out value="${stevidor.stevidorNote}"/></td>
+				                              <td><c:out value="${country.nameEn}"/></td>
+				                              <td><c:out value="${country.countryNote}"/></td>
 				                            </tr>
 				                        </c:if>    
 			                            </c:forEach>

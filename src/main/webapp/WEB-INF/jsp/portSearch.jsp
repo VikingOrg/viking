@@ -54,10 +54,6 @@
                 $('#portSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 2);
                 });
-
-//                 $('#selectAll').click(function (e) {
-//                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-//                 });
                 
             } );
 
@@ -83,7 +79,7 @@
 		   <jsp:include page="common/menu.jsp" />
 		   <!----- Begin page content ------>
 	        <div class="container">
-	        	<form:form id="stevidor_search_form" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
+	        	<form:form id="port_search_form" action="portSearch" commandName="portSearchCommand" method="post" accept-charset="UTF-8">
 	        	<div class="masthead">
 			        <div class="container-fluid">
 			            <div class="row-fluid">
@@ -100,13 +96,13 @@
 			                     <!--Sidebar content-->
 			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
 								<div class="filter_select">
-					        	<label class="form-label">СТРАНА</label>
-								<form:select id="countrySelect" path="countryId" cssClass="form-control">
-									<form:option value="">ВСЕ</form:option>
-					                <c:forEach items="${stevidorSearchCommand.userCountry}" var="country">
-					                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-					                </c:forEach>
-								</form:select>
+						        	<label class="form-label">СТРАНА</label>
+									<form:select id="countrySelect" path="countryId" cssClass="form-control">
+										<form:option value="">ВСЕ</form:option>
+						                <c:forEach items="${portSearchCommand.userCountry}" var="country">
+						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+						                </c:forEach>
+									</form:select>
 					          	</div>	
 			                    <hr>
 			                    <label class="form-label">ПОИСК</label>
@@ -115,7 +111,6 @@
 			                    </div>
 			                 </div>
 			                <div class="col col-sm-8 col-md-9">
-			                    <!--Body content-->
 			                    
 		                    <!--  Вывод сообщений и предупреждений  -->
 							<c:if test="${not empty message}"> 
@@ -127,46 +122,47 @@
 								<div class="alert alert-danger show"><spring:message code="${error}" />
 									<button type="button" class="close" data-dismiss="alert">&times;</button>
 								</div>			
-							</c:if>								
-								<!-- 		                    Операции с данными в таблице -->
+							</c:if>
+															
+							<!--  Операции с данными в таблице -->
 		                    <div class="btn-group" style="margin: 5px">
-                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
+                            <a href="<c:url value="portEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
                             <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
                             </div>
                             
 
-<!-- 							Таблица со списком портов -->
+							<!-- Таблица со списком портов -->
 			                <div class="table-container">
 			                    <table id="port_table" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-			                              <th>&nbsp;</th>
-			                              <th>Порт&nbsp;&nbsp;</th>
-			                              <th>Страна&nbsp;&nbsp;</th>
-			                              <th>Примечания&nbsp;&nbsp;</th>
+				                              <th>&nbsp;</th>
+				                              <th>Порт&nbsp;&nbsp;</th>
+				                              <th>Страна&nbsp;&nbsp;</th>
+				                              <th>Примечания&nbsp;&nbsp;</th>
 			                              </tr>
 			                          </thead>
 			                          <tbody>
-			                          	<c:forEach var="stevidor" varStatus="loop" items="${stevidorSearchCommand.stevidorList}" >
-			                          	<c:if test="${stevidor.archived != 'Y'}" >
-				                            <tr>
-				                                <td>
-				                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
-					                              	<c:if test="${system.localConfig}" >
-					                              		<span class="alert-danger">
-					                              			<c:out value="(${stevidor.stevidorId})"/>
-					                              		</span>
-					                              	</c:if>				                                	
-				                                </td>
-					                         	<td class="nowrap">
-					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         		<c:out value="${stevidor.fullName}"/>
-					                         	</td>
-				                              <td><c:out value="${stevidor.port.country.nameRus}"/></td>
-				                              <td><c:out value="${stevidor.stevidorNote}"/></td>
-				                            </tr>
-				                        </c:if>    
+			                          	<c:forEach var="port" varStatus="loop" items="${portSearchCommand.portList}" >
+				                          	<c:if test="${port.archived != 'Y'}" >
+					                            <tr>
+					                                <td>
+					                                	<form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
+						                              	<c:if test="${system.localConfig}" >
+						                              		<span class="alert-danger">
+						                              			<c:out value="(${port.portId})"/>
+						                              		</span>
+						                              	</c:if>				                                	
+					                                </td>
+						                         	<td class="nowrap">
+						                         		<a href="<c:url value="portEdit?portId=${port.portId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
+						                         		<a href="<c:url value="portEdit?portId=${port.portId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+						                         		<c:out value="${port.fullName}"/>
+						                         	</td>
+					                              <td><c:out value="${port.country.nameRus}"/></td>
+					                              <td><c:out value="${port.portNote}"/></td>
+					                            </tr>
+					                        </c:if>    
 			                            </c:forEach>
 			                          </tbody>
 			                    </table>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.seaport.command.PortSearchCommand;
 import com.seaport.command.StevidorSearchCommand;
 import com.seaport.domain.Stevidor;
 import com.seaport.service.IPortService;
@@ -25,13 +26,13 @@ import com.seaport.service.IUserService;
  * The Controller class that invoke business logic and create a MachineModel&View object. 
  *
  * @Author       Danil Ozherelyev
- * @version      1.0 12/12/13 <P>
+ * @version      1.0 07/09/14 <P>
  */
 
 @Controller
-@RequestMapping("/stevidorSearch")
-@SessionAttributes("stevidorSearchCommand")
-public class StevidorSearchController {
+@RequestMapping("/portSearch")
+@SessionAttributes("portSearchCommand")
+public class PortSearchController {
 	@Autowired
 	private IUserService userService;
 	@Autowired
@@ -40,18 +41,15 @@ public class StevidorSearchController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) throws Exception {
-		StevidorSearchCommand stevidorSearchCommand = new StevidorSearchCommand();
-
-		stevidorSearchCommand.setUserPort(portService.getPortsMap());
-		stevidorSearchCommand.setUserCountry(userService.getContriesMap());
-		stevidorSearchCommand.setStevidorList(portService.getStevidors());
-		
-		model.put("stevidorSearchCommand", stevidorSearchCommand);
-		return "stevidorSearch";
+		PortSearchCommand portSearchCommand = new PortSearchCommand();
+		portSearchCommand.setUserCountry(userService.getContriesMap());
+		portSearchCommand.setPortList(portService.getPorts());
+		model.put("portSearchCommand", portSearchCommand);
+		return "portSearch";
 	}
 	
 	/**
-	 * Currently used as Delete function.
+	 * 
 	 * @param request
 	 * @param model
 	 * @param stevidorSearchCommand
@@ -61,20 +59,14 @@ public class StevidorSearchController {
 	 */
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
-								@Valid @ModelAttribute("stevidorSearchCommand") StevidorSearchCommand stevidorSearchCommand,
+								@Valid @ModelAttribute("portSearchCommand") PortSearchCommand portSearchCommand,
 								BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
-			return "stevidorSearch";
+			return "portSearch";
 		}
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		List<Stevidor> stevidorList = stevidorSearchCommand.getStevidorList();
-		for (Stevidor stevidor : stevidorList) {
-			if (stevidor.getArchived()!=null && stevidor.getArchived().equalsIgnoreCase("Y")) {
-				portService.saveStevidor(stevidor);	
-			}
-		}
-		return "redirect:stevidorSearch";		
+		return "redirect:portSearch";		
 	}
 }
