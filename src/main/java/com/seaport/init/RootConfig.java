@@ -38,6 +38,7 @@ public class RootConfig {
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_RESPONSIVE_SETTING = "responsive.design";
     private static final String PROPERTY_APPL_PHASEII = "application.phaseII";
+    private static final String PROPERTY_NAME_DATABASE_JELASTIC = "db.jelastic";
     
     	
 	@Resource
@@ -45,17 +46,28 @@ public class RootConfig {
 	
 	@Bean
 	public DataSource dataSource() {
+		String dbHost = "";
+		String dbPort = "";
+		String dbDb = "";
+
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-		String dbHost = envVarWithDefault("OPENSHIFT_MYSQL_DB_HOST", "localhost");
-		String dbPort = envVarWithDefault("OPENSHIFT_MYSQL_DB_PORT", "3306");
-		String dbDb = envVarWithDefault("OPENSHIFT_APP_NAME", env.getRequiredProperty(PROPERTY_NAME_DATABASE_NAME));
-		dataSource.setUrl("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbDb + "?characterEncoding=utf8&useUnicode=true");
+		if (env.getRequiredProperty(PROPERTY_NAME_DATABASE_JELASTIC).equalsIgnoreCase("true")) {
+			String URL =  "jdbc:mysql://mysql-viking.jelastic.regruhosting.ru/viking?characterEncoding=utf8&useUnicode=true";
+			dataSource.setUrl(URL);
+		} else {
+			dbHost = envVarWithDefault("OPENSHIFT_MYSQL_DB_HOST", "localhost");
+			dbPort = envVarWithDefault("OPENSHIFT_MYSQL_DB_PORT", "3306");
+			dbDb = envVarWithDefault("OPENSHIFT_APP_NAME", env.getRequiredProperty(PROPERTY_NAME_DATABASE_NAME));
+			dataSource.setUrl("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbDb + "?characterEncoding=utf8&useUnicode=true");
+		}
+
 		dataSource.setUsername(envVarWithDefault("OPENSHIFT_MYSQL_DB_USERNAME", env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME)));
 		dataSource.setPassword(envVarWithDefault("OPENSHIFT_MYSQL_DB_PASSWORD", env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD)));
 		return dataSource;
 	}
  
+	//
 	private String envVarWithDefault(String envVarName, String defaultValue) {
 		String value = System.getenv(envVarName);
 		if (value == null || value.length() == 0) value = defaultValue;
