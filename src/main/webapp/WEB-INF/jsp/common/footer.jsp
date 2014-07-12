@@ -1,20 +1,18 @@
    <%@ page contentType="text/html; charset=UTF-8" %>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    <!-- Site footer -->
-   <div class="footer">
-     <p class="text-center"><a href="<c:url value="static/html/about.html"/>">О Системе</a>
-     	&nbsp;|&nbsp;
-     	<a href="<c:url value="static/html/participants.html"/>">&nbsp;Участники</a>
-     	&nbsp;|&nbsp;
-     	<a href="<c:url value="static/html/rules.html"/>">&nbsp;Правила</a>
-     	&nbsp;|&nbsp;
-     	<a href="<c:url value="static/html/support.html"/>">&nbsp;Поддержка</a>
-     	&nbsp;|&nbsp;
-     	<a href="<c:url value="static/html/help.html"/>">Справка</a>
-
-     </p>
-     <p class="text-center">&copy; ООО "ИТТ", 2013&nbsp;</p>
-   </div>
+<footer>
+	<hr />	
+	<p class="pull-right"><a href="#">Наверх</a></p>
+	<p>
+		<a href="<c:url value="static/html/about.html"/>">О системе</a> |
+		<a href="<c:url value="static/html/participants.html"/>">Участники</a> |
+		<a href="<c:url value="static/html/rules.html"/>">Правила</a> |
+		<a href="<c:url value="static/html/support.html"/>">Поддержка</a> |
+		<a href="<c:url value="static/html/help.html"/>">Справка</a><br />
+		&copy; 2013 | <a href="#">ИТТ24</a>.
+	</p>
+</footer>
    
     		        
 					    <!-- 		Модальное окно подтверждения выхода из системы -->

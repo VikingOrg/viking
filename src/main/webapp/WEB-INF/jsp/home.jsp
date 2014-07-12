@@ -10,12 +10,18 @@
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
+	    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
-	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script src="static/js.response.min.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
-		<div id="wrap">
+		<div class="container">
 		<jsp:include page="common/menu.jsp" />
 
 		  <!-- Begin page content -->
@@ -36,8 +42,9 @@
 
 			</div>
 		  </div>
+		   <jsp:include page="common/footer.jsp" />		
 		</div>
 
-		   <jsp:include page="common/footer.jsp" />
+
 	</body>
 </html>

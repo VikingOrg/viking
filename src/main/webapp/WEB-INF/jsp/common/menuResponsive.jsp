@@ -9,92 +9,98 @@
 <c:url value="stevidorSearch" var="stevidorSearchUrl"/>
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
             
-			    <!-- Fixed navbar -->
-			  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			    <div class="container">
-			      <div class="navbar-header">
-			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			          <span class="icon-bar"></span>
-			          <span class="icon-bar"></span>
-			          <span class="icon-bar"></span>
-			        </button>
-			        <a class="navbar-brand" href="#" style="color: #569EF0">ИТТ24</a>
-			      </div>
-			      
-			      
-			      <div class="collapse navbar-collapse">
-			        <ul class="nav navbar-nav">
-			
-			  		  <li ><a href="<c:url value="/home"/>">Главная</a></li>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">             
-			          <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники<b class="caret"></b></a>
-			            <ul class="dropdown-menu">
-			              <li><a href="<c:url value="/stevidorSearch"/>">Справочник Компаний</a></li>
-			              <li><a href="<c:url value="/portSearch"/>">Справочник Портов</a></li>
-			              <li><a href="<c:url value="/countrySearch"/>">Справочник Стран</a></li>
-			              <li class="divider"></li>
-			              <li><a href="<c:url value="/stevidorEdit"/>">Добавить Компанию</a></li>
-		                </ul>
-			          </li> 			          
+            
+ 		<div class="row"><!-- start header -->
+			<div class="col-sm-4 col-xs-6 logo">
+				<a href="index.html">
+				<div class="row">
+					<div class="col-sm-3 hidden-xs logo-img">
+						<img src="" alt=""/>
+					</div>
+					<div class="col-sm-9 logo-text">
+						<h1><br>ИТТ24</h1>
+					</div>
+				</div>
+				</a>
+			</div>		
+			<div class="col-sm-4 col-xs-6 customer_service pull-right text-right">
+				<h4 class="phone"><span class="hidden-xs">Служба поддержки:</span>(812) 275-32-27</h4>
+			</div>
+		</div><!-- end header -->
+		           
+		<div class="row"><!-- start nav -->    
+			<div class="col-sm-12">
 
-			</sec:authorize>
-			<sec:authorize access="hasRole('ROLE_USER')"> 
-			          <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
-			            <ul class="dropdown-menu">
-			              <li><a href="<c:url value="/machineSearch"/>">Перегрузочные машины</a></li>
-			              <li><a href="<c:url value="/machineModel"/>">Модели Маханизмов</a></li>
-			              <li><a href="#">Группы Моделей*</a></li>
-			              <li><a href="#">Производители*</a></li>
-			              <li class="divider"></li>
-			              <li><a href="<c:url value="/machineEdit"/>">Добавить машину</a></li>
-			            </ul>
-			          </li>
-			          
-			          <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
-			            <ul class="dropdown-menu">
-			              <li><a href="<c:url value="/static/html/deviceReport.html"/>">Количественный состав</a></li>
-			              <li><a href="<c:url value="/static/html/deviceYearsReport.html"/>">Разрез по годам</a></li>
-			            </ul>
-			          </li>
-			  </sec:authorize>        
-			          <sec:authorize access="hasRole('ROLE_ADMIN')">          
-				          <li class="dropdown">
-				            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
-				            <ul class="dropdown-menu">
-				              <li><a href="<c:url value="/userSearchAdmin"/>">Список пользователей</a></li>
-				              <li><a href="#">Группы пользователей *</a></li>
-				            </ul>				            
-				          </li>
-			          </sec:authorize>
-			          
-			        </ul>
-			        
-			      <ul class="nav navbar-nav navbar-right">
-			        	<li>
-				          <a style="color: #569EF0"> ${userModel.lastName}&nbsp;${userModel.firstName}</a>
-				        </li>
-			        	<li>
-						    <a href="?lang=ru">
-						    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru">
-						    </a>
-					    </li>
-					    <li>
-						    <a href="?lang=en">
-						        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us">
-						    </a>
+				<nav class="navbar navbar-inverse" role="navigation" >
+					<div class="navbar-inner">
+				  <!-- Brand and toggle get grouped for better mobile display -->
+				  <div class="navbar-header">
+				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				      <span class="sr-only">Toggle navigation</span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				    </button>
+				    <a class="navbar-brand visible-xs" href="#">Меню</a>
+				  </div>
+
+				  <!-- Collect the nav links, forms, and other content for toggling -->
+				  <div class="collapse navbar-collapse navbar-ex1-collapse">
+				    <ul class="nav navbar-nav">
+						<li><a href="<c:url value="/home"/>" class="first">Главная</a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<c:url value="/stevidorSearch"/>">Операторы портов</a></li>
+								<li><a href="<c:url value="/portSearch"/>">Порты</a></li>
+								<li><a href="<c:url value="/countrySearch"/>">Страны</a></li>
+					              <li class="divider"></li>
+					            <li><a href="<c:url value="/stevidorEdit"/>">Добавить Компанию</a></li>
+							</ul>
 						</li>
-				        <li>
-				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
-				        </li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_USER')">
+						<li><a href="<c:url value="/machineSearch"/>">Механизмы</a></li>
+						<li><a href="<c:url value="/static/html/deviceReport.html"/>">Отчеты</a></li>
+			</sec:authorize>        
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+                                <li><a href="<c:url value="/userSearchAdmin"/>">Список пользователей</a></li>
+							</ul>
+						</li>
+			</sec:authorize>
 				    </ul>
-			       </div>
-			       <!--/.nav-collapse -->
-			       
-			    </div>
-			  </nav>   
+
+				    <ul class="nav navbar-nav navbar-right">		
+						        	<li>
+									    <a href="?lang=ru">
+									    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru">
+									    </a>
+								    </li>
+								    <li>
+									    <a href="?lang=en">
+									        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us">
+									    </a>
+									</li>									
+									<li class="dropdown">
+										<a class="dropdown-toggle" href="#" data-toggle="dropdown">${userModel.lastName}&nbsp;${userModel.firstName} <strong class="caret"></strong></a>
+										<ul class="dropdown-menu">
+												<li><a href="#">Личные данные</a></li>
+												<li><a class="btn" data-toggle="modal" data-target="#confirmLogout">Выход</a></li>
+										</ul>
+									</li>
+									
+					</ul>
+
+				  </div><!-- /.navbar-collapse -->
+				</div>
+				</nav>
+
+			</div>
+		</div><!-- end nav -->
 
 
  
