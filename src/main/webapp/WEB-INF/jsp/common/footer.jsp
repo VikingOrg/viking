@@ -1,6 +1,7 @@
    <%@ page contentType="text/html; charset=UTF-8" %>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    <!-- Site footer -->
+<div class="container">
 <footer>
 	<hr />	
 	<p class="pull-right"><a href="#">Наверх</a></p>
@@ -13,6 +14,7 @@
 		&copy; 2013 | <a href="#">ИТТ24</a>.
 	</p>
 </footer>
+</div>
    
     		        
 					    <!-- 		Модальное окно подтверждения выхода из системы -->

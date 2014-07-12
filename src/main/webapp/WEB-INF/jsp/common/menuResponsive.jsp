@@ -8,8 +8,35 @@
 <c:url value="logout" var="logoutUrl"/>
 <c:url value="stevidorSearch" var="stevidorSearchUrl"/>
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
-            
-            
+
+
+	    <meta name="viewport" content="width=device-width">
+	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="static/css/page.css">
+		<link rel="stylesheet" type="text/css" href="static/css/table.css">
+		<link rel="stylesheet" type="text/css" href="static/css/dataTables.tableTools.css">
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
+	    
+	    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
+	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script src="static/js.response.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
+        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
+		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
+		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+
+	
+	</head>
+	<body>
+		<!-- Wrap all page content here -->            
+    <div class="container">        
  		<div class="row"><!-- start header -->
 			<div class="col-sm-4 col-xs-6 logo">
 				<a href="index.html">
@@ -27,6 +54,7 @@
 				<h4 class="phone"><span class="hidden-xs">Служба поддержки:</span>(812) 275-32-27</h4>
 			</div>
 		</div><!-- end header -->
+	
 		           
 		<div class="row"><!-- start nav -->    
 			<div class="col-sm-12">
@@ -101,6 +129,6 @@
 
 			</div>
 		</div><!-- end nav -->
-
+</div>
 
  
