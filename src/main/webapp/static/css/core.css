@@ -42,6 +42,11 @@
 		.nowrap {
 		  white-space: nowrap ;
 		}
+		
+		
+		.column-check {
+			width: 70px;
+		}
 				
 		.flag {
 			width: 16px;

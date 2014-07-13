@@ -10,114 +10,128 @@
         
 		   <jsp:include page="common/menu.jsp" />
 		   <!----- Begin page content ------>
-	        <div class="container">
-	        	<form:form id="country_search_form" action="countrySearch" commandName="countrySearchCommand" method="post" accept-charset="UTF-8">
-	        	<div class="masthead">
-			        <div class="container-fluid">
-			            <div class="row-fluid">
-			            	<div class="col-md-10 col-md-offset-1">
-			                    <h4 class="text-muted page-header">СПИСОК СТРАН<br></h4>
-			            	</div>
-			            </div>
-			        </div>
-		        </div>
-		        
-			        <div class="container-fluid">
-			            <div class="row-fluid">
-			                 <div class="col col-sm-4 col-md-3">
-			                     <!--Sidebar content-->
-			                    <label class="form-label">ПОИСК</label>
-			                    <div class="input-group" style="margin: 5px">
-			                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
-			                    </div>
-			                 </div>
-			                <div class="col col-sm-8 col-md-9">
-			                    
-		                    <!--  Вывод сообщений и предупреждений  -->
-							<c:if test="${not empty message}"> 
-								<div class="alert alert-success show"><spring:message code="${message}" />
-									<button type="button" class="close" data-dismiss="alert">&times;</button>
-								</div>			
-							</c:if>
-							<c:if test="${not empty error}"> 
-								<div class="alert alert-danger show"><spring:message code="${error}" />
-									<button type="button" class="close" data-dismiss="alert">&times;</button>
-								</div>			
-							</c:if>								
-							<!--  Операции с данными в таблице -->
-		                    <div class="btn-group" style="margin: 5px">
-                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
-                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
-                            </div>
-                            
-
-							<!-- Таблица со списком стран -->
-			                <div class="table-container">
-			                    <table id="country_table" class="table table-striped table-bordered">
-			                          <thead>
-			                              <tr>
-				                              <th>&nbsp;</th>
-				                              <th>Страна (RUS)&nbsp;&nbsp;</th>
-				                              <th>Страна (ENG)&nbsp;&nbsp;</th>
-				                              <th>Примечания&nbsp;&nbsp;</th>
-			                              </tr>
-			                          </thead>
-			                          <tbody>
-			                          	<c:forEach var="country" varStatus="loop" items="${countrySearchCommand.countryList}" >
-			                          	<c:if test="${country.archived != 'Y'}" >
-				                            <tr>
-				                                <td>
-				                                	<form:checkbox path="countryList[${loop.index}].archived" value="Y"></form:checkbox>
-					                              	<c:if test="${system.localConfig}" >
-					                              		<span class="alert-danger">
-					                              			<c:out value="(${country.countryId})"/>
-					                              		</span>
-					                              	</c:if>				                                	
-				                                </td>
-					                         	<td class="nowrap">
-					                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-					                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-					                         		<c:out value="${country.nameRus}"/>
-					                         	</td>
-				                              <td><c:out value="${country.nameEn}"/></td>
-				                              <td><c:out value="${country.countryNote}"/></td>
-				                            </tr>
-				                        </c:if>    
-			                            </c:forEach>
-			                          </tbody>
-			                    </table>
-			                   </div>
-			                </div>
-			            </div>
-			        </div>
-			        
-				    <!-- 		Модальное окно подтверждения удаления данных -->
-					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-body" align="center">
-					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
+		 <div class="container"> 
+		 
+								
+		<form:form id="country_search_form" action="countrySearch" commandName="countrySearchCommand" method="post" accept-charset="UTF-8">
+		   <div class="row">
+		   		
+				<br>
+				<!--Sidebar content-->
+					<div class="col-sm-4">
 					
-				</form:form>
-		    </div> <!-- End Main Container -->
+					<h3>
+					&nbsp;
+					</h3>
+			
+						<div class="col-sm-12 well lform">
+			
+							<div class="row">
+									
+									<div class="col-sm-12">
+										<div class="form-group">
+											 
+						                    <label>Поиск</label>
+						                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
+								        </div>	
+								    </div>				
+							</div>
+						</div>	
+					</div>
+				<!-- End of Sidebar content-->	
+				
+				
+					<div class="col-sm-8">
+				
+						<!-- Start table content -->
 
+				                    
+			                    <!--  Вывод сообщений и предупреждений  -->
+								<c:if test="${not empty message}"> 
+									<div class="alert alert-success show"><spring:message code="${message}" />
+										<button type="button" class="close" data-dismiss="alert">&times;</button>
+									</div>			
+								</c:if>
+								<c:if test="${not empty error}"> 
+									<div class="alert alert-danger show"><spring:message code="${error}" />
+										<button type="button" class="close" data-dismiss="alert">&times;</button>
+									</div>			
+								</c:if>								
+								
+								<!-- Таблица со списком стран -->
+								<h3>
+								<span>Список</span>
+								стран
+								</h3>
+				                    <table id="country_table" class="table table-bordered table-striped">
+				                          <thead>
+				                              <tr>
+					                              <th class="column-check">&nbsp;</th>
+					                              <th>Страна (RUS)</th>
+					                              <th class="hidden-sm hidden-xs">Страна (ENG)</th>
+					                              <th class="hidden-sm hidden-xs">Примечания</th>
+				                              </tr>
+				                          </thead>
+				                          <tbody>
+				                          	<c:forEach var="country" varStatus="loop" items="${countrySearchCommand.countryList}" >
+				                          	<c:if test="${country.archived != 'Y'}" >
+					                            <tr>
+					                                <td>
+					                                	<form:checkbox path="countryList[${loop.index}].archived" value="Y"></form:checkbox>
+						                              	<c:if test="${system.localConfig}" >
+						                              		<span class="alert-danger">
+						                              			<c:out value="(${country.countryId})"/>
+						                              		</span>
+						                              	</c:if>				                                	
+					                                </td>
+						                         	<td class="nowrap">
+						                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+						                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}"/>"><c:out value="${country.nameRus}"/></a>
+						                         	</td>
+					                              <td class="hidden-sm hidden-xs"><c:out value="${country.nameEn}"/></td>
+					                              <td class="hidden-sm hidden-xs"><c:out value="${country.countryNote}"/></td>
+					                            </tr>
+					                        </c:if>    
+				                            </c:forEach>
+				                          </tbody>
+				                    </table>
+				                    <!--  Операции с данными в таблице -->
+				                    <div class="btn-group">
+		                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить</a>
+		                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+		                            </div>
+				        
+					    <!-- 		Модальное окно подтверждения удаления данных -->
+						<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-body" align="center">
+						        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
+						        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+						      </div>
+						    </div><!-- /.modal-content -->
+						  </div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+					
+				                             
+				                  <!-- // end of table content -->
+						
+					</div>
+				
+			</div>
 		
+		</form:form>
+		</div>
 		   <jsp:include page="common/footer.jsp" />
 		
 		<script type="text/javascript">
             $(document).ready(function() {
-            	var oTable = $('#port_table').dataTable( {
+            	var oTable = $('#country_table').dataTable( {
             	"aoColumns": [
                 	               { "bSortable": false },
-                	               null,
                 	               null,
                 	               null,
                 	               { "bSortable": false },
