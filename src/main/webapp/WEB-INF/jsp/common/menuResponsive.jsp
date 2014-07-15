@@ -12,21 +12,22 @@
 
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0-rc.1/css/jquery.dataTables.css"/>
 	    <link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="static/css/page.css">
 		<link rel="stylesheet" type="text/css" href="static/css/table.css">
 		<link rel="stylesheet" type="text/css" href="static/css/dataTables.tableTools.css">
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    
 	    <!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
+	    <script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
 	    <script src="static/js.response.min.js" type="text/javascript"></script>
-		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
@@ -104,12 +105,12 @@
 
 				    <ul class="nav navbar-nav navbar-right">		
 						        	<li>
-									    <a href="?lang=ru">
+									    <a style="border-left: 0px solid #f5f5f5; color: black;" href="?lang=ru">
 									    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru">
 									    </a>
 								    </li>
 								    <li>
-									    <a href="?lang=en">
+									    <a style="border-left: 0px solid #f5f5f5; color: black;" href="?lang=en">
 									        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us">
 									    </a>
 									</li>									
@@ -117,7 +118,7 @@
 										<a class="dropdown-toggle" href="#" data-toggle="dropdown">${userModel.lastName}&nbsp;${userModel.firstName} <strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
 												<li><a href="#">Личные данные</a></li>
-												<li><a class="btn" data-toggle="modal" data-target="#confirmLogout">Выход</a></li>
+												<li><a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer">Выход</a></li>
 										</ul>
 									</li>
 									

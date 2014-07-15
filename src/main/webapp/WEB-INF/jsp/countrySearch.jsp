@@ -16,15 +16,10 @@
 		<form:form id="country_search_form" action="countrySearch" commandName="countrySearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
-				<br>
 				<!--Sidebar content-->
 					<div class="col-sm-4">
-					
-					<h3>
-					&nbsp;
-					</h3>
 			
-						<div class="col-sm-12 well lform">
+						<div class="col-sm-12 well">
 			
 							<div class="row">
 									
@@ -37,6 +32,12 @@
 								    </div>				
 							</div>
 						</div>	
+						
+				                    <!--  Операции с данными в таблице -->
+				                    <div class="col-sm-12">
+		                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
+		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+		                            </div>
 					</div>
 				<!-- End of Sidebar content-->	
 				
@@ -60,16 +61,16 @@
 								
 								<!-- Таблица со списком стран -->
 								<h3>
-								<span>Список</span>
-								стран
-								</h3>
+									Список стран
+									</h3>
 				                    <table id="country_table" class="table table-bordered table-striped">
+				                    
 				                          <thead>
 				                              <tr>
-					                              <th class="column-check">&nbsp;</th>
-					                              <th>Страна (RUS)</th>
-					                              <th class="hidden-sm hidden-xs">Страна (ENG)</th>
-					                              <th class="hidden-sm hidden-xs">Примечания</th>
+					                              <th class="column-check nowrap" width= "70px">&nbsp;</th>
+					                              <th class="nowrap">Страна (RUS)</th>
+					                              <th class="hidden-sm hidden-xs nowrap">Страна (ENG)</th>
+					                              <th class="hidden-sm hidden-xs nowrap">Примечания</th>
 				                              </tr>
 				                          </thead>
 				                          <tbody>
@@ -95,11 +96,6 @@
 				                            </c:forEach>
 				                          </tbody>
 				                    </table>
-				                    <!--  Операции с данными в таблице -->
-				                    <div class="btn-group">
-		                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить</a>
-		                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
-		                            </div>
 				        
 					    <!-- 		Модальное окно подтверждения удаления данных -->
 						<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,6 +132,7 @@
                 	               null,
                 	               { "bSortable": false },
                 	           ],
+                	           "scrollX": true,
                 	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "oTableTools": {
                     	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"

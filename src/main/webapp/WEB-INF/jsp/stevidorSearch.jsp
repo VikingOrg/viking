@@ -16,15 +16,10 @@
 		<form:form id="stevidor_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
-				<br>
 				<!--Sidebar content-->
 					<div class="col-sm-4">
-					
-					<h3>
-					&nbsp;
-					</h3>
 			
-						<div class="col-sm-12 well lform">
+						<div class="col-sm-12 well">
 			
 							<div class="row">
 									
@@ -33,7 +28,7 @@
 											<label class="col-sm-3 control-label">Страна</label>
 											<div class="col-sm-9">
 											<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
-												<form:option value="">ВСЕ</form:option>
+												<form:option value="">Все</form:option>
 								                <c:forEach items="${stevidorSearchCommand.userCountry}" var="country">
 								                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 								                </c:forEach>
@@ -44,7 +39,7 @@
 											<label class="col-sm-3 control-label">Порт</label>
 											<div class="col-sm-9">
 											<form:select id="portSelect" path="portId" cssClass="form-control col-sm-12">
-												<form:option value="">ВСЕ</form:option>
+												<form:option value="">Все</form:option>
 								                <c:forEach items="${stevidorSearchCommand.userPort}" var="port">
 								                    <form:option value="${port.value.name}" label="${port.value.name}" />
 								                </c:forEach>							
@@ -59,7 +54,14 @@
 								        </div>
 								    </div>				
 							</div>
-						</div>	
+						</div>
+						
+				                     <!--  Операции с данными в таблице -->
+				                    <div class="col-sm-12">
+		                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
+		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+		                            </div>
+							
 					</div>
 				<!-- End of Sidebar content-->	
 				
@@ -82,25 +84,23 @@
 								</c:if>									
 								
 								<!-- Таблица со списком стивидоров -->
-								<h3>
-								<span>Список</span>
-								компаний-операторов
+								<h3>Список компаний-операторов
 								</h3>
 				                    <table id="stevidor_table" class="table table-bordered table-striped">
 				                          <thead>
 				                              <tr>
-					                              <th class="column-check">&nbsp;</th>
-					                              <th>Компания-оператор&nbsp;&nbsp;</th>
+					                              <th class="column-check nowrap">&nbsp;</th>
+					                              <th class="nowrap">Компания-оператор&nbsp;&nbsp;</th>
 			                              		  <th>Порт&nbsp;&nbsp;</th>
-					                              <th class="hidden-sm hidden-xs">Страна&nbsp;&nbsp;</th>
-					                              <th class="hidden-sm hidden-xs">Примечания</th>
+					                              <th class="hidden-sm hidden-xs hidden-md nowrap">Страна&nbsp;&nbsp;</th>
+					                              <th class="hidden-sm hidden-xs hidden-md nowrap">Примечания</th>
 				                              </tr>
 				                          </thead>
 				                          <tbody>
 				                          	<c:forEach var="stevidor" varStatus="loop" items="${stevidorSearchCommand.stevidorList}" >
 				                          	<c:if test="${stevidor.archived != 'Y'}" >
 					                            <tr>
-					                                <td>
+					                                <td class="nowrap">
 					                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">
@@ -113,18 +113,13 @@
 						                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>"><c:out value="${stevidor.fullName}"/></a>
 						                         	</td>
 						                          <td><c:out value="${stevidor.port.name}"/></td>
-					                              <td class="hidden-sm hidden-xs"><c:out value="${stevidor.port.country.nameRus}"/></td>
-					                              <td class="hidden-sm hidden-xs"><c:out value="${stevidor.stevidorNote}"/></td>
+					                              <td class="hidden-sm hidden-xs hidden-md"><c:out value="${stevidor.port.country.nameRus}"/></td>
+					                              <td class="hidden-sm hidden-xs hidden-md"><c:out value="${stevidor.stevidorNote}"/></td>
 					                            </tr>
 					                        </c:if>    
 				                            </c:forEach>
 				                          </tbody>
 				                    </table>
-				                    <!--  Операции с данными в таблице -->
-				                    <div class="btn-group">
-				                    <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить</a>
-                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
-		                            </div>
 				        
 					    <!-- 		Модальное окно подтверждения удаления данных -->
 						<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -162,7 +157,8 @@
             	               null,
             	               { "bSortable": false },
             	           ],
-            	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+            	           "scrollX": true,
+            	"sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
               /*   "oTableTools": {
                 	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
                 }, */
