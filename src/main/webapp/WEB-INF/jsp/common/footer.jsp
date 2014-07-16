@@ -25,8 +25,24 @@
 					        <h4>ВЫХОД ИЗ СИСТЕМЫ</h4>
 					      </div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
+					        <a type="button" class="cancelbtn" data-dismiss="modal">ОТМЕНА</a>
+					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-primary">ВЫЙТИ</a>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+					
+				
+				    <!-- 		Модальное окно подтверждения удаления данных -->
+					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-body" align="center">
+					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <a type="button" class="cancelbtn" data-dismiss="modal">ОТМЕНА</a>
+					        <button type="submit" class="btn btn-primary">УДАЛИТЬ</button>
 					      </div>
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->

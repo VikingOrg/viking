@@ -7,33 +7,124 @@
 <html lang="ru">
 	<head>
 	    <title>Таблица Портов</title>
-	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" href="static/css/core.css"/>
-		<link rel="stylesheet" type="text/css" href="static/css/dataTables.bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="static/css/page.css">
-		<link rel="stylesheet" type="text/css" href="static/css/table.css">
-		<link rel="stylesheet" type="text/css" href="static/css/dataTables.tableTools.css">
+		   <jsp:include page="common/menu.jsp" />
+		   <!----- Begin page content ------>
+		 <div class="container"> 
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-		<script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="static/js/dataTables.bootstrap.js"> </script>
-        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
-		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+	        	<form:form id="port_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="portSearch" commandName="portSearchCommand" method="post" accept-charset="UTF-8">
+		   <div class="row">
+		   		
+				<!--Sidebar content-->
+					<div class="col-sm-4">
+			
+						<div class="col-sm-12 well">
+			
+							<div class="row">
+									
+									<div class="col-sm-12">
+								<div class="form-group">
+						        	<label class="col-sm-3 control-label">Страна</label>
+											<div class="col-sm-9">
+											<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
+												<form:option value="">Все</form:option>
+								                <c:forEach items="${portSearchCommand.userCountry}" var="country">
+								                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+								                </c:forEach>
+											</form:select>
+											</div>
+					          	</div>	
+			                    <div class="form-group">
+					                    <label class="col-sm-3 control-label">Поиск</label>
+					                    	<div class="col-sm-9">
+					                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
+					                        </div>
+								</div>
+			                 </div>				
+							</div>
+							<hr>
+							
+				                     <!--  Операции с данными в таблице -->
+				                    <div class="col-sm-12">
+		                            <a href="<c:url value="portEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
+		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+		                            </div>
+							
+						</div>
+						
+					</div>
+				<!-- End of Sidebar content-->	
+			                <div class="col col-sm-8">
+			                
+			                <!-- Start table content -->
+			                    
+		                    <!--  Вывод сообщений и предупреждений  -->
+							<c:if test="${not empty message}"> 
+								<div class="alert alert-success show"><spring:message code="${message}" />
+									<button type="button" class="close" data-dismiss="alert">&times;</button>
+								</div>			
+							</c:if>
+							<c:if test="${not empty error}"> 
+								<div class="alert alert-danger show"><spring:message code="${error}" />
+									<button type="button" class="close" data-dismiss="alert">&times;</button>
+								</div>			
+							</c:if>
+                            
+
+							<!-- Таблица со списком портов -->
+							<h3 class="page-header">Список портов
+								</h3>
+			                    <table id="port_table" class="table table-striped table-bordered">
+			                          <thead>
+			                              <tr>
+				                              <th class="column-check nowrap">&nbsp;</th>
+				                              <th class="nowrap">Порт&nbsp;&nbsp;</th>
+				                              <th class="hidden-sm hidden-xs hidden-md nowrap">Страна&nbsp;&nbsp;</th>
+				                              <th class="hidden-sm hidden-xs hidden-md nowrap">Примечания&nbsp;&nbsp;</th>
+			                              </tr>
+			                          </thead>
+			                          <tbody>
+			                          	<c:forEach var="port" varStatus="loop" items="${portSearchCommand.portList}" >
+				                          	<c:if test="${port.archived != 'Y'}" >
+					                            <tr>
+					                                <td class="column-check nowrap">
+					                                	<form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
+						                              	<c:if test="${system.localConfig}" >
+						                              		<span class="alert-danger">
+						                              			<c:out value="(${port.portId})"/>
+						                              		</span>
+						                              	</c:if>				                                	
+					                                </td>
+						                         	<td class="nowrap">
+						                         		<a href="<c:url value="portEdit?portId=${port.portId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
+						                         		
+						                         		<a href="<c:url value="portEdit?portId=${port.portId}"/>"><c:out value="${port.fullName}"/></a>
+						                         	</td>
+					                              <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${port.country.nameRus}"/></td>
+					                              <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${port.portNote}"/></td>
+					                            </tr>
+					                        </c:if>    
+			                            </c:forEach>
+			                          </tbody>
+			                    </table>
+			                    
+			                </div>
+			            </div>
+			        
+				</form:form>
+		    </div> 
+		   <jsp:include page="common/footer.jsp" />
 		
-		<script type="text/javascript">
+		
+<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#port_table').dataTable( {
             	"aoColumns": [
                 	               { "bSortable": false },
                 	               null,
                 	               null,
-                	               null,
                 	               { "bSortable": false },
                 	           ],
-                	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                	"sDom": "t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "oTableTools": {
                     	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
                     },
@@ -59,141 +150,5 @@
 
     
         </script>
-        <style type="text/css">
-			.filter_select {
-				padding-top: 10px;
-			}
-			th {
-            text-align: center;
-            white-space:nowrap;
-          }
-          	td {
-            white-space:nowrap;
-          }
-        </style>
-		
-	</head>
-	<body>
-		<!-- Wrap all page content here -->
-		<div id="wrap">
-		   <jsp:include page="common/menu.jsp" />
-		   <!----- Begin page content ------>
-	        <div class="container">
-	        	<form:form id="port_search_form" action="portSearch" commandName="portSearchCommand" method="post" accept-charset="UTF-8">
-	        	<div class="masthead">
-			        <div class="container-fluid">
-			            <div class="row-fluid">
-			            	<div class="col-md-10 col-md-offset-1">
-			                    <h4 class="text-muted page-header">СПИСОК ПОРТОВ<br></h4>
-			            	</div>
-			            </div>
-			        </div>
-		        </div>
-		        
-			        <div class="container-fluid">
-			            <div class="row-fluid">
-			                 <div class="col col-sm-4 col-md-3">
-			                     <!--Sidebar content-->
-			                    <h4>Фильтр&nbsp;<span class="glyphicon glyphicon-list"></span></h4>
-								<div class="filter_select">
-						        	<label class="form-label">СТРАНА</label>
-									<form:select id="countrySelect" path="countryId" cssClass="form-control">
-										<form:option value="">ВСЕ</form:option>
-						                <c:forEach items="${portSearchCommand.userCountry}" var="country">
-						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-						                </c:forEach>
-									</form:select>
-					          	</div>	
-			                    <hr>
-			                    <label class="form-label">ПОИСК</label>
-			                    <div class="input-group" style="margin: 5px">
-			                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
-			                    </div>
-			                 </div>
-			                <div class="col col-sm-8 col-md-9">
-			                    
-		                    <!--  Вывод сообщений и предупреждений  -->
-							<c:if test="${not empty message}"> 
-								<div class="alert alert-success show"><spring:message code="${message}" />
-									<button type="button" class="close" data-dismiss="alert">&times;</button>
-								</div>			
-							</c:if>
-							<c:if test="${not empty error}"> 
-								<div class="alert alert-danger show"><spring:message code="${error}" />
-									<button type="button" class="close" data-dismiss="alert">&times;</button>
-								</div>			
-							</c:if>
-															
-							<!--  Операции с данными в таблице -->
-		                    <div class="btn-group" style="margin: 5px">
-                            <a href="<c:url value="portEdit"/>" class="btn btn-primary" title="Ввод нового">Добавить &nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;</a>
-                            <a href="#" class="btn btn-primary" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить &nbsp;<span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
-                            </div>
-                            
-
-							<!-- Таблица со списком портов -->
-			                <div class="table-container">
-			                    <table id="port_table" class="table table-striped table-bordered">
-			                          <thead>
-			                              <tr>
-				                              <th>&nbsp;</th>
-				                              <th>Порт&nbsp;&nbsp;</th>
-				                              <th>Страна&nbsp;&nbsp;</th>
-				                              <th>Примечания&nbsp;&nbsp;</th>
-			                              </tr>
-			                          </thead>
-			                          <tbody>
-			                          	<c:forEach var="port" varStatus="loop" items="${portSearchCommand.portList}" >
-				                          	<c:if test="${port.archived != 'Y'}" >
-					                            <tr>
-					                                <td>
-					                                	<form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
-						                              	<c:if test="${system.localConfig}" >
-						                              		<span class="alert-danger">
-						                              			<c:out value="(${port.portId})"/>
-						                              		</span>
-						                              	</c:if>				                                	
-					                                </td>
-						                         	<td class="nowrap">
-						                         		<a href="<c:url value="portEdit?portId=${port.portId}"/>">&nbsp;<span class="glyphicon glyphicon-pencil" title="Редактировать"></span></a>
-						                         		<a href="<c:url value="portEdit?portId=${port.portId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-						                         		<c:out value="${port.fullName}"/>
-						                         	</td>
-					                              <td><c:out value="${port.country.nameRus}"/></td>
-					                              <td><c:out value="${port.portNote}"/></td>
-					                            </tr>
-					                        </c:if>    
-			                            </c:forEach>
-			                          </tbody>
-			                    </table>
-			                   </div>
-			                </div>
-			            </div>
-			        </div>
-			        
-				    <!-- 		Модальное окно подтверждения удаления данных -->
-					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-body" align="center">
-					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
-					
-				</form:form>
-		    </div> <!-- End Main Container -->
-		</div> <!-- Wrapper end -->
-
-		<div id="footer">
-		  <div class="container">
-		   <jsp:include page="common/footer.jsp" />
-		  </div>
-		</div>
 	</body>
 </html>

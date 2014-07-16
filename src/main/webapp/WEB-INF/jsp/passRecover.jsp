@@ -8,26 +8,30 @@
 <!doctype html>
 <html lang="ru">
 	<head>
-	    <title>Восстановление пароля.</title>
+	    <title>Восстановление пароля</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
-	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+	    
+	    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	    <script src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script src="static/js.response.min.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<!-- Wrap all page content here -->
-		<div id="wrap">
-			<form:form id="user_search_form" action="passRecover" commandName="registrationCommand" method="post" accept-charset="UTF-8">
+			<form:form id="user_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="passRecover" commandName="registrationCommand" method="post" accept-charset="UTF-8">
 			
 			<!-- Begin page content -->
 		    <div class="container">
 
 			    <div class="container">
-			      <div class="masthead">
 			        <div class="container">
 			          <div class="col-md-10 col-md-offset-1">
-			            <h4 class="text-muted page-header">ЗАПРОС НА ВОССТАНОВЛЕНИЕ ПАРОЛЯ<br></h4>
+			            <h3 class="page-header">ЗАПРОС НА ВОССТАНОВЛЕНИЕ ПАРОЛЯ</h3>
 			            
 						<c:if test="${not empty error}"> 
 							<div class="alert alert-danger show"><spring:message code="${error}" />
@@ -37,24 +41,23 @@
 								            
 			          </div>
 			        </div>
-			      </div>
 			      <div class="row">
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-						<v:input path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
-						<v:input path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
-						<v:input path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
-						<v:input path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>	
+						<v:input path="user.lastName" label="Фамилия" required="true" title="Введите свою фамилию"/>
+						<v:input path="user.firstName" label="Имя" required="true" title="Введите своё имя"/>
+						<v:input path="user.middleInitial" label="Отчество" title="Введите своё отчество"/>
+						<v:input path="user.userEmail" type="email" label="E-Mail" title="Укажите свой e-mail в качестве логина"/>	
 			        </div>
 			        
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-			        <label class="form-label">ПОРТ</label>
+			        <label class="form-label">Порт</label>
 			          <select class="form-control" name="port">
 			            <option>Санкт-Петербург</option>
 			            <option>Высоцк</option>
 			            <option>Приморский</option>
 			          </select>
 			          <p>&nbsp;</p> 
-			        <label class="form-label">КОМПАНИЯ</label>
+			        <label class="form-label">Компания</label>
 			          <select class="form-control" name="company">
 			            <option>1-я Стивидорная</option>
 			            <option>2-я Стивидорная</option>
@@ -69,11 +72,11 @@
 			      <div class="row">
 			        <div class="col-md-4 col-md-offset-1">
 			          <div class="form-actions">
-			          	<button type="submit" class="btn btn-primary">ОТПРАВИТЬ »</button>
-			            <button type="button" class="btn btn-default" 
+			          	<button type="submit" class="btn btn-primary">Отправить</button>
+			            <a type="button" class="cancelbtn" 
 			            	onclick="window.location.href = '<c:url value="login"/>';" 
-			            	value="Klick">ОТМЕНИТЬ &raquo;
-			            </button>
+			            	value="Klick">Отменить
+			            </a>
 			          </div>
 			        </div>
 			      </div>
@@ -81,11 +84,5 @@
 	
 			</div> <!-- End of Main Container -->
 		</form:form>	
-		</div> <!-- End of Wrapping -->
-		<div id="footer">
-		  <div class="container">
-		   <jsp:include page="common/footer.jsp" />
-		  </div>
-		</div>
 	</body>
 </html>

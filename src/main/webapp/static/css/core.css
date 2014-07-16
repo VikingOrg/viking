@@ -39,6 +39,14 @@
 		  padding-right: 15px;
 		}
 		
+		.page-header {
+		    border-bottom: 1px solid #f5f5f5;
+		    margin: 0px 0 10px;
+		    padding-bottom: 0px;
+		    color:#448800;
+		    font-weight: normal;
+		}
+		
 		code {
 		  font-size: 80%;
 		}
@@ -47,6 +55,12 @@
 		  white-space: nowrap ;
 		}
 		
+		.cancelbtn {
+		  padding: 10px;
+		  color: #888888;
+		  cursor: pointer;
+    	  text-decoration: none;
+		}
 		
 		.column-check {
 			width: 70px;

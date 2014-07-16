@@ -16,6 +16,9 @@
 	    
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
@@ -160,11 +163,10 @@
 		  <div class="container">
 		  <spring:url var = "action" value='/register'/>
 		  <form:form id="registration" action="${action}" commandName="registrationCommand" method="post" accept-charset="UTF-8">
-		    <div class="container">
-		      <div class="masthead">
-		        <div class="container">
+				<div class="container">
 		          <div class="col-md-10 col-md-offset-1">
-		            <h4 class="text-muted page-header">ЗАПОЛНИТЕ ПОЛЯ ФОРМЫ РЕГИСТРАЦИИ</h4>
+		          <br>
+		            <h3 class="page-header">ЗАПОЛНИТЕ ПОЛЯ ФОРМЫ РЕГИСТРАЦИИ</h3>
 		            
 					<c:if test="${not empty error}"> 
 						<div class="alert alert-danger show"><spring:message code="${error}" />
@@ -174,7 +176,6 @@
 					            
 		          </div>
 		        </div>
-		      </div>
 		      <div class="row">
 		      	<div class="col-md-4 col-md-offset-1 col-xs-6">
 					<v:input id="lastName" path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
@@ -321,17 +322,15 @@
 		          
 		        </div>
 		      </div>
-		      
-		    </div>
 
 		    <div class="container">
 		      <div class="row">
 		        <div class="col-md-4 col-md-offset-1">
 		          <div class="form-actions">
-		          	<button type="submit" class="btn btn-primary">ОТПРАВИТЬ &raquo;</button>
-		            <button type="button" class="btn btn-default" 
+		          	<button type="submit" class="btn btn-primary">Отправить</button>
+		            <a type="button" class="cancelbtn" 
 		            	onclick="window.location.href = '<c:url value="login"/>';" 
-		            	value="Klick">ОТМЕНИТЬ &raquo;</button>
+		            	value="Klick">Отменить</a>
 		          </div>
 		          	<div class="row text-left">
 		            	<p>&nbsp;</p>
@@ -345,10 +344,6 @@
 		  
 		  </div>
 	  	</div><!-- End of wrapper-->
-		<div id="footer">
-		  <div class="container">
-		   <jsp:include page="../common/footer.jsp" />
-		  </div>
-		</div>
+		<jsp:include page="../common/footer.jsp" />	
 	</body>
 </html>

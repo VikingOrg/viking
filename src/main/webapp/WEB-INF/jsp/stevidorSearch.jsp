@@ -12,8 +12,7 @@
 		   <!----- Begin page content ------>
 		 <div class="container"> 
 		 
-								
-		<form:form id="stevidor_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
+			<form:form id="stevidor_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
@@ -54,17 +53,18 @@
 								        </div>
 								    </div>				
 							</div>
-						</div>
-						
+							<hr>
+							
 				                     <!--  Операции с данными в таблице -->
 				                    <div class="col-sm-12">
 		                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
 		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 		                            </div>
 							
+						</div>
+						
 					</div>
 				<!-- End of Sidebar content-->	
-				
 				
 					<div class="col-sm-8">
 				
@@ -84,14 +84,14 @@
 								</c:if>									
 								
 								<!-- Таблица со списком стивидоров -->
-								<h3>Список компаний-операторов
+								<h3 class="page-header">Список компаний-операторов
 								</h3>
 				                    <table id="stevidor_table" class="table table-bordered table-striped">
 				                          <thead>
 				                              <tr>
 					                              <th class="column-check nowrap">&nbsp;</th>
 					                              <th class="nowrap">Компания-оператор&nbsp;&nbsp;</th>
-			                              		  <th>Порт&nbsp;&nbsp;</th>
+			                              		  <th class="nowrap">Порт&nbsp;&nbsp;</th>
 					                              <th class="hidden-sm hidden-xs hidden-md nowrap">Страна&nbsp;&nbsp;</th>
 					                              <th class="hidden-sm hidden-xs hidden-md nowrap">Примечания</th>
 				                              </tr>
@@ -121,20 +121,6 @@
 				                          </tbody>
 				                    </table>
 				        
-					    <!-- 		Модальное окно подтверждения удаления данных -->
-						<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-body" align="center">
-						        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-						        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
-						      </div>
-						    </div><!-- /.modal-content -->
-						  </div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
 					
 				                             
 				                  <!-- // end of table content -->
@@ -150,13 +136,16 @@
 		<script type="text/javascript">
         $(document).ready(function() {
         	var oTable = $('#stevidor_table').dataTable( {
-        	"aoColumns": [
-            	               { "bSortable": false },
-            	               null,
-            	               null,
-            	               null,
-            	               { "bSortable": false },
-            	           ],
+        		"columnDefs": [
+        		               {
+        		                   "targets": [ 1,4 ],
+        		                   "orderable": false
+        		               },
+        		               {
+        		                   "targets": [ 3 ],
+        		                   "visible": false
+        		               }
+        		           ],
             	           "scrollX": true,
             	"sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
               /*   "oTableTools": {

@@ -12,9 +12,7 @@
 
 		  <!-- Begin page content -->
 		  <div class="container">
-		    <div class="page-header">
-		      <h1>Главная</h1>
-		    </div>
+		      <h1  class="page-header">Главная</h1>
 		    <div class="alert alert-success show">
 		    		<p><h4>Приветствуем вас, <span id="username">${userModel.firstName}&nbsp;</span>!</h4></p>
 		    		<p>Перед началом работы пожалуйста ознакомьтесь с Правилами пользования Системой.</p>

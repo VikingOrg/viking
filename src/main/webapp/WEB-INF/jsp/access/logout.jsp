@@ -10,6 +10,9 @@
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 	</head>
@@ -18,18 +21,13 @@
 		<div id="wrap">
 		  <!-- Begin page content -->
 		  <div class="container">
-		    <div class="page-header" align="center">
-		      <h2>Сессия завершена.</h2>
-		    </div>
+		      <h3 class="page-header">Сессия завершена.</h3>
 			<p>Списибо, что вы использовали нашу систему. Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!</p>
 					<p>Если вы хотите продолжить работу <a href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p>
 		  </div>
 		</div>
 
-		<div id="footer">
-		  <div class="container">
-		   <jsp:include page="../common/footer.jsp" />
-		  </div>
-		</div>
+		
+		<jsp:include page="../common/footer.jsp" />
 	</body>
 </html>

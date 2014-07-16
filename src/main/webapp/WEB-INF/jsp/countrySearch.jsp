@@ -31,13 +31,14 @@
 								        </div>	
 								    </div>				
 							</div>
-						</div>	
-						
+							<hr>
 				                    <!--  Операции с данными в таблице -->
 				                    <div class="col-sm-12">
 		                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
 		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 		                            </div>
+						</div>	
+						
 					</div>
 				<!-- End of Sidebar content-->	
 				
@@ -60,7 +61,7 @@
 								</c:if>								
 								
 								<!-- Таблица со списком стран -->
-								<h3>
+								<h3 class="page-header">
 									Список стран
 									</h3>
 				                    <table id="country_table" class="table table-bordered table-striped">
@@ -96,21 +97,6 @@
 				                            </c:forEach>
 				                          </tbody>
 				                    </table>
-				        
-					    <!-- 		Модальное окно подтверждения удаления данных -->
-						<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-body" align="center">
-						        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-						        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
-						      </div>
-						    </div><!-- /.modal-content -->
-						  </div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
 					
 				                             
 				                  <!-- // end of table content -->
@@ -126,12 +112,12 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#country_table').dataTable( {
-            	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	           ],
+   	           "columnDefs": [
+          		               {
+          		                   "targets": [ 0,3 ],
+          		                   "orderable": false
+          		               },
+          		           ],
                 	           "scrollX": true,
                 	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "oTableTools": {
