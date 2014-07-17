@@ -111,7 +111,8 @@
 			            </div>
 			        
 				</form:form>
-		    </div> 
+		    </div> 	
+	</div> <!-- Closing div tag for wrap -->
 		   <jsp:include page="common/footer.jsp" />
 		
 		

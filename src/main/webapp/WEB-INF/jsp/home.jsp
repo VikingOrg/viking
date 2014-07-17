@@ -11,6 +11,7 @@
 		<jsp:include page="common/menu.jsp" />
 
 		  <!-- Begin page content -->
+		 
 		  <div class="container">
 		      <h1  class="page-header">Главная</h1>
 		    <div class="alert alert-success show">
@@ -25,9 +26,9 @@
 					-->
 
 			</div>
-		  </div>
+		  </div>	
+	</div> <!-- Closing div tag for wrap -->
 	
-		   <jsp:include page="common/footer.jsp" />		
-	
+		   <jsp:include page="common/footer.jsp" />	
 	</body>
 </html>

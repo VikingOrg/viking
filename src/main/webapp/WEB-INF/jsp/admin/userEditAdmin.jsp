@@ -111,6 +111,7 @@
 		      <div class="row">
 		        <div class="col-sm-10 col-sm-offset-1">
 		          <div class="form-actions">
+		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button>
 		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
 		            <a type="button" class="cancelbtn" 
 		            	onclick="window.location.href = '<c:url value="/userSearchAdmin"/>';" 
@@ -122,7 +123,8 @@
 		    	
 		
 			</form:form>    
-			</div> <!-- End of Main Container -->
+			</div> <!-- End of Main Container -->	
+	</div> <!-- Closing div tag for wrap -->
 		    <jsp:include page="../common/footer.jsp" />
 
 	    <link rel="stylesheet" type="text/css" media="screen" href="../../static/css/real_estate.css"/>

@@ -33,7 +33,8 @@
 	
 	</head>
 	<body>
-		<!-- Wrap all page content here -->            
+		<!-- Wrap all page content here -->  
+		<div id="wrap">          
     <div class="container">        
  		<div class="row"><!-- start header -->
 			<div class="col-sm-4 col-xs-6 logo">
@@ -73,7 +74,7 @@
 				  <!-- Collect the nav links, forms, and other content for toggling -->
 				  <div class="collapse navbar-collapse navbar-ex1-collapse">
 				    <ul class="nav navbar-nav">
-						<li><a href="<c:url value="/home"/>" class="first">Главная</a></li>
+						<li><a href="<c:url value="/home"/>" class="first"><span class="glyphicon glyphicon-home" title="Копировать"></span>&nbsp;&nbsp;Главная</a></li>
 			<sec:authorize access="hasRole('ROLE_ADMIN')"> 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники <b class="caret"></b></a>
@@ -102,20 +103,20 @@
 
 				    <ul class="nav navbar-nav navbar-right">		
 						        	<li>
-									    <a style="border-left: 0px solid #f5f5f5; color: black;" href="?lang=ru">
+									    <a style="border-left: 0px solid #f5f5f5; color: black; padding:10px 4px 1px 4px;" href="?lang=ru">
 									    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru">
 									    </a>
 								    </li>
 								    <li>
-									    <a style="border-left: 0px solid #f5f5f5; color: black;" href="?lang=en">
+									    <a style="border-left: 0px solid #f5f5f5; color: black; padding:10px 4px 1px 4px;" href="?lang=en">
 									        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us">
 									    </a>
 									</li>									
-									<li class="dropdown">
-										<a class="dropdown-toggle" href="#" data-toggle="dropdown">${userModel.lastName}&nbsp;${userModel.firstName} <strong class="caret"></strong></a>
+									<li class="dropdown" style="padding:4px;">
+										<a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px;">${userModel.lastName} <strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
 												<li><a href="#">Личные данные</a></li>
-												<li><a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer">Выход</a></li>
+												<li><a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer">Выход&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="Копировать"></span></a></li>
 										</ul>
 									</li>
 									

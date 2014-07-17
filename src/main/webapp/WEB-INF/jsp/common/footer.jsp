@@ -33,17 +33,4 @@
 					</div><!-- /.modal -->
 					
 				
-				    <!-- 		Модальное окно подтверждения удаления данных -->
-					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-body" align="center">
-					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
-					      </div>
-					      <div class="modal-footer">
-					        <a type="button" class="cancelbtn" data-dismiss="modal">ОТМЕНА</a>
-					        <button type="submit" class="btn btn-primary">УДАЛИТЬ</button>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
+				   

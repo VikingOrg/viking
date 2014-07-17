@@ -108,7 +108,8 @@
 				</div><!-- /.modal -->
 		
 			</form:form>    			
-			</div> <!-- End of Main Container -->
+			</div> <!-- End of Main Container -->	
+	</div> <!-- Closing div tag for wrap -->
 		<jsp:include page="common/footer.jsp" />
 	</body>
 </html>
