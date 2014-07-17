@@ -22,4 +22,5 @@ public interface IUserService {
 	public List<Country> getContries();
 	public Map<Integer, Country> getContriesMap();
 	public boolean hasRole(String role);
+	public Country getCountry(Integer countryId);
 }

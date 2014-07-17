@@ -89,7 +89,8 @@
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_USER')">
 						<li><a href="<c:url value="/machineSearch"/>">Механизмы</a></li>
-						<li><a href="<c:url value="/static/html/deviceReport.html"/>">Отчеты</a></li>
+						<li><a href="<c:url value="/reportSelection"/>">Отчеты</a></li>
+						
 			</sec:authorize>        
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="dropdown">

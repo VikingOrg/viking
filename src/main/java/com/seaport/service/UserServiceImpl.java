@@ -53,4 +53,7 @@ public class UserServiceImpl implements IUserService {
 	public boolean hasRole(String role){
 		return userDAO.hasRole(role);
 	}
+	public Country getCountry(Integer countryId) {
+		return userDAO.getCountry(countryId);
+	}
 }

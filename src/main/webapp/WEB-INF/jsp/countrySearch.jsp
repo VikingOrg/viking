@@ -34,7 +34,7 @@
 							<hr>
 				                    <!--  Операции с данными в таблице -->
 				                    <div class="col-sm-12">
-		                            <a href="<c:url value="countryEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
+		                            <a href="<c:url value="countryEdit/new/"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
 		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 		                            </div>
 						</div>	
@@ -87,8 +87,7 @@
 						                              	</c:if>				                                	
 					                                </td>
 						                         	<td class="nowrap">
-						                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
-						                         		<a href="<c:url value="countryEdit?countryId=${country.countryId}"/>"><c:out value="${country.nameRus}"/></a>
+						                         		<a href="<c:url value="countryEdit/edit/${country.countryId}"/>"><c:out value="${country.nameRus}"/></a>
 						                         	</td>
 					                              <td class="hidden-sm hidden-xs"><c:out value="${country.nameEn}"/></td>
 					                              <td class="hidden-sm hidden-xs"><c:out value="${country.countryNote}"/></td>

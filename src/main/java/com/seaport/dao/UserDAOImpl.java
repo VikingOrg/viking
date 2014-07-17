@@ -59,6 +59,12 @@ public class UserDAOImpl implements IUserDAO {
 		return (User)openSession().get(User.class, userId);
 	}
 
+	@Override
+	public Country getCountry(Integer countryId) {
+		return (Country)openSession().get(Country.class, countryId);
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsers(){
