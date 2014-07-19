@@ -83,6 +83,8 @@
 								<li><a href="<c:url value="/portSearch"/>">Порты</a></li>
 								<li><a href="<c:url value="/countrySearch"/>">Страны</a></li>
 					              <li class="divider"></li>
+					              <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
+					              <li class="divider"></li>
 					            <li><a href="<c:url value="/stevidorEdit"/>">Добавить Компанию</a></li>
 							</ul>
 						</li>
