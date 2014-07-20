@@ -90,7 +90,17 @@
 						</li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_USER')">
-						<li><a href="<c:url value="/machineSearch"/>">Механизмы</a></li>
+			          <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
+			            <ul class="dropdown-menu">
+			              <li><a href="<c:url value="/machineSearch"/>">Перегрузочные машины</a></li>
+			              <li><a href="<c:url value="/machineModel"/>">Модели Маханизмов</a></li>
+			              <li><a href="#">Группы Моделей</a></li>
+			              <li><a href="#">Производители*</a></li>
+			              <li class="divider"></li>
+			              <li><a href="<c:url value="/machineEdit"/>">Добавить машину</a></li>
+			            </ul>
+			          </li>
 						<li><a href="<c:url value="/reportSelection"/>">Отчеты</a></li>
 						
 			</sec:authorize>        
