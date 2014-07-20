@@ -10,7 +10,7 @@
 		  height: auto !important;
 		  height: 100%;
 		  /* Negative indent footer by its height */
-		  margin: 0 auto -60px;
+		  margin: 0 10px -60px 10px;
 		  /* Pad bottom by footer height */
 		  padding: 0 0 60px;
 		}
@@ -30,6 +30,10 @@
 		  padding: 6px 7px;
 		}
 		
+		.navbar-nav {
+		    margin: 0px -1px;
+		}
+
 		.container .credit {
 		  margin: 20px 0;
 		}
@@ -67,6 +71,19 @@
 		}
 		.col-sm-4, .col-sm-8{
 			padding:8px;
+		}
+		
+		.lform {
+		    height: auto;
+		}
+		
+		.form-horizontal .control-label {
+		    margin-bottom: -10px;
+		    padding-left: 15px
+		}
+		
+		.form-horizontal.mini .form-group {
+		    margin-bottom: 0;
 		}
 				
 		.flag {

@@ -126,7 +126,7 @@
 									    </a>
 									</li>									
 									<li class="dropdown" style="padding:4px;">
-										<a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px;">${userModel.lastName} <strong class="caret"></strong></a>
+										<a class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown" style="max-width:120px; height:24px; padding:2px 4px;">${userModel.lastName} <strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
 												<li><a href="#">Личные данные</a></li>
 												<li><a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer">Выход&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="Копировать"></span></a></li>

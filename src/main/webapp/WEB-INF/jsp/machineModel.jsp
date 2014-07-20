@@ -20,15 +20,15 @@
 			<!--Sidebar content-->
 			<div class="col-sm-4">
 
-				<div class="col-sm-12 well">
+				<div class="col-sm-12 well lform">
 
 					<div class="row">
 
 						<div class="col-sm-12">
 
 								<div class="form-group">
-				                    <label class="col-sm-3 control-label">Группа</label>
-				                    <div class="col-sm-9">
+				                    <label class="col-sm-4 control-label">Группа</label>
+				                    <div class="col-sm-8">
 									<form:select id="groupSelect" path="groupId" cssClass="form-control">
 									    <form:option value="">Все</form:option>
 						                <c:forEach items="${modelSearchCommand.groupMap}" var="group">
@@ -38,8 +38,8 @@
 									</div>
 			                    </div>
 						        <div class="form-group">
-				                    <label class="col-sm-3 control-label">Производитель</label>
-				                    <div class="col-sm-9">
+				                    <label class="col-sm-4 control-label">Производитель</label>
+				                    <div class="col-sm-8">
 									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
 									    <form:option value="">Все</form:option>
 						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
@@ -49,8 +49,8 @@
 									</div>
 					        	</div>
 					        	<div class="form-group">
-				                    <label class="col-sm-3 control-label">Страна</label>
-				                    <div class="col-sm-9">
+				                    <label class="col-sm-4 control-label">Страна</label>
+				                    <div class="col-sm-8">
 									<form:select id="countrySelect" path="countryId" cssClass="form-control">
 										<form:option value="">Все</form:option>
 						                <c:forEach items="${modelSearchCommand.countryMap}" var="country">
@@ -60,24 +60,27 @@
 									</div>
 								</div>	
 			                    <div class="form-group">
-								<label class="col-sm-3 control-label">Поиск</label>
-								<div class="col-sm-9">
+								<label class="col-sm-4 control-label">Поиск</label>
+								<div class="col-sm-8">
 									<input id="dataTableSearch" class="form-control"
 										placeholder="Введите..."
 										title="Введите для поиска по всем полям" type="text" />
 								</div>
-							</div>
+								</div>
+								
+								<hr>
+								<!--  Операции с данными в таблице -->
+								<div class="form-group">
+								<div class="col-sm-12">
+									<a href="<c:url value="machineEdit"/>"
+										class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
+										class="pull-right">&nbsp;</span> <a href="#"
+										class="btn btn-primary pull-right" title="Удалить"
+										data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+								</div>
+								</div>
 			                 </div>
 
-					</div>
-					<hr>
-					<!--  Операции с данными в таблице -->
-					<div class="col-sm-12">
-						<a href="<c:url value="machineEdit"/>"
-							class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
-							class="pull-right">&nbsp;</span> <a href="#"
-							class="btn btn-primary pull-right" title="Удалить"
-							data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 					</div>
 				</div>
 
