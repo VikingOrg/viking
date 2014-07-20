@@ -18,14 +18,14 @@
 				<!--Sidebar content-->
 					<div class="col-sm-4">
 			
-						<div class="col-sm-12 well">
+						<div class="col-sm-12 well lform">
 			
 							<div class="row">
 									
 									<div class="col-sm-12">
 								<div class="form-group">
-					        	<label class="col-sm-3 control-label">Страна</label>
-											<div class="col-sm-9">
+					        	<label class="col-sm-4 control-label">Страна</label>
+											<div class="col-sm-8">
 											<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
 												<form:option value="">Все</form:option>
 								                <c:forEach items="${userSearchCommand.userCountry}" var="country">
@@ -35,8 +35,8 @@
 									</div>	
 								</div>	
 								<div class="form-group">
-											<label class="col-sm-3 control-label">Порт</label>
-											<div class="col-sm-9">
+											<label class="col-sm-4 control-label">Порт</label>
+											<div class="col-sm-8">
 											<form:select id="portSelect" path="portId" cssClass="form-control col-sm-12">
 												<form:option value="">Все</form:option>
 								                <c:forEach items="${userSearchCommand.userPort}" var="port">
@@ -46,8 +46,8 @@
 									</div>	
 								</div>	
 								<div class="form-group">	          
-						          <label class="col-sm-3 control-label">Компания</label>
-						          	<div class="col-sm-9">
+						          <label class="col-sm-4 control-label">Компания</label>
+						          	<div class="col-sm-8">
 									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
 									    <form:option value="">Все</form:option>
 						                <c:forEach items="${userSearchCommand.userStevidor}" var="stevidor">
@@ -57,8 +57,8 @@
 									</div>
 								</div>	
 		                    <div class="form-group">
-							    <label class="col-sm-3 control-label">Поиск</label>
-						                    	<div class="col-sm-9">
+							    <label class="col-sm-4 control-label">Поиск</label>
+						                    	<div class="col-sm-8">
 						                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
 						                        </div>
 							 </div>
@@ -67,11 +67,12 @@
 		                <hr>
 							
 				                     <!--  Операции с данными в таблице -->
-				                    <div class="col-sm-12">
+				                    <div class="form-group">
+									<div class="col-sm-12">
 		                            <a id="submitNewUser" href="<c:url value="/userEditAdmin"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
 		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 		                            </div>
-							
+									</div>
 						</div>
 						
 					</div>
