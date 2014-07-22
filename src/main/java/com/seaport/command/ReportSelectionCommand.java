@@ -32,7 +32,33 @@ public class ReportSelectionCommand {
 	private Integer stevidorId;
 	private Integer releaseYear;
 	private Integer manufacturerId;
+	private Integer reportType;
 	
+    private Map<Integer, String> reportSelection = new LinkedHashMap<Integer, String>();
+    
+    public ReportSelectionCommand() {
+    	reportSelection.put(1, "По группам");
+    	reportSelection.put(2, "По движению");
+    	reportSelection.put(3, "По колличеству");
+    	
+    }
+    
+	
+	public Map<Integer, String> getReportSelection() {
+		return reportSelection;
+	}
+
+	public void setReportSelection(Map<Integer, String> reportSelection) {
+		this.reportSelection = reportSelection;
+	}
+
+	public Integer getReportType() {
+		return reportType;
+	}
+	public void setReportType(Integer reportType) {
+		this.reportType = reportType;
+	}
+
 	public Integer getManufacturerId() {
 		return manufacturerId;
 	}
