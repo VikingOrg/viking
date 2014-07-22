@@ -10,11 +10,119 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <title>Таблица моделей подъемно-транспортного оборудования</title>
+	    <meta name="viewport" content="width=device-width">
+	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0-rc.1/css/jquery.dataTables.css"/>
+	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    
+	    <!--[if lt IE 9]>
+			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script type="text/javascript" src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
+	    <script type="text/javascript" src="static/js.response.min.js"></script>
+        <script type="text/javascript" src="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js"> </script>
+        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
+		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
+		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+		<script type="text/javascript">
+        	var oTable = {};
+	        $(document).ready(function() {
+	        	oTable = $('#modelSearchTable').dataTable( {
+	                "sDom": "t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+	                "sPaginationType": "bootstrap",
+	                "bProcessing": true,
+	                "iDisplayLength": 15,
+	    			"scrollX" : true,
+	                "oLanguage": {
+                        "sUrl": "static/js/dataTable_ru_RU.txt"
+                     } 
+	            } );
 
+
+                $('#dataTableSearch').on('input', function() {
+                	oTable.fnFilter( $(this).val());
+                });   		 
+                $('#groupSelect').change(function() {
+                    group = $(this).val();
+                    if(group==''){
+                    	oTable.fnFilter(group, 6);
+                    } else {
+                    	oTable.fnFilter( "^"+group+"$", 6 , true);
+                    }
+                });
+                $('#manufacturerSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 3);
+                });
+                
+                $('#countrySelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 4);
+                });
+
+                $("a[rel^='tableRowEdit']").click(function(e){
+
+                    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#machineModelModalContent").html(response.responseText);
+                            $('#machineModelModal').modal('show');
+                            
+                        }
+                    });
+                });
+                
+                $("a[rel^='tableRowCopy']").click(function(e){
+                    e.preventDefault();
+                	$('#user_search_form').attr('action', "machineModel/copy/"+this.dataset['param1']);
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                });
+                $("#submitDelete").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "machineModel/delete/");
+                	$('#user_search_form').attr('method', "post");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });
+                $("#submitNewModel").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "machineModel/new/");
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });                 
+
+                $(".modal-wide").on("show.bs.modal", function() {
+                	  var height = $(window).height() - 200;
+                	  $(this).find(".modal-body").css("max-height", height);
+                });
+            } );
+               
+        	function closingModal(machineModelId){
+        		$('#machineModelModal').modal('hide');
+        		//$('#'+machineModelId).removeClass("odd even");
+        		$('#'+machineModelId).addClass( "success" );
+        		//var myClass = $('#'+machineModelId).attr('class');        		
+        		//alert("classes = " + myClass);
+            }
+            
+        </script>	
+	<body>
+		<!-- Wrap all page content here -->  
+		<div id="wrap"> 
 <jsp:include page="common/menu.jsp" />
 <!----- Begin page content ------>
 <div class="container">
-			    <form:form id="machine_search_form" action="modelSearch" class="form-horizontal mini" style="margin-bottom: 0px;" commandName="modelSearchCommand" method="post" accept-charset="UTF-8">   
+			    <form:form id="machine_search_form" action="modelSearch" class="form-horizontal mini" style="margin-bottom: 0px;" 
+			    commandName="modelSearchCommand" method="post" accept-charset="UTF-8">   
 		<div class="row">
 
 			<!--Sidebar content-->
@@ -126,16 +234,15 @@
 						                              		</span>
 						                              	</c:if>						                             	
 						                             </td>
-						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/>
-						                             </td>
+						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
 							                         <td class="nowrap">
-						                             <a href="#" rel="tableRowCopy" data-param1="${machineModel.modelId}">
+						                             	<a href="#" rel="tableRowCopy" data-param1="${machineModel.modelId}">
 						                         			&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
-						                         	 </a>
-						                         	 <a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
+						                         	 	</a>
+						                         	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
 							                         <span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
 						                             <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.name}"/></span></td>
-						                             <td><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country}"/></span></td>
+						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country}"/></span></td>
 						                             <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
 						                             <td class="hide"><c:out value="${machineModel.group.groupId}"/></td>											   
 						                        </tr> 
@@ -154,106 +261,25 @@
 					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
 					      </div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <button type="submit" class="btn btn-danger">УДАЛИТЬ</button>
+					        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
+							<button type="submit" class="btn btn-primary">Удалить</button>
 					      </div>
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
 					
 			</form:form>
+				<div id="machineModelModal" class="modal modal-wide fade">
+				  <div class="modal-dialog">
+				    <div id="machineModelModalContent" class="modal-content">
+				    
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 </div>
 </div>
 <!-- Closing div tag for wrap -->
-<jsp:include page="common/footer.jsp" />
-        <script type="text/javascript">
-        	var oTable = {};
-	        $(document).ready(function() {
-	        	oTable = $('#modelSearchTable').dataTable( {
-	                "sDom": "t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-	                "sPaginationType": "bootstrap",
-	                "bProcessing": true,
-	                "iDisplayLength": 15,
-	    			"scrollX" : true,
-	                "oLanguage": {
-                        "sUrl": "static/js/dataTable_ru_RU.txt"
-                     } 
-	            } );
-
-
-                $('#dataTableSearch').on('input', function() {
-                	oTable.fnFilter( $(this).val());
-                });   		 
-                $('#groupSelect').change(function() {
-                    group = $(this).val();
-                    if(group==''){
-                    	oTable.fnFilter(group, 6);
-                    } else {
-                    	oTable.fnFilter( "^"+group+"$", 6 , true);
-                    }
-                });
-                $('#manufacturerSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
-                });
-                
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 4);
-                });
-
-                $("a[rel^='tableRowEdit']").click(function(e){
-
-                    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
-                        beforeSend: function(req) {
-                            req.setRequestHeader("Accept", "text/html;type=ajax");
-                        },  
-                        complete : function( response )
-                        {
-                            $("#machineModelModalContent").html(response.responseText);
-                            $('#machineModelModal').modal('show');
-                            
-                        }
-                    });
-                });
-                
-                $("a[rel^='tableRowCopy']").click(function(e){
-                    e.preventDefault();
-                	$('#user_search_form').attr('action', "machineModel/copy/"+this.dataset['param1']);
-                	$('#user_search_form').attr('method', "get");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                });
-                $("#submitDelete").click(function(e) {
-                	e.preventDefault();
-                	$('#user_search_form').attr('action', "machineModel/delete/");
-                	$('#user_search_form').attr('method', "post");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                 });
-                $("#submitNewModel").click(function(e) {
-                	e.preventDefault();
-                	$('#user_search_form').attr('action', "machineModel/new/");
-                	$('#user_search_form').attr('method', "get");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                 });                 
-
-                $(".modal-wide").on("show.bs.modal", function() {
-                	  var height = $(window).height() - 200;
-                	  $(this).find(".modal-body").css("max-height", height);
-                });
-            } );
-               
-        	function closingModal(machineModelId){
-        		$('#machineModelModal').modal('hide');
-        		//$('#'+machineModelId).removeClass("odd even");
-        		$('#'+machineModelId).addClass( "edited-row" );
-        		//var myClass = $('#'+machineModelId).attr('class');        		
-        		//alert("classes = " + myClass);
-            }
-            
-        </script>	
-
-		  		
+<jsp:include page="common/footer.jsp" />	
 </body>
     
 </html>

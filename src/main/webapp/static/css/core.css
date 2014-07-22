@@ -113,4 +113,13 @@
 		    height: 100%;
 		}		
 
-				
+		.modal.modal-wide .modal-dialog {
+		  width: 90%;
+		}
+		.modal-wide .modal-body {
+		  overflow-y: auto;
+		}
+		.modal-dialog {
+		  padding-top: 15%;
+		}
+	
