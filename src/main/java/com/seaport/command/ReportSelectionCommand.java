@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.seaport.domain.Country;
 import com.seaport.domain.Group;
+import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
@@ -20,19 +21,21 @@ import com.seaport.domain.Stevidor;
 public class ReportSelectionCommand {
 
 	private Map<Integer, Port> userPort = new LinkedHashMap<Integer,Port>();
-	private Map<Integer, Stevidor> userStevidor = new LinkedHashMap<Integer,Stevidor>();
+	private Map<Integer, Stevidor> stevidorMap = new LinkedHashMap<Integer,Stevidor>();
 	private Map<Integer, Country> userCountry = new LinkedHashMap<Integer,Country>();
 	private Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
 	private Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
+	private Map<Integer, MachineModel> machineModelMap = new LinkedHashMap<Integer, MachineModel>();
 	
 	private Integer groupId;
 	private Integer portId;
 	private Integer countryId;
-	private Integer stevidorId;
+	private String[] stevidorSelection;
 	private Integer releaseYear;
 	private Integer manufacturerId;
 	private Integer reportType;
+	private Integer modelId;
 	
     private Map<Integer, String> reportSelection = new LinkedHashMap<Integer, String>();
     
@@ -42,8 +45,39 @@ public class ReportSelectionCommand {
     	reportSelection.put(3, "По колличеству");
     	
     }
-    
-	
+
+	public String[] getStevidorSelection() {
+		return stevidorSelection;
+	}
+
+	public void setStevidorSelection(String[] stevidorSelection) {
+		this.stevidorSelection = stevidorSelection;
+	}
+
+	public Map<Integer, Stevidor> getStevidorMap() {
+		return stevidorMap;
+	}
+
+	public void setStevidorMap(Map<Integer, Stevidor> stevidorMap) {
+		this.stevidorMap = stevidorMap;
+	}
+
+	public Map<Integer, MachineModel> getMachineModelMap() {
+		return machineModelMap;
+	}
+
+	public void setMachineModelMap(Map<Integer, MachineModel> machineModelMap) {
+		this.machineModelMap = machineModelMap;
+	}
+
+	public Integer getModelId() {
+		return modelId;
+	}
+
+	public void setModelId(Integer modelId) {
+		this.modelId = modelId;
+	}
+
 	public Map<Integer, String> getReportSelection() {
 		return reportSelection;
 	}
@@ -71,12 +105,7 @@ public class ReportSelectionCommand {
 	public void setUserPort(Map<Integer, Port> userPort) {
 		this.userPort = userPort;
 	}
-	public Map<Integer, Stevidor> getUserStevidor() {
-		return userStevidor;
-	}
-	public void setUserStevidor(Map<Integer, Stevidor> userStevidor) {
-		this.userStevidor = userStevidor;
-	}
+
 	public Map<Integer, Country> getUserCountry() {
 		return userCountry;
 	}
@@ -118,12 +147,6 @@ public class ReportSelectionCommand {
 	}
 	public void setCountryId(Integer countryId) {
 		this.countryId = countryId;
-	}
-	public Integer getStevidorId() {
-		return stevidorId;
-	}
-	public void setStevidorId(Integer stevidorId) {
-		this.stevidorId = stevidorId;
 	}
 	public Integer getReleaseYear() {
 		return releaseYear;

@@ -1,13 +1,10 @@
 package com.seaport.controller;
 
-import java.net.URI;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.seaport.command.ReportSelectionCommand;
 import com.seaport.service.IMachineService;
@@ -48,7 +44,7 @@ public class ReportSelectionController {
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
 		reportSelectionCommand.setUserCountry(userService.getContriesMap());
 		reportSelectionCommand.setUserPort(portService.getPortsMap());
-		reportSelectionCommand.setUserStevidor(portService.getStevidorsMap());
+		reportSelectionCommand.setStevidorMap(portService.getStevidorsMap());
 		reportSelectionCommand.setGroupMap(machineService.getGroupsMap());
 		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
 		reportSelectionCommand.setYearMap(machineService.getYearMap());		
@@ -68,7 +64,7 @@ public class ReportSelectionController {
 		return "reportSelection";
 	}
 	
-	
+	/*not implemented*/
 	@RequestMapping(value="/dymamicReport/", method = RequestMethod.POST) 
 	public String dynamicReport(HttpServletRequest request, Model model, 
 								@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
@@ -84,7 +80,7 @@ public class ReportSelectionController {
 		return "../reportSelection";
 	}
 	
-	
+	/*not implemented*/
 	@RequestMapping(value="/countReport/", method = RequestMethod.POST) 
 	public String countReport(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
