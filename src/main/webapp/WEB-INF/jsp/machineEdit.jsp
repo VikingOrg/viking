@@ -8,6 +8,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 
+
+
 <!doctype html>
 <html lang="ru">
 	<head>
@@ -19,6 +21,7 @@
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 	    
 	    <!--[if lt IE 9]>
 			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -31,6 +34,7 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
 		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script>
 		  $(document).ready(function() {
 		      $( "#datepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
@@ -239,26 +243,5 @@
 	</div> <!-- Closing div tag for wrap -->
 		   <jsp:include page="common/footer.jsp" />
 		
-		<script>
-		  $(document).ready(function() {
-		      $( "#datepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
-				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
-
-              $('#groupSelect').change(function() {
-            	  var groupId = $(this).val();
-            	  if(groupId=='0'){
-            		  $('#modelSelect').html("<option value='0'>Не выбрана</option>");
-                  } else {
-	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-	                      var options='';
-	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
-	                      });
-	                      $('#modelSelect').html(options);
-	                  });
-                  }
-              });
-		  });
-		  </script>
 	</body>
 </html>

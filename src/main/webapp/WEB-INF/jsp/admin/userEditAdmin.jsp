@@ -10,9 +10,9 @@
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0-rc.1/css/jquery.dataTables.css"/>
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
 	    
 	    <!--[if lt IE 9]>
 			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,11 +20,12 @@
 	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
 	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
 	    <script type="text/javascript" src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="static/js.response.min.js"></script>
+	    <script type="text/javascript" src="<c:url value="/static/css/js.response.min.js"/>"></script>
         <script type="text/javascript" src="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js"> </script>
-        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
-		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+        <script type="text/javascript" src="<c:url value="/static/css/dataTables.bootstrapPagination.js"/>"> </script>
+		<script type="text/javascript" src="<c:url value="/static/css/ajax-form.js"/>" ></script>
+		<script type="text/javascript" src="<c:url value="/static/css/dataTables.tableTools.js"/>" ></script>
+		
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -141,20 +142,25 @@
 		        </div>
 		      </div>
 		    </div>
-		    	
+
+			    <!-- 		Модальное окно подтверждения сохранения введенных данных -->
+			<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-body" align="center">
+			        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</h4>
+			      </div>
+			      <div class="modal-footer">
+			        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
+			        <button type="submit" class="btn btn-primary">Сохранить</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->			    	
 		
 			</form:form>    
 			</div> <!-- End of Main Container -->	
 	</div> <!-- Closing div tag for wrap -->
 		    <jsp:include page="../common/footer.jsp" />
-
-	    <link rel="stylesheet" type="text/css" media="screen" href="../../static/css/real_estate.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="../../static/css/theme.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="../../static/css/core.css"/>
-
-	    <script type="text/javascript" src="../../static/js.response.min.js" type="text/javascript"></script>
-		<script type="text/javascript" src="../../static/js/ajax-form.js" ></script>
-
-	</body>
 </html>
 

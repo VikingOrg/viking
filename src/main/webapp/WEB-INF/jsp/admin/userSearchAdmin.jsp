@@ -25,6 +25,79 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
 		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+				
+        <script type="text/javascript">
+            $(document).ready(function() {
+            	var oTable = $('#user_table').dataTable( {
+            	"aoColumns": [
+                	               { "bSortable": false },
+                	               null,
+                	               null,
+                	               null,
+                	               null,
+                	               { "bSortable": false },
+                	               null,
+                	               null,
+                	               null,
+                	               { "bSortable": false },
+                	           ],
+                	           "scrollX": true,
+                    "sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                    "sPaginationType": "bootstrap",
+                    "oLanguage": {
+                        "sUrl": "${sUrlRussian}"
+                     }                    
+                } );
+
+            	// Highlight every second row
+            	//oTable.$('tr:odd').css('backgroundColor', 'blue');
+            	  
+                $('#dataTableSearch').on('input', function() {
+                	oTable.fnFilter( $(this).val());
+                });   		 
+                $('#countrySelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 8);
+                });
+                $('#portSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 7);
+                });
+                $('#stevidorSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 6);
+                });
+
+                $("a[rel^='userTableRowEdit_']").click(function(e){
+                    e.preventDefault();
+                	$('#user_search_form').attr('action', "userEditAdmin/edit/"+this.dataset['param1']);
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                });
+                
+                $("a[rel^='userTableRowCopy_']").click(function(e){
+                    e.preventDefault();
+                	$('#user_search_form').attr('action', "userEditAdmin/copy/"+this.dataset['param1']);
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                });
+                $("#submitDelete").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "userSearchAdmin/delete/");
+                	$('#user_search_form').attr('method', "post");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });
+                $("#submitNewUser").click(function(e) {
+                	e.preventDefault();
+                	$('#user_search_form').attr('action', "userEditAdmin/new/");
+                	$('#user_search_form').attr('method', "get");
+                	$('#user_search_form').attr('accept-charset', "UTF-8");
+                	$('#user_search_form').submit();
+                 });                
+            } );
+
+    
+        </script>
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -176,8 +249,8 @@
 					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
 					      </div>
 					      <div class="modal-footer">
-					        <a type="button" class="cancelbtn" data-dismiss="modal">ОТМЕНА</a>
-					        <button type="submit" class="btn btn-primary">УДАЛИТЬ</button>
+					        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
+					        <button id="submitDelete" type="button" class="btn btn-primary">Удалить</button>
 					      </div>
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
@@ -188,79 +261,7 @@
 	</div> <!-- Closing div tag for wrap -->
 		   <jsp:include page="../common/footer.jsp" />
 
-		
-        <script type="text/javascript">
-            $(document).ready(function() {
-            	var oTable = $('#user_table').dataTable( {
-            	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	           ],
-                	           "scrollX": true,
-                    "sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-                    "sPaginationType": "bootstrap",
-                    "oLanguage": {
-                        "sUrl": "${sUrlRussian}"
-                     }                    
-                } );
 
-            	// Highlight every second row
-            	//oTable.$('tr:odd').css('backgroundColor', 'blue');
-            	  
-                $('#dataTableSearch').on('input', function() {
-                	oTable.fnFilter( $(this).val());
-                });   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 8);
-                });
-                $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 7);
-                });
-                $('#stevidorSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 6);
-                });
-
-                $("a[rel^='userTableRowEdit_']").click(function(e){
-                    e.preventDefault();
-                	$('#user_search_form').attr('action', "userEditAdmin/edit/"+this.dataset['param1']);
-                	$('#user_search_form').attr('method', "get");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                });
-                
-                $("a[rel^='userTableRowCopy_']").click(function(e){
-                    e.preventDefault();
-                	$('#user_search_form').attr('action', "userEditAdmin/copy/"+this.dataset['param1']);
-                	$('#user_search_form').attr('method', "get");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                });
-                $("#submitDelete").click(function(e) {
-                	e.preventDefault();
-                	$('#user_search_form').attr('action', "userSearchAdmin/delete/");
-                	$('#user_search_form').attr('method', "post");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                 });
-                $("#submitNewUser").click(function(e) {
-                	e.preventDefault();
-                	$('#user_search_form').attr('action', "userEditAdmin/new/");
-                	$('#user_search_form').attr('method', "get");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                 });                
-            } );
-
-    
-        </script>
 	</body>
 </html>
 
