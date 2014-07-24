@@ -1,6 +1,8 @@
 package com.seaport.command;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.seaport.domain.Country;
@@ -37,27 +39,60 @@ public class ReportSelectionCommand {
 	private Integer reportType;
 	private Integer modelId;
 	
+	private String groupName;
+	private String modelName;
+	private String relYearName;
+	private String manufactName;
+		
     private Map<Integer, String> reportSelection = new LinkedHashMap<Integer, String>();
-    
     public ReportSelectionCommand() {
     	reportSelection.put(1, "По группам");
     	reportSelection.put(2, "По движению");
     	reportSelection.put(3, "По колличеству");
-    	
     }
 
+    private List<String[]> companyReport= new ArrayList<String[]>();
+    
+    
+	public List<String[]> getCompanyReport() {
+		return companyReport;
+	}
+	public void setCompanyReport(List<String[]> companyReport) {
+		this.companyReport = companyReport;
+	}
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	public String getModelName() {
+		return modelName;
+	}
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+	public String getRelYearName() {
+		return relYearName;
+	}
+	public void setRelYearName(String relYearName) {
+		this.relYearName = relYearName;
+	}
+	public String getManufactName() {
+		return manufactName;
+	}
+	public void setManufactName(String manufactName) {
+		this.manufactName = manufactName;
+	}
 	public String[] getStevidorSelection() {
 		return stevidorSelection;
 	}
-
 	public void setStevidorSelection(String[] stevidorSelection) {
 		this.stevidorSelection = stevidorSelection;
 	}
-
 	public Map<Integer, Stevidor> getStevidorMap() {
 		return stevidorMap;
 	}
-
 	public void setStevidorMap(Map<Integer, Stevidor> stevidorMap) {
 		this.stevidorMap = stevidorMap;
 	}

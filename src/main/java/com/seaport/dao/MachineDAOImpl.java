@@ -62,6 +62,14 @@ public class MachineDAOImpl implements IMachineDAO {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Machine> getMachineByStevedorId(Integer stevedorId){
+		Query query = getCurrentSession().createQuery("from Machine m where m.stevidorId = :stevidorId");
+		query.setParameter("stevidorId", stevedorId);
+		return query.list();
+	}
+	
 	@Override
 	public void saveMachine(Machine machine) {
 		Timestamp updateDate = new Timestamp(new Date().getTime());

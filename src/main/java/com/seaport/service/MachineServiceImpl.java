@@ -86,5 +86,7 @@ public class MachineServiceImpl implements IMachineService {
 	public void saveMachineModel(MachineModel machineModel) {
 		machineDAO.saveMachineModel(machineModel);
 	}
-	
+	public List<Machine> getMachineByStevedorId(Integer stevedorId) {
+		return machineDAO.getMachineByStevedorId(stevedorId);
+	}
 }

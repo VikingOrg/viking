@@ -14,8 +14,8 @@
 	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0-rc.1/css/jquery.dataTables.css"/>
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="static/css/theme.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="static/css/core.css"/>"/>
 	    
 	    <!--[if lt IE 9]>
 			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -162,13 +162,11 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">Производитель</label>
 									<div class="col-sm-9">
-										<form:select id="manufacturerSelect" path="manufacturerId"
+										<form:select id="manufacturerId" path="manufacturerId"
 											cssClass="form-control" title="Выборка по производителю">
 											<form:option value="">Все производители</form:option>
-											<c:forEach items="${reportSelectionCommand.manufacturerMap}"
-												var="manufacturer">
-												<form:option value="${manufacturer.value.name}"
-													label="${manufacturer.value.name}" />
+											<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
+												<form:option value="${manufacturer.key}" label="${manufacturer.value.name}" />
 											</c:forEach>
 										</form:select>
 									</div>
@@ -188,8 +186,6 @@
 
 				<div class="col-sm-8">
 
-					<!-- Start table content -->
-
 					<!--  Вывод сообщений и предупреждений  -->
 					<c:if test="${not empty message}">
 						<div class="alert alert-success show">
@@ -204,24 +200,38 @@
 						</div>
 					</c:if>
 
-					<!-- 	Таблица отчета -->
-					<h3 class="page-header">Отчет Номер 1</h3>
+					<!-- Таблица отчета -->
+					<h3 class="page-header">Отчет "По Механизмам" со следующими параметрами выбора:</h3>
+					<table id="machine_table"
+						class="table table-striped table-bordered">
+						<tbody>
+							<tr>
+								<td class="column-check nowrap">Группа:${reportSelectionCommand.groupName}</td>
+								<td class="column-check nowrap">Модель:${reportSelectionCommand.modelName}</td>
+								<td class="column-check nowrap">Год выпуска:${reportSelectionCommand.relYearName}</td>
+								<td class="column-check nowrap">Производитель:${reportSelectionCommand.manufactName}</td>
+							</tr>
+
+						</tbody>
+					</table>
+					
 					<table id="machine_table"
 						class="table table-striped table-bordered">
 						<thead>
 							<tr>
 								<th class="column-check nowrap">&nbsp;#</th>
 								<th class="hidden-sm hidden-xs hidden-md nowrap">Компания&nbsp;&nbsp;</th>
-								<th class="nowrap">Модель&nbsp;&nbsp;</th>
+								<th class="nowrap">Количество&nbsp;&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="column-check nowrap"></td>
-								<td class="column-check nowrap"></td>
-								<td class="column-check nowrap"></td>
-							</tr>
-
+			            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
+								<tr>
+									<td class="column-check nowrap"><c:out value="${loop.index}"/></td>
+									<td class="column-check nowrap"><c:out value="${companyReportRow[0]}"/></td>
+									<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+								</tr>
+					        </c:forEach>
 						</tbody>
 					</table>
 
