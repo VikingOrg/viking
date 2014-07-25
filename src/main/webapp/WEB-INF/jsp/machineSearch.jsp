@@ -203,11 +203,9 @@
 					<!--  Операции с данными в таблице -->
 					<div class="form-group">
 						<div class="col-sm-12">
-						<a href="<c:url value="machineEdit"/>"
-							class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
-							class="pull-right">&nbsp;</span> <a href="#"
-							class="btn btn-primary pull-right" title="Удалить"
-							data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+							<a href="<c:url value="machineEdit"/> "class="btn btn-primary pull-right" title="Ввод нового">Добавить</a>
+								<span class="pull-right">&nbsp;</span> 
+							<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 						</div>
 					</div>
 				</div>

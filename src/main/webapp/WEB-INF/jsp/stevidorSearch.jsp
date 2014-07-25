@@ -25,6 +25,50 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
 		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+		
+		<script type="text/javascript">
+        $(document).ready(function() {
+        	var oTable = $('#stevidor_table').dataTable( {
+        		"columnDefs": [
+        		               {
+        		                   "targets": [ 1,4 ],
+        		                   "orderable": false
+        		               },
+        		               {
+        		                   "targets": [ 3 ],
+        		                   "visible": false
+        		               }
+        		           ],
+            	           "scrollX": true,
+            	"sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+              /*   "oTableTools": {
+                	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
+                }, */
+                "sPaginationType": "bootstrap",
+                "iDisplayLength": 15,
+                "oLanguage": {
+                    "sUrl": "static/js/dataTable_ru_RU.txt"
+                 }                    
+            } );
+
+
+            $('#dataTableSearch').on('input', function() {
+            	oTable.fnFilter( $(this).val());
+            });   		 
+            $('#countrySelect').change(function() {
+            	oTable.fnFilter( $(this).val(), 3);
+            });
+            $('#portSelect').change(function() {
+            	oTable.fnFilter( $(this).val(), 2);
+            });
+
+//             $('#selectAll').click(function (e) {
+//                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+//             });
+            
+        } );
+   
+        </script>
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -39,7 +83,7 @@
 				<!--Sidebar content-->
 					<div class="col-sm-4">
 			
-						<div class="col-sm-12 well">
+						<div class="col-sm-12 well lform">
 			
 							<div class="row">
 									
@@ -75,13 +119,14 @@
 								    </div>				
 							</div>
 							<hr>
-							
+								
 				                     <!--  Операции с данными в таблице -->
+				                 <div class="form-group">
 				                    <div class="col-sm-12">
-		                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
-		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+			                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
+			                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 		                            </div>
-							
+								</div>
 						</div>
 						
 					</div>
@@ -170,48 +215,6 @@
 	</div> <!-- Closing div tag for wrap -->
 		   <jsp:include page="common/footer.jsp" />
 		
-		<script type="text/javascript">
-        $(document).ready(function() {
-        	var oTable = $('#stevidor_table').dataTable( {
-        		"columnDefs": [
-        		               {
-        		                   "targets": [ 1,4 ],
-        		                   "orderable": false
-        		               },
-        		               {
-        		                   "targets": [ 3 ],
-        		                   "visible": false
-        		               }
-        		           ],
-            	           "scrollX": true,
-            	"sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-              /*   "oTableTools": {
-                	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
-                }, */
-                "sPaginationType": "bootstrap",
-                "iDisplayLength": 15,
-                "oLanguage": {
-                    "sUrl": "static/js/dataTable_ru_RU.txt"
-                 }                    
-            } );
-
-
-            $('#dataTableSearch').on('input', function() {
-            	oTable.fnFilter( $(this).val());
-            });   		 
-            $('#countrySelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 3);
-            });
-            $('#portSelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 2);
-            });
-
-//             $('#selectAll').click(function (e) {
-//                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-//             });
-            
-        } );
-   
-        </script>
+		
 	</body>
 </html>

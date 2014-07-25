@@ -25,6 +25,42 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
 		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+		
+		<script type="text/javascript">
+            $(document).ready(function() {
+            	var oTable = $('#port_table').dataTable( {
+            	"aoColumns": [
+                	               { "bSortable": false },
+                	               null,
+                	               null,
+                	               { "bSortable": false },
+                	           ],
+                	"sDom": "t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                    "oTableTools": {
+                    	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
+                    },
+                    "sPaginationType": "bootstrap",
+	                "iDisplayLength": 15,
+                    "oLanguage": {
+                        "sUrl": "static/js/dataTable_ru_RU.txt"
+                     }                    
+                } );
+
+
+                $('#dataTableSearch').on('input', function() {
+                	oTable.fnFilter( $(this).val());
+                });   		 
+                $('#countrySelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 3);
+                });
+                $('#portSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 2);
+                });
+                
+            } );
+
+    
+        </script>
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -71,11 +107,9 @@
 						<!--  Операции с данными в таблице -->
 						<div class="form-group">
 							<div class="col-sm-12">
-								<a href="<c:url value="portEdit/new/"/>"
-									class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
-									class="pull-right">&nbsp;</span> <a href="#"
-									class="btn btn-primary pull-right" title="Удалить"
-									data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+								<a href="<c:url value="portEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового">Добавить</a>
+								<span class="pull-right">&nbsp;</span> 
+								<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 							</div>
 						</div>
 					</div>
@@ -146,40 +180,6 @@
 <jsp:include page="common/footer.jsp" />
 
 
-<script type="text/javascript">
-            $(document).ready(function() {
-            	var oTable = $('#port_table').dataTable( {
-            	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	           ],
-                	"sDom": "t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-                    "oTableTools": {
-                    	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
-                    },
-                    "sPaginationType": "bootstrap",
-	                "iDisplayLength": 15,
-                    "oLanguage": {
-                        "sUrl": "static/js/dataTable_ru_RU.txt"
-                     }                    
-                } );
 
-
-                $('#dataTableSearch').on('input', function() {
-                	oTable.fnFilter( $(this).val());
-                });   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
-                });
-                $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 2);
-                });
-                
-            } );
-
-    
-        </script>
 </body>
 </html>

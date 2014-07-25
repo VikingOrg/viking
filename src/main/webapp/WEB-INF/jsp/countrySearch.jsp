@@ -25,6 +25,42 @@
         <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
 		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
 		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+		<script type="text/javascript">
+            $(document).ready(function() {
+            	var oTable = $('#country_table').dataTable( {
+   	           "columnDefs": [
+          		               {
+          		                   "targets": [ 0,3 ],
+          		                   "orderable": false
+          		               },
+          		           ],
+                	           "scrollX": true,
+                	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+                    "oTableTools": {
+                    	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
+                    },
+                    "sPaginationType": "bootstrap",
+	                "iDisplayLength": 15,
+                    "oLanguage": {
+                        "sUrl": "static/js/dataTable_ru_RU.txt"
+                     }                    
+                } );
+
+
+                $('#dataTableSearch').on('input', function() {
+                	oTable.fnFilter( $(this).val());
+                });   		 
+                $('#countrySelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 3);
+                });
+                $('#portSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 2);
+                });
+                
+            } );
+   
+        </script>
+		
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -34,30 +70,32 @@
 		 <div class="container"> 
 		 
 								
-		<form:form id="country_search_form" action="countrySearch" commandName="countrySearchCommand" method="post" accept-charset="UTF-8">
+		<form:form id="country_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="countrySearch" commandName="countrySearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
 					<div class="col-sm-4">
 			
-						<div class="col-sm-12 well">
+						<div class="col-sm-12 well lform">
 			
 							<div class="row">
-									
-									<div class="col-sm-12">
-										<div class="form-group">
-											 
-						                    <label>Поиск</label>
+								<div class="col-sm-12">	
+									<div class="form-group">
+						                    <label class="col-sm-4 control-label">Поиск</label>
+						                    	<div class="col-sm-8">
 						                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
-								        </div>	
-								    </div>				
-							</div>
+						                        </div>
+								    </div>
+								</div>
+							 </div>
 							<hr>
-				                    <!--  Операции с данными в таблице -->
-				                    <div class="col-sm-12">
+		                    <!--  Операции с данными в таблице -->
+		                    <div class="form-group">
+			                    <div class="col-sm-12">
 		                            <a href="<c:url value="countryEdit/new/"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
 		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
-		                            </div>
+	                            </div>
+	                        </div>
 						</div>	
 						
 					</div>
@@ -146,40 +184,6 @@
 	</div> <!-- Closing div tag for wrap -->
 		   <jsp:include page="common/footer.jsp" />
 		
-		<script type="text/javascript">
-            $(document).ready(function() {
-            	var oTable = $('#country_table').dataTable( {
-   	           "columnDefs": [
-          		               {
-          		                   "targets": [ 0,3 ],
-          		                   "orderable": false
-          		               },
-          		           ],
-                	           "scrollX": true,
-                	"sDom": "<'row'>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-                    "oTableTools": {
-                    	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
-                    },
-                    "sPaginationType": "bootstrap",
-	                "iDisplayLength": 15,
-                    "oLanguage": {
-                        "sUrl": "static/js/dataTable_ru_RU.txt"
-                     }                    
-                } );
-
-
-                $('#dataTableSearch').on('input', function() {
-                	oTable.fnFilter( $(this).val());
-                });   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
-                });
-                $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 2);
-                });
-                
-            } );
-   
-        </script>
+		
 	</body>
 </html>

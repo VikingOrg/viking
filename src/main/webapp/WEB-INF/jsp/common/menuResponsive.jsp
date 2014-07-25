@@ -82,7 +82,7 @@
 			          	  <ul class="dropdown-menu">
 				              <li><a href="<c:url value="/reportSelection"/>">По группам</a></li>
 				              <li><a href="<c:url value="/reportSelection"/>">По движению</a></li>
-				              <li><a href="#">По колличеству</a></li>
+				              <li><a href="#">По количеству</a></li>
 			              </ul>
 					  </li>
 						
