@@ -14,5 +14,9 @@
 	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	    <script type="text/javascript" src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="<c:url value="/static/js/bootstrap.min.js"/>"></script>
+        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/js.response.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/dataTables.bootstrapPagination.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/dataTables.tableTools.js"/>"></script>
 		

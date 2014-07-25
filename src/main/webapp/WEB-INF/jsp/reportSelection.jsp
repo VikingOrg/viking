@@ -29,6 +29,7 @@
                   } else {
 	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
 	                      var options='';
+                          options += "<option value='0'>Все модели</option>";
 	                      $.each(machineModel, function (i, e) {
 	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
 	                      });
@@ -36,7 +37,14 @@
 	                  });
                   }
               });	
-              $('#machine_report_table').dataTable();
+              $('#machine_report_table').dataTable({
+            	  "sPaginationType": "bootstrap",
+                  "iDisplayLength": 15,
+                  "oLanguage": {
+                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
+                   }  
+
+              });
               			
 		  });
 		  </script>
