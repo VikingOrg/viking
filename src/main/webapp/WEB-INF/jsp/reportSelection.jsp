@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
 
@@ -14,8 +14,8 @@
 	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0-rc.1/css/jquery.dataTables.css"/>
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="static/css/theme.css"/>"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="static/css/core.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
 	    
 	    <!--[if lt IE 9]>
 			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -115,7 +115,7 @@
 									<label class="col-sm-3 control-label">Компания</label>
 									<div class="col-sm-9">
 										<form:select id="stevidorSelection" path="stevidorSelection" cssClass="form-control col-sm-12" multiple="true">
-											<form:option value="">Все компании</form:option>
+											<form:option value="0">Все компании</form:option>
 											<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
 												<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
 											</c:forEach>
@@ -164,7 +164,7 @@
 									<div class="col-sm-9">
 										<form:select id="manufacturerId" path="manufacturerId"
 											cssClass="form-control" title="Выборка по производителю">
-											<form:option value="">Все производители</form:option>
+											<form:option value="0">Все производители</form:option>
 											<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
 												<form:option value="${manufacturer.key}" label="${manufacturer.value.name}" />
 											</c:forEach>
@@ -202,21 +202,19 @@
 
 					<!-- Таблица отчета -->
 					<h3 class="page-header">Отчет "По Механизмам" со следующими параметрами выбора:</h3>
-					<table id="machine_table"
-						class="table table-striped table-bordered">
+					<table id="machine_table" class="table table-striped table-bordered">
 						<tbody>
 							<tr>
-								<td class="column-check nowrap">Группа:${reportSelectionCommand.groupName}</td>
-								<td class="column-check nowrap">Модель:${reportSelectionCommand.modelName}</td>
-								<td class="column-check nowrap">Год выпуска:${reportSelectionCommand.relYearName}</td>
-								<td class="column-check nowrap">Производитель:${reportSelectionCommand.manufactName}</td>
+								<td class="column-check ">Группа:${reportSelectionCommand.groupName}</td>
+								<td class="column-check ">Модель:${reportSelectionCommand.modelName}</td>
+								<td class="column-check ">Год выпуска:${reportSelectionCommand.relYearName}</td>
+								<td class="column-check ">Производитель:${reportSelectionCommand.manufactName}</td>
 							</tr>
 
 						</tbody>
 					</table>
 					
-					<table id="machine_table"
-						class="table table-striped table-bordered">
+					<table id="machine_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
 								<th class="column-check nowrap">&nbsp;#</th>
@@ -232,6 +230,11 @@
 									<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
 								</tr>
 					        </c:forEach>
+							<tr>
+								<td class="column-check "></td>
+								<td class="column-check "></td>
+								<td class="column-check ">Всего механизмов:<c:out value="${reportSelectionCommand.totalMachineCount}"/></td>
+							</tr>					        
 						</tbody>
 					</table>
 

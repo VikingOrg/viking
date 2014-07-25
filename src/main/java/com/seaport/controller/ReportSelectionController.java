@@ -20,7 +20,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.ReportSelectionCommand;
-import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.Stevidor;
@@ -52,16 +51,11 @@ public class ReportSelectionController {
 		reportSelectionCommand.setUserCountry(userService.getContriesMap());
 		reportSelectionCommand.setUserPort(portService.getPortsMap());
 		reportSelectionCommand.setStevidorMap(portService.getStevidorsMap());
-//		Map<Integer, Group> mapInteger = machineService.getGroupsMap();
-//		for (Map.Entry<Integer, Group> entry : mapInteger.entrySet()) {
-//			Integer key = entry.getKey();
-//			Group value = entry.getValue();
-//			Long l = ((Number) key).longValue();
-//			reportSelectionCommand.getGroupMap().put(l, value);
-//		}
+
 		reportSelectionCommand.setGroupMap(machineService.getGroupsMap());
 		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
-		reportSelectionCommand.setYearMap(machineService.getYearMap());		
+		reportSelectionCommand.setYearMap(machineService.getYearMap());
+		reportSelectionCommand.setStevidorSelection(new String[]{"0"});
 		
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "reportSelection";
@@ -72,32 +66,102 @@ public class ReportSelectionController {
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
-		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		redirectAttributes.addFlashAttribute(reportSelectionCommand);
-		/*Settings parameter name for report header.*/
-		String groupName = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId()).getName();
-		reportSelectionCommand.setGroupName(groupName);
-		MachineModel machineModel = machineService.getModel(reportSelectionCommand.getModelId());
-		reportSelectionCommand.setModelName(machineModel.getName());
-		reportSelectionCommand.setRelYearName(Integer.toString(reportSelectionCommand.getReleaseYear()));
-		String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getName();
-		reportSelectionCommand.setManufactName(manufactName);
-		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
-		/*Company(Group) Report*/
-		reportSelectionCommand.getCompanyReport().clear();
-		for (int i = 0; i < reportSelectionCommand.getStevidorSelection().length; i++) {
-			String stevedorId = reportSelectionCommand.getStevidorSelection()[i];
-			Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(stevedorId));
-			Integer countNumber = 0;
-			List<Machine> machineList = machineService.getMachineByStevedorId(stevidor.getStevidorId());
-			for (Machine machine : machineList) {
-				countNumber++;
-			}
-			reportSelectionCommand.getCompanyReport().add(new String[]{stevidor.getName(), countNumber.toString()});
-		}
 		
+//		if (reportSelectionCommand.getStevidorSelection().length == 0) {
+//			model.addAttribute("error", "message.user.error.generic");
+//			return "reportSelection";
+//		}
+//		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+//		redirectAttributes.addFlashAttribute(reportSelectionCommand);
+		boolean groupFilterSet = false;
+		boolean modelFilterSet = false;
+		boolean relYearFilterSet = false;
+		boolean manufactFilterSet = false;
+		
+		/*Settings parameter name for report header.*/
+		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
+			String groupName = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId()).getName();
+			reportSelectionCommand.setGroupName(groupName);
+			groupFilterSet = true;
+		}
+		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
+			MachineModel machineModel = machineService.getModel(reportSelectionCommand.getModelId());
+			reportSelectionCommand.setModelName(machineModel.getName());
+			modelFilterSet = true;
+		}
+		if (reportSelectionCommand.getReleaseYear()!=null && !reportSelectionCommand.getReleaseYear().equalsIgnoreCase("")) {
+			reportSelectionCommand.setRelYearName(reportSelectionCommand.getReleaseYear());
+			relYearFilterSet = true;
+		}
+		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
+			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getName();
+			reportSelectionCommand.setManufactName(manufactName);
+			manufactFilterSet = true;
+		}
+		/*Populate model list for provided groupId*/
+		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
+		/*Machine Report*/
+		reportSelectionCommand.getCompanyReport().clear();
+		reportSelectionCommand.setTotalMachineCount(Integer.valueOf(0));
+		
+		/*Check if report runs for all companies*/
+		if (reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
+			for (Map.Entry<Integer, Stevidor> entry : reportSelectionCommand.getStevidorMap().entrySet()) {
+				Stevidor stevidor = entry.getValue();
+				Integer countNumber = 0;
+				List<Machine> machineList = machineService.getMachineByStevedorId(stevidor.getStevidorId());
+				for (Machine machine : machineList) {
+					if (groupFilterSet){
+						if (machine.getMachineModel() == null || 
+								!machine.getMachineModel().getGroupId().equals(reportSelectionCommand.getGroupId())) {
+							continue;	
+						}
+					}
+					if (modelFilterSet && !machine.getModelId().equals(reportSelectionCommand.getModelId())) {
+						continue;
+					}
+					if (relYearFilterSet && !machine.getReleaseYear().equals(reportSelectionCommand.getReleaseYear())) {
+						continue;
+					}
+					if (manufactFilterSet && !machine.getMachineModel().getManufacturerId().equals(reportSelectionCommand.getManufacturerId())) {
+						continue;
+					}					
+					countNumber++;
+				}
+				reportSelectionCommand.getCompanyReport().add(new String[]{stevidor.getFullName(), countNumber.toString()});
+				reportSelectionCommand.setTotalMachineCount(reportSelectionCommand.getTotalMachineCount()+countNumber);
+			}
+		} else {
+			for (int i = 0; i < reportSelectionCommand.getStevidorSelection().length; i++) {
+				String stevedorId = reportSelectionCommand.getStevidorSelection()[i];
+				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(stevedorId));
+				Integer countNumber = 0;
+				List<Machine> machineList = machineService.getMachineByStevedorId(stevidor.getStevidorId());
+				for (Machine machine : machineList) {
+					if (groupFilterSet){
+						if (machine.getMachineModel() == null || 
+								!machine.getMachineModel().getGroupId().equals(reportSelectionCommand.getGroupId())) {
+							continue;	
+						}
+					}
+					if (modelFilterSet && !machine.getModelId().equals(reportSelectionCommand.getModelId())) {
+						continue;
+					}
+					if (relYearFilterSet && !machine.getReleaseYear().equals(reportSelectionCommand.getReleaseYear())) {
+						continue;
+					}
+					if (manufactFilterSet && !machine.getMachineModel().getManufacturerId().equals(reportSelectionCommand.getManufacturerId())) {
+						continue;
+					}					
+					countNumber++;
+				}
+				reportSelectionCommand.getCompanyReport().add(new String[]{stevidor.getFullName(), countNumber.toString()});
+				reportSelectionCommand.setTotalMachineCount(reportSelectionCommand.getTotalMachineCount()+countNumber);
+			}
+		}
 		return "reportSelection";
 	}
+
 	
 	/*not implemented*/
 	@RequestMapping(value="/dymamicReport/", method = RequestMethod.POST) 

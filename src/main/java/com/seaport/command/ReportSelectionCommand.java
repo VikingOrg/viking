@@ -34,15 +34,16 @@ public class ReportSelectionCommand {
 	private Integer portId;
 	private Integer countryId;
 	private String[] stevidorSelection;
-	private Integer releaseYear;
+	private String releaseYear;
 	private Integer manufacturerId;
 	private Integer reportType;
 	private Integer modelId;
 	
-	private String groupName;
-	private String modelName;
-	private String relYearName;
-	private String manufactName;
+	private String groupName = "Все группы";
+	private String modelName = "Все модели";
+	private String relYearName = "Все года";
+	private String manufactName = "Все производители";
+	private Integer totalMachineCount = 0;
 		
     private Map<Integer, String> reportSelection = new LinkedHashMap<Integer, String>();
     public ReportSelectionCommand() {
@@ -53,7 +54,12 @@ public class ReportSelectionCommand {
 
     private List<String[]> companyReport= new ArrayList<String[]>();
     
-    
+	public Integer getTotalMachineCount() {
+		return totalMachineCount;
+	}
+	public void setTotalMachineCount(Integer totalMachineCount) {
+		this.totalMachineCount = totalMachineCount;
+	}
 	public List<String[]> getCompanyReport() {
 		return companyReport;
 	}
@@ -183,11 +189,12 @@ public class ReportSelectionCommand {
 	public void setCountryId(Integer countryId) {
 		this.countryId = countryId;
 	}
-	public Integer getReleaseYear() {
+	public String getReleaseYear() {
 		return releaseYear;
 	}
-	public void setReleaseYear(Integer releaseYear) {
+	public void setReleaseYear(String releaseYear) {
 		this.releaseYear = releaseYear;
 	}
+
 
 }
