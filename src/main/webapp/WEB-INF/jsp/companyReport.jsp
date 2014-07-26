@@ -15,8 +15,8 @@
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  $(document).ready(function() {
-			  $("#sumbit_group_report").click(function(e) {
-              	$('#report_select_form').attr('action', "${action}/groupReport/");
+			  $("#sumbit_report").click(function(e) {
+              	$('#report_select_form').attr('action', "${action}/companyReport/");
             	$('#report_select_form').attr('method', "post");
             	$('#report_select_form').attr('accept-charset', "UTF-8");
             	$('#report_select_form').submit();
@@ -66,8 +66,7 @@
 		<div class="alert alert-info">
 			
 			<form:form id="report_select_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="${action}" 
-	commandName="reportSelectionCommand" method="post" accept-charset="UTF-8">
-				
+								commandName="reportSelectionCommand" method="post" accept-charset="UTF-8">
 							
 				<!--Report 1 part 1-->
 				<div class="row">
@@ -80,16 +79,6 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="col-sm-4 control-label">Тип отчета</label>
-										<div class="col-sm-8">
-											<form:select id="reportType" path="reportType"
-												cssClass="form-control" title="Выбор отчета">
-												<form:options items="${reportSelectionCommand.reportSelection}" />
-											</form:select>
-										</div>	
-									</div>
-									<hr>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Компания</label>
 										<div class="col-sm-8">
@@ -152,7 +141,7 @@
 							<!--  Кнопочка сформировать отчет -->
 							<div class="form-group">	
 								<div class="col-sm-12">
-									<input id="sumbit_group_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />						
+									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />						
 								</div>
 							</div>
 						</div>
@@ -184,7 +173,7 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">Отчет "По количеству ПТО" в Компаниях-операторах:</h3>
+							<h3 class="page-header">Отчет 01"По количеству ПТО" в Компаниях-операторах:</h3>
 						</div>
 						<table id="machine_table" class="table table-striped table-bordered">
 							<tbody>
@@ -224,8 +213,16 @@
 	
 					</div>
 				</div> <!--End of Report 1-->
+				
+				<div class="row">
+					Visible Report 2
+				</div>
+				<div class="row">
+					Visible Report 3
+				</div>
+				
 
-	
+			<form:hidden id="reportTypeCode" path="reportTypeCode" />
 			</form:form>
 	
 		</div>

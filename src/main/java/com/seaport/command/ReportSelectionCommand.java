@@ -44,7 +44,8 @@ public class ReportSelectionCommand {
 	private String relYearName = "Все года";
 	private String manufactName = "Все производители";
 	private Integer totalMachineCount = 0;
-		
+	private String reportTypeCode = "";
+	
     private Map<Integer, String> reportSelection = new LinkedHashMap<Integer, String>();
     public ReportSelectionCommand() {
     	reportSelection.put(1, "По группам");
@@ -52,7 +53,15 @@ public class ReportSelectionCommand {
     	reportSelection.put(3, "По колличеству");
     }
 
-    private List<String[]> companyReport= new ArrayList<String[]>();
+    
+    public String getReportTypeCode() {
+		return reportTypeCode;
+	}
+	public void setReportTypeCode(String reportTypeCode) {
+		this.reportTypeCode = reportTypeCode;
+	}
+	
+	private List<String[]> companyReport= new ArrayList<String[]>();
     
 	public Integer getTotalMachineCount() {
 		return totalMachineCount;

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -45,8 +46,8 @@ public class ReportSelectionController {
 	@Autowired
 	private IMachineService machineService;	
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String setUpForm(HttpServletRequest request, ModelMap model) throws Exception {
+	@RequestMapping(value="/company/", method = RequestMethod.GET)
+	public String setupGroupReport(HttpServletRequest request, ModelMap model) throws Exception {
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
 		reportSelectionCommand.setUserCountry(userService.getContriesMap());
 		reportSelectionCommand.setUserPort(portService.getPortsMap());
@@ -58,10 +59,39 @@ public class ReportSelectionController {
 		reportSelectionCommand.setStevidorSelection(new String[]{"0"});
 		
 		model.put("reportSelectionCommand", reportSelectionCommand);
-		return "reportSelection";
+		return "companyReport";
 	}
-	
-	@RequestMapping(value="/groupReport/", method = RequestMethod.POST) 
+	@RequestMapping(value="/group/", method = RequestMethod.GET)
+	public String setupDynamicReport(HttpServletRequest request, ModelMap model)  throws Exception{
+		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
+		reportSelectionCommand.setUserCountry(userService.getContriesMap());
+		reportSelectionCommand.setUserPort(portService.getPortsMap());
+		reportSelectionCommand.setStevidorMap(portService.getStevidorsMap());
+
+		reportSelectionCommand.setGroupMap(machineService.getGroupsMap());
+		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
+		reportSelectionCommand.setYearMap(machineService.getYearMap());
+		reportSelectionCommand.setStevidorSelection(new String[]{"0"});
+		
+		model.put("reportSelectionCommand", reportSelectionCommand);
+		return "groupReport";
+	}
+	@RequestMapping(value="/account/", method = RequestMethod.GET)
+	public String setupCounReport(HttpServletRequest request, ModelMap model) throws Exception{
+		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
+		reportSelectionCommand.setUserCountry(userService.getContriesMap());
+		reportSelectionCommand.setUserPort(portService.getPortsMap());
+		reportSelectionCommand.setStevidorMap(portService.getStevidorsMap());
+
+		reportSelectionCommand.setGroupMap(machineService.getGroupsMap());
+		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
+		reportSelectionCommand.setYearMap(machineService.getYearMap());
+		reportSelectionCommand.setStevidorSelection(new String[]{"0"});
+		
+		model.put("reportSelectionCommand", reportSelectionCommand);
+		return "accountReport";
+	}
+	@RequestMapping(value="/companyReport/", method = RequestMethod.POST) 
 	public String groupReport(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
@@ -159,12 +189,12 @@ public class ReportSelectionController {
 				reportSelectionCommand.setTotalMachineCount(reportSelectionCommand.getTotalMachineCount()+countNumber);
 			}
 		}
-		return "reportSelection";
-	}
+		return "groupReport";
+	} 	
 
 	
 	/*not implemented*/
-	@RequestMapping(value="/dymamicReport/", method = RequestMethod.POST) 
+	@RequestMapping(value="/dynamicReport/", method = RequestMethod.POST) 
 	public String dynamicReport(HttpServletRequest request, Model model, 
 								@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status, 

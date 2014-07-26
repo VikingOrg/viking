@@ -78,11 +78,11 @@
 			              </ul>
 			          </li>
 					  <li class="dropdown">
-					  	  <a href="<c:url value="/reportSelection"/>" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>	
+					  	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>	
 			          	  <ul class="dropdown-menu">
-				              <li><a href="<c:url value="/reportSelection"/>">По группам</a></li>
-				              <li><a href="<c:url value="/reportSelection"/>">По движению</a></li>
-				              <li><a href="#">По количеству</a></li>
+				              <li><a href="<c:url value="/reportSelection/company/"/>">По компаниям</a></li>
+				              <li><a href="<c:url value="/reportSelection/group/"/>">По группам</a></li>
+				              <li><a href="<c:url value="/reportSelection/account/"/>">По количеству</a></li>
 			              </ul>
 					  </li>
 						
