@@ -51,14 +51,15 @@ public class ReportSelectionCommand {
 	
 	/*reports*/
 	private List<String[]> companyReport= new ArrayList<String[]>();
-	Map<String[], List<Machine>> groupReport = new HashMap<String[], List<Machine>>();
+	Map<String[], List<Machine>> groupReportMap = new HashMap<String[], List<Machine>>();
 	
 	
-	public Map<String[], List<Machine>> getGroupReport() {
-		return groupReport;
+
+	public Map<String[], List<Machine>> getGroupReportMap() {
+		return groupReportMap;
 	}
-	public void setGroupReport(Map<String[], List<Machine>> groupReport) {
-		this.groupReport = groupReport;
+	public void setGroupReportMap(Map<String[], List<Machine>> groupReportMap) {
+		this.groupReportMap = groupReportMap;
 	}
 	public String[] getCompanyNames() {
 		return companyNames;

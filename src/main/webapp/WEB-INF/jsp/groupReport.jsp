@@ -37,8 +37,6 @@
 	                  });
                   }
               });	
-              $('#group_report_table').dataTable({
-              });
               			
 		  });
 		  </script>
@@ -177,7 +175,7 @@
 										<li>${arrayVar}</li>
 									</c:forEach>
 									</td>
-									<td class="column-check nowrap"><span style="font-weight: bold;">Модель:&nbsp;</span><br>${reportSelectionCommand.modelName}</td>
+									<td class="column-check "><span style="font-weight: bold;">Модель:&nbsp;</span><br>${reportSelectionCommand.modelName}</td>
 									<td class="column-check "><span style="font-weight: bold;">Год выпуска:&nbsp;</span><br>${reportSelectionCommand.relYearName}</td>
 									<td class="column-check "><span style="font-weight: bold;">Производитель:&nbsp;</span><br>${reportSelectionCommand.manufactName}</td>
 								</tr>
@@ -198,19 +196,22 @@
 								</tr>
 							</thead>
 							<tbody>
-							
-				            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
+					            <c:forEach items="${reportSelectionCommand.groupReportMap}" var="groupReport">
 									<tr>
-										<td class="column-check nowrap"><c:out value="${loop.index}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[0]}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="column-check nowrap" colspan = "7"><c:out value="${groupReport.key[0]}"/>   Total:<c:out value="${groupReport.key[1]}"/></td>
 									</tr>
-						        </c:forEach>
-					        
+									<c:forEach items="${groupReport.value}" var="machine">
+										<tr>
+											<td class="column-check nowrap"><c:out value="${machine.machineModel.name}"/></td>
+											<td class="column-check nowrap"><c:out value="${machine.machineModel.details}"/></td>
+											<td class="column-check nowrap"><c:out value="${machine.machineModel.manufacturer.name}"/></td>
+											<td class="column-check nowrap"><c:out value="${machine.inventoryNumb}"/></td>
+											<td class="column-check nowrap"><c:out value="${machine.startDate}"/></td>
+											<td class="column-check nowrap"><c:out value="${machine.factoryNumb}"/></td>
+											<td class="column-check nowrap"><c:out value="${machine.location}"/></td>
+										</tr>
+									</c:forEach>					            
+				                </c:forEach>						
 							</tbody>
 						</table>
 	

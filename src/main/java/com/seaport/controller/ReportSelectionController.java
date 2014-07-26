@@ -134,12 +134,12 @@ public class ReportSelectionController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/groupReport/", method = RequestMethod.POST) 
-	public String dynamicReport(HttpServletRequest request, Model model, 
+	public String groupReport(HttpServletRequest request, Model model, 
 								@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status, 
 								HttpServletResponse response, HttpServletRequest req) throws Exception {
 		/*Empty report Map*/
-		Map<String[], List<Machine>> groupReport = new HashMap<String[], List<Machine>>();
+		Map<String[], List<Machine>> groupReportMap = new HashMap<String[], List<Machine>>();
 		
 		/*Populate report header parameters and set filter flags.*/
 		Map<String, Boolean> filtersMap = setFilterValues(reportSelectionCommand);
@@ -152,14 +152,19 @@ public class ReportSelectionController {
 			Integer countModels = 0;
 			List<Machine> machineListByGroup = new ArrayList<Machine>();
 			for (Machine machine : machineList) {
-				if (group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
-					machineListByGroup.add(machine);
-					countModels++;
+				try {
+					if (group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
+						machineListByGroup.add(machine);
+						countModels++;
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
-			groupReport.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
+			groupReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
 		}
-		reportSelectionCommand.setGroupReport(groupReport);
+		reportSelectionCommand.setGroupReportMap(groupReportMap);
 
 		return "groupReport";
 	}
