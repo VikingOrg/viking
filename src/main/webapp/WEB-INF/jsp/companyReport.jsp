@@ -11,6 +11,8 @@
 <head>
 <title>Отчет по количеству ПТО</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+		<script type="text/javascript" src="//www.google.com/jsapi"></script>
+		<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
 		
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
@@ -38,12 +40,22 @@
                   }
               });	
               $('#company_report_table').dataTable({
+            	  "dom": 'tlip',
+            	  "scrollX": true,
             	  "sPaginationType": "bootstrap",
                   "iDisplayLength": 15,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    }  
 
+              });
+              $('#company_report_table').attc({
+              "controls":{
+            	  showHide:false,
+            	  create:false,
+            	  chartType:false,
+            	  },
+              "googleOptions":{"is3D":true, "legend":"none"},
               });
               			
 		  });
@@ -114,12 +126,17 @@
 						        	</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Год&nbsp;выпуска</label>
-										<div class="col-sm-8">
+										<div class="col-sm-4">
 											<form:select id="releaseYearSelect" path="releaseYear"
 												cssClass="form-control" title="Выборка по году выпуска">
-												<form:option value="" label="Все года" />
+												<form:option value="" label="С" />
 												<form:options items="${reportSelectionCommand.yearMap}" />
 											</form:select>
+										</div>
+										<div class="col-sm-4">
+											<select Class="form-control" title="Выборка по году выпуска">
+												<option value="" label="По" />
+											</select>
 										</div>
 									</div>
 									<div class="form-group">
@@ -144,10 +161,10 @@
 									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />						
 								</div>
 							</div>
+							
+							<div id="companyReportPie" class="form-group"></div>
 						</div>
 						
-						<p>*Для ознакомления с правилами формирования отчета звоните в службу поддержки.</p>
-						<p>&nbsp;</p>
 					</div>
 					<!-- End of Sidebar content-->
 	
@@ -187,27 +204,36 @@
 							</tbody>
 						</table>
 						
-						<table id="company_report_table" class="table table-striped table-bordered">
+						<table id="company_report_table" class="table table-striped table-bordered"
+						title="Распределение ПТО по Компаниям"  
+			    		summary="pieDescription" 
+			    		data-attc-createChart="false"
+			    		data-attc-colDescription="pieDescription" 
+			    		data-attc-colValues="pieValues" 
+			    		data-attc-location="companyReportPie" 
+			    		data-attc-hideTable="false" 
+			    		data-attc-type="pie"
+			    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
 							<thead>
 								<tr>
 									<th class="column-check nowrap">&nbsp;№</th>
-									<th class="hidden-sm hidden-xs hidden-md nowrap">Компания&nbsp;&nbsp;</th>
-									<th class="nowrap">Кол-во&nbsp;&nbsp;</th>
+									<th class="nowrap" id="pieDescription">Компания&nbsp;&nbsp;</th>
+									<th class="nowrap" id="pieValues">Кол-во&nbsp;&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody>
 				            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
 									<tr>
 										<td class="column-check nowrap"><c:out value="${loop.index}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[0]}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="nowrap"><c:out value="${companyReportRow[0]}"/></td>
+										<td class="nowrap"><c:out value="${companyReportRow[1]}"/></td>
 									</tr>
 						        </c:forEach>
-								<tr>
+<%-- 								<tr>
 									<td class="column-check "></td>
 									<td class="column-check "><span style="font-weight: bold;">Всего механизмов:</span></td>
 									<td class="column-check "><c:out value="${reportSelectionCommand.totalMachineCount}"/></td>
-								</tr>					        
+								</tr> --%>					        
 							</tbody>
 						</table>
 	
