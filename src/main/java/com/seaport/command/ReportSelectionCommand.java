@@ -1,12 +1,14 @@
 package com.seaport.command;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.seaport.domain.Country;
 import com.seaport.domain.Group;
+import com.seaport.domain.Machine;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Port;
@@ -39,30 +41,31 @@ public class ReportSelectionCommand {
 	private Integer reportType;
 	private Integer modelId;
 	
+	/*report headers parameters*/
 	private String groupName = "Все группы";
 	private String modelName = "Все модели";
 	private String relYearName = "Все года";
 	private String manufactName = "Все производители";
+	private String[] companyNames;
 	private Integer totalMachineCount = 0;
-	private String reportTypeCode = "";
 	
-    private Map<Integer, String> reportSelection = new LinkedHashMap<Integer, String>();
-    public ReportSelectionCommand() {
-    	reportSelection.put(1, "По группам");
-    	reportSelection.put(2, "По движению");
-    	reportSelection.put(3, "По колличеству");
-    }
-
-    
-    public String getReportTypeCode() {
-		return reportTypeCode;
-	}
-	public void setReportTypeCode(String reportTypeCode) {
-		this.reportTypeCode = reportTypeCode;
-	}
-	
+	/*reports*/
 	private List<String[]> companyReport= new ArrayList<String[]>();
-    
+	Map<String[], List<Machine>> groupReport = new HashMap<String[], List<Machine>>();
+	
+	
+	public Map<String[], List<Machine>> getGroupReport() {
+		return groupReport;
+	}
+	public void setGroupReport(Map<String[], List<Machine>> groupReport) {
+		this.groupReport = groupReport;
+	}
+	public String[] getCompanyNames() {
+		return companyNames;
+	}
+	public void setCompanyNames(String[] companyNames) {
+		this.companyNames = companyNames;
+	}
 	public Integer getTotalMachineCount() {
 		return totalMachineCount;
 	}
@@ -126,14 +129,6 @@ public class ReportSelectionCommand {
 
 	public void setModelId(Integer modelId) {
 		this.modelId = modelId;
-	}
-
-	public Map<Integer, String> getReportSelection() {
-		return reportSelection;
-	}
-
-	public void setReportSelection(Map<Integer, String> reportSelection) {
-		this.reportSelection = reportSelection;
 	}
 
 	public Integer getReportType() {

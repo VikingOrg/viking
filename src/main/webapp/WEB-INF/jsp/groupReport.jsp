@@ -37,13 +37,7 @@
 	                  });
                   }
               });	
-              $('#machine_report_table').dataTable({
-            	  "sPaginationType": "bootstrap",
-                  "iDisplayLength": 15,
-                  "oLanguage": {
-                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
-                   }  
-
+              $('#group_report_table').dataTable({
               });
               			
 		  });
@@ -79,16 +73,6 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="col-sm-4 control-label">Тип отчета</label>
-										<div class="col-sm-8">
-											<form:select id="reportType" path="reportType"
-												cssClass="form-control" title="Выбор отчета">
-												<form:options items="${reportSelectionCommand.reportSelection}" />
-											</form:select>
-										</div>	
-									</div>
-									<hr>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Компания</label>
 										<div class="col-sm-8">
@@ -183,12 +167,16 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">Отчет 02 "По количеству ПТО" в Компаниях-операторах:</h3>
+							<h3 class="page-header">Отчет 02  "ПТО в группах" в Компании(ях)-операторах:</h3>
 						</div>
 						<table id="machine_table" class="table table-striped table-bordered">
 							<tbody>
 								<tr>
-									<td class="column-check "><span style="font-weight: bold;">Группа:&nbsp;</span><br>${reportSelectionCommand.groupName}</td>
+									<td class="column-check "><span style="font-weight: bold;">Компаня(и):&nbsp;</span><br>
+									<c:forEach var="arrayVar" items="${companyNames}">
+										<li>${arrayVar}</li>
+									</c:forEach>
+									</td>
 									<td class="column-check nowrap"><span style="font-weight: bold;">Модель:&nbsp;</span><br>${reportSelectionCommand.modelName}</td>
 									<td class="column-check "><span style="font-weight: bold;">Год выпуска:&nbsp;</span><br>${reportSelectionCommand.relYearName}</td>
 									<td class="column-check "><span style="font-weight: bold;">Производитель:&nbsp;</span><br>${reportSelectionCommand.manufactName}</td>
@@ -196,43 +184,38 @@
 	
 							</tbody>
 						</table>
-						
-						<table id="machine_report_table" class="table table-striped table-bordered">
+
+						<table id="group_report_table" class="table table-striped table-bordered">
 							<thead>
 								<tr>
-									<th class="column-check nowrap">&nbsp;№</th>
-									<th class="hidden-sm hidden-xs hidden-md nowrap">Компания&nbsp;&nbsp;</th>
-									<th class="nowrap">Кол-во&nbsp;&nbsp;</th>
+									<th class="column-check ">Модель</th>
+									<th class="column-check ">Характеристики</th>
+									<th class="column-check ">Производитель</th>
+									<th class="column-check ">Инвентарный номер</th>
+									<th class="column-check ">Дата ввода</th>
+									<th class="column-check ">Заводской №</th>
+									<th class="column-check ">Место установки</th>
 								</tr>
 							</thead>
 							<tbody>
+							
 				            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
 									<tr>
 										<td class="column-check nowrap"><c:out value="${loop.index}"/></td>
 										<td class="column-check nowrap"><c:out value="${companyReportRow[0]}"/></td>
 										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
 									</tr>
 						        </c:forEach>
-								<tr>
-									<td class="column-check "></td>
-									<td class="column-check "><span style="font-weight: bold;">Всего механизмов:</span></td>
-									<td class="column-check "><c:out value="${reportSelectionCommand.totalMachineCount}"/></td>
-								</tr>					        
+					        
 							</tbody>
 						</table>
 	
 					</div>
 				</div> <!--End of Report 1-->
-				
-				<div class="row">
-					Visible Report 2
-				</div>
-				<div class="row">
-					Visible Report 3
-				</div>
-				
-
-			<form:hidden id="reportTypeCode" path="reportTypeCode" />
 			</form:form>
 	
 		</div>

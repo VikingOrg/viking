@@ -37,7 +37,7 @@
 	                  });
                   }
               });	
-              $('#machine_report_table').dataTable({
+              $('#company_report_table').dataTable({
             	  "sPaginationType": "bootstrap",
                   "iDisplayLength": 15,
                   "oLanguage": {
@@ -187,7 +187,7 @@
 							</tbody>
 						</table>
 						
-						<table id="machine_report_table" class="table table-striped table-bordered">
+						<table id="company_report_table" class="table table-striped table-bordered">
 							<thead>
 								<tr>
 									<th class="column-check nowrap">&nbsp;№</th>
@@ -213,16 +213,7 @@
 	
 					</div>
 				</div> <!--End of Report 1-->
-				
-				<div class="row">
-					Visible Report 2
-				</div>
-				<div class="row">
-					Visible Report 3
-				</div>
-				
 
-			<form:hidden id="reportTypeCode" path="reportTypeCode" />
 			</form:form>
 	
 		</div>

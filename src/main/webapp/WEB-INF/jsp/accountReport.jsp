@@ -37,7 +37,7 @@
 	                  });
                   }
               });	
-              $('#machine_report_table').dataTable({
+              $('#account_report_table').dataTable({
             	  "sPaginationType": "bootstrap",
                   "iDisplayLength": 15,
                   "oLanguage": {
@@ -78,16 +78,6 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="col-sm-4 control-label">Тип отчета</label>
-										<div class="col-sm-8">
-											<form:select id="reportType" path="reportType"
-												cssClass="form-control" title="Выбор отчета">
-												<form:options items="${reportSelectionCommand.reportSelection}" />
-											</form:select>
-										</div>	
-									</div>
-									<hr>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Компания</label>
 										<div class="col-sm-8">
@@ -196,7 +186,7 @@
 							</tbody>
 						</table>
 						
-						<table id="machine_report_table" class="table table-striped table-bordered">
+						<table id="account_report_table" class="table table-striped table-bordered">
 							<thead>
 								<tr>
 									<th class="column-check nowrap">&nbsp;№</th>
@@ -223,15 +213,6 @@
 					</div>
 				</div> <!--End of Report 1-->
 				
-				<div class="row">
-					Visible Report 2
-				</div>
-				<div class="row">
-					Visible Report 3
-				</div>
-				
-
-			<form:hidden id="reportTypeCode" path="reportTypeCode" />
 			</form:form>
 	
 		</div>
