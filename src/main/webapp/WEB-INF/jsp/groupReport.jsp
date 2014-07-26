@@ -37,6 +37,17 @@
 	                  });
                   }
               });	
+              $('#group_report_table').dataTable({
+            	  "dom": 'tlip',
+            	  "scrollX": true,
+            	  "ordering": false,
+            	  "sPaginationType": "bootstrap",
+                  "iDisplayLength": 15,
+                  "oLanguage": {
+                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
+                   }  
+
+              });
               			
 		  });
 		  </script>
@@ -45,6 +56,10 @@
 				color: black;
 				background-color: #d9edf7;
 				border-color: #bce8f1;
+				}
+				.tablehead {
+				color: #448800;
+				background-color: white;
 				}
 		  </style>		  
 </head>
@@ -106,12 +121,17 @@
 						        	</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Год&nbsp;выпуска</label>
-										<div class="col-sm-8">
+										<div class="col-sm-4">
 											<form:select id="releaseYearSelect" path="releaseYear"
 												cssClass="form-control" title="Выборка по году выпуска">
-												<form:option value="" label="Все года" />
+												<form:option value="" label="С" />
 												<form:options items="${reportSelectionCommand.yearMap}" />
 											</form:select>
+										</div>
+										<div class="col-sm-4">
+											<select Class="form-control" title="Выборка по году выпуска">
+												<option value="" label="По" />
+											</select>
 										</div>
 									</div>
 									<div class="form-group">
@@ -167,10 +187,10 @@
 						<div class="pull-left">
 							<h3 class="page-header">Отчет 02  "ПТО в группах" в Компании(ях)-операторах:</h3>
 						</div>
-						<table id="machine_table" class="table table-striped table-bordered">
+						<table id="machine_table" class="table" style="background-color: none; border: 0px">
 							<tbody>
 								<tr>
-									<td class="column-check "><span style="font-weight: bold;">Компаня(и):&nbsp;</span><br>
+									<td class="column-check "><span style="font-weight: bold;">Компания(и):&nbsp;</span><br>
 									<c:forEach var="arrayVar" items="${companyNames}">
 										<li>${arrayVar}</li>
 									</c:forEach>
@@ -183,32 +203,32 @@
 							</tbody>
 						</table>
 
-						<table id="group_report_table" class="table table-striped table-bordered">
-							<thead>
+						<table id="group_report_table" class="table table-bordered">
+							<thead class= "tablehead">
 								<tr>
-									<th class="column-check ">Модель</th>
-									<th class="column-check ">Характеристики</th>
-									<th class="column-check ">Производитель</th>
-									<th class="column-check ">Инвентарный номер</th>
-									<th class="column-check ">Дата ввода</th>
-									<th class="column-check ">Заводской №</th>
-									<th class="column-check ">Место установки</th>
+									<th class="nowrap">Модель</th>
+									<th class="nowrap">Характеристики</th>
+									<th class="nowrap">Производитель</th>
+									<th class="nowrap">Инвентарный номер</th>
+									<th class="nowrap">Дата ввода</th>
+									<th class="nowrap">Заводской №</th>
+									<th class="nowrap">Место установки</th>
 								</tr>
 							</thead>
 							<tbody>
 					            <c:forEach items="${reportSelectionCommand.groupReportMap}" var="groupReport">
 									<tr>
-										<td class="column-check nowrap" colspan = "7"><c:out value="${groupReport.key[0]}"/>   Total:<c:out value="${groupReport.key[1]}"/></td>
+										<td class="nowrap" colspan = "7" style="background-color:#DDEDCC; font-weight: bold;"><c:out value="${groupReport.key[0]}"/><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего по группе:&nbsp;&nbsp;<c:out value="${groupReport.key[1]}"/></span></td>
 									</tr>
 									<c:forEach items="${groupReport.value}" var="machine">
 										<tr>
-											<td class="column-check nowrap"><c:out value="${machine.machineModel.name}"/></td>
-											<td class="column-check nowrap"><c:out value="${machine.machineModel.details}"/></td>
-											<td class="column-check nowrap"><c:out value="${machine.machineModel.manufacturer.name}"/></td>
-											<td class="column-check nowrap"><c:out value="${machine.inventoryNumb}"/></td>
-											<td class="column-check nowrap"><c:out value="${machine.startDate}"/></td>
-											<td class="column-check nowrap"><c:out value="${machine.factoryNumb}"/></td>
-											<td class="column-check nowrap"><c:out value="${machine.location}"/></td>
+											<td class="nowrap"><c:out value="${machine.machineModel.name}"/></td>
+											<td class="nowrap"><c:out value="${machine.machineModel.details}"/></td>
+											<td class="nowrap"><c:out value="${machine.machineModel.manufacturer.name}"/></td>
+											<td class="nowrap"><c:out value="${machine.inventoryNumb}"/></td>
+											<td class="nowrap"><c:out value="${machine.startDate}"/></td>
+											<td class="nowrap"><c:out value="${machine.factoryNumb}"/></td>
+											<td class="nowrap"><c:out value="${machine.location}"/></td>
 										</tr>
 									</c:forEach>					            
 				                </c:forEach>						
