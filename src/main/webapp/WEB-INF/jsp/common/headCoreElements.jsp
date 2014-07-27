@@ -6,7 +6,9 @@
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/dataTables.tableTools.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
+	    
 	    
 	    <!--[if lt IE 9]>
 			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

@@ -38,9 +38,9 @@
 	                "bProcessing": true,
 	                "iDisplayLength": 15,
 	    			"scrollX" : true,
-	                "oLanguage": {
-                        "sUrl": "static/js/dataTable_ru_RU.txt"
-                     } 
+	    			"oLanguage": {
+	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
+	                   },
 	            } );
 
 

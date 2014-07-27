@@ -45,8 +45,8 @@
                     "sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
                     "sPaginationType": "bootstrap",
                     "oLanguage": {
-                        "sUrl": "${sUrlRussian}"
-                     }                    
+                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
+                     },                    
                 } );
 
             	// Highlight every second row

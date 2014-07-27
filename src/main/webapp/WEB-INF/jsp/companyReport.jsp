@@ -9,7 +9,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<title>Отчет по количеству ПТО</title>
+<title>Отчет по количеству ПТО в Компаниях-операторах</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="//www.google.com/jsapi"></script>
@@ -41,13 +41,21 @@
                   }
               });	
               oTable = $('#company_report_table').dataTable({
-            	  "sDom": '<"#source"l>tp',
+            	  "sDom": '<"#tableActions"T><"#source"l>tip',
             	  "sPaginationType": "bootstrap",
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },
+                   tableTools: {
+           			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+           		 	"aButtons": [
+             	                "copy",
+             	                "print",
+             	                "csv"
+             	            ]
+           			},
                   "fnInitComplete": function(oSettings) {
-                	   //$("#source").appendTo("#table_length");
+                	   $("#tableActions").appendTo("#table_Actions");
                 	   $('select[name="company_report_table_length"]').appendTo("#table_length");
                 	   $('select[name="company_report_table_length"]').removeClass( "form-control input-sm" ).addClass("form-control");
                 	   var rowCount = $('#company_report_table tr').length;	    
@@ -61,7 +69,9 @@
                 		   $("#company_pie").addClass("hidden");
                 		   $("#data_table_elements").addClass("hidden");
                 	   }
-	              }              			
+	              },
+
+            	  "scrollX": true,              			
               });
               
               $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
@@ -72,7 +82,7 @@
             	  create:false,
             	  chartType:false,
             	  },
-              "googleOptions":{"is3D":true, "legend":"none"},
+              "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
               });
               	
 		  });
@@ -117,7 +127,7 @@
 								commandName="reportSelectionCommand" method="post" accept-charset="UTF-8">
 							
 				<!--Report 1 part 1-->
-				<div class="row">
+				<div class="row" style="margin:-15px">
 	
 					<!--Sidebar content-->
 					<div class="col-sm-4">
@@ -236,19 +246,20 @@
 						<table id="company_header" class="table_report_header">
 							<tbody>
 								<tr>
-									<td class="column-check nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
+									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
+									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
-									<td class="column-check nowrap">Группа: <span class="report_header">${reportSelectionCommand.groupName}</span></td>
+									<td class="nowrap">Группа: <span class="report_header">${reportSelectionCommand.groupName}</span></td>
 								</tr>
 								<tr>
-									<td class="column-check nowrap">Модель: <span class="report_header">${reportSelectionCommand.modelName}</span></td>
+									<td class="nowrap">Модель: <span class="report_header">${reportSelectionCommand.modelName}</span></td>
 								</tr>
 								<tr>
-									<td class="column-check nowrap">Год выпуска: <span class="report_header">${reportSelectionCommand.relYearName}</span></td>
+									<td class="nowrap">Год выпуска: <span class="report_header">${reportSelectionCommand.relYearName}</span></td>
 								</tr>
 								<tr>
-									<td class="column-check nowrap">Производитель: <span class="report_header">${reportSelectionCommand.manufactName}</span></td>
+									<td class="nowrap">Производитель: <span class="report_header">${reportSelectionCommand.manufactName}</span></td>
 								</tr>
 							</tbody>
 						</table>
@@ -265,7 +276,7 @@
 				    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
 							<thead>
 								<tr>
-									<th class="column-check nowrap">&nbsp;№</th>
+									<th class="nowrap">&nbsp;№</th>
 									<th class="nowrap" id="pieDescription">Компания&nbsp;&nbsp;</th>
 									<th class="nowrap" id="pieValues">Кол-во&nbsp;&nbsp;</th>
 								</tr>
@@ -273,7 +284,7 @@
 							<tbody>
 				            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
 									<tr>
-										<td class="column-check nowrap"><c:out value="${loop.index}"/></td>
+										<td class="nowrap"><c:out value="${loop.index}"/></td>
 										<td class="nowrap"><c:out value="${companyReportRow[0]}"/></td>
 										<td class="nowrap"><c:out value="${companyReportRow[1]}"/></td>
 									</tr>

@@ -41,9 +41,9 @@
                     },
                     "sPaginationType": "bootstrap",
 	                "iDisplayLength": 15,
-                    "oLanguage": {
-                        "sUrl": "static/js/dataTable_ru_RU.txt"
-                     }                    
+	                "oLanguage": {
+	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
+	                   },                   
                 } );
 
 

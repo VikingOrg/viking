@@ -78,6 +78,14 @@
 		    height: auto;
 		}
 		
+		.well {
+		    margin-bottom: 5px;
+		}
+		
+		.dataTables_wrapper.no-footer .dataTables_scrollBody {
+		    border-bottom: 0px solid #111111;
+		}
+		
 		.form-horizontal .control-label {
 		    margin-bottom: -10px;
 		    padding-left: 15px
@@ -86,7 +94,7 @@
 		.form-horizontal.mini .form-group {
 		    margin-bottom: 0;
 		}
-				
+		
 		.flag {
 			width: 16px;
 			height: 11px;

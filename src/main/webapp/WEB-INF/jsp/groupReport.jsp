@@ -218,7 +218,13 @@
 							<tbody>
 					            <c:forEach items="${reportSelectionCommand.groupReportMap}" var="groupReport">
 									<tr>
-										<td class="nowrap" colspan = "7" style="background-color:#DDEDCC; font-weight: bold;"><c:out value="${groupReport.key[0]}"/><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего по группе:&nbsp;&nbsp;<c:out value="${groupReport.key[1]}"/></span></td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;"><c:out value="${groupReport.key[0]}"/><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего по группе:&nbsp;&nbsp;<c:out value="${groupReport.key[1]}"/></span></td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
 									</tr>
 									<c:forEach items="${groupReport.value}" var="machine">
 										<tr>
