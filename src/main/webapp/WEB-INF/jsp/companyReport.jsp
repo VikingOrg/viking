@@ -180,7 +180,7 @@
 											</form:select>
 										</div>
 										<div class="col-sm-4">
-											<select Class="form-control" title="Выборка по году выпуска">
+											<select class="form-control" title="Выборка по году выпуска">
 												<option value="" label="По" />
 											</select>
 										</div>
