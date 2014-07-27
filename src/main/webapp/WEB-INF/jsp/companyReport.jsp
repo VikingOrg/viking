@@ -11,6 +11,7 @@
 <head>
 <title>Отчет по количеству ПТО</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="//www.google.com/jsapi"></script>
 		<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
 		
@@ -39,16 +40,32 @@
 	                  });
                   }
               });	
-              $('#company_report_table').dataTable({
-            	  "dom": 'tlip',
-            	  "scrollX": true,
+              oTable = $('#company_report_table').dataTable({
+            	  "sDom": '<"#source"l>tp',
             	  "sPaginationType": "bootstrap",
-                  "iDisplayLength": 15,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
-                   }  
-
+                   },
+                  "fnInitComplete": function(oSettings) {
+                	   //$("#source").appendTo("#table_length");
+                	   $('select[name="company_report_table_length"]').appendTo("#table_length");
+                	   $('select[name="company_report_table_length"]').removeClass( "form-control input-sm" ).addClass("form-control");
+                	   var rowCount = $('#company_report_table tr').length;	    
+                	   if(rowCount > 2) {
+                		   
+                		   $("#table_length").addClass("form-group");
+                		   $("#company_pie").removeClass("hidden");
+                		   $("#data_table_elements").removeClass("hidden");            		    
+                	   } else {
+                		   $("#table_length").addClass("form-group hidden");
+                		   $("#company_pie").addClass("hidden");
+                		   $("#data_table_elements").addClass("hidden");
+                	   }
+	              }              			
               });
+              
+              $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
+              
               $('#company_report_table').attc({
               "controls":{
             	  showHide:false,
@@ -57,15 +74,34 @@
             	  },
               "googleOptions":{"is3D":true, "legend":"none"},
               });
-              			
+              	
 		  });
+		  
 		  </script>
 		  <style type="text/css">
 			  .alert-info {
 				color: black;
 				background-color: #d9edf7;
 				border-color: #bce8f1;
+				
 				}
+			.table_report_header{
+			    height: 100%;
+			    width: 100%;
+			    margin:0px;
+			    padding:0px;
+			    border-top: 0px solid #dddddd;
+			    line-height: 1.42857;
+			    padding: 10px;
+			    vertical-align: top;
+			}
+			.report_header{
+				font-family: 'Open Sans', sans-serif;
+				font-weight:300;
+				font-style: italic;
+			}
+
+}
 		  </style>		  
 </head>
 <body>
@@ -87,7 +123,7 @@
 					<div class="col-sm-4">
 	
 						<div class="col-sm-12 well lform">
-	
+
 							<div class="row">
 	
 								<div class="col-sm-12">
@@ -154,26 +190,31 @@
 								</div>
 	
 							</div>
-							<hr>
-							<!--  Кнопочка сформировать отчет -->
-							<div class="form-group">	
-								<div class="col-sm-12">
-									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />						
-								</div>
-							</div>
-							
-							<div id="companyReportPie" class="form-group"></div>
 						</div>
+						<div class="col-sm-12 well lform">
+							<!--  Кнопочка сформировать отчет -->
+							<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
+							<span class="pull-right">&nbsp;</span>
+							<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Очистить" />
+						</div>						
+
 						
+						<div id = "data_table_elements" class="col-sm-12 well lform">
+							<label class="col-sm-4 control-label">Кол.Строк:</label>
+							<div id="table_length" class="col-sm-4">
+								
+							</div>						
+							
+						</div>						
+						
+						<div id="company_pie" class="col-sm-12 well lform">
+							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	
+							<div id="companyReportPie" class="form-group"></div>
+						</div>						
 					</div>
 					<!-- End of Sidebar content-->
 	
 					<div class="col-sm-8">
-						<div class="pull-right">
-							<h4>
-								Составитель отчета: <span id="username">${userModel.firstName}&nbsp;</span>
-							</h4>
-						</div>
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">
@@ -190,30 +231,38 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">Отчет 01"По количеству ПТО" в Компаниях-операторах:</h3>
+							<h3 class="page-header">"Количество ПТО" в Компаниях-операторах.</h3>
 						</div>
-						<table id="machine_table" class="table table-striped table-bordered">
+						<table id="company_header" class="table_report_header">
 							<tbody>
 								<tr>
-									<td class="column-check "><span style="font-weight: bold;">Группа:&nbsp;</span><br>${reportSelectionCommand.groupName}</td>
-									<td class="column-check nowrap"><span style="font-weight: bold;">Модель:&nbsp;</span><br>${reportSelectionCommand.modelName}</td>
-									<td class="column-check "><span style="font-weight: bold;">Год выпуска:&nbsp;</span><br>${reportSelectionCommand.relYearName}</td>
-									<td class="column-check "><span style="font-weight: bold;">Производитель:&nbsp;</span><br>${reportSelectionCommand.manufactName}</td>
+									<td class="column-check nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
 								</tr>
-	
+								<tr>
+									<td class="column-check nowrap">Группа: <span class="report_header">${reportSelectionCommand.groupName}</span></td>
+								</tr>
+								<tr>
+									<td class="column-check nowrap">Модель: <span class="report_header">${reportSelectionCommand.modelName}</span></td>
+								</tr>
+								<tr>
+									<td class="column-check nowrap">Год выпуска: <span class="report_header">${reportSelectionCommand.relYearName}</span></td>
+								</tr>
+								<tr>
+									<td class="column-check nowrap">Производитель: <span class="report_header">${reportSelectionCommand.manufactName}</span></td>
+								</tr>
 							</tbody>
 						</table>
 						
 						<table id="company_report_table" class="table table-striped table-bordered"
-						title="Распределение ПТО по Компаниям"  
-			    		summary="pieDescription" 
-			    		data-attc-createChart="false"
-			    		data-attc-colDescription="pieDescription" 
-			    		data-attc-colValues="pieValues" 
-			    		data-attc-location="companyReportPie" 
-			    		data-attc-hideTable="false" 
-			    		data-attc-type="pie"
-			    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
+							title="Распределение ПТО по Компаниям"  
+				    		summary="pieDescription" 
+				    		data-attc-createChart="false"
+				    		data-attc-colDescription="pieDescription" 
+				    		data-attc-colValues="pieValues" 
+				    		data-attc-location="companyReportPie" 
+				    		data-attc-hideTable="false" 
+				    		data-attc-type="pie"
+				    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
 							<thead>
 								<tr>
 									<th class="column-check nowrap">&nbsp;№</th>

@@ -42,10 +42,10 @@ public class ReportSelectionCommand {
 	private Integer modelId;
 	
 	/*report headers parameters*/
-	private String groupName = "Все группы";
-	private String modelName = "Все модели";
-	private String relYearName = "Все года";
-	private String manufactName = "Все производители";
+	private String groupName = "По всем группам.";
+	private String modelName = "По всем моделям.";
+	private String relYearName = "За все года.";
+	private String manufactName = "По всем производителям.";
 	private String[] companyNames;
 	private Integer totalMachineCount = 0;
 	
