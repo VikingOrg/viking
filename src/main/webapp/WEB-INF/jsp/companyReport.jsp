@@ -41,7 +41,7 @@
                   }
               });	
               oTable = $('#company_report_table').dataTable({
-            	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
+            	  "sDom": '<"toolbar"><"#tableActions"T>t<"#source"l>ip',
             	  "sPaginationType": "bootstrap",
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
@@ -69,12 +69,13 @@
                 		   $("#company_pie").addClass("hidden");
                 		   $("#data_table_elements").addClass("hidden");
                 	   }
+                	   $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
 	              },
 
             	  "scrollX": true,              			
               });
               
-              $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
+             
               
               $('#company_report_table').attc({
               "controls":{
@@ -231,7 +232,7 @@
 					</div>
 					<!-- End of Sidebar content-->
 	
-					<div class="col-sm-8">
+					<div id = "print" class="col-sm-8">
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">
