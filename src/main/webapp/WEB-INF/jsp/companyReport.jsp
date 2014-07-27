@@ -41,7 +41,7 @@
                   }
               });	
               oTable = $('#company_report_table').dataTable({
-            	  "sDom": '<"#tableActions"T><"#source"l>tip',
+            	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  "sPaginationType": "bootstrap",
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
@@ -202,10 +202,17 @@
 							</div>
 						</div>
 						<div class="col-sm-12 well lform">
-							<!--  Кнопочка сформировать отчет -->
-							<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
-							<span class="pull-right">&nbsp;</span>
-							<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Очистить" />
+							<div class="row" style="padding-right:10px">
+
+								<div class="col-sm-12">
+									<div class="form-group">
+										<!--  Кнопочка сформировать отчет -->
+										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
+										<span class="pull-right">&nbsp;</span>
+										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Очистить" />
+									</div>	
+								</div>
+							</div>	
 						</div>						
 
 						
@@ -215,7 +222,7 @@
 								
 							</div>						
 							
-						</div>						
+					</div>						
 						
 						<div id="company_pie" class="col-sm-12 well lform">
 							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	
