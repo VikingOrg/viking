@@ -7,8 +7,8 @@
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/dataTables.tableTools.css"/>"/>
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
-	    
 	    
 	    <!--[if lt IE 9]>
 			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -21,4 +21,5 @@
         <script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/static/js/dataTables.bootstrapPagination.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/static/js/dataTables.tableTools.js"/>"></script>
+	    <script type="text/javascript" src="//cdn.datatables.net/responsive/1.0.0/js/dataTables.responsive.js"></script>
 		

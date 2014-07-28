@@ -15,8 +15,6 @@
 		<script type="text/javascript" src="//www.google.com/jsapi"></script>
 		<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
 		
-		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
-	    <script type="text/javascript" src="//cdn.datatables.net/responsive/1.0.0/js/dataTables.responsive.js"></script>
 		
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
@@ -72,8 +70,15 @@
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
              		 	"aButtons": [
                	                "copy",
-               	                "print",
-               	                "csv"
+               	             	{
+               	                    "sExtends":     "print",
+               	                    "bHeader": true
+               	                	},
+               	            	{
+               	                    "sExtends":     "csv",
+               	                    "sButtonText": "Save",
+               	                    "bHeader": true
+               	                	}
                	            ]
              	   }            	                			
               });
@@ -280,7 +285,7 @@
 				    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
 							<thead>
 								<tr>
-									<th class="nowrap">&nbsp;№</th>
+									<th class="nowrap">№</th>
 									<th class="nowrap" id="pieDescription">Компания&nbsp;&nbsp;</th>
 									<th class="nowrap" id="pieValues">Кол-во&nbsp;&nbsp;</th>
 								</tr>

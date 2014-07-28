@@ -1,6 +1,6 @@
 {
     "sProcessing":   "Подождите...",
-    "sLengthMenu":   "Показать _MENU_ записей",
+    "sLengthMenu":   "_MENU_",
     "sZeroRecords":  "Записи отсутствуют.",
     "sInfo":         "C _START_ по _END_ из _TOTAL_ ",
     "sInfoEmpty":    "Записи с 0 до 0 из 0 записей",

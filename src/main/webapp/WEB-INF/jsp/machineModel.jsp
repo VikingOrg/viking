@@ -11,36 +11,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <title>Таблица моделей подъемно-транспортного оборудования</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0-rc.1/css/jquery.dataTables.css"/>
-	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
-	    
-	    <!--[if lt IE 9]>
-			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
-	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
-	    <script type="text/javascript" src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="static/js.response.min.js"></script>
-        <script type="text/javascript" src="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js"> </script>
-        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
-		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript">
-        	var oTable = {};
 	        $(document).ready(function() {
 	        	oTable = $('#modelSearchTable').dataTable( {
-	                "sDom": "t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+	        		"sDom": 't<"#source"l>ip',
 	                "sPaginationType": "bootstrap",
-	                "bProcessing": true,
-	                "iDisplayLength": 15,
+	            	"responsive": true,
 	    			"scrollX" : true,
 	    			"oLanguage": {
 	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                   },
+                   "fnInitComplete": function(oSettings) {
+                	   $("#source").appendTo("#table_length");
+            		   $("#table_length").addClass("col-sm-8");
+	              },
 	            } );
 
 
@@ -138,7 +123,7 @@
 				                    <label class="col-sm-4 control-label">Группа</label>
 				                    <div class="col-sm-8">
 									<form:select id="groupSelect" path="groupId" cssClass="form-control">
-									    <form:option value="">Все</form:option>
+									    <form:option value="">Все группы</form:option>
 						                <c:forEach items="${modelSearchCommand.groupMap}" var="group">
 						                    <form:option value="${group.key}" label="(${group.key})${group.value.name}" />
 						                </c:forEach>								
@@ -149,7 +134,7 @@
 				                    <label class="col-sm-4 control-label">Производитель</label>
 				                    <div class="col-sm-8">
 									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
-									    <form:option value="">Все</form:option>
+									    <form:option value="">Все производители</form:option>
 						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
 						                    <form:option value="${manufacturer.value.name}" label="${manufacturer.value.name}" />
 						                </c:forEach>								
@@ -160,7 +145,7 @@
 				                    <label class="col-sm-4 control-label">Страна</label>
 				                    <div class="col-sm-8">
 									<form:select id="countrySelect" path="countryId" cssClass="form-control">
-										<form:option value="">Все</form:option>
+										<form:option value="">Все страны</form:option>
 						                <c:forEach items="${modelSearchCommand.countryMap}" var="country">
 						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 						                </c:forEach>
@@ -169,29 +154,37 @@
 								</div>	
 			                    <div class="form-group">
 								<label class="col-sm-4 control-label">Поиск</label>
-								<div class="col-sm-8">
-									<input id="dataTableSearch" class="form-control"
-										placeholder="Введите..."
-										title="Введите для поиска по всем полям" type="text" />
+									<div class="col-sm-8">
+										<input id="dataTableSearch" class="form-control"
+											placeholder="Введите..."
+											title="Введите для поиска по всем полям" type="text" />
+									</div>
 								</div>
+								<div class="form-group">
+										<label class="col-sm-4 control-label">Кол.строк:</label>
+										<div id="table_length"></div>					
 								</div>
 								
-								<hr>
+			                 </div>
+
+					</div>
+				</div>
 								<!--  Операции с данными в таблице -->
-								<div class="form-group">
-									<div class="col-sm-12">
+				<div class="col-sm-12 well lform">
+							<div class="row" style="padding-right:10px">
+
+								<div class="col-sm-12">
+									<div class="form-group">
 										<a href="<c:url value="machineEdit"/>"
 											class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
 											class="pull-right">&nbsp;</span> 
 											<a href="#"
 											class="btn btn-primary pull-right" title="Удалить"
 											data-toggle="modal" data-target="#confirmDelete">Удалить</a>
-									</div>
+									</div>	
 								</div>
-			                 </div>
-
-					</div>
-				</div>
+							</div>	
+				</div>					
 
 			</div>
 			<!-- End of Sidebar content-->
@@ -214,9 +207,9 @@
                                     <table id="modelSearchTable" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-                                            <th class="nowrap">&nbsp;</th>
-                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
+                                            <th class="nowrap column-check">&nbsp;</th>
                                             <th class="nowrap">Модель&nbsp;&nbsp;</th>
+                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
                                             <th class="nowrap">Производитель&nbsp;&nbsp;</th>
                                             <th class="hidden-sm hidden-xs hidden-md nowrap">Страна производства&nbsp;&nbsp;</th>
                                             <th class="nowrap">Примечания</th>
@@ -227,7 +220,7 @@
 	        			                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
 		        			                  <c:if test="${machineModel.archived != 'Y'}" >
 		                                          <tr id="${machineModel.modelId}">
-						                             <td class="nowrap">
+						                             <td class="nowrap column-check">
 						                             	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">
@@ -235,13 +228,13 @@
 						                              		</span>
 						                              	</c:if>						                             	
 						                             </td>
-						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
 							                         <td class="nowrap">
 						                             	<a href="#" rel="tableRowCopy" data-param1="${machineModel.modelId}">
 						                         			&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
 						                         	 	</a>
 						                         	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
 							                         <span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
+						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
 						                             <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.name}"/></span></td>
 						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country}"/></span></td>
 						                             <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
