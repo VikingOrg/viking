@@ -56,11 +56,11 @@
                 	   $('select[name="company_report_table_length"]').removeClass( "form-control input-sm" ).addClass("form-control");
                 	   var rowCount = $('#company_report_table tr').length;	    
                 	   if(rowCount > 2) {
-                		   $("#table_length").addClass("form-group");
+                		   $("#table_length").addClass("col-sm-8");
                 		   $("#company_pie").removeClass("hidden");
                 		   $("#data_table_elements").removeClass("hidden");            		    
                 	   } else {
-                		   $("#table_length").addClass("form-group hidden");
+                		   $("#table_length").addClass("col-sm-8 hidden");
                 		   $("#company_pie").addClass("hidden");
                 		   $("#data_table_elements").addClass("hidden");
                 	   }
@@ -199,6 +199,10 @@
 											</form:select>
 										</div>
 									</div>
+									<div id="data_table_elements" class="form-group">
+										<label class="col-sm-4 control-label">Кол.строк:</label>
+										<div id="table_length"></div>					
+									</div>	
 								</div>
 	
 							</div>
@@ -215,16 +219,7 @@
 									</div>	
 								</div>
 							</div>	
-						</div>						
-
-						
-						<div id = "data_table_elements" class="col-sm-12 well lform">
-							<label class="col-sm-4 control-label">Кол.Строк:</label>
-							<div id="table_length" class="col-sm-4">
-								
-							</div>						
-							
-					</div>						
+						</div>					
 						
 						<div id="company_pie" class="col-sm-12 well lform">
 							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	
