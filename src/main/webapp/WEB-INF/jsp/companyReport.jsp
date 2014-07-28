@@ -15,6 +15,9 @@
 		<script type="text/javascript" src="//www.google.com/jsapi"></script>
 		<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
 		
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
+	    <script type="text/javascript" src="//cdn.datatables.net/responsive/1.0.0/js/dataTables.responsive.js"></script>
+		
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  $(document).ready(function() {
@@ -42,25 +45,17 @@
               });	
               oTable = $('#company_report_table').dataTable({
             	  "sDom": '<"toolbar"><"#tableActions"T>t<"#source"l>ip',
+            	  "responsive": true,
             	  "sPaginationType": "bootstrap",
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },
-                   tableTools: {
-           			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
-           		 	"aButtons": [
-             	                "copy",
-             	                "print",
-             	                "csv"
-             	            ]
-           			},
                   "fnInitComplete": function(oSettings) {
                 	   $("#tableActions").appendTo("#table_Actions");
                 	   $('select[name="company_report_table_length"]').appendTo("#table_length");
                 	   $('select[name="company_report_table_length"]').removeClass( "form-control input-sm" ).addClass("form-control");
                 	   var rowCount = $('#company_report_table tr').length;	    
                 	   if(rowCount > 2) {
-                		   
                 		   $("#table_length").addClass("form-group");
                 		   $("#company_pie").removeClass("hidden");
                 		   $("#data_table_elements").removeClass("hidden");            		    
@@ -72,11 +67,17 @@
                 	   $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
 	              },
 
-            	  "scrollX": true,              			
+            	  "scrollX": true,
+                  tableTools: {
+             			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+             		 	"aButtons": [
+               	                "copy",
+               	                "print",
+               	                "csv"
+               	            ]
+             	   }            	                			
               });
-              
-             
-              
+ 		     
               $('#company_report_table').attc({
               "controls":{
             	  showHide:false,

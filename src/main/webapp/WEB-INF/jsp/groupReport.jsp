@@ -11,7 +11,8 @@
 <head>
 <title>Отчет по количеству ПТО</title>
 		<jsp:include page="common/headCoreElements.jsp" />
-		
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
+	    <script type="text/javascript" src="//cdn.datatables.net/responsive/1.0.0/js/dataTables.responsive.js"></script>
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  $(document).ready(function() {
@@ -39,6 +40,7 @@
               });	
               $('#group_report_table').dataTable({
             	  "dom": 'tlip',
+            	  "responsive": true,
             	  "scrollX": true,
             	  "ordering": false,
             	  "sPaginationType": "bootstrap",
