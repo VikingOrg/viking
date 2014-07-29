@@ -17,7 +17,7 @@
 	        	oTable = $('#modelSearchTable').dataTable( {
 	        		"sDom": 't<"#source"l>ip',
 	                "sPaginationType": "bootstrap",
-	            	"responsive": true,
+	            	//"responsive": true,
 	    			"scrollX" : true,
 	    			"oLanguage": {
 	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
