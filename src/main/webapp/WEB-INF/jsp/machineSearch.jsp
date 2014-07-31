@@ -171,8 +171,8 @@
 										<form:option value="">Все</form:option>
 										<c:forEach items="${machineSearchCommand.manufacturerMap}"
 											var="manufacturer">
-											<form:option value="${manufacturer.value.nameRus}"
-												label="${manufacturer.value.nameRus}" />
+											<form:option value="${manufacturer.value.name}"
+												label="${manufacturer.value.name}" />
 										</c:forEach>
 									</form:select>
 								</div>
@@ -292,7 +292,7 @@
 									<td class="hidden-sm hidden-xs nowrap"><c:out
 											value="${machine.details}" /></td>
 									<td class="hide"><c:out
-											value="${machine.machineModel.manufacturer.nameRus}" /></td>
+											value="${machine.machineModel.manufacturer.name}" /></td>
 									<td class="hide"><c:out value="${machine.releaseYear}" /></td>
 									<td class="hide"><spring:eval
 											expression="machine.startDate" /></td>

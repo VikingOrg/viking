@@ -173,7 +173,7 @@
 							<form:select id="stevidorSelect" path="machine.machineModel.manufacturerId" cssClass="form-control">
 							    <form:option value="">Все</form:option>
 				                <c:forEach items="${machineEditCommand.manufacturerMap}" var="manufacturer">
-				                    <form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
+				                    <form:option value="${manufacturer.key}" label="${manufacturer.value.name}" />
 				                </c:forEach>								
 							</form:select>
 			        	</div>		        	

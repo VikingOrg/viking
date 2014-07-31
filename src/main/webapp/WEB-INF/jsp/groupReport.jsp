@@ -141,7 +141,7 @@
 												cssClass="form-control" title="Выборка по производителю">
 												<form:option value="0">Все производители</form:option>
 												<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
-													<form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
+													<form:option value="${manufacturer.key}" label="${manufacturer.value.name}" />
 												</c:forEach>
 											</form:select>
 										</div>
@@ -230,7 +230,7 @@
 										<tr>
 											<td class="nowrap"><c:out value="${machine.machineModel.name}"/></td>
 											<td class="nowrap"><c:out value="${machine.machineModel.details}"/></td>
-											<td class="nowrap"><c:out value="${machine.machineModel.manufacturer.nameRus}"/></td>
+											<td class="nowrap"><c:out value="${machine.machineModel.manufacturer.name}"/></td>
 											<td class="nowrap"><c:out value="${machine.inventoryNumb}"/></td>
 											<td class="nowrap"><c:out value="${machine.startDate}"/></td>
 											<td class="nowrap"><c:out value="${machine.factoryNumb}"/></td>
