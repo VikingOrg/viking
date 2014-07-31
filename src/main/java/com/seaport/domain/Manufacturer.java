@@ -1,7 +1,9 @@
 package com.seaport.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -22,11 +24,12 @@ public class Manufacturer implements Serializable {
 	@Column(name="manufacturer_id")
 	private Integer manufacturerId;
 
+	@Column(name="country_id")
+	private Integer countryId;
+	
 	private String address;
 
 	private String archived;
-
-	private String country;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_date")
@@ -37,7 +40,10 @@ public class Manufacturer implements Serializable {
 
 	private String email;
 
-	private String name;
+	@Column(name="name_rus")
+	private String nameRus;
+	@Column(name="name_en")
+	private String nameEn;
 
 	@Lob
 	private String note;
@@ -50,8 +56,44 @@ public class Manufacturer implements Serializable {
 
 	@Column(name="update_user_id")
 	private int updateUserId;
-
+	
+	@OneToOne()
+	@JoinColumn(name = "country_id", insertable = false, updatable = false)
+	private Country country;
+	
 	public Manufacturer() {
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public Integer getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
+	}
+
+	public String getNameRus() {
+		return nameRus;
+	}
+
+	public void setNameRus(String nameRus) {
+		this.nameRus = nameRus;
+	}
+
+	public String getNameEn() {
+		return nameEn;
+	}
+
+	public void setNameEn(String nameEn) {
+		this.nameEn = nameEn;
 	}
 
 	public Integer getManufacturerId() {
@@ -78,14 +120,6 @@ public class Manufacturer implements Serializable {
 		this.archived = archived;
 	}
 
-	public String getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public Date getCreateDate() {
 		return this.createDate;
 	}
@@ -108,14 +142,6 @@ public class Manufacturer implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getNote() {

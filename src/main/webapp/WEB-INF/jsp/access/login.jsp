@@ -77,7 +77,7 @@
 	    </div>
 	    	<c:if test="${not empty message}">
 	    		<div class="form-message alert alert-success">
-	    			<h4><spring:message code="${message}" /></h4> 
+	    			<h4><spring:message code="${message}" />${message}</h4> 
 				</div>	
 			</c:if>		
 	</body>

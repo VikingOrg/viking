@@ -55,7 +55,7 @@
 									<form:select id="manufacturerSelectModal" path="machineModel.manufacturerId" cssClass="form-control" title="Выборка по производителю">
 									    <form:option value="">Не выбран</form:option>
 						                <c:forEach items="${machineModalEditCommand.manufacturerMap}" var="manufacturer">
-						                    <form:option value="${manufacturer.key}" label="${manufacturer.value.name}" />
+						                    <form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
 						                </c:forEach>								
 									</form:select>
 					        	</div>
