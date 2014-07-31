@@ -17,7 +17,7 @@
 	        	oTable = $('#modelSearchTable').dataTable( {
 	        		"sDom": 't<"#source"l>ip',
 	                "sPaginationType": "bootstrap",
-	            	"responsive": true,
+	            	//"responsive": true,
 	    			"scrollX" : true,
 	    			"oLanguage": {
 	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
@@ -136,7 +136,7 @@
 									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
 									    <form:option value="">Все производители</form:option>
 						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
-						                    <form:option value="${manufacturer.value.nameRus}" label="${manufacturer.value.nameRus}" />
+						                    <form:option value="${manufacturer.value.name}" label="${manufacturer.value.name}" />
 						                </c:forEach>								
 									</form:select>
 									</div>
@@ -235,8 +235,8 @@
 						                         	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
 							                         <span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
 						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
-						                             <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.nameRus}"/></span></td>
-						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
+						                             <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.name}"/></span></td>
+						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country}"/></span></td>
 						                             <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
 						                             <td class="hide"><c:out value="${machineModel.group.groupId}"/></td>											   
 						                        </tr> 
