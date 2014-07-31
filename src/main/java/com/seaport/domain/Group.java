@@ -21,6 +21,11 @@ public class Group implements Serializable {
 	@Id
 	@Column(name="group_id")	
 	private Integer groupId;
+	
+	@Column(name="group_note")
+	private String groupNote;
+	
+	private String archived;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_date")
@@ -39,6 +44,22 @@ public class Group implements Serializable {
 	private Integer updateUserId;
 
 	public Group() {
+	}
+
+	public String getGroupNote() {
+		return groupNote;
+	}
+
+	public void setGroupNote(String groupNote) {
+		this.groupNote = groupNote;
+	}
+
+	public String getArchived() {
+		return archived;
+	}
+
+	public void setArchived(String archived) {
+		this.archived = archived;
 	}
 
 	public Integer getGroupId() {

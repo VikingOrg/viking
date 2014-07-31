@@ -279,7 +279,7 @@ public class ReportSelectionController {
 		}
 		
 		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
-			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getName();
+			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getNameRus();
 			reportSelectionCommand.setManufactName(manufactName);
 			filtersMap.put(MANUFACTOR_FILTER, Boolean.TRUE);
 		} else {

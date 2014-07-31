@@ -36,13 +36,6 @@ public class Stevidor implements Serializable {
 	private Integer stevidorId;
 
 	private String archived;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_date")
-	private Date createDate;
-
-	@Column(name="create_user_id")
-	private int createUserId;
 	
 	@NotNull
 	@Size(min = 3, max = 100, message = "{validation.size.generic}")
@@ -59,10 +52,35 @@ public class Stevidor implements Serializable {
 	@Column(name="port_id")
 	private int portId;
 
+	@Column(name="post_code")
+	private String postCode;
+
+	private String region;
+	private String area;
+	private String city;
+	private String street;
+	private String building;
+	private String phone;
+	private String fax;
+	private String email;
+	private String url;
+	@Column(name="activity_place")
+	private String activityPlace;
+	@Column(name="moorage_count")
+	private String moorageCount;
+	private String specialization;
+	
 	@Lob
 	@Column(name="stevidor_note")
 	private String stevidorNote;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="create_date")
+	private Date createDate;
 
+	@Column(name="create_user_id")
+	private int createUserId;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
 	private Date updateDate;
@@ -75,6 +93,110 @@ public class Stevidor implements Serializable {
 	private Port port;
 	
 	public Stevidor() {
+	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getBuilding() {
+		return building;
+	}
+
+	public void setBuilding(String building) {
+		this.building = building;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getActivityPlace() {
+		return activityPlace;
+	}
+
+	public void setActivityPlace(String activityPlace) {
+		this.activityPlace = activityPlace;
+	}
+
+	public String getMoorageCount() {
+		return moorageCount;
+	}
+
+	public void setMoorageCount(String moorageCount) {
+		this.moorageCount = moorageCount;
+	}
+
+	public String getSpecialization() {
+		return specialization;
+	}
+
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
 	}
 
 	public Port getPort() {
