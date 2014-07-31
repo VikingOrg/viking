@@ -34,6 +34,10 @@
 		.navbar-nav {
 		    margin: 0px -1px;
 		}
+		
+		.navbar {
+		    margin-bottom: 0px;
+		}
 
 		.container .credit {
 		  margin: 20px 0;
@@ -64,6 +68,26 @@
 		  padding: 10px;
 		  color: #888888;
 		  cursor: pointer;
+    	  text-decoration: none;
+    	  -webkit-user-select:none;
+		  background-image:none;
+		  border:1px solid #888888;
+		  border-bottom-left-radius:4px;
+		  border-bottom-right-radius:4px;
+		  border-top-left-radius:4px;
+		  border-top-right-radius:4px;
+		  display:inline-block;
+		  font-size:14px;
+		  font-weight:normal;
+		  line-height:1.428571429;
+		  margin-bottom:0;
+		  padding: 4px 10px;
+		  text-align:center;
+		  vertical-align:middle;
+		  white-space:nowrap;
+		}
+		
+		.cancelbtn:hover {
     	  text-decoration: none;
 		}
 		
