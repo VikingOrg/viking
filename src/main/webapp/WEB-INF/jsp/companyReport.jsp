@@ -42,7 +42,7 @@
                   }
               });	
               oTable = $('#company_report_table').dataTable({
-            	  "sDom": '<"toolbar"><"#tableActions"T>t<"#source"l>ip',
+            	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  "responsive": true,
             	  "sPaginationType": "bootstrap",
                   "oLanguage": {

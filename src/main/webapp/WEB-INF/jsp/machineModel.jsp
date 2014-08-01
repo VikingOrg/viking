@@ -10,14 +10,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <title>Таблица моделей подъемно-транспортного оборудования</title>
-	    <meta name="viewport" content="width=device-width">
 		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript">
 	        $(document).ready(function() {
 	        	oTable = $('#modelSearchTable').dataTable( {
 	        		"sDom": 't<"#source"l>ip',
 	                "sPaginationType": "bootstrap",
-	            	"responsive": true,
 	    			"scrollX" : true,
 	    			"oLanguage": {
 	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
@@ -207,7 +205,7 @@
                                     <table id="modelSearchTable" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
-                                            <th class="nowrap column-check">&nbsp;</th>
+                                            <th class="nowrap column-check" width= "20px">&nbsp;</th>
                                             <th class="nowrap">Модель&nbsp;&nbsp;</th>
                                             <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
                                             <th class="nowrap">Производитель&nbsp;&nbsp;</th>
@@ -218,9 +216,9 @@
 			                          </thead>
         			                  <tbody>
 	        			                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
-		        			                  <c:if test="${machineModel.archived != 'Y'}" >
+		        			                  <c:if test="${machineModel.archived != '1'}" >
 		                                          <tr id="${machineModel.modelId}">
-						                             <td class="nowrap column-check">
+						                             <td class="nowrap column-check" width= "20px">
 						                             	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">

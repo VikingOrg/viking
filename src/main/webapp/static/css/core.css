@@ -65,8 +65,9 @@
 		}
 		
 		.cancelbtn {
+		  background-color: white;
 		  padding: 10px;
-		  color: #888888;
+		  color: #555555;
 		  cursor: pointer;
     	  text-decoration: none;
     	  -webkit-user-select:none;
@@ -89,10 +90,11 @@
 		
 		.cancelbtn:hover {
     	  text-decoration: none;
+    	  color: #555555;
 		}
 		
-		.column-check {
-			width: 70px;
+		td.column-check {
+			width: 20px;
 		}
 		.col-sm-4, .col-sm-8{
 			padding:8px;

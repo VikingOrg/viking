@@ -14,24 +14,40 @@
         	var oTable = $('#stevidor_table').dataTable( {
         		"columnDefs": [
         		               {
-        		                   "targets": [ 1,4 ],
+        		                   "targets": [ 0,4 ],
         		                   "orderable": false
         		               },
         		               {
-        		                   "targets": [ 3 ],
+        		                   "targets": [ 4 ],
         		                   "visible": false
         		               }
         		           ],
             	           "scrollX": true,
-            	"sDom": "<t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-              /*   "oTableTools": {
-                	"sSwfPath": "static/swf/copy_csv_xls_pdf.swf"
-                }, */
+                 "sDom": '<"#tableActions"T>t<"#source"l>ip',
+             	tableTools: {
+         			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+         		 	"aButtons": [
+           	                "copy",
+           	             	{
+           	                    "sExtends":     "print",
+           	                    "bHeader": true
+           	                	},
+           	            	{
+           	                    "sExtends":     "csv",
+           	                    "sButtonText": "Save",
+           	                    "bHeader": true
+           	                	}
+           	            ]
+         	   },
                 "sPaginationType": "bootstrap",
-                "iDisplayLength": 15,
                 "oLanguage": {
                     "sUrl": "static/js/dataTable_ru_RU.txt"
-                 }                    
+                 },
+                 "fnInitComplete": function(oSettings) {
+              	   $("#source").appendTo("#table_length");
+          		   $("#table_length").addClass("col-sm-8");
+            	   $("#tableActions").appendTo("#table_Actions");
+	              },                  
             } );
 
 
@@ -99,19 +115,25 @@
 						                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
 						                        </div>
 								        </div>
+								        
+										<div class="form-group">
+												<label class="col-sm-4 control-label">Кол.строк:</label>
+												<div id="table_length"></div>					
+										</div>
 								    </div>				
-							</div>
-							<hr>
-								
-				                     <!--  Операции с данными в таблице -->
-				                 <div class="form-group">
-				                    <div class="col-sm-12">
+							</div> 
+						</div>
+						<div class="col-sm-12 well lform">
+							<div class="row" style="padding-right:10px">	
+							  <!--  Операции с данными в таблице -->
+				                 <div class="col-sm-12">
+				                    <div class="form-group">
 			                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
 			                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 		                            </div>
 								</div>
+							</div>
 						</div>
-						
 					</div>
 				<!-- End of Sidebar content-->	
 				
@@ -138,7 +160,7 @@
 				                    <table id="stevidor_table" class="table table-bordered table-striped">
 				                          <thead>
 				                              <tr>
-					                              <th class="column-check nowrap">&nbsp;</th>
+					                              <th class="column-check nowrap" width= "20px"></th>
 					                              <th class="nowrap">Компания-оператор&nbsp;&nbsp;</th>
 			                              		  <th class="nowrap">Порт&nbsp;&nbsp;</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Страна&nbsp;&nbsp;</th>
@@ -147,18 +169,17 @@
 				                          </thead>
 				                          <tbody>
 				                          	<c:forEach var="stevidor" varStatus="loop" items="${stevidorSearchCommand.stevidorList}" >
-				                          	<c:if test="${stevidor.archived != 'Y'}" >
+				                          	<c:if test="${stevidor.archived != '1'}" >
 					                            <tr>
-					                                <td class="nowrap">
+					                                <td class="column-check nowrap" width= "20px">
 					                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
-						                              	<c:if test="${system.localConfig}" >
+						                              <%-- 	<c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">
 						                              			<c:out value="(${stevidor.stevidorId})"/>
 						                              		</span>
-						                              	</c:if>				                                	
+						                              	</c:if>	 --%>			                                	
 					                                </td>
 						                         	<td class="nowrap">
-						                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}&copy=true"/>">&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;</a>
 						                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>"><c:out value="${stevidor.fullName}"/></a>
 						                         	</td>
 						                          <td><c:out value="${stevidor.port.name}"/></td>
