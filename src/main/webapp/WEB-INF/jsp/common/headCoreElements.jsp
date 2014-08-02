@@ -3,6 +3,7 @@
    		
    		
 	    <meta name="viewport" content="width=device-width">
+	    <link rel="shortcut icon" type="image/png" href="<c:url value="favicon.ico"/>"/>
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.1/css/jquery.dataTables.css"/>
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">

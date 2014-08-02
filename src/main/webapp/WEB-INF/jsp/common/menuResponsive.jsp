@@ -55,13 +55,13 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="<c:url value="/stevidorSearch"/>">Операторы портов</a></li>
+								<li><a href="<c:url value="/stevidorSearch"/>">Компании-операторы</a></li>
 								<li><a href="<c:url value="/portSearch"/>">Порты</a></li>
 								<li><a href="<c:url value="/countrySearch"/>">Страны</a></li>
-					              <li class="divider"></li>
-					              <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
-					              <li class="divider"></li>
-					            <li><a href="<c:url value="/stevidorEdit"/>">Добавить Компанию</a></li>
+					            <li class="divider"></li>
+					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
+					            <li><a href="<c:url value="/machineModel"/>">Группы Механизмов</a></li>
+					            <li><a href="<c:url value="/machineModel"/>">Производители Механизмов</a></li>
 							</ul>
 						</li>
 			</sec:authorize>
@@ -69,12 +69,9 @@
 			          <li class="dropdown">
 			          	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
 			          	  <ul class="dropdown-menu">
-				              <li><a href="<c:url value="/machineSearch"/>">Перегрузочные машины</a></li>
-				              <li><a href="<c:url value="/machineModel"/>">Модели Маханизмов</a></li>
-				              <li><a href="#">Группы Моделей</a></li>
-				              <li><a href="#">Производители*</a></li>
+				              <li><a href="<c:url value="/machineSearch"/>">Машины и Механизмы</a></li>
 				              <li class="divider"></li>
-				              <li><a href="<c:url value="/machineEdit"/>">Добавить машину</a></li>
+				              <li><a href="<c:url value="/machineEdit"/>">Добавить Механизм</a></li>
 			              </ul>
 			          </li>
 					  <li class="dropdown">
@@ -92,6 +89,8 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование <b class="caret"></b></a>
 							<ul class="dropdown-menu">
                                 <li><a href="<c:url value="/userSearchAdmin"/>">Список пользователей</a></li>
+				              <li class="divider"></li>
+				              <li><a href="<c:url value="/userEditAdmin"/>">Добавить Пользователя</a></li>
 							</ul>
 						</li>
 			</sec:authorize>
@@ -109,9 +108,9 @@
 									    </a>
 									</li>									
 									<li class="dropdown" style="padding:4px;">
-										<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="max-width:120px; height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5; font-weight: bold;">${userModel.lastName} <strong class="caret"></strong></a>
+										<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5; font-weight: bold;">${userModel.firstName} &nbsp;${userModel.lastName} <strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
-												<li><a href="#">Личные данные</a></li>
+												<!-- <li><a href="#">Личные данные</a></li> -->
 												<li><a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer">Выход&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="Копировать"></span></a></li>
 										</ul>
 									</li>
