@@ -63,9 +63,9 @@
                 		   $("#data_table_elements").addClass("hidden");
                 	   }
                 	   $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
+                	   
 	              },
-
-            	  "scrollX": true,
+	              "sScrollX": "99.5%",
                   tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
              		 	"aButtons": [
@@ -91,8 +91,25 @@
             	  },
               "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
               });
+
+              oTable.fnAdjustColumnSizing();
               	
 		  });
+
+
+
+		  $(function() {  
+			    var window_height = $(window).height(),
+			       content_height = window_height - 400;
+
+			    $('.mygrid-wrapper-div').height(content_height);
+			});
+
+			$( window ).resize(function() {
+			    var window_height = $(window).height(),
+			       content_height = window_height - 400;
+			    $('.mygrid-wrapper-div').height(content_height);
+			});
 		  
 		  </script>
 		  
@@ -131,6 +148,12 @@
 				margin-bottom: 0px;
 				line-height: 20px;
 				}
+				
+				/*http://jsfiddle.net/4NB2N/11/*/
+				.mygrid-wrapper-div {
+				    border: solid red 5px;
+				    overflow: scroll;
+				}				
 		  </style>		  
 </head>
 <body>
@@ -301,7 +324,7 @@
 								</tr>
 							</tbody>
 						</table>
-						
+						<!-- <div class="mygrid-wrapper-div">  -->
 						<table id="company_report_table" class="table table-striped table-bordered"
 							title="Распределение ПТО по Компаниям"  
 				    		summary="pieDescription" 
@@ -334,7 +357,7 @@
 								</tr> --%>					        
 							</tbody>
 						</table>
-	
+					<!-- 	</div>  -->
 					</div>
 				</div> <!--End of Report 1-->
 
