@@ -95,6 +95,7 @@
 		  });
 		  
 		  </script>
+		  
 		  <style type="text/css">
 			  .alert-info {
 				color: black;
@@ -117,8 +118,19 @@
 				font-weight:300;
 				font-style: italic;
 			}
-
-}
+			.multiple_select {
+				border:2px solid #ccc;
+				background : white; 
+				width:220px; 
+				height: 200px; 
+				overflow-y: scroll; 
+			}
+			
+			.checkbox {
+				margin-top: 0px;
+				margin-bottom: 0px;
+				line-height: 20px;
+				}
 		  </style>		  
 </head>
 <body>
@@ -144,6 +156,22 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
+
+									<div class="form-group">
+										<label class="col-sm-4 control-label">Компания</label>
+										<div class="col-sm-8 multiple_select">
+											<span class="checkbox nowrap">
+												<form:checkbox path="stevidorSelection" value="0" cssClass="newCheckbox"/>Все компании<br/>
+											</span>	
+										
+											<c:forEach var="stevidor" items="${reportSelectionCommand.stevidorMap}">
+											    <span class="checkbox nowrap">
+											    	<form:checkbox path="stevidorSelection" value="${stevidor.key}" cssClass="newCheckbox"/>(${stevidor.value.stevidorId}) ${stevidor.value.fullName}<br/>
+											    </span>
+											</c:forEach>
+										</div>
+									</div>							
+<%--
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Компания</label>
 										<div class="col-sm-8">
@@ -154,7 +182,8 @@
 												</c:forEach>
 											</form:select>
 										</div>
-									</div>							
+									</div>
+--%>																
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Группа</label>
 										<div class="col-sm-8">
