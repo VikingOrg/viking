@@ -22,7 +22,7 @@
 	        	        "sDom": '<r>t<"F"ip>',
 	        	        "sPaginationType": "full_numbers",
 	        	        "bProcessing": true,
-	        	        "responsive": true,
+	        	        "responsive": false,
 	                    "oLanguage": {
 	                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                     },

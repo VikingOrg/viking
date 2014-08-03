@@ -93,7 +93,6 @@ public class MachineSearchController {
     		machineNote = "NULLя", groupId = "NULLя";
 			
     		try {
-    			groupName = machine.getMachineModel().getGroup().getName();
     			releaseYear = machine.getReleaseYear()==null?"":machine.getReleaseYear();
     			if (machine.getStartDate()!=null) {
     				startDate = DateFormatUtils.format(machine.getStartDate(), "yyyy/MM/dd");
@@ -108,11 +107,18 @@ public class MachineSearchController {
     			nomNum = machine.getNomNo() == null?"":machine.getNomNo();
     			regNum = machine.getRegNo() == null?"":machine.getRegNo();
     			machineNote = machine.getNote() == null?"":machine.getNote();
-    			groupId = machine.getGroup().getGroupId().toString();
+
+    			groupId = machine.getGroupId().toString();
 			} catch (Exception e) {
 			}
     		try {
-    			modelName = machine.getMachineModel().getName();
+    			if (machine.getMachineModel() == null) {
+        			groupName = machine.getGroup().getName();
+        			modelName = machine.getName();
+				} else {
+	    			groupName = machine.getMachineModel().getGroup().getName();
+	    			modelName = machine.getMachineModel().getName();
+				}
     			modelDetail = machine.getMachineModel().getDetails() == null?"":machine.getMachineModel().getDetails();
     			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?"":machine.getMachineModel().getManufacturer().getNameRus();
     			manufCountry = machine.getMachineModel().getManufacturer().getCountry().getNameRus();
