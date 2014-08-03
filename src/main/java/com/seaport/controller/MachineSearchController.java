@@ -120,7 +120,8 @@ public class MachineSearchController {
 	    			modelName = machine.getMachineModel().getName();
 				}
     			modelDetail = machine.getMachineModel().getDetails() == null?"":machine.getMachineModel().getDetails();
-    			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?"":machine.getMachineModel().getManufacturer().getNameRus();
+    			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?"":machine.getMachineModel().getManufacturer().getNameRus()+
+    					"("+machine.getMachineModel().getManufacturer().getManufacturerId()+")";
     			manufCountry = machine.getMachineModel().getManufacturer().getCountry().getNameRus();
 			} catch (Exception e) {
 			}
@@ -132,13 +133,12 @@ public class MachineSearchController {
 			} catch (Exception e) {
 			}
     		
-            Object[] objectArray = new String[]{machine.getMachineId().toString(),
-							            		groupName,
-							            		modelName,
-							            		stevidorFullName, modelDetail, manufactorName, releaseYear,
+            Object[] objectArray = new String[]{machine.getMachineId().toString(), groupId,
+							            		groupName, modelName,
+							            		stevidorFullName, portCountry, portName, modelDetail, manufactorName, releaseYear,
 							            		startDate, contractNum, inventoryNumb, transNumb, factoryNumb,
-							            		manufCountry, location, portName, portCountry, nomNum, regNum,
-							            		machineNote, groupId};
+							            		manufCountry, location, nomNum, regNum,
+							            		machineNote};
             rdArray[i] = objectArray;
             i++;           
 		}

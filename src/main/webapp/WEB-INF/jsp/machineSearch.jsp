@@ -26,8 +26,6 @@
 	                    "oLanguage": {
 	                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                     },
-	                    "sScrollX": "99%",
-	        	        "sAjaxSource": '${pageContext.request.contextPath}/machineSearch/getMachines/',
 	        	        "aoColumnDefs": [
 	        	                         { "bVisible": true,  "aTargets": [ 1 ] },
 	        	                         {
@@ -37,29 +35,40 @@
 		        	   	        		        return '<a href="'+data+'">'+data+'</a>';
 		        	   	        		      }
 	        	   	        		     }
-	        	                       ]       
+	        	                       ],    	                     
+	                    "sScrollX": "99%",
+	        	        "sAjaxSource": '${pageContext.request.contextPath}/machineSearch/getMachines/',
 	        	    } );
 	        	
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
-                });   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 15);
                 });
-                $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 14);
+                
+                $('#groupSelect').change(function() {
+                    group = $(this).val();
+                    if(group==''){
+                    	oTable.fnFilter(group, 1);
+                    } else {
+                    	oTable.fnFilter( "^"+group+"$", 1 , true);
+                    }         
+                	//oTable.fnFilter( $(this).val(), 19);
                 });
                 $('#stevidorSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
+                	oTable.fnFilter( $(this).val(), 4);
                 });
-                $('#groupSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 19);
-                });
-                $('#manufacturerSelect').change(function() {
+                                   		 
+                $('#countrySelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 5);
+                });
+                $('#portSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 6);
+                });
+
+                $('#manufacturerSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 8);
                 });                                                
                 $('#releaseYearSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 6);
+                	oTable.fnFilter( $(this).val(), 9);
                 });
                  
 //                 $('#selectAll').click(function (e) {
@@ -142,7 +151,7 @@
 										<form:option value="">Все</form:option>
 										<c:forEach items="${machineSearchCommand.groupMap}"
 											var="group">
-											<form:option value="${group.key}" label="${group.value.name}" />
+											<form:option value="${group.key}" label="(${group.key})${group.value.name}" />
 										</c:forEach>
 									</form:select>
 								</div>
@@ -166,7 +175,7 @@
 										<c:forEach items="${machineSearchCommand.manufacturerMap}"
 											var="manufacturer">
 											<form:option value="${manufacturer.value.nameRus}"
-												label="${manufacturer.value.nameRus}" />
+												label="(${manufacturer.key})${manufacturer.value.nameRus}" />
 										</c:forEach>
 									</form:select>
 								</div>
@@ -231,9 +240,12 @@
 			        <thead>
 			            <tr>
 			                <th>Id</th>
+			                <th>group Id</th>
 			                <th>Группа</th>
 			                <th>Модель</th>
 			                <th>Компания</th>
+			                <th>Страна</th>
+			                <th>Порт</th>
 							<th>Характеристики</th>									                
 							<th>Производитель</th>
 							<th>Год выпуска</th>
@@ -241,16 +253,12 @@
 							<th>Контракт №</th>
 							<th>Инвентарный №</th>
 							<th>Транс №</th>
-							
 							<th>Заводской №</th>
-							<th>Страна призводства&nbsp;&nbsp;</th>
+							<th>Страна призводства</th>
 							<th>Место установки</th>
-							<th>Порт&nbsp;&nbsp;</th>
-							<th>Страна&nbsp;&nbsp;</th>
 							<th>Номенклатурный №</th>
 							<th>Регистрационный №</th>
 							<th>Примечания</th>
-							<th>group Id</th>							
 			            </tr>
 			        </thead>
 			        <tbody>
