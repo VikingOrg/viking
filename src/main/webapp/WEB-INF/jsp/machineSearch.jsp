@@ -32,7 +32,7 @@
 		        	   	        		      "aTargets": [ 2 ],
 		        	   	        		      "mData": 2,
 		        	   	        		      "mRender": function ( data, type, full ) {
-		        	   	        		        return '<a href="'+data+'">'+data+'</a>';
+		        	   	        		        return '<a href="${pageContext.request.contextPath}/machineEdit?machineId='+full[0]+'">'+data+'</a>';
 		        	   	        		      }
 	        	   	        		     }
 	        	                       ],    	                     

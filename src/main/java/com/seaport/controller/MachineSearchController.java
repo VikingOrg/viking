@@ -113,7 +113,7 @@ public class MachineSearchController {
 			}
     		try {
     			if (machine.getMachineModel() == null) {
-        			groupName = machine.getGroup().getName();
+        			groupName = machine.getGroup().getName()+" <br/>Модель Отсутствует!";
         			modelName = machine.getName();
 				} else {
 	    			groupName = machine.getMachineModel().getGroup().getName();
@@ -124,6 +124,7 @@ public class MachineSearchController {
     					"("+machine.getMachineModel().getManufacturer().getManufacturerId()+")";
     			manufCountry = machine.getMachineModel().getManufacturer().getCountry().getNameRus();
 			} catch (Exception e) {
+				
 			}
 
     		try {
