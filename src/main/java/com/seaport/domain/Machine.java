@@ -42,6 +42,12 @@ public class Machine implements Serializable {
 	@Column(name="inventory_numb")
 	private String inventoryNumb;
 
+	@Column(name="nom_no")
+	private String nomNo;
+	
+	@Column(name="reg_no")
+	private String regNo;
+	
 	private String location;
 
 	private String details;
@@ -99,17 +105,26 @@ public class Machine implements Serializable {
 	public Machine() {
 	}
 
-	
+	public String getRegNo() {
+		return regNo;
+	}
+
+	public void setRegNo(String regNo) {
+		this.regNo = regNo;
+	}
+
+	public String getNomNo() {
+		return nomNo;
+	}
+	public void setNomNo(String nomNo) {
+		this.nomNo = nomNo;
+	}
 	public Integer getModelId() {
 		return modelId;
 	}
-
-
 	public void setModelId(Integer modelId) {
 		this.modelId = modelId;
 	}
-
-
 	public String getReleaseYear() {
 		return releaseYear;
 	}

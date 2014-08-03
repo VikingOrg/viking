@@ -65,7 +65,7 @@
                 	   $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
                 	   
 	              },
-	              "sScrollX": "99.5%",
+	              "sScrollX": "99%",
                   tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
              		 	"aButtons": [

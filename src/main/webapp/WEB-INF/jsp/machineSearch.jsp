@@ -14,38 +14,32 @@
 <head>
 <title>Таблица подъемно-транспортного оборудования</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.0-rc.1/css/jquery.dataTables.css"/>
-	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
-	    
-	    <!--[if lt IE 9]>
-			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
-	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
-	    <script type="text/javascript" src="//cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="static/js.response.min.js"></script>
-        <script type="text/javascript" src="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js"> </script>
-        <script type="text/javascript" src="static/js/dataTables.bootstrapPagination.js"> </script>
-		<script type="text/javascript" src="static/js/ajax-form.js" ></script>
-		<script type="text/javascript" src="static/js/dataTables.tableTools.js" ></script>
+        <jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript">
 	        $(document).ready(function() {
 	        	var oTable = $('#machine_table').dataTable( {
-	            	
-	                "sDom": "t<'row'<'col-xs-6'i><'col-xs-6'p>>",
-	                "sPaginationType": "bootstrap",
-	                "iDisplayLength": 15,
-     	           "scrollX": true,
-	                "oLanguage": {
-                        "sUrl": "static/js/dataTable_ru_RU.txt"
-                     } 
-	            } );
-
-
+	        	        "bJQueryUI": true,
+	        	        "sDom": '<r>t<"F"ip>',
+	        	        "sPaginationType": "full_numbers",
+	        	        "bProcessing": true,
+	        	        "responsive": true,
+	                    "oLanguage": {
+	                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
+	                     },
+	                    "sScrollX": "99%",
+	        	        "sAjaxSource": '${pageContext.request.contextPath}/machineSearch/getMachines/',
+	        	        "aoColumnDefs": [
+	        	                         { "bVisible": true,  "aTargets": [ 1 ] },
+	        	                         {
+		        	   	        		      "aTargets": [ 2 ],
+		        	   	        		      "mData": 2,
+		        	   	        		      "mRender": function ( data, type, full ) {
+		        	   	        		        return '<a href="'+data+'">'+data+'</a>';
+		        	   	        		      }
+	        	   	        		     }
+	        	                       ]       
+	        	    } );
+	        	
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 });   		 
@@ -234,90 +228,34 @@
 				<!-- 	Таблица со списком машин -->
 				<h3 class="page-header">Подъемно-транспортное оборудование</h3>
 				<table id="machine_table" class="table table-striped table-bordered">
-					<thead>
-						<tr>
-							<th class="column-check nowrap">&nbsp;</th>
-							<th class="hidden-sm hidden-xs nowrap">Группа&nbsp;&nbsp;</th>
-							<th class="nowrap">Модель&nbsp;&nbsp;</th>
-							<th class="hidden-sm hidden-xs nowrap">Компания&nbsp;&nbsp;</th>
-							<th class="hidden-sm hidden-xs nowrap">Характеристики&nbsp;&nbsp;</th>
-							<th class="hide">Производитель&nbsp;&nbsp;</th>
-							<th class="hide">Год выпуска&nbsp;&nbsp;</th>
-							<th class="hide">Дата ввода в эксплуатацию</th>
-							<th class="hide">Контракт №</th>
-							<th class="hide">Инвентарный №</th>
-							<th class="hide">Транс №</th>
-							<th class="hide">Заводской №</th>
-							<th class="hide">Страна призводства&nbsp;&nbsp;</th>
-							<th class="hide">Место установки</th>
-							<th class="hide">Порт&nbsp;&nbsp;</th>
-							<th class="hide">Страна&nbsp;&nbsp;</th>
-							<th class="hidden-sm hidden-xs nowrap">Номенклатурный №</th>
-							<th class="hide">Регистрационный №</th>
-							<th class="hidden-sm hidden-xs nowrap">Примечания</th>
-							<th class="hide">group Id&nbsp;&nbsp;</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="machine" varStatus="loop"
-							items="${machineSearchCommand.machineList}">
-							<c:if test="${machine.archived != 'Y'}">
-								<tr>
-									<td class="column-check nowrap"><form:checkbox
-											path="machineList[${loop.index}].archived" value="Y"></form:checkbox>
-										<c:if test="${system.localConfig}">
-													<span class="alert-danger">
-				                              			<c:out value="(${machine.machineId})"/>
-				                              		</span>
-										</c:if></td>
-									<td class="hidden-sm hidden-xs hidden-md nowrap"><c:if
-											test="${system.localConfig}">
-											<%-- 	<span class="alert-danger">
-					                              			<c:out value="(${machine.machineModel.group.groupId})"/>
-					                              		</span> --%>
-										</c:if> <c:out value="${machine.machineModel.group.name}" /></td>
-									<td class="nowrap"><a
-										href="<c:url value="machineEdit?machineId=${machine.machineId}&copy=true"/>">&nbsp;<span
-											class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
-									</a> <a
-										href="<c:url value="machineEdit?machineId=${machine.machineId}"/>">
-											<c:if test="${system.localConfig}">
-												<%-- <span class="alert-danger">
-				                              			<c:out value="(${machine.machineModel.modelId})"/>
-				                              		</span> --%>
-											</c:if> <c:out value="${machine.machineModel.name}" />
-									</a></td>
-									<td class="hidden-sm hidden-xs nowrap"><c:out
-											value="${machine.stevidor.fullName}" /></td>
-									<td class="hidden-sm hidden-xs nowrap"><c:out
-											value="${machine.details}" /></td>
-									<td class="hide"><c:out
-											value="${machine.machineModel.manufacturer.nameRus}" /></td>
-									<td class="hide"><c:out value="${machine.releaseYear}" /></td>
-									<td class="hide"><spring:eval
-											expression="machine.startDate" /></td>
-									<td class="hide">№<c:out value="${machine.doc}" /></td>
-									<td class="hide"><c:out value="${machine.inventoryNumb}" /></td>
-									<td class="hide"><c:out value="${machine.transNumb}" /></td>
-									<td class="hide"><c:out value="${machine.factoryNumb}" /></td>
-									<td class="hide"></td>
-									<td class="hide"><c:out value="${machine.location}" /></td>
-									<td class="hide"><c:out
-											value="${machine.stevidor.port.name}" /></td>
-									<td class="hide"><c:out
-											value="${machine.stevidor.port.country.nameRus}" /></td>
-									<td class="hidden-sm hidden-xs nowrap"></td>
-									<td class="hide"></td>
-									<td class="hidden-sm hidden-xs nowrap"><c:out
-											value="${machine.note}" /></td>
-									<td class="hide"><c:out
-											value="${machine.machineModel.group.groupId}" /></td>
-								</tr>
-							</c:if>
-						</c:forEach>
-					</tbody>
+			        <thead>
+			            <tr>
+			                <th>Id</th>
+			                <th>Группа</th>
+			                <th>Модель</th>
+			                <th>Компания</th>
+							<th>Характеристики</th>									                
+							<th>Производитель</th>
+							<th>Год выпуска</th>
+							<th>Дата ввода в эксплуатацию</th>
+							<th>Контракт №</th>
+							<th>Инвентарный №</th>
+							<th>Транс №</th>
+							
+							<th>Заводской №</th>
+							<th>Страна призводства&nbsp;&nbsp;</th>
+							<th>Место установки</th>
+							<th>Порт&nbsp;&nbsp;</th>
+							<th>Страна&nbsp;&nbsp;</th>
+							<th>Номенклатурный №</th>
+							<th>Регистрационный №</th>
+							<th>Примечания</th>
+							<th>group Id</th>							
+			            </tr>
+			        </thead>
+			        <tbody>
+			        </tbody>
 				</table>
-
 			</div>
 		</div>
 		<!-- 		Модальное окно подтверждения удаления данных -->

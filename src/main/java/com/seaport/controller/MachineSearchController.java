@@ -1,12 +1,15 @@
 package com.seaport.controller;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -57,6 +61,83 @@ public class MachineSearchController {
 		model.put("machineSearchCommand", machineSearchCommand);
 		return "machineSearch";
 	}
+	
+	/**
+     * Fetch a the machine list from the service, and package up into a Map that is
+     * compatible with datatables.net
+	 * @param groupId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getMachines/", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object[]> getModels(HttpServletRequest request, ModelMap model) throws Exception {
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.SystemConstants.USER_MODEL);
+		Collection<Machine> machineList = machineService.getMachines(user); 
+		return Collections.singletonMap("aaData", getJSONForMachine(machineList));
+	}	
+     
+    /**
+    * I only want certain user info..
+    */
+    public Object[] getJSONForMachine(Collection<Machine> machineList){
+        Object[] rdArray = new Object[machineList.size()];
+        int i = 0;
+        
+    	for (Machine machine : machineList) {
+    		String groupName = "NULLя", modelName = "NULLя", stevidorFullName = "NULLя", modelDetail = "NULLя",
+    		manufactorName = "NULLя", releaseYear = "NULLя", startDate = "NULLя", contractNum = "NULLя",
+    		inventoryNumb = "NULLя", transNumb = "NULLя", factoryNumb = "NULLя", manufCountry = "NULLя",
+    		location = "NULLя", portName = "NULLя", portCountry = "NULLя", nomNum =  "NULLя", regNum = "NULLя",
+    		machineNote = "NULLя", groupId = "NULLя";
+			
+    		try {
+    			groupName = machine.getMachineModel().getGroup().getName();
+    			releaseYear = machine.getReleaseYear()==null?"":machine.getReleaseYear();
+    			if (machine.getStartDate()!=null) {
+    				startDate = DateFormatUtils.format(machine.getStartDate(), "yyyy/MM/dd");
+				} else {
+					startDate = "";
+				}
+    			contractNum = machine.getDoc()==null?"":machine.getDoc();
+    			inventoryNumb = machine.getInventoryNumb() == null?"":machine.getInventoryNumb();
+    			transNumb = machine.getTransNumb() == null?"":machine.getTransNumb();
+    			factoryNumb = machine.getFactoryNumb() == null?"":machine.getFactoryNumb();
+    			location = machine.getLocation() == null?"":machine.getLocation();
+    			nomNum = machine.getNomNo() == null?"":machine.getNomNo();
+    			regNum = machine.getRegNo() == null?"":machine.getRegNo();
+    			machineNote = machine.getNote() == null?"":machine.getNote();
+    			groupId = machine.getGroup().getGroupId().toString();
+			} catch (Exception e) {
+			}
+    		try {
+    			modelName = machine.getMachineModel().getName();
+    			modelDetail = machine.getMachineModel().getDetails() == null?"":machine.getMachineModel().getDetails();
+    			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?"":machine.getMachineModel().getManufacturer().getNameRus();
+    			manufCountry = machine.getMachineModel().getManufacturer().getCountry().getNameRus();
+			} catch (Exception e) {
+			}
+
+    		try {
+    			stevidorFullName = machine.getStevidor().getFullName();
+    			portName = machine.getStevidor().getPort().getName();
+    			portCountry = machine.getStevidor().getPort().getCountry().getNameRus();
+			} catch (Exception e) {
+			}
+    		
+            Object[] objectArray = new String[]{machine.getMachineId().toString(),
+							            		groupName,
+							            		modelName,
+							            		stevidorFullName, modelDetail, manufactorName, releaseYear,
+							            		startDate, contractNum, inventoryNumb, transNumb, factoryNumb,
+							            		manufCountry, location, portName, portCountry, nomNum, regNum,
+							            		machineNote, groupId};
+            rdArray[i] = objectArray;
+            i++;           
+		}
+        return rdArray;
+    }   
 	
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
