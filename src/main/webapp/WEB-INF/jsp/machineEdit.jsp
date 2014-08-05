@@ -50,7 +50,31 @@
             	        {maxWidth: 600} // Options
             	    );
             	};
+
+                $("a[rel^='tableRowEdit']").click(function(e){
+
+                    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#machineModelModalContent").html(response.responseText);
+                            $('#machineModelModal').modal('show');
+                            
+                        }
+                    });
+                });            	
 		  });
+
+      	function closingModal(machineModelId){
+    		$('#machineModelModal').modal('hide');
+    		//$('#'+machineModelId).removeClass("odd even");
+    		$('#'+machineModelId).addClass( "success" );
+    		//var myClass = $('#'+machineModelId).attr('class');        		
+    		//alert("classes = " + myClass);
+        }
+        
 		  </script>
 		  <style type="text/css">
 			.report_header{
@@ -119,7 +143,10 @@
 						        	</spring:bind>
 						        	<spring:bind path="machine.modelId">
 							        	<div class="form-group ${status.error ? 'has-error' : '' }">
-						                    <label class="form-label">Модель*</label>
+						                    <label class="form-label">Модель*
+						                    	<span class="report_header">(Нету в списке? Создайте <a href="#" rel="tableRowEdit" data-param1="3">
+						                    	новую</a>.)</span>
+						                    </label>
 											<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
 												<form:option value="0">Все</form:option>
 								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
@@ -245,7 +272,16 @@
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 			    
-			</form:form>		
+			</form:form>
+			
+				<div id="machineModelModal" class="modal modal-wide fade">
+				  <div class="modal-dialog">
+				    <div id="machineModelModalContent" class="modal-content">
+				    
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->			
+					
 			</div> <!-- End of Main Container -->
 	
 	</div> <!-- Closing div tag for wrap -->
