@@ -12,6 +12,9 @@
 		<script type="text/javascript">
         $(document).ready(function() {
         	var oTable = $('#stevidor_table').dataTable( {
+        		"sDom": '<"#tableActions"T>t<"#source"l>ip',
+        		"bJQueryUI": true,
+        		"sPaginationType": "full_numbers",
         		"columnDefs": [
         		               {
         		                   "targets": [ 0,4 ],
@@ -23,7 +26,6 @@
         		               }
         		           ],
             	           "scrollX": true,
-                 "sDom": '<"#tableActions"T>t<"#source"l>ip',
              	tableTools: {
          			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
          		 	"aButtons": [
@@ -39,7 +41,6 @@
            	                	}
            	            ]
          	   },
-                "sPaginationType": "bootstrap",
                 "oLanguage": {
                     "sUrl": "static/js/dataTable_ru_RU.txt"
                  },

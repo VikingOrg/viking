@@ -18,10 +18,10 @@
         <jsp:include page="common/headCoreElements.jsp" />
         
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	    <script src="<c:url value="/static/js/load-image.min.js"/>"></script>
 	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
+	    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		
 		<script>
 		  $(document).ready(function() {
 		      $( "#datepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
@@ -126,14 +126,14 @@
 						            <label class="form-label">
 						            	<span class="required">Описание механизма*</span>
 						            	<span class="report_header">(Пример правильного описания: Старый кран, кабина разбита...
-						        	Пример не правильного описания: Портальный Кран ГАНЦ 5/6тн. Срела 30м.)</span>
+						        	Пример не правильного описания: Портальный Кран ГАНЦ 5/6тн. Стрела 30м.)</span>
 						            </label>
 						        	<v:input path="machine.name"  title="Описание Механизма"/>
 						        	<spring:bind path="machine.groupId">
 							        	<div class="form-group ${status.error ? 'has-error' : '' }">
 						                    <label class="form-label">Группа*</label>
 											<form:select id="groupSelect" path="machine.groupId" cssClass="form-control">
-											    <form:option value="0">Все</form:option>
+											    <form:option value="0">Не выбрана (отсутствует)</form:option>
 								                <c:forEach items="${machineEditCommand.groupMap}" var="group">
 								                    <form:option value="${group.key}" label="${group.value.name}" />
 								                </c:forEach>								
@@ -148,7 +148,7 @@
 						                    	новую</a>.)</span>
 						                    </label>
 											<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
-												<form:option value="0">Все</form:option>
+												<form:option value="0">Не выбрана (отсутствует)</form:option>
 								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
 								                    <form:option value="${model.key}" label="${model.value.name}" />
 								                </c:forEach>									
@@ -166,7 +166,7 @@
 						        	<div class="form-group">
 			  				            <label class="form-label">Компания*</label>
 										<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control">
-										    <form:option value="">Все</form:option>
+										    <form:option value="">Не выбрана (отсутствует)</form:option>
 							                <c:forEach items="${machineEditCommand.stevidorMap}" var="stevidor">
 							                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
 							                </c:forEach>								
@@ -286,15 +286,6 @@
 	
 	</div> <!-- Closing div tag for wrap -->
 		   <jsp:include page="common/footer.jsp" />
-		<script>
-	    $('#machineEditTab a').click(function (e) {
-	    	  e.preventDefault(),
-	    	  $(this).tab('show');
-	    	});
-	    (function($) {
-	          fakewaffle.responsiveTabs(['xs', 'sm']);
-	      })(jQuery);
 
-	    </script>
 	</body>
 </html>

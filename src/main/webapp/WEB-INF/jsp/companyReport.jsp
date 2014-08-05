@@ -44,7 +44,7 @@
               oTable = $('#company_report_table').dataTable({
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  "responsive": true,
-            	  "sPaginationType": "bootstrap",
+            	  "bJQueryUI": true,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },

@@ -41,7 +41,7 @@
             	  "responsive": true,
             	  "scrollX": true,
             	  "ordering": false,
-            	  "sPaginationType": "bootstrap",
+            	  "bJQueryUI": true,
                   "iDisplayLength": 15,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"

@@ -38,7 +38,7 @@
                   }
               });	
               $('#account_report_table').dataTable({
-            	  "sPaginationType": "bootstrap",
+            	  "bJQueryUI": true,
                   "iDisplayLength": 15,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"

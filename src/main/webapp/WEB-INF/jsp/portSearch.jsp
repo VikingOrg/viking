@@ -35,7 +35,7 @@
                	                	}
                	            ]
              	   },
-                    "sPaginationType": "bootstrap",
+                    "bJQueryUI": true,
                     "oLanguage": {
                         "sUrl": "static/js/dataTable_ru_RU.txt"
                      },

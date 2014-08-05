@@ -13,8 +13,10 @@
 <html lang="ru">
 <head>
 <title>Таблица подъемно-транспортного оборудования</title>
+
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
+        
 		<script type="text/javascript">
 	        $(document).ready(function() {
 	        	var oTable = $('#machine_table').dataTable( {
