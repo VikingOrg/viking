@@ -49,7 +49,10 @@ public class MachineEditController {
 		String machineId = request.getParameter("machineId");
 		if (machineId != null) {
 			machineEditCommand.setMachine(machineService.getMachine(Integer.parseInt(machineId)));
-			machineEditCommand.setMachineModelMap(machineService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));	
+			/*Patch to handle null model.*/
+			if(machineEditCommand.getMachine().getMachineModel() != null){
+				machineEditCommand.setMachineModelMap(machineService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));	
+			}
 			if (request.getParameter("copy")!= null) {
 				machineEditCommand.setFormType("C");
 				machineEditCommand.getMachine().setMachineId(null);;

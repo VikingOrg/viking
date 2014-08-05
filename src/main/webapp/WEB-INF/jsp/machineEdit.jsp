@@ -17,7 +17,7 @@
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
         
-		
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	    <script src="<c:url value="/static/js/load-image.min.js"/>"></script>
@@ -52,6 +52,13 @@
             	};
 		  });
 		  </script>
+		  <style type="text/css">
+			.report_header{
+				font-family: 'Open Sans', sans-serif;
+				font-weight:300;
+				font-style: italic;
+			}
+		  </style>			  
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -81,7 +88,8 @@
 						</c:if>
 			          </div>
 			    	<ul id="machineEditTab" class="nav nav-tabs responsive" role="tablist">
-					      <li class="active"><a href="#main" role="tab" data-toggle="tab">Основные характеристики</a></li>
+					      <li class="active"><a href="#main" role="tab" data-toggle="tab">
+					      Основные характеристики (Устройства №<c:out value="${machineEditCommand.machine.machineId}"/>)</a></li>
 					      <li><a href="#image" role="tab" data-toggle="tab">Изображение</a></li>
 					    </ul>
 					    <div id="myTabContent" class="tab-content responsive">
@@ -91,9 +99,15 @@
 					          
 						      <div class="row">
 						        <div class="col-sm-4 col-sm-offset-1">
+						            <label class="form-label">
+						            	<span class="required">Описание механизма*</span>
+						            	<span class="report_header">(Пример правильного описания: Старый кран, кабина разбита...
+						        	Пример не правильного описания: Портальный Кран ГАНЦ 5/6тн. Срела 30м.)</span>
+						            </label>
+						        	<v:input path="machine.name"  title="Описание Механизма"/>
 						        	<spring:bind path="machine.groupId">
 							        	<div class="form-group ${status.error ? 'has-error' : '' }">
-						                    <label class="form-label">Группа</label>
+						                    <label class="form-label">Группа*</label>
 											<form:select id="groupSelect" path="machine.groupId" cssClass="form-control">
 											    <form:option value="0">Все</form:option>
 								                <c:forEach items="${machineEditCommand.groupMap}" var="group">
@@ -105,7 +119,7 @@
 						        	</spring:bind>
 						        	<spring:bind path="machine.modelId">
 							        	<div class="form-group ${status.error ? 'has-error' : '' }">
-						                    <label class="form-label">Модель</label>
+						                    <label class="form-label">Модель*</label>
 											<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
 												<form:option value="0">Все</form:option>
 								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
@@ -113,59 +127,28 @@
 								                </c:forEach>									
 											</form:select>
 											<form:errors path="machine.modelId" cssClass="control-label"/>
-							        	</div>
-						        	</spring:bind>
-								        	
-					        		<spring:bind path="machine.modelId">
-							        	<div class="form-group ${status.error ? 'has-error' : '' }">
-						                    <label class="form-label">Страна</label>
-											<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
-												<form:option value="0">Все</form:option>
-								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
-								                    <form:option value="${model.key}" label="${model.value.name}" />
-								                </c:forEach>									
-											</form:select>
-											<form:errors path="machine.modelId" cssClass="control-label"/>
+											<span class="report_header">Характеристика Модели:</span><br/>
+							            	<span class="report_header">Компания Произовдитель:</span><br/>
+							            	<span class="report_header">Место Производства:</span><br/>
+											
 							        	</div>
 						        	</spring:bind>
 						        	
-						        	<spring:bind path="machine.modelId">
-							        	<div class="form-group ${status.error ? 'has-error' : '' }">
-						                    <label class="form-label">Порт</label>
-											<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
-												<form:option value="0">Все</form:option>
-								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
-								                    <form:option value="${model.key}" label="${model.value.name}" />
-								                </c:forEach>									
-											</form:select>
-											<form:errors path="machine.modelId" cssClass="control-label"/>
-							        	</div>
-						        	</spring:bind>
-						        	<sec:authorize access="hasRole('ROLE_ADMIN')">
+						        	
+						        							        	
 						        	<div class="form-group">
-			  				            <label class="form-label">Компания</label>
+			  				            <label class="form-label">Компания*</label>
 										<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control">
 										    <form:option value="">Все</form:option>
 							                <c:forEach items="${machineEditCommand.stevidorMap}" var="stevidor">
 							                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
 							                </c:forEach>								
 										</form:select>
+										<span class="report_header">Порт приписки:</span><br/>
+										<span class="report_header">Страна:</span><br/>
 						        	</div>		
-						        	</sec:authorize>    		
-						        	
-						        	<spring:bind path="machine.modelId">
-							        	<div class="form-group ${status.error ? 'has-error' : '' }">
-						                    <label class="form-label">Производитель</label>
-											<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
-												<form:option value="0">Все</form:option>
-								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
-								                    <form:option value="${model.key}" label="${model.value.name}" />
-								                </c:forEach>									
-											</form:select>
-											<form:errors path="machine.modelId" cssClass="control-label"/>
-							        	</div>
-						        	</spring:bind>	        	
-						        	 	
+									
+									<%-- 						        	 	
 						        	<div class="form-group">
 							          <label class="form-label">Страна Производства</label>
 							          <select class="form-control" name="manufacturer">
@@ -174,7 +157,8 @@
 							            <option>Германия</option>
 							            <option>Япония</option>
 							          </select>
-						        	</div>        		
+						        	</div>
+						        	 --%>        		
 						        	<div class="form-group">
 			  				            <label class="form-label">Год производства(Выпуска)</label>
 										<form:select path="machine.releaseYear" cssClass="form-control">
@@ -183,17 +167,21 @@
 										</form:select>  				            
 						        	</div>			        		
 						            <v:input path="machine.location" label="МЕСТО УСТАНОВКИ" title="Укажите место установки"/>
+						            
+						            
+						            * - Поля обязательные к заполнению.
 						        </div>
 						        <div class="col-sm-4 col-sm-offset-1">
-							      	
+							      	<%-- 
 									<v:input path="machine.details" label="Характеристики" required="true" title="Укажите характеристики модели"/>
+									--%>
 						            <v:input path="machine.inventoryNumb" label="Инвентарный №" required="true" title="Введите инвентарный номер"/>
 						            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="true" title="Укажите дату ввода в эксплуатацию" id="datepicker"/>
 									<v:input path="machine.doc" label="Контракт №" required="true" title="Укажите документ ввода в эксплуатацию"/>
 									<v:input path="machine.transNumb" label="Транс №" required="true" title="Укажите номер Транса"/>
 						            <v:input path="machine.factoryNumb" label="Заводской №" required="true" title="Укажите заводской номер"/>
-						            <v:input path="machine.factoryNumb" label="Номенклатурный №" required="true" title="Укажите номенклатурный номер"/>
-						            <v:input path="machine.factoryNumb" label="Регистрационный №" required="true" title="Укажите регистрационный номер"/>
+						            <v:input path="machine.nomNo" label="Номенклатурный №" required="true" title="Укажите номенклатурный номер"/>
+						            <v:input path="machine.regNo" label="Регистрационный №" required="true" title="Укажите регистрационный номер"/>
 			
 						            <div class="form-group">
 							            <label class="form-label">Примечания</label>
