@@ -67,7 +67,7 @@
                 });
 
                 $('#manufacturerSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 8);
+                	oTable.fnFilter( $(this).val());
                 });                                                
                 $('#releaseYearSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 9);

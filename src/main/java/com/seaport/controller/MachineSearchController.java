@@ -120,8 +120,8 @@ public class MachineSearchController {
 	    			modelName = machine.getMachineModel().getName();
 				}
     			modelDetail = machine.getMachineModel().getDetails() == null?"":machine.getMachineModel().getDetails();
-    			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?"":machine.getMachineModel().getManufacturer().getNameRus()+
-    					"("+machine.getMachineModel().getManufacturer().getManufacturerId()+")";
+    			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?"":machine.getMachineModel().getManufacturer().getNameRus();
+//    					+ "("+machine.getMachineModel().getManufacturer().getManufacturerId()+")";
     			manufCountry = machine.getMachineModel().getManufacturer().getCountry().getNameRus();
 			} catch (Exception e) {
 				
