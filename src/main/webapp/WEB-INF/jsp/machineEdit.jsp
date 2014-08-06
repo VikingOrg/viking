@@ -33,7 +33,10 @@
             		  $('#modelSelect').html("<option value='0'>Не выбрана</option>");
                   } else {
 	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-	                      var options='';
+	                	  $('#model_details').html("Характеристика Модели:");
+	                	  $('#model_manuf_name_rus').html("Компания Произовдитель:");
+	                	  $('#model_manuf_country_name_rus').html("Место Производства:");
+	                      var options='<option value="0">Не выбрана</option>';
 	                      $.each(machineModel, function (i, e) {
 	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
 	                      });
@@ -58,25 +61,28 @@
                 	  if (!$.trim(machineModel.manufacturer.nameRus)) {
                 		  $('#model_manuf_country_name_rus').html("Место Производства: Отсутсвует!");
                       } else {
-                    	  $('#model_manuf_country_name_rus').html("Место Производства:"+machineModel.manufacturer.country.nameRus);
-                    	  
+                    	  $('#model_manuf_country_name_rus').html("Место Производства: "+machineModel.manufacturer.country.nameRus);
                       }
-                      
                   });
               });
-              
-              document.getElementById('file-input').onchange = function (e) {
-            	    loadImage(
-            	        e.target.files[0],
-            	        function (img) {
-            	            document.body.appendChild(img);
-            	        },
-            	        {maxWidth: 600} // Options
-            	    );
-            	};
+
+              $('#stevidorSelect').change(function() {
+            	  var stevidorId = $(this).val();
+                  $.getJSON('${pageContext.request.contextPath}/stevidorEdit/getStevidor/' + stevidorId, function(stevidor) {
+                	  if (!$.trim(stevidor.port.name)) {
+                		  $('#stevidor_port_name').html("Порт приписки: Отсутсвует!");
+                      } else {
+                    	  $('#stevidor_port_name').html("Порт приписки: "+stevidor.port.name);
+                      }
+                	  if (!$.trim(stevidor.port.country.nameRus)) {
+                		  $('#stevidor_port_country_name_rus').html("Страна: Отсутсвует!");
+                      } else {
+                    	  $('#stevidor_port_country_name_rus').html("Страна: "+stevidor.port.country.nameRus);
+                      }
+                  });
+              });
 
                 $("a[rel^='tableRowEdit']").click(function(e){
-
                     $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -85,7 +91,6 @@
                         {
                             $("#machineModelModalContent").html(response.responseText);
                             $('#machineModelModal').modal('show');
-                            
                         }
                     });
                 });            	
@@ -137,7 +142,7 @@
 			          </div>
 			    	<ul id="machineEditTab" class="nav nav-tabs responsive" role="tablist">
 					      <li class="active"><a href="#main" role="tab" data-toggle="tab">
-					      Основные характеристики (Устройства №<c:out value="${machineEditCommand.machine.machineId}"/>)</a></li>
+					      Основные характеристики (Устройство №<c:out value="${machineEditCommand.machine.machineId}"/>)</a></li>
 					      <li><a href="#image" role="tab" data-toggle="tab">Изображение</a></li>
 					    </ul>
 					    <div id="myTabContent" class="tab-content responsive">
@@ -172,7 +177,7 @@
 						                    	новую</a>.)</span>
 						                    </label>
 											<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
-												<form:option value="0">Не выбрана (отсутствует)</form:option>
+												<form:option value="0">Не выбрана (или отсутствует в базе моделей)</form:option>
 								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
 								                    <form:option value="${model.key}" label="${model.value.name}" />
 													<c:if test="${machineEditCommand.machine.modelId == model.key}">
@@ -187,8 +192,6 @@
 											
 							        	</div>
 						        	</spring:bind>
-						        	
-						        	
 						        							        	
 						        	<div class="form-group">
 			  				            <label class="form-label">Компания*</label>
@@ -196,12 +199,17 @@
 										    <form:option value="">Не выбрана (отсутствует)</form:option>
 							                <c:forEach items="${machineEditCommand.stevidorMap}" var="stevidor">
 							                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
+							                    <c:out value="${stevidor.key}"/>:${machineEditCommand.machine.stevidorId}:
+							                    <c:out value="${stevidor.value.fullName}"/>
+												<c:if test="${machineEditCommand.machine.stevidorId == stevidor.key}">
+													<c:set var="currentStevidor" scope="request" value="${stevidor.value}"/> 
+												</c:if>								                    
 							                </c:forEach>								
 										</form:select>
-										<span class="report_header">Порт приписки:</span><br/>
-										<span class="report_header">Страна:</span><br/>
-						        	</div>		
-									
+										<span id="stevidor_port_name" class="report_header">Порт приписки:<c:out value="${currentStevidor.port.name}"/></span><br/>
+										<span id="stevidor_port_country_name_rus" class="report_header">Страна:<c:out value="${currentStevidor.port.country.nameRus}"/></span><br/>
+						        	</div>
+						        	
 									<%-- 						        	 	
 						        	<div class="form-group">
 							          <label class="form-label">Страна Производства</label>

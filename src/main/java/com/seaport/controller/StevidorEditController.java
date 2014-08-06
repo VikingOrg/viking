@@ -12,13 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.StevidorEditCommand;
 import com.seaport.dao.ISystemDAO;
+import com.seaport.domain.Stevidor;
 import com.seaport.domain.User;
 import com.seaport.service.IPortService;
 import com.seaport.utils.SystemConstants;
@@ -58,6 +61,13 @@ public class StevidorEditController {
 		model.put("stevidorEditCommand", stevidorEditCommand);
 		return "stevidorEdit";
 	}
+	
+	@RequestMapping(value="/getStevidor/{stevidorId}", method = RequestMethod.GET)
+	@ResponseBody
+	public Stevidor getStevidor(@PathVariable String stevidorId,
+							ModelMap model) throws Exception {
+		return portService.getStevidor(Integer.parseInt(stevidorId));
+	}	
 	
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
