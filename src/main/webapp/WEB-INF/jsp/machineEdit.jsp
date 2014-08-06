@@ -41,6 +41,30 @@
 	                  });
                   }
               });
+              
+              $('#modelSelect').change(function() {
+            	  var modelId = $(this).val();
+                  $.getJSON('${pageContext.request.contextPath}/machineEdit/getModel/' + modelId, function(machineModel) {
+                	  if (!$.trim(machineModel.details)) {
+                		  $('#model_details').html("Характеристика Модели: Отсутсвует!");
+                      } else {
+                    	  $('#model_details').html("Характеристика Модели:"+machineModel.details);
+                      }
+                	  if (!$.trim(machineModel.manufacturer.nameRus)) {
+                		  $('#model_manuf_name_rus').html("Компания Произовдитель: Отсутсвует!");
+                      } else {
+                    	  $('#model_manuf_name_rus').html("Компания Произовдитель:"+machineModel.manufacturer.nameRus);
+                      }
+                	  if (!$.trim(machineModel.manufacturer.nameRus)) {
+                		  $('#model_manuf_country_name_rus').html("Место Производства: Отсутсвует!");
+                      } else {
+                    	  $('#model_manuf_country_name_rus').html("Место Производства:"+machineModel.manufacturer.country.nameRus);
+                    	  
+                      }
+                      
+                  });
+              });
+              
               document.getElementById('file-input').onchange = function (e) {
             	    loadImage(
             	        e.target.files[0],
@@ -151,12 +175,15 @@
 												<form:option value="0">Не выбрана (отсутствует)</form:option>
 								                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
 								                    <form:option value="${model.key}" label="${model.value.name}" />
+													<c:if test="${machineEditCommand.machine.modelId == model.key}">
+														<c:set var="currentModel" scope="request" value="${model.value}"/> 
+													</c:if>									                    
 								                </c:forEach>									
 											</form:select>
 											<form:errors path="machine.modelId" cssClass="control-label"/>
-											<span class="report_header">Характеристика Модели:</span><br/>
-							            	<span class="report_header">Компания Произовдитель:</span><br/>
-							            	<span class="report_header">Место Производства:</span><br/>
+											<span id="model_details" class="report_header">Характеристика Модели:<c:out value="${currentModel.details}"/></span><br/>
+							            	<span id="model_manuf_name_rus" class="report_header">Компания Произовдитель:<c:out value="${currentModel.manufacturer.nameRus}"/></span><br/>
+							            	<span id="model_manuf_country_name_rus" class="report_header">Место Производства:<c:out value="${currentModel.manufacturer.country.nameRus}"/></span><br/>
 											
 							        	</div>
 						        	</spring:bind>

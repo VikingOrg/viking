@@ -90,6 +90,14 @@ public class MachineEditController {
 							ModelMap model) throws Exception {
 		return machineService.getModels(Integer.parseInt(groupId));
 	}	
+
+	@RequestMapping(value="/getModel/{modelId}", method = RequestMethod.GET)
+	@ResponseBody
+	public MachineModel getModel(@PathVariable String modelId,
+							ModelMap model) throws Exception {
+		return machineService.getModel(Integer.parseInt(modelId));
+	}	
+
 	
 	/**
 	 * Takes care post from machine page. Edit|New|Copy machine.
@@ -111,7 +119,7 @@ public class MachineEditController {
 		}
 		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		if (machineEditCommand.getMachine().getMachineModel().getModelId() == null) {
+		if (machineEditCommand.getMachine().getMachineModel() == null) {
 			MachineModel machineModel = machineService.getModel(machineEditCommand.getMachine().getModelId());
 			machineEditCommand.getMachine().setMachineModel(machineModel);
 		}
