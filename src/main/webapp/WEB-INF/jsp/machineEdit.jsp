@@ -44,32 +44,8 @@
 	                  });
                   }
               });
-              
-              $('#modelSelect').change(function() {
-            	  var modelId = $(this).val();
-                  $.getJSON('${pageContext.request.contextPath}/machineEdit/getModel/' + modelId, function(machineModel) {
-                	  if (!$.trim(machineModel.details)) {
-                		  $('#model_details').html("Характеристика Модели: Отсутсвует!");
-                      } else {
-                    	  $('#model_details').html("Характеристика Модели:"+machineModel.details);
-                      }
-                	  if (!$.trim(machineModel.manufacturer.nameRus)) {
-                		  $('#model_manuf_name_rus').html("Компания Произовдитель: Отсутсвует!");
-                      } else {
-                    	  $('#model_manuf_name_rus').html("Компания Произовдитель:"+machineModel.manufacturer.nameRus);
-                      }
-                	  if (!$.trim(machineModel.manufacturer.nameRus)) {
-                		  $('#model_manuf_country_name_rus').html("Место Производства: Отсутсвует!");
-                      } else {
-                    	  $('#model_manuf_country_name_rus').html("Место Производства: "+machineModel.manufacturer.country.nameRus);
-                      }
-                	  if (!$.trim(machineModel.modelId)) {
-                		  $('#edit_machine_model').html("<a href='#' rel='editExistingModel' data-param1='10'> текущую 1</a>");
-                      } else {
-                    	  $('#edit_machine_model').html("<a href='#' rel='editExistingModel' data-param1='10'> текущую 2</a>");
-                      }
-                  });
-              });
+
+              $('#modelSelect').change(function() {refreshModel($(this).val());});
 
               $('#stevidorSelect').change(function() {
             	  var stevidorId = $(this).val();
@@ -87,7 +63,7 @@
                   });
               });
 
-                $('#editExistingModel').click(function(e){
+	          $("#edit_machine_model").on("click","#editExistingModel", function(){
                     $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -98,9 +74,9 @@
                             $('#machineModelModal').modal('show');
                         }
                     });
-                });
+              });
                 
-                $("a[rel^='createNewModel']").click(function(e){
+              $("a[rel^='createNewModel']").click(function(e){
                     $.ajax('${pageContext.request.contextPath}/machineModel/createNew/', {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -111,16 +87,48 @@
                             $('#machineModelModal').modal('show');
                         }
                     });
-                });            	
+              });            	
                             	
 		  });
 
+      	function refreshModel(modelId){
+          $.getJSON('${pageContext.request.contextPath}/machineEdit/getModel/' + modelId, function(machineModel) {
+        	  if (!$.trim(machineModel.details)) {
+        		  $('#model_details').html("Характеристика Модели: Отсутсвует!");
+              } else {
+            	  $('#model_details').html("Характеристика Модели: "+machineModel.details);
+              }
+        	  if (!$.trim(machineModel.manufacturer.nameRus)) {
+        		  $('#model_manuf_name_rus').html("Компания Произовдитель: Отсутсвует!");
+              } else {
+            	  $('#model_manuf_name_rus').html("Компания Произовдитель: "+machineModel.manufacturer.nameRus);
+              }
+        	  if (!$.trim(machineModel.manufacturer.nameRus)) {
+        		  $('#model_manuf_country_name_rus').html("Место Производства: Отсутсвует!");
+              } else {
+            	  $('#model_manuf_country_name_rus').html("Место Производства: "+machineModel.manufacturer.country.nameRus);
+              }
+        	  if (!$.trim(machineModel.note)) {
+        		  $('#model_note').html("Примечание: Отсутсвует!");
+              } else {
+            	  $('#model_note').html("Примечание: "+machineModel.note);
+              }
+              
+              /*href to a new model.*/
+        	  if (!$.trim(machineModel.modelId)) {
+        		  $('#edit_machine_model').html("текущую");
+              } else {
+            	  $('#edit_machine_model').html("<a href='#' id='editExistingModel' data-param1='"+machineModel.modelId+"'>текущую</a>");
+              }
+          });
+        }
+		  
       	function closingModal(machineModelId){
     		$('#machineModelModal').modal('hide');
+    		refreshModel(machineModelId);
     		//$('#'+machineModelId).removeClass("odd even");
-    		$('#'+machineModelId).addClass( "success" );
+    		//$('#'+machineModelId).addClass( "success" );
     		//var myClass = $('#'+machineModelId).attr('class');        		
-    		//alert("classes = " + myClass);
         }
         
 		  </script>
@@ -260,9 +268,10 @@
 									                </c:forEach>									
 												</form:select>
 												<form:errors path="machine.modelId" cssClass="control-label"/>
-												<span id="model_details" class="report_header">Характеристика Модели:<c:out value="${currentModel.details}"/></span><br/>
-								            	<span id="model_manuf_name_rus" class="report_header">Компания Произовдитель:<c:out value="${currentModel.manufacturer.nameRus}"/></span><br/>
-								            	<span id="model_manuf_country_name_rus" class="report_header">Место Производства:<c:out value="${currentModel.manufacturer.country.nameRus}"/></span><br/>
+												<span id="model_details" class="report_header">Характеристика Модели:<c:out value=" ${currentModel.details}"/></span><br/>
+								            	<span id="model_manuf_name_rus" class="report_header">Компания Произовдитель:<c:out value=" ${currentModel.manufacturer.nameRus}"/></span><br/>
+								            	<span id="model_manuf_country_name_rus" class="report_header">Место Производства:<c:out value=" ${currentModel.manufacturer.country.nameRus}"/></span><br/>
+								            	<span id="model_note" class="report_header">Примечание:<c:out value=" ${currentModel.note}"/></span><br/>
 												
 								        	</div>
 							        	</spring:bind>

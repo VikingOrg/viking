@@ -98,10 +98,10 @@
 	                        		//oTable.fnUpdate( rowData, document.getElementById(machineModelId) );
 	                        		//oTable.fnUpdate( $('#machineModelName').val(), document.getElementById(machineModelId), 2 );
 	                        		/*For DOM DataTable.*/
-	                        		$('#group'+machineModelId).text($('#groupSelectModal option:selected').text());
-	                        		$('#name'+machineModelId).text($('#machineModelName').val());
-	                        		$('#manafacturer'+machineModelId).text($( "#manufacturerSelectModal option:selected" ).text() );
-	                        		$('#note'+machineModelId).text($('#macnineModelNote').val());
+	                        		//$('#group'+machineModelId).text($('#groupSelectModal option:selected').text());
+	                        		//$('#name'+machineModelId).text($('#machineModelName').val());
+	                        		//$('#manafacturer'+machineModelId).text($( "#manufacturerSelectModal option:selected" ).text() );
+	                        		//$('#note'+machineModelId).text($('#macnineModelNote').val());
 
 	                        		/*Closing Modal.*/
 		                        	closingModal(machineModelId);	
