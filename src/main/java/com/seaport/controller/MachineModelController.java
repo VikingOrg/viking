@@ -80,6 +80,23 @@ public class MachineModelController {
 
 	
 	/**
+	 * Set forms for new Machine Model.
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/createNew/", method = RequestMethod.GET)
+	public String createEditNewModel(ModelMap model) throws Exception {
+		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
+		machineModelEditCommand.setMachineModel(null);
+		machineModelEditCommand.setGroupMap(machineService.getGroupsMap());
+		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
+		machineModelEditCommand.setCountryMap(userService.getContriesMap());	
+		model.put("machineModalEditCommand", machineModelEditCommand);
+		
+		return "machineModelEdit";
+	}	
+	
+	/**
 	 * Set forms for a new Machine Model.
 	 * @param model
 	 * @return

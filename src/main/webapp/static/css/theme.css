@@ -318,7 +318,7 @@ textarea.form-control {
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .container {
-    width: 940px;
+    width: 100%;
     padding: 0;
   }
   /*The slider*/
@@ -367,7 +367,8 @@ textarea.form-control {
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    /*width: 1170px;*/
+    max-width: 98%;
     padding: 0;
   }
 }

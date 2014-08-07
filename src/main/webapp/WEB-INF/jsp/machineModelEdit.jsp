@@ -8,7 +8,14 @@
 				<form:form id="machineEditForm" commandName="machineModalEditCommand" action="/machineModel" method="POST" accept-charset="UTF-8">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				        <h4 class="text-muted">РЕДАКТИРОВАНИЕ МОДЕЛИ</h4>
+						<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
+				        	<h4 class="text-muted">РЕДАКТИРОВАНИЕ МОДЕЛИ (№ ${machineModalEditCommand.machineModel.modelId})</h4>
+				        </c:if>
+						<c:if test="${empty machineModalEditCommand.machineModel.modelId}"> 
+				        	<h4 class="text-muted">СОЗДАНИЕ НОВОЙ МОДЕЛИ</h4>
+				        </c:if>				        
+										        
+
 				      </div>
 				      <div class="modal-body">
    					  	<div class="container">

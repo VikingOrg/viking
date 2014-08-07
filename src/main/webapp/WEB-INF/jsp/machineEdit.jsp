@@ -63,6 +63,11 @@
                       } else {
                     	  $('#model_manuf_country_name_rus').html("Место Производства: "+machineModel.manufacturer.country.nameRus);
                       }
+                	  if (!$.trim(machineModel.modelId)) {
+                		  $('#edit_machine_model').html("<a href='#' rel='editExistingModel' data-param1='10'> текущую 1</a>");
+                      } else {
+                    	  $('#edit_machine_model').html("<a href='#' rel='editExistingModel' data-param1='10'> текущую 2</a>");
+                      }
                   });
               });
 
@@ -82,7 +87,7 @@
                   });
               });
 
-                $("a[rel^='tableRowEdit']").click(function(e){
+                $('#editExistingModel').click(function(e){
                     $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -93,7 +98,21 @@
                             $('#machineModelModal').modal('show');
                         }
                     });
+                });
+                
+                $("a[rel^='createNewModel']").click(function(e){
+                    $.ajax('${pageContext.request.contextPath}/machineModel/createNew/', {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#machineModelModalContent").html(response.responseText);
+                            $('#machineModelModal').modal('show');
+                        }
+                    });
                 });            	
+                            	
 		  });
 
       	function closingModal(machineModelId){
@@ -219,13 +238,22 @@
 							        	<spring:bind path="machine.modelId">
 								        	<div class="form-group ${status.error ? 'has-error' : '' }">
 							                    <label class="form-label">Модель*
-							                    	<span class="report_header">(Нету в списке? Создайте <a href="#" rel="tableRowEdit" data-param1="3">
-							                    	новую</a>.)</span>
+							                    	<span class="report_header">
+							                    		(Нету в списке? Создайте <a href="#" rel="createNewModel">
+								                    	новую</a>, или отредактируйте
+								                    	<span id="edit_machine_model">
+									                    	<a href="#" id="editExistingModel" 
+									                    	data-param1="<c:out value="${machineEditCommand.machine.modelId}"/>">
+									                    	текущую</a>
+									                    </span> 
+									                    модель механизма.)
+								                    	
+							                    	</span>
 							                    </label>
 												<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
 													<form:option value="0">Не выбрана (или отсутствует в базе моделей)</form:option>
 									                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
-									                    <form:option value="${model.key}" label="${model.value.name}" />
+									                    <form:option value="${model.key}" label="(${model.key})${model.value.name}" />
 														<c:if test="${machineEditCommand.machine.modelId == model.key}">
 															<c:set var="currentModel" scope="request" value="${model.value}"/> 
 														</c:if>									                    

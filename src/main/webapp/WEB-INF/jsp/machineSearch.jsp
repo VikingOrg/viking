@@ -79,27 +79,34 @@
             } );
     
         </script>
-	
+		<style type="text/css">
+			#limit_width{
+				max-width:400px !important;
+			}
+			#max_width{
+			    width:100% !important;
+			}
+		</style>	
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
 		<div id="wrap"> 
 <jsp:include page="common/menu.jsp" />
+
 <!----- Begin page content ------>
+
 <div class="container">
 	<form:form id="machine_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="machineSearch" 
 	commandName="machineSearchCommand" method="post" accept-charset="UTF-8">
+	
 		<div class="row">
 
 			<!--Sidebar content-->
-			<div class="col-sm-4">
+			<div id = "limit_width" class="col-sm-3">
 
 				<div class="col-sm-12 well lform">
-
 					<div class="row">
-
 						<div class="col-sm-12">
-
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<div class="form-group">
 									<label class="col-sm-4 control-label">Страна</label>
@@ -218,7 +225,7 @@
 			</div>
 			<!-- End of Sidebar content-->
 
-			<div class="col-sm-8">
+			<div class="col-sm-9">
 
 				<!-- Start table content -->
 
