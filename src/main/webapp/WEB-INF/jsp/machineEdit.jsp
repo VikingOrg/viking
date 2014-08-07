@@ -133,6 +133,24 @@
         
 		  </script>
 		  <style type="text/css">
+		  
+			.tab-pane-red {
+			    border-left: 1px solid red;
+			    border-right: 1px solid red;
+			    border-bottom: 1px solid red;
+			    border-top: 1px solid red;
+			    border-radius: 0px 0px 5px 5px;
+			    padding: 10px;
+			}
+			.active-red{
+			    border-top-left-radius: 5px;
+			    border-top-right-radius: 5px;
+			    border-left: 1px solid red;
+			    border-right: 1px solid red;
+			    border-top: 1px solid red;			
+			    border-bottom:none;
+
+			}
 			.report_header{
 				font-family: 'Open Sans', sans-serif;
 				font-weight:300;
@@ -180,7 +198,11 @@
 				<!-- Start of Tab Container -->	
 				<div class="container">	
 				    <ul id="machineEditTab" class="nav nav-tabs responsive" role="tablist">
-				      <li class="active"><a href="#main" role="tab" data-toggle="tab">Основные характеристики (Устройство №<c:out value="${machineEditCommand.machine.machineId}" />)</a></li>
+				      <li class="active <c:if test="${machineEditCommand.machine.archived == '1'}">active-red</c:if>"">
+				      	  <a href="#main" role="tab" data-toggle="tab">
+						   	  Основные характеристики (Устройство №<c:out value="${machineEditCommand.machine.machineId} "/><c:if test="${machineEditCommand.machine.archived == '1'}">Удалено!</c:if>)
+				      	  </a>
+				      </li>
 				      <li><a href="#tab_image" role="tab" data-toggle="tab">Дополнительные сведения</a></li>
 				    </ul>
 				    
@@ -188,7 +210,7 @@
 					
 		
 
-							<div class="tab-pane fade tab-bordered" id="tab_image">
+							<div class="tab-pane fade tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>" id="tab_image">
 							      <div class="row">
 							        <div class="col-sm-9 col-sm-offset-1">
 							        	<div class="">
@@ -222,7 +244,7 @@
 								  
 								  
 							</div>
-							<div class="tab-pane fade in active tab-bordered" id="main">
+							<div class="tab-pane fade in active tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>"" id="main">
 							      <div class="row">
 							        <div class="col-sm-4 col-sm-offset-1">
 							            <label class="form-label">

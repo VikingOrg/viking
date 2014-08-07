@@ -73,8 +73,8 @@
 					    </div>
 				      </div> <!-- /.modal-body -->
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button id="submitMachineModel" type="button" class="btn btn-primary">Save changes</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+				        <button id="submitMachineModel" type="button" class="btn btn-primary">Сохранить</button>
 				      </div>
 				 </form:form>
 				 <script type="text/javascript">
