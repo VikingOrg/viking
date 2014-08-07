@@ -9,20 +9,36 @@
 <html lang="ru">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	    <title>Таблица моделей подъемно-транспортного оборудования</title>
+	    <title>Таблица Моделей Машин</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript">
 	        $(document).ready(function() {
 	        	oTable = $('#modelSearchTable').dataTable( {
-	        		"sDom": 't<"#source"l>ip',
+	        		"sDom": '<"#tableActions"T>t<"#source"l>ip',
 	                "bJQueryUI": true,
 	    			"scrollX" : true,
+	             	tableTools: {
+	         			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+	         		 	"aButtons": [
+	           	                "copy",
+	           	             	{
+	           	                    "sExtends":     "print",
+	           	                    "bHeader": true
+	           	                	},
+	           	            	{
+	           	                    "sExtends":     "csv",
+	           	                    "sButtonText": "Save",
+	           	                    "bHeader": true
+	           	                	}
+	           	            ]
+	         	   },
 	    			"oLanguage": {
 	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                   },
                    "fnInitComplete": function(oSettings) {
                 	   $("#source").appendTo("#table_length");
             		   $("#table_length").addClass("col-sm-8");
+                	   $("#tableActions").appendTo("#table_Actions");
 	              },
 	            } );
 
@@ -98,6 +114,14 @@
             }
             
         </script>	
+		<style type="text/css">
+			#limit_width{
+				max-width:400px !important;
+			}
+			#max_width{
+			    width:100% !important;
+			}
+		</style>
 	<body>
 		<!-- Wrap all page content here -->  
 		<div id="wrap"> 
@@ -109,85 +133,72 @@
 		<div class="row">
 
 			<!--Sidebar content-->
-			<div class="col-sm-4">
+			<div id = "limit_width" class="col-sm-3">
 
 				<div class="col-sm-12 well lform">
 
 					<div class="row">
 
 						<div class="col-sm-12">
-
 								<div class="form-group">
-				                    <label class="col-sm-4 control-label">Группа</label>
-				                    <div class="col-sm-8">
+				                    <label>Группа</label>
 									<form:select id="groupSelect" path="groupId" cssClass="form-control">
 									    <form:option value="">Все группы</form:option>
 						                <c:forEach items="${modelSearchCommand.groupMap}" var="group">
 						                    <form:option value="${group.key}" label="(${group.key})${group.value.name}" />
 						                </c:forEach>								
 									</form:select>
-									</div>
 			                    </div>
 						        <div class="form-group">
-				                    <label class="col-sm-4 control-label">Производитель</label>
-				                    <div class="col-sm-8">
+				                    <label>Производитель</label>
 									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
 									    <form:option value="">Все производители</form:option>
 						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
 						                    <form:option value="${manufacturer.value.nameRus}" label="${manufacturer.value.nameRus}" />
 						                </c:forEach>								
 									</form:select>
-									</div>
 					        	</div>
 					        	<div class="form-group">
-				                    <label class="col-sm-4 control-label">Страна</label>
-				                    <div class="col-sm-8">
+				                    <label>Страна</label>
 									<form:select id="countrySelect" path="countryId" cssClass="form-control">
 										<form:option value="">Все страны</form:option>
 						                <c:forEach items="${modelSearchCommand.countryMap}" var="country">
 						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 						                </c:forEach>
 									</form:select>
-									</div>
 								</div>	
 			                    <div class="form-group">
-								<label class="col-sm-4 control-label">Поиск</label>
-									<div class="col-sm-8">
+								<label>Поиск</label>
 										<input id="dataTableSearch" class="form-control"
 											placeholder="Введите..."
 											title="Введите для поиска по всем полям" type="text" />
-									</div>
 								</div>
 								<div class="form-group">
 										<label class="col-sm-4 control-label">Кол.строк:</label>
 										<div id="table_length"></div>					
 								</div>
-								
-			                 </div>
-
+			               </div>
 					</div>
 				</div>
 								<!--  Операции с данными в таблице -->
 				<div class="col-sm-12 well lform">
-							<div class="row" style="padding-right:10px">
-
-								<div class="col-sm-12">
-									<div class="form-group">
-										<a href="<c:url value="machineEdit"/>"
-											class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
-											class="pull-right">&nbsp;</span> 
-											<a href="#"
-											class="btn btn-primary pull-right" title="Удалить"
-											data-toggle="modal" data-target="#confirmDelete">Удалить</a>
-									</div>	
-								</div>
+					<div class="row" style="padding-right:10px">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<a href="<c:url value="machineEdit"/>"
+									class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
+									class="pull-right">&nbsp;</span> 
+									<a href="#"
+									class="btn btn-primary pull-right" title="Удалить"
+									data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 							</div>	
-				</div>					
-
+						</div>
+					</div>	
+				</div>		
 			</div>
 			<!-- End of Sidebar content-->
 
-			<div class="col-sm-8">
+			<div class="col-sm-9">
 	                            					                    <!--  Вывод сообщений и предупреждений  -->
 										<c:if test="${not empty message}"> 
 											<div class="alert alert-success show"><spring:message code="${message}" />
@@ -201,7 +212,7 @@
 										</c:if>	
 	                            
 <!-- 							Таблица со списком машин -->
-				<h3 class="page-header">Подъемно-транспортное оборудование</h3>
+				<h3 class="page-header">Модели Машин</h3>
                                     <table id="modelSearchTable" class="table table-striped table-bordered">
 			                          <thead>
 			                              <tr>
@@ -221,15 +232,12 @@
 						                             <td class="nowrap column-check" width= "20px">
 						                             	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<c:if test="${system.localConfig}" >
-						                              		<span class="alert-danger">
+						                              		<span class="badge">
 						                              			<c:out value="(${machineModel.modelId})"/>
 						                              		</span>
 						                              	</c:if>						                             	
 						                             </td>
 							                         <td class="nowrap">
-						                             	<a href="#" rel="tableRowCopy" data-param1="${machineModel.modelId}">
-						                         			&nbsp;<span class="glyphicon glyphicon-fullscreen" title="Копировать"></span>&nbsp;
-						                         	 	</a>
 						                         	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
 							                         <span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
 						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>

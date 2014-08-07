@@ -12,7 +12,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<title>Таблица подъемно-транспортного оборудования</title>
+<title>Таблица Машин и Механизмов</title>
 
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
@@ -21,10 +21,25 @@
 	        $(document).ready(function() {
 	        	var oTable = $('#machine_table').dataTable( {
 	        	        "bJQueryUI": true,
-	        	        "sDom": '<r>t<"F"ip>',
+	        	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
 	        	        "sPaginationType": "full_numbers",
 	        	        "bProcessing": true,
 	        	        "responsive": false,
+	                 	tableTools: {
+	             			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+	             		 	"aButtons": [
+	               	                "copy",
+	               	             	{
+	               	                    "sExtends":     "print",
+	               	                    "bHeader": true
+	               	                	},
+	               	            	{
+	               	                    "sExtends":     "csv",
+	               	                    "sButtonText": "Save",
+	               	                    "bHeader": true
+	               	                	}
+	               	            ]
+	             	   },
 	                    "oLanguage": {
 	                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                     },
@@ -40,6 +55,12 @@
 	        	                       ],    	                     
 	                    "sScrollX": "99%",
 	        	        "sAjaxSource": '${pageContext.request.contextPath}/machineSearch/getMachines/',
+	        	        
+	                    "fnInitComplete": function(oSettings) {
+	                 	   $("#source").appendTo("#table_length");
+	             		   $("#table_length").addClass("col-sm-8");
+	                	   $("#tableActions").appendTo("#table_Actions");
+	 	              },
 	        	    } );
 	        	
                 $('#dataTableSearch').on('input', function() {
@@ -103,125 +124,122 @@
 
 			<!--Sidebar content-->
 			<div id = "limit_width" class="col-sm-3">
-
 				<div class="col-sm-12 well lform">
 					<div class="row">
 						<div class="col-sm-12">
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<div class="form-group">
-									<label class="col-sm-4 control-label">Страна</label>
-									<div class="col-sm-8">
+									<label>Страна</label>
 										<form:select id="countrySelect" path="countryId"
-											cssClass="form-control col-sm-12">
-											<form:option value="">Все</form:option>
+											cssClass="form-control">
+											<form:option value="">Все Страны</form:option>
 											<c:forEach items="${machineSearchCommand.userCountry}"
 												var="country">
 												<form:option value="${country.value.nameRus}"
 													label="${country.value.nameRus}" />
 											</c:forEach>
 										</form:select>
-									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-4 control-label">Порт</label>
-									<div class="col-sm-8">
+									<label>Порт</label>
 										<form:select id="portSelect" path="portId"
-											cssClass="form-control col-sm-12">
-											<form:option value="">Все</form:option>
+											cssClass="form-control">
+											<form:option value="">Все Порты</form:option>
 											<c:forEach items="${machineSearchCommand.userPort}"
 												var="port">
 												<form:option value="${port.value.name}"
 													label="${port.value.name}" />
 											</c:forEach>
 										</form:select>
-									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-4 control-label">Компания</label>
-									<div class="col-sm-8">
+									<label>Компания</label>
 										<form:select id="stevidorSelect" path="stevidorId"
-											cssClass="form-control col-sm-12">
-											<form:option value="">Все</form:option>
+											cssClass="form-control">
+											<form:option value="">Все Компании</form:option>
 											<c:forEach items="${machineSearchCommand.userStevidor}"
 												var="stevidor">
 												<form:option value="${stevidor.value.fullName}"
 													label="${stevidor.value.fullName}" />
 											</c:forEach>
 										</form:select>
-									</div>
 								</div>
-
 							</sec:authorize>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Группа</label>
-								<div class="col-sm-8">
+								<label>Группа</label>
 									<form:select id="groupSelect" path="groupId"
-										cssClass="form-control col-sm-12">
-										<form:option value="">Все</form:option>
+										cssClass="form-control">
+										<form:option value="">Все Группы</form:option>
 										<c:forEach items="${machineSearchCommand.groupMap}"
 											var="group">
 											<form:option value="${group.key}" label="(${group.key})${group.value.name}" />
 										</c:forEach>
 									</form:select>
-								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Год выпуска</label>
-								<div class="col-sm-8">
-									<form:select id="releaseYearSelect" path="releaseYear"
-										cssClass="form-control" title="Выборка по году выпуска">
-										<form:option value="" label="Все" />
-										<form:options items="${machineSearchCommand.yearMap}" />
-									</form:select>
-								</div>
-							</div>
+			                    <label class="form-label">Модель</label>
+			                    <select class="form-control" title="Выборка по модели">
+				                    <option>Все Модели</option>
+				                    <option>Альбатрос 10/20т</option>
+				                    <option>Кондор 16/20/32т</option>
+				                    <option>Сокол 16/20/32т</option>
+			                    </select>
+		                    </div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Производитель</label>
-								<div class="col-sm-8">
+								<label>Производитель</label>
 									<form:select id="manufacturerSelect" path="manufacturerId"
 										cssClass="form-control" title="Выборка по производителю">
-										<form:option value="">Все</form:option>
+										<form:option value="">Все Производители</form:option>
 										<c:forEach items="${machineSearchCommand.manufacturerMap}"
 											var="manufacturer">
 											<form:option value="${manufacturer.value.nameRus}"
 												label="(${manufacturer.key})${manufacturer.value.nameRus}" />
 										</c:forEach>
 									</form:select>
+							</div> 
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Год выпуска</label>
+								<div class="col-sm-8" style="padding-right: 0px">
+									<form:select id="releaseYearSelect" path="releaseYear"
+										cssClass="form-control" title="Выборка по году выпуска">
+										<form:option value="" label="С" />
+										<form:options items="${machineSearchCommand.yearMap}" />
+									</form:select>
+									<select class="form-control" title="Выборка по году выпуска">
+										<option>По</option>
+										<option>2000</option>
+										<option>2001</option>
+										<option>2002</option>
+										<option>2003</option>
+									</select>
 								</div>
 							</div>
-							<!-- 
-					                    <div class="filter_select">
-						                    <label class="form-label">МОДЕЛЬ</label>
-						                    <select class="form-control" title="Выборка по модели">
-							                    <option>Не установлен</option>
-							                    <option>Альбатрос 10/20т</option>
-							                    <option>Кондор 16/20/32т</option>
-							                    <option>Сокол 16/20/32т</option>
-						                    </select>
-					                    </div>	
-					                     -->
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Поиск</label>
-								<div class="col-sm-8">
+								<label>Поиск</label>
 									<input id="dataTableSearch" class="form-control"
 										placeholder="Введите..."
 										title="Введите для поиска по всем полям" type="text" />
-								</div>
 							</div>
 						</div>
-
 					</div>
-					<hr>
-					<!--  Операции с данными в таблице -->
 					<div class="form-group">
+							<label class="col-sm-4 control-label">Кол.строк:</label>
+							<div id="table_length"></div>					
+					</div>
+				</div>
+			
+			<!--  Операции с данными в таблице -->
+				<div class="col-sm-12 well lform">
+					<div class="row" style="padding-right:10px">
 						<div class="col-sm-12">
-							<a href="<c:url value="machineEdit"/> "class="btn btn-primary pull-right" title="Ввод нового">Добавить</a>
-								<span class="pull-right">&nbsp;</span> 
-							<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+							<div class="form-group">
+								<a href="<c:url value="machineEdit"/> "class="btn btn-primary pull-right" title="Ввод нового">Добавить</a>
+									<span class="pull-right">&nbsp;</span> 
+								<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 			<!-- End of Sidebar content-->
 
@@ -244,7 +262,7 @@
 				</c:if>
 
 				<!-- 	Таблица со списком машин -->
-				<h3 class="page-header">Подъемно-транспортное оборудование</h3>
+				<h3 class="page-header">Машины и Механизмы</h3>
 				<table id="machine_table" class="table table-striped table-bordered">
 			        <thead>
 			            <tr>

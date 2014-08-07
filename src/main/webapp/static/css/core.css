@@ -93,6 +93,20 @@
     	  color: #555555;
 		}
 		
+		.form-control {
+		  border-radius:4px;
+		  margin-top: 0px;
+		}
+		
+		.form-horizontal .form-group {
+		  margin-left: 0;
+   		  margin-right: 0;
+		}
+		
+		.control-label {
+		    padding-left: 0;
+		}
+		
 		td.column-check {
 			width: 20px;
 		}
@@ -110,29 +124,18 @@
 		    padding: 15px;
 		    vertical-align: top;
 		}
-		.col-sm-4, .col-sm-8, .col-sm-9 {
-			padding:8px;
-		}
 		
 		.lform {
 		    height: auto;
 		}
 		
 		.well {
+		    margin-top: 15px;
 		    margin-bottom: 5px;
 		}
 		
 		.dataTables_wrapper.no-footer .dataTables_scrollBody {
 		    border-bottom: 0px solid #111111;
-		}
-		
-		.form-horizontal .control-label {
-		    margin-bottom: -10px;
-		    padding-left: 15px
-		}
-		
-		.form-horizontal.mini .form-group {
-		    margin-bottom: 0;
 		}
 		
 		.nav-tabs > li > a, .nav-tabs > li > a:hover {

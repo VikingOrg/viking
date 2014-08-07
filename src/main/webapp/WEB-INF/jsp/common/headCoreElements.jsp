@@ -13,7 +13,7 @@
 	    
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
-	    <!-- <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/dataTables.tableTools.css"/>"/>-->
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/dataTables.tableTools.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
 	    
 	    <!--[if lt IE 9]>
@@ -29,6 +29,6 @@
 	    
         <!--<script type="text/javascript" src="<c:url value="/static/js/js.response.min.js"/>"></script>-->
         <!--<script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>"></script>-->
-        <!-- <script type="text/javascript" src="<c:url value="/static/js/dataTables.tableTools.js"/>"></script>-->
+        <script type="text/javascript" src="<c:url value="/static/js/dataTables.tableTools.js"/>"></script>
 
 		

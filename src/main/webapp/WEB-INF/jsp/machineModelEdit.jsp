@@ -38,9 +38,9 @@
 					      </div>
 					      <div class="row">
 					        <div class="col-sm-4 col-sm-offset-1">
-					        	<v:input id="machineModelName" path="machineModel.name" label="МОДЕЛЬ" required="true" title="Укажите модель"/>
+					        	<v:input id="machineModelName" path="machineModel.name" label="Модель" required="true" title="Укажите модель"/>
 					            <div class="form-group">
-						            <label class="form-label">ПРИМЕЧАНИЯ</label>
+						            <label class="form-label">Примечания</label>
 						            <div class="controls">
 						            	<form:textarea id="macnineModelNote" path="machineModel.note" rows="3" cssClass="form-control"/>
 						            </div>				            
@@ -48,8 +48,8 @@
 					        </div>
 					        <div class="col-sm-4 col-sm-offset-1">
 
-								<div class="filter_select">
-				                    <label class="form-label">ГРУППА</label>
+								<div class="form-group">
+				                    <label class="form-label">Группа</label>
 									<form:select id="groupSelectModal" path="machineModel.groupId" cssClass="form-control">
 									    <form:option value="">Не установлен</form:option>
 						                <c:forEach items="${machineModalEditCommand.groupMap}" var="group">
@@ -57,8 +57,8 @@
 						                </c:forEach>								
 									</form:select>
 			                    </div>
-						        <div class="filter_select">
-		  				            <label class="form-label">ПРОИЗВОДИТЕЛЬ</label>
+						        <div class="form-group">
+		  				            <label class="form-label">Производитель</label>
 									<form:select id="manufacturerSelectModal" path="machineModel.manufacturerId" cssClass="form-control" title="Выборка по производителю">
 									    <form:option value="">Не выбран</form:option>
 						                <c:forEach items="${machineModalEditCommand.manufacturerMap}" var="manufacturer">
@@ -73,8 +73,9 @@
 					    </div>
 				      </div> <!-- /.modal-body -->
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+				        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
 				        <button id="submitMachineModel" type="button" class="btn btn-primary">Сохранить</button>
+				        <button id="submitMachineModel" type="button" class="btn btn-primary">Скопировать</button>
 				      </div>
 				 </form:form>
 				 <script type="text/javascript">
