@@ -42,13 +42,12 @@
            	            ]
          	   },
                 "oLanguage": {
-                    "sUrl": "static/js/dataTable_ru_RU.txt"
+                	"sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                  },
                  "fnInitComplete": function(oSettings) {
-              	   $("#source").appendTo("#table_length");
-          		   $("#table_length").addClass("col-sm-8");
-            	   $("#tableActions").appendTo("#table_Actions");
-	              },                  
+              	   $('select[name="stevidor_table_length"]').appendTo("#table_length");
+              	   $('select[name="stevidor_table_length"]').addClass("form-control");
+	              },                 
             } );
 
 
@@ -81,7 +80,7 @@
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
-					<div class="col-sm-4">
+					<div id = "limit_width" class="col-sm-3">
 			
 						<div class="col-sm-12 well lform">
 			
@@ -89,36 +88,30 @@
 									
 									<div class="col-sm-12">
 										<div class="form-group">
-											<label class="col-sm-4 control-label">Страна</label>
-											<div class="col-sm-8">
+											<label>Страна</label>
 											<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
 												<form:option value="">Все</form:option>
 								                <c:forEach items="${stevidorSearchCommand.userCountry}" var="country">
 								                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 								                </c:forEach>
 											</form:select>
-											</div>
 										</div>	
 										<div class="form-group">
-											<label class="col-sm-4 control-label">Порт</label>
-											<div class="col-sm-8">
+											<label>Порт</label>
 											<form:select id="portSelect" path="portId" cssClass="form-control col-sm-12">
 												<form:option value="">Все</form:option>
 								                <c:forEach items="${stevidorSearchCommand.userPort}" var="port">
 								                    <form:option value="${port.value.name}" label="${port.value.name}" />
 								                </c:forEach>							
 											</form:select>
-											</div>	
 										</div>
 										<div class="form-group">
-						                    <label class="col-sm-4 control-label">Поиск</label>
-						                    	<div class="col-sm-8">
+						                    <label>Поиск</label>
 						                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
-						                        </div>
-								        </div>
+						                </div>
 								        
 										<div class="form-group">
-												<label class="col-sm-4 control-label">Кол.строк:</label>
+												<label>Кол.строк:</label>
 												<div id="table_length"></div>					
 										</div>
 								    </div>				
@@ -138,7 +131,7 @@
 					</div>
 				<!-- End of Sidebar content-->	
 				
-					<div class="col-sm-8">
+					<div id = "#max_width" class="col-sm-9">
 				
 						<!-- Start table content -->
 

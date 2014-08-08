@@ -152,14 +152,6 @@
     	    }
     	);    
         </script>
-		<style type="text/css">
-			#limit_width{
-				max-width:280px !important;
-			}
-			#max_width{
-			    width:100% !important;
-			}
-		</style>	
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -255,12 +247,12 @@
 								<div class="col-sm-8" style="padding-right: 0px">
 									<form:select id="startRangeSelect" path="releaseYear"
 										cssClass="form-control" title="Выборка по году выпуска">
-										<form:option value="" label="Начиная с" />
+										<form:option value="" label="С" />
 										<form:options items="${machineSearchCommand.yearMap}" />
 									</form:select>
 									<form:select id="endRangeSelect" path="releaseYear"
 										cssClass="form-control" title="Выборка по году выпуска">
-										<form:option value="" label="Заканчивая на" />
+										<form:option value="" label="По" />
 										<form:options items="${machineSearchCommand.yearMap}" />
 									</form:select>
 								</div>
@@ -279,7 +271,7 @@
 						<div id="table_length"></div>					
 					</div>
 					<div class="form-group">
-	                    <label class="form-label">Тип записей</label>
+	                    <label>Тип записей</label>
 						<select id="recordTypeSelect" class="form-control" title="Выборка по типу записи">
 							<option value="">Все типы</option>
 							<option value="0">Активные</option>

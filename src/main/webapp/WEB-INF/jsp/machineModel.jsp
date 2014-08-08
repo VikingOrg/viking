@@ -35,11 +35,10 @@
 	    			"oLanguage": {
 	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                   },
-                   "fnInitComplete": function(oSettings) {
-                	   $("#source").appendTo("#table_length");
-            		   $("#table_length").addClass("col-sm-8");
-                	   $("#tableActions").appendTo("#table_Actions");
-	              },
+	                   "fnInitComplete": function(oSettings) {
+	                	   $('select[name="modelSearchTable_length"]').appendTo("#table_length");
+	                	   $('select[name="modelSearchTable_length"]').addClass("form-control");
+	 	              },
 	            } );
 
 
@@ -116,7 +115,7 @@
         </script>	
 		<style type="text/css">
 			#limit_width{
-				max-width:400px !important;
+				max-width:280px !important;
 			}
 			#max_width{
 			    width:100% !important;
@@ -174,9 +173,17 @@
 											title="Введите для поиска по всем полям" type="text" />
 								</div>
 								<div class="form-group">
-										<label class="col-sm-4 control-label">Кол.строк:</label>
+										<label>Кол.строк:</label>
 										<div id="table_length"></div>					
 								</div>
+								<div class="form-group">
+				                    <label>Тип записей</label>
+									<select id="" class="form-control" title="Выборка по типу записи">
+										<option value="">Все типы</option>
+										<option value="0">Активные</option>
+										<option value="1">Удаленные</option>
+									</select>	                    
+                    </div>
 			               </div>
 					</div>
 				</div>

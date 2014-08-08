@@ -36,13 +36,12 @@
                         	   },
                                "bJQueryUI": true,
                                "oLanguage": {
-                                   "sUrl": "static/js/dataTable_ru_RU.txt"
+       	                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                                 },
                                 "fnInitComplete": function(oSettings) {
-                             	   $("#source").appendTo("#table_length");
-                         		   $("#table_length").addClass("col-sm-8");
-                           	   $("#tableActions").appendTo("#table_Actions");
-             	              },                    
+         	                	   $('select[name="country_table_length"]').appendTo("#table_length");
+         	                	   $('select[name="country_table_length"]').addClass("form-control");
+         	 	              },                  
                 } );
 
 
@@ -73,23 +72,21 @@
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
-					<div class="col-sm-4">
+					<div id = "limit_width" class="col-sm-3">
 			
 						<div class="col-sm-12 well lform">
 			
 							<div class="row">
 								<div class="col-sm-12">	
 									<div class="form-group">
-						                    <label class="col-sm-4 control-label">Поиск</label>
-						                    	<div class="col-sm-8">
+						                    <label>Поиск</label>
 						                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
-						                        </div>
 								    </div>
 								</div>
 							 </div>
 							 
 							<div class="form-group">
-									<label class="col-sm-4 control-label">Кол.строк:</label>
+									<label>Кол.строк:</label>
 									<div id="table_length"></div>					
 							</div>
 						</div>
@@ -109,7 +106,7 @@
 				<!-- End of Sidebar content-->	
 				
 				
-					<div class="col-sm-8">
+					<div id = "#max_width" class="col-sm-9">
 				
 						<!-- Start table content -->
 
@@ -134,7 +131,7 @@
 				                    
 				                          <thead>
 				                              <tr>
-					                              <th class="column-check nowrap" width= "20px">&nbsp;</th>
+					                              <th class="column-check nowrap">&nbsp;</th>
 					                              <th class="nowrap">Страна (RUS)</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Страна (ENG)</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Примечания</th>
@@ -144,7 +141,7 @@
 				                          	<c:forEach var="country" varStatus="loop" items="${countrySearchCommand.countryList}" >
 				                          	<c:if test="${country.archived != '1'}" >
 					                            <tr>
-					                                <td class="column-check nowrap" width= "20px">
+					                                <td class="column-check nowrap">
 					                                	<form:checkbox path="countryList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<%-- <c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">
