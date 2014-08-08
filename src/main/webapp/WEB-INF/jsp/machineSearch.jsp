@@ -46,8 +46,8 @@
 	        	        "aoColumnDefs": [
 	        	                         { "bVisible": true,  "aTargets": [ 1 ] },
 	        	                         {
-		        	   	        		      "aTargets": [ 2 ],
-		        	   	        		      "mData": 2,
+		        	   	        		      "aTargets": [ 3 ],
+		        	   	        		      "mData": 3,
 		        	   	        		      "mRender": function ( data, type, full ) {
 		        	   	        		        return '<a href="${pageContext.request.contextPath}/machineEdit?machineId='+full[0]+'">'+data+'</a>';
 		        	   	        		      }
@@ -55,11 +55,9 @@
 	        	                       ],    	                     
 	                    "sScrollX": "99%",
 	        	        "sAjaxSource": '${pageContext.request.contextPath}/machineSearch/getMachines/',
-	        	        
 	                    "fnInitComplete": function(oSettings) {
-	                 	   $("#source").appendTo("#table_length");
-	             		   $("#table_length").addClass("col-sm-8");
-	                	   $("#tableActions").appendTo("#table_Actions");
+	                	   $('select[name="machine_table_length"]').appendTo("#table_length");
+	                	   $('select[name="machine_table_length"]').addClass("form-control");
 	 	              },
 	        	    } );
 	        	
@@ -76,23 +74,47 @@
                     }         
                 	//oTable.fnFilter( $(this).val(), 19);
                 });
+                
+                $('#modelSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 2);
+                });
+                             
                 $('#stevidorSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 4);
+                	oTable.fnFilter( $(this).val(), 5);
                 });
                                    		 
                 $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 5);
+                	oTable.fnFilter( $(this).val(), 6);
                 });
                 $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 6);
+                	oTable.fnFilter( $(this).val(), 7);
                 });
 
                 $('#manufacturerSelect').change(function() {
                 	oTable.fnFilter( $(this).val());
                 });                                                
                 $('#releaseYearSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 9);
+                	oTable.fnFilter( $(this).val(), 10);
                 });
+
+
+                $('#groupSelect').change(function() {
+              	  var groupId = $(this).val();
+              	  if(groupId=='0'){
+              		  $('#modelSelect').html("<option value=''>Все модели</option>");
+                    } else {
+  	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
+  	                	  //$('#model_details').html("Характеристика Модели:");
+  	                	  //$('#model_manuf_name_rus').html("Компания Произовдитель:");
+  	                	  //$('#model_manuf_country_name_rus').html("Место Производства:");
+  	                      var options='<option value="">Все модели</option>';
+  	                      $.each(machineModel, function (i, e) {
+  	                          options += "<option value='" + e.modelId + "'>" + "(" + e.modelId + ")"+e.name + "</option>";
+  	                      });
+  	                      $('#modelSelect').html(options);
+  	                  });
+                    }
+                });                
                  
 //                 $('#selectAll').click(function (e) {
 //                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
@@ -102,7 +124,7 @@
         </script>
 		<style type="text/css">
 			#limit_width{
-				max-width:400px !important;
+				max-width:280px !important;
 			}
 			#max_width{
 			    width:100% !important;
@@ -167,8 +189,7 @@
 							</sec:authorize>
 							<div class="form-group">
 								<label>Группа</label>
-									<form:select id="groupSelect" path="groupId"
-										cssClass="form-control">
+									<form:select id="groupSelect" path="groupId" cssClass="form-control">
 										<form:option value="">Все Группы</form:option>
 										<c:forEach items="${machineSearchCommand.groupMap}"
 											var="group">
@@ -178,13 +199,14 @@
 							</div>
 							<div class="form-group">
 			                    <label class="form-label">Модель</label>
-			                    <select class="form-control" title="Выборка по модели">
-				                    <option>Все Модели</option>
-				                    <option>Альбатрос 10/20т</option>
-				                    <option>Кондор 16/20/32т</option>
-				                    <option>Сокол 16/20/32т</option>
-			                    </select>
+								<form:select id="modelSelect" path="modelId" cssClass="form-control">
+									<form:option value="">Все модели</form:option>
+					                <c:forEach items="${machineSearchCommand.machineModelMap}" var="model">
+					                    <form:option value="${model.key}" label="(${model.key})${model.value.name}" />
+					                </c:forEach>									
+								</form:select>		                    
 		                    </div>
+		                    
 							<div class="form-group">
 								<label>Производитель</label>
 									<form:select id="manufacturerSelect" path="manufacturerId"
@@ -196,7 +218,8 @@
 												label="(${manufacturer.key})${manufacturer.value.nameRus}" />
 										</c:forEach>
 									</form:select>
-							</div> 
+							</div>
+							<%-- 
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Год выпуска</label>
 								<div class="col-sm-8" style="padding-right: 0px">
@@ -214,6 +237,7 @@
 									</select>
 								</div>
 							</div>
+							--%> 
 							<div class="form-group">
 								<label>Поиск</label>
 									<input id="dataTableSearch" class="form-control"
@@ -223,8 +247,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-							<label class="col-sm-4 control-label">Кол.строк:</label>
-							<div id="table_length"></div>					
+						<label>Кол.строк:</label>
+						<div id="table_length"></div>					
 					</div>
 				</div>
 			
@@ -243,7 +267,7 @@
 			</div>
 			<!-- End of Sidebar content-->
 
-			<div class="col-sm-9">
+			<div id = "#max_width" class="col-sm-9">
 
 				<!-- Start table content -->
 
@@ -268,6 +292,7 @@
 			            <tr>
 			                <th>Id</th>
 			                <th>group Id</th>
+			                <th>model Id</th>
 			                <th>Группа</th>
 			                <th>Модель</th>
 			                <th>Компания</th>

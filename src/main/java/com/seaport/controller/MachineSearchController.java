@@ -134,7 +134,7 @@ public class MachineSearchController {
 			} catch (Exception e) {
 			}
     		
-            Object[] objectArray = new String[]{machine.getMachineId().toString(), groupId,
+            Object[] objectArray = new String[]{machine.getMachineId().toString(), groupId, machine.getModelId()==null?" ":machine.getModelId().toString(),
 							            		groupName, modelName,
 							            		stevidorFullName, portCountry, portName, modelDetail, manufactorName, releaseYear,
 							            		startDate, contractNum, inventoryNumb, transNumb, factoryNumb,

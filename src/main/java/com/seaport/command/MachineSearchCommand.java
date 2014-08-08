@@ -8,6 +8,7 @@ import java.util.Map;
 import com.seaport.domain.Country;
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
+import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
@@ -29,6 +30,7 @@ public class MachineSearchCommand {
 	private Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
 	private Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
+	private Map<Integer, MachineModel> machineModelMap = new LinkedHashMap<Integer, MachineModel>();
 	
 	private Integer groupId;
 	private Integer portId;
@@ -36,7 +38,20 @@ public class MachineSearchCommand {
 	private Integer stevidorId;
 	private Integer releaseYear;
 	private Integer manufacturerId;
-
+	private Integer modelId;
+	
+	public Integer getModelId() {
+		return modelId;
+	}
+	public void setModelId(Integer modelId) {
+		this.modelId = modelId;
+	}
+	public Map<Integer, MachineModel> getMachineModelMap() {
+		return machineModelMap;
+	}
+	public void setMachineModelMap(Map<Integer, MachineModel> machineModelMap) {
+		this.machineModelMap = machineModelMap;
+	}
 	public Map<Integer, Manufacturer> getManufacturerMap() {
 		return manufacturerMap;
 	}
