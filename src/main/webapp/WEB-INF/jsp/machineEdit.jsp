@@ -17,10 +17,10 @@
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
        
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
-	    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	    <script src="<c:url value="/static/js/load-image.min.js"/>"></script>
+	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
 		
 		<script>
 		  $(document).ready(function() {
@@ -87,8 +87,18 @@
                             $('#machineModelModal').modal('show');
                         }
                     });
-              });            	
-                            	
+              });
+
+              document.getElementById('file-input').onchange = function (e) {
+          	    loadImage(
+          	        e.target.files[0],
+          	        function (img) {
+          	            document.body.appendChild(img);
+          	        },
+          	        {maxWidth: 600} // Options
+          	    );
+          	};
+              
 		  });
 
       	function refreshModel(modelId){
@@ -130,7 +140,7 @@
     		//$('#'+machineModelId).addClass( "success" );
     		//var myClass = $('#'+machineModelId).attr('class');        		
         }
-        
+			      
 		  </script>
 		  <style type="text/css">
 		  
@@ -156,6 +166,34 @@
 				font-weight:300;
 				font-style: italic;
 			}
+			
+			/*file upload zone CSS*/			
+			#dropzone {
+			    background: #ccccc;
+			    width: 150px;
+			    height: 50px;
+			    line-height: 50px;
+			    text-align: center;
+			    font-weight: bold;
+			}
+			#dropzone.in {
+			    width: 600px;
+			    height: 200px;
+			    line-height: 200px;
+			    font-size: larger;
+			}
+			#dropzone.hover {
+			    background: lawngreen;
+			}
+			#dropzone.fade {
+			    -webkit-transition: all 0.3s ease-out;
+			    -moz-transition: all 0.3s ease-out;
+			    -ms-transition: all 0.3s ease-out;
+			    -o-transition: all 0.3s ease-out;
+			    transition: all 0.3s ease-out;
+			    opacity: 1;
+			}			
+			
 		  </style>			  
 	</head>
 	<body>
@@ -198,7 +236,7 @@
 				<!-- Start of Tab Container -->	
 				<div class="container">	
 				    <ul id="machineEditTab" class="nav nav-tabs responsive" role="tablist">
-				      <li class="active <c:if test="${machineEditCommand.machine.archived == '1'}">active-red</c:if>"">
+				      <li class="active <c:if test="${machineEditCommand.machine.archived == '1'}">active-red</c:if>">
 				      	  <a href="#main" role="tab" data-toggle="tab">
 						   	  Основные характеристики (Устройство №<c:out value="${machineEditCommand.machine.machineId} "/><c:if test="${machineEditCommand.machine.archived == '1'}">Удалено!</c:if>)
 				      	  </a>
@@ -207,8 +245,6 @@
 				    </ul>
 				    
 					<div id="myTabContent" class="tab-content responsive">
-					
-		
 
 							<div class="tab-pane fade tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>" id="tab_image">
 							      <div class="row">
@@ -239,6 +275,7 @@
 												</p>
 											</div>							
 							            </div>
+							            <div id="fileuploader">Upload</div>
 							        </div>							      
 								  </div>									  
 								  
@@ -247,6 +284,7 @@
 							<div class="tab-pane fade in active tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>"" id="main">
 							      <div class="row">
 							        <div class="col-sm-4 col-sm-offset-1">
+							        	<br/>
 							            <label class="form-label">
 							            	<span class="required">Описание механизма*</span>
 							            	<span class="report_header">(Пример правильного описания: Старый кран, кабина разбита...
@@ -339,6 +377,7 @@
 							            * - Поля обязательные к заполнению.
 							        </div>
 							        <div class="col-sm-4 col-sm-offset-1">
+							        	<br/>
 								      	<%-- 
 										<v:input path="machine.details" label="Характеристики" required="true" title="Укажите характеристики модели"/>
 										--%>

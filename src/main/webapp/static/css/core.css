@@ -96,10 +96,6 @@
 		#limit_width{
 		  max-width:280px !important;
 		}
-			
-		#max_width{
-	      width:100% !important;
-		}
 		
 		.form-control {
 		  border-radius:4px;

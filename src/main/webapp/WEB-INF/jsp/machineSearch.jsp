@@ -16,7 +16,7 @@
 
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
-        
+
 		<script type="text/javascript">
 
 		$(document).ready(function() {
@@ -156,7 +156,7 @@
 	<body>
 		<!-- Wrap all page content here -->  
 		<div id="wrap"> 
-<jsp:include page="common/menu.jsp" />
+		<jsp:include page="common/menu.jsp" />
 
 <!----- Begin page content ------>
 
