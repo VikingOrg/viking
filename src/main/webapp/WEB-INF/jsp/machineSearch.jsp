@@ -18,7 +18,8 @@
         <jsp:include page="common/headCoreElements.jsp" />
         
 		<script type="text/javascript">
-	        $(document).ready(function() {
+
+		$(document).ready(function() {
 	        	var oTable = $('#machine_table').dataTable( {
 	        	        "bJQueryUI": true,
 	        	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
@@ -60,6 +61,11 @@
 	                	   $('select[name="machine_table_length"]').addClass("form-control");
 	 	              },
 	        	    } );
+
+                // Event listener to the two range filtering inputs to redraw on input
+                $('#startRangeSelect, #endRangeSelect').change( function() {
+                	oTable.fnDraw();
+                } );
 	        	
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
@@ -122,12 +128,29 @@
   	                  });
                     }
                 });                
-                 
+
+
 //                 $('#selectAll').click(function (e) {
 //                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
 //                 });
-            } );
-    
+        } );
+    	/* Custom filtering function which will search data in column four between two values */
+    	$.fn.dataTable.ext.search.push(
+    	    function( settings, data, dataIndex ) {
+    	        var min = parseInt( $('#startRangeSelect').val(), 10 );
+    	        var max = parseInt( $('#endRangeSelect').val(), 10 );
+    	        var age = parseFloat( data[10] ) || 0; // use data for the age column
+    	 
+    	        if ( ( isNaN( min ) && isNaN( max ) ) ||
+    	             ( isNaN( min ) && age <= max ) ||
+    	             ( min <= age   && isNaN( max ) ) ||
+    	             ( min <= age   && age <= max ) )
+    	        {
+    	            return true;
+    	        }
+    	        return false;
+    	    }
+    	);    
         </script>
 		<style type="text/css">
 			#limit_width{
@@ -226,25 +249,23 @@
 										</c:forEach>
 									</form:select>
 							</div>
-							<%-- 
+ 
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Год выпуска</label>
 								<div class="col-sm-8" style="padding-right: 0px">
-									<form:select id="releaseYearSelect" path="releaseYear"
+									<form:select id="startRangeSelect" path="releaseYear"
 										cssClass="form-control" title="Выборка по году выпуска">
-										<form:option value="" label="С" />
+										<form:option value="" label="Начиная с" />
 										<form:options items="${machineSearchCommand.yearMap}" />
 									</form:select>
-									<select class="form-control" title="Выборка по году выпуска">
-										<option>По</option>
-										<option>2000</option>
-										<option>2001</option>
-										<option>2002</option>
-										<option>2003</option>
-									</select>
+									<form:select id="endRangeSelect" path="releaseYear"
+										cssClass="form-control" title="Выборка по году выпуска">
+										<form:option value="" label="Заканчивая на" />
+										<form:options items="${machineSearchCommand.yearMap}" />
+									</form:select>
 								</div>
 							</div>
-							--%> 
+ 
 							<div class="form-group">
 								<label>Поиск</label>
 									<input id="dataTableSearch" class="form-control"

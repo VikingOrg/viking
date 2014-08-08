@@ -16,7 +16,7 @@
 	    <title>Редактирование Механизма</title>
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
-        
+       
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
 	    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
