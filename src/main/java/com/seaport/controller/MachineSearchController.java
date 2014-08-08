@@ -27,6 +27,7 @@ import com.seaport.domain.User;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingUtils;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -45,6 +46,7 @@ public class MachineSearchController {
 	private IPortService portService;
 	@Autowired
 	private IMachineService machineService;	
+	private static String MACHINE_FIELD_FILLER = "XXX";
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
@@ -93,20 +95,20 @@ public class MachineSearchController {
     		machineNote = "NULLя", groupId = "NULLя";
 			
     		try {
-    			releaseYear = machine.getReleaseYear()==null?"":machine.getReleaseYear();
+    			releaseYear = machine.getReleaseYear()==null?" ":machine.getReleaseYear();
     			if (machine.getStartDate()!=null) {
     				startDate = DateFormatUtils.format(machine.getStartDate(), "yyyy/MM/dd");
 				} else {
-					startDate = "";
+					startDate = MACHINE_FIELD_FILLER;
 				}
-    			contractNum = machine.getDoc()==null?"":machine.getDoc();
-    			inventoryNumb = machine.getInventoryNumb() == null?"":machine.getInventoryNumb();
-    			transNumb = machine.getTransNumb() == null?"":machine.getTransNumb();
-    			factoryNumb = machine.getFactoryNumb() == null?"":machine.getFactoryNumb();
-    			location = machine.getLocation() == null?"":machine.getLocation();
-    			nomNum = machine.getNomNo() == null?"":machine.getNomNo();
-    			regNum = machine.getRegNo() == null?"":machine.getRegNo();
-    			machineNote = machine.getNote() == null?"":machine.getNote();
+    			contractNum = machine.getDoc()==null?MACHINE_FIELD_FILLER:machine.getDoc();
+    			inventoryNumb = machine.getInventoryNumb() == null?MACHINE_FIELD_FILLER:machine.getInventoryNumb();
+    			transNumb = machine.getTransNumb() == null?MACHINE_FIELD_FILLER:machine.getTransNumb();
+    			factoryNumb = machine.getFactoryNumb() == null?MACHINE_FIELD_FILLER:machine.getFactoryNumb();
+    			location = machine.getLocation() == null?MACHINE_FIELD_FILLER:machine.getLocation();
+    			nomNum = machine.getNomNo() == null?MACHINE_FIELD_FILLER:machine.getNomNo();
+    			regNum = machine.getRegNo() == null?MACHINE_FIELD_FILLER:machine.getRegNo();
+    			machineNote = machine.getNote() == null?MACHINE_FIELD_FILLER:machine.getNote();
 
     			groupId = machine.getGroupId().toString();
 			} catch (Exception e) {
@@ -119,14 +121,13 @@ public class MachineSearchController {
 	    			groupName = machine.getMachineModel().getGroup().getName();
 	    			modelName = machine.getMachineModel().getName();
 				}
-    			modelDetail = machine.getMachineModel().getDetails() == null?"":machine.getMachineModel().getDetails();
-    			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?"":machine.getMachineModel().getManufacturer().getNameRus();
-//    					+ "("+machine.getMachineModel().getManufacturer().getManufacturerId()+")";
+    			modelDetail = machine.getMachineModel().getDetails() == null?MACHINE_FIELD_FILLER:machine.getMachineModel().getDetails();
+    			manufactorName = machine.getMachineModel().getManufacturer().getNameRus()==null?MACHINE_FIELD_FILLER:machine.getMachineModel().getManufacturer().getNameRus();
     			manufCountry = machine.getMachineModel().getManufacturer().getCountry().getNameRus();
 			} catch (Exception e) {
 				
 			}
-
+    		
     		try {
     			stevidorFullName = machine.getStevidor().getFullName();
     			portName = machine.getStevidor().getPort().getName();
@@ -134,12 +135,57 @@ public class MachineSearchController {
 			} catch (Exception e) {
 			}
     		
-            Object[] objectArray = new String[]{machine.getMachineId().toString(), groupId, machine.getModelId()==null?" ":machine.getModelId().toString(),
+    		if (VikingUtils.isEmpty(groupName)) {
+    			groupName = new String(MACHINE_FIELD_FILLER);
+    		} else if (VikingUtils.isEmpty(modelName)){
+    			modelName = new String(MACHINE_FIELD_FILLER);
+    		} else if (VikingUtils.isEmpty(stevidorFullName)){
+    			stevidorFullName = new String(MACHINE_FIELD_FILLER);
+    		} else if (VikingUtils.isEmpty(modelDetail)){
+    			modelDetail = new String(MACHINE_FIELD_FILLER);
+    		} else if (VikingUtils.isEmpty(manufactorName)){
+    			manufactorName = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(releaseYear)){
+				releaseYear = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(startDate)){
+				startDate = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(contractNum)){
+				contractNum = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(inventoryNumb)){
+				inventoryNumb = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(transNumb)){
+				transNumb = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(factoryNumb)){
+				factoryNumb = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(manufCountry)){
+				manufCountry = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(location)){
+				location = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(portName)){
+				portName = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(portCountry)){
+				portCountry = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(nomNum)){
+				nomNum = new String(MACHINE_FIELD_FILLER);
+			}
+			if (VikingUtils.isEmpty(regNum)){
+				regNum = new String(MACHINE_FIELD_FILLER);
+			}
+    		
+			if (VikingUtils.isEmpty(machineNote)){
+				machineNote = new String(MACHINE_FIELD_FILLER);
+			} else if (VikingUtils.isEmpty(groupId)){
+				groupId = new String(MACHINE_FIELD_FILLER);
+			} 
+    		
+    		
+            Object[] objectArray = new String[]{machine.getMachineId().toString(), groupId, machine.getModelId()==null?MACHINE_FIELD_FILLER:machine.getModelId().toString(),
 							            		groupName, modelName,
 							            		stevidorFullName, portCountry, portName, modelDetail, manufactorName, releaseYear,
 							            		startDate, contractNum, inventoryNumb, transNumb, factoryNumb,
 							            		manufCountry, location, nomNum, regNum,
-							            		machineNote};
+							            		machineNote, machine.getArchived()};
+            
             rdArray[i] = objectArray;
             i++;           
 		}

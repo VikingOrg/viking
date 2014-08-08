@@ -76,7 +76,12 @@
                 });
                 
                 $('#modelSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 2);
+                    modelId = $(this).val();
+                    if(modelId==''){
+                    	oTable.fnFilter(modelId, 2);
+                    } else {
+                    	oTable.fnFilter( "^"+modelId+"$", 2 , true);
+                    } 
                 });
                              
                 $('#stevidorSelect').change(function() {
@@ -96,8 +101,10 @@
                 $('#releaseYearSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 10);
                 });
-
-
+                $('#recordTypeSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 21);
+                });
+                
                 $('#groupSelect').change(function() {
               	  var groupId = $(this).val();
               	  if(groupId=='0'){
@@ -250,6 +257,14 @@
 						<label>Кол.строк:</label>
 						<div id="table_length"></div>					
 					</div>
+					<div class="form-group">
+	                    <label class="form-label">Тип записей</label>
+						<select id="recordTypeSelect" class="form-control" title="Выборка по типу записи">
+							<option value="">Все типы</option>
+							<option value="0">Активные</option>
+							<option value="1">Удаленные</option>
+						</select>	                    
+                    </div>					
 				</div>
 			
 			<!--  Операции с данными в таблице -->
@@ -311,6 +326,7 @@
 							<th>Номенклатурный №</th>
 							<th>Регистрационный №</th>
 							<th>Примечания</th>
+							<th>Удалена</th>
 			            </tr>
 			        </thead>
 			        <tbody>
