@@ -79,7 +79,8 @@
 			          	  <ul class="dropdown-menu">
 				              <li><a href="<c:url value="/reportSelection/company/"/>">По Компаниям</a></li>
 				              <li><a href="<c:url value="/reportSelection/group/"/>">По Группам</a></li>
-				              <li><a href="<c:url value="/reportSelection/account/"/>">По Производителям</a></li>
+				              <li><a href="<c:url value="/reportSelection/account/"/>">По Производителям</a></li><!--  сменить на  manufacturers-->
+				              <li><a href="<c:url value="/reportSelection/company/"/>">Списочный</a></li>
 			              </ul>
 					  </li>
 						

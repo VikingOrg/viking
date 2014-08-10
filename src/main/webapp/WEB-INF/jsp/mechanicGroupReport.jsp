@@ -9,7 +9,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<title>Отчет по количеству ПТО</title>
+<title>Отчет по списочному составу Механизмов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
@@ -179,7 +179,7 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">Отчет 02  "ПТО в группах" в Компании(ях)-операторах:</h3>
+							<h3 class="page-header">Отчет 04  "Список Механизмов"</h3>
 						</div>
 						<table id="machine_table" class="table_report_header">
 							<tbody>
