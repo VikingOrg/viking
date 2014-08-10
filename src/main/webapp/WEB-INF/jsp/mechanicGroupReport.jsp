@@ -63,14 +63,7 @@
                 	   $('select[name="group_report_table_length"]').addClass("form-control");
  	              },
               });
-              $('#group_report_table').attc({
-                  "controls":{
-                	  showHide:false,
-                	  create:false,
-                	  chartType:false,
-                	  },
-                  "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
-                  });
+              			
 		  });
 		  </script>		  
 </head>
@@ -106,7 +99,7 @@
 												</c:forEach>
 											</form:select>
 									</div>							
-									<%-- <div class="form-group">
+									<div class="form-group">
 										<label>Группа</label>
 											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
 												<form:option value="0" >Все группы</form:option>
@@ -123,7 +116,7 @@
 								                    <form:option value="${model.key}" label="${model.value.name}" />
 								                </c:forEach>									
 											</form:select>
-						        	</div> --%>
+						        	</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Год выпуска</label>
 										<div class="col-sm-8" style="padding-right: 0px">
@@ -166,10 +159,6 @@
 							</div>
 						</div>	
 					</div>
-					<div id="group_pie" class="col-sm-12 well lform">
-						<%-- <span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	 --%>
-						<div id="groupReportPie" class="form-group"></div>
-					</div>
 				</div>
 					<!-- End of Sidebar content-->
 	
@@ -190,13 +179,13 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">Отчет 02  "Кол-во Механизмов в Группах"</h3>
+							<h3 class="page-header">Отчет 02  "ПТО в группах" в Компании(ях)-операторах:</h3>
 						</div>
 						<table id="machine_table" class="table_report_header">
 							<tbody>
 								<tr>
 									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
-									<td class="nowrap" rowspan="4" valign="bottom" id="table_Actions"></td>
+									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
 									<td class="nowrap"><span>Компания(и):&nbsp;</span><br>
@@ -205,9 +194,9 @@
 									</c:forEach>
 									</td>
 								</tr>
-								<%-- <tr>
+								<tr>
 									<td class="nowrap">Модель: <span class="report_header">${reportSelectionCommand.modelName}</span></td>
-								</tr> --%>
+								</tr>
 								<tr>
 									<td class="nowrap">Год выпуска: <span class="report_header">${reportSelectionCommand.relYearName}</span></td>
 								</tr>
@@ -217,36 +206,46 @@
 							</tbody>
 						</table>
 
-						<table id="group_report_table" class="table table-striped table-bordered"
-							title="Распределение ПТО по Группам"  
-				    		summary="pieDescription" 
-				    		data-attc-createChart="false"
-				    		data-attc-colDescription="pieDescription" 
-				    		data-attc-colValues="pieValues" 
-				    		data-attc-location="groupReportPie" 
-				    		data-attc-hideTable="false" 
-				    		data-attc-type="pie"
-				    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
-							<thead class="tablehead">
+						<table id="group_report_table" class="table table-bordered">
+							<thead class= "tablehead">
 								<tr>
-									<th class="column-check">№</th>
-									<th class="nowrap">Группа</th>
-									<th class="nowrap">Кол-во</th>
+									<th class="nowrap">Модель</th>
+									<th class="nowrap">Характеристики</th>
+									<th class="nowrap">Производитель</th>
+									<th class="nowrap">Инвентарный номер</th>
+									<th class="nowrap">Дата ввода</th>
+									<th class="nowrap">Заводской №</th>
+									<th class="nowrap">Место установки</th>
 								</tr>
 							</thead>
 							<tbody>
-					            <c:forEach items="${reportSelectionCommand.groupReportMap}" var="groupReport" varStatus="loop">
+					            <c:forEach items="${reportSelectionCommand.groupReportMap}" var="groupReport">
 									<tr>
-										<td class="column-check"><c:out value="${loop.index}"/></td>
-										<td class="nowrap" id="pieDescription"><c:out value="${groupReport.key[0]}"/></td>
-										<td class="nowrap" id="pieValues"><c:out value="${groupReport.key[1]}"/></td>
-									</tr>			            
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;"><c:out value="${groupReport.key[0]}"/><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего по группе:&nbsp;&nbsp;<c:out value="${groupReport.key[1]}"/></span></td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
+									</tr>
+									<c:forEach items="${groupReport.value}" var="machine">
+										<tr>
+											<td class="nowrap"><c:out value="${machine.machineModel.name}"/></td>
+											<td class="nowrap"><c:out value="${machine.machineModel.details}"/></td>
+											<td class="nowrap"><c:out value="${machine.machineModel.manufacturer.nameRus}"/></td>
+											<td class="nowrap"><c:out value="${machine.inventoryNumb}"/></td>
+											<td class="nowrap"><c:out value="${machine.startDate}"/></td>
+											<td class="nowrap"><c:out value="${machine.factoryNumb}"/></td>
+											<td class="nowrap"><c:out value="${machine.location}"/></td>
+										</tr>
+									</c:forEach>					            
 				                </c:forEach>						
 							</tbody>
 						</table>
 	
 					</div>
-				</div> <!--End of Report 2-->
+				</div> <!--End of Report 1-->
 			</form:form>
 	
 		</div>

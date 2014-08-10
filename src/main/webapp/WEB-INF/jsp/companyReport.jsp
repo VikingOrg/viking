@@ -112,49 +112,7 @@
 			});
 		  
 		  </script>
-		  
-		  <style type="text/css">
-			  .alert-info {
-				color: black;
-				background-color: #d9edf7;
-				border-color: #bce8f1;
-				
-				}
-			.table_report_header{
-			    height: 100%;
-			    width: 100%;
-			    margin:0px;
-			    padding:0px;
-			    border-top: 0px solid #dddddd;
-			    line-height: 1.42857;
-			    padding: 10px;
-			    vertical-align: top;
-			}
-			.report_header{
-				font-family: 'Open Sans', sans-serif;
-				font-weight:300;
-				font-style: italic;
-			}
-			.multiple_select {
-				border:2px solid #ccc;
-				background : white; 
-				width:220px; 
-				height: 200px; 
-				overflow-y: scroll; 
-			}
-			
-			.checkbox {
-				margin-top: 0px;
-				margin-bottom: 0px;
-				line-height: 20px;
-				}
-				
-				/*http://jsfiddle.net/4NB2N/11/*/
-				.mygrid-wrapper-div {
-				    border: solid red 5px;
-				    overflow: scroll;
-				}				
-		  </style>		  
+		    
 </head>
 <body>
 		<!-- Wrap all page content here -->  
@@ -172,7 +130,7 @@
 				<div class="row" style="margin:-15px">
 	
 					<!--Sidebar content-->
-					<div id = "limit_width" class="col-sm-3">
+					<div id = "limit_width" class="col-sm-4">
 	
 						<div class="col-sm-12 well lform">
 
@@ -253,12 +211,10 @@
 										<div id="table_length"></div>					
 									</div>	
 								</div>
-	
 							</div>
 						</div>
 						<div class="col-sm-12 well lform">
 							<div class="row" style="padding-right:10px">
-
 								<div class="col-sm-12">
 									<div class="form-group">
 										<!--  Кнопочка сформировать отчет -->
@@ -277,7 +233,7 @@
 					</div>
 					<!-- End of Sidebar content-->
 	
-					<div id = "#max_width" class="col-sm-9">
+					<div id = "#max_width" class="col-sm-8">
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">
@@ -294,7 +250,7 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">"Количество ПТО" в Компаниях-операторах.</h3>
+							<h3 class="page-header">Отчет 01 "Кол-во Механизмов в Компаниях-операторах"</h3>
 						</div>
 						<table id="company_header" class="table_report_header">
 							<tbody>
@@ -327,7 +283,7 @@
 				    		data-attc-hideTable="false" 
 				    		data-attc-type="pie"
 				    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
-							<thead>
+							<thead class="tablehead">
 								<tr>
 									<th class="nowrap">№</th>
 									<th class="nowrap" id="pieDescription">Компания&nbsp;&nbsp;</th>

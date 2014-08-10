@@ -9,7 +9,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<title>Отчет по количеству ПТО</title>
+<title>Отчет по количеству Механизмов разных Производителей</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<spring:url var = "action" value='/reportSelection'/> 
@@ -67,48 +67,7 @@
               			
 		  });
 		  </script>
-		  <style type="text/css">
-			  .alert-info {
-				color: black;
-				background-color: #d9edf7;
-				border-color: #bce8f1;
-				
-				}
-			.table_report_header{
-			    height: 100%;
-			    width: 100%;
-			    margin:0px;
-			    padding:0px;
-			    border-top: 0px solid #dddddd;
-			    line-height: 1.42857;
-			    padding: 10px;
-			    vertical-align: top;
-			}
-			.report_header{
-				font-family: 'Open Sans', sans-serif;
-				font-weight:300;
-				font-style: italic;
-			}
-			.multiple_select {
-				border:2px solid #ccc;
-				background : white; 
-				width:220px; 
-				height: 200px; 
-				overflow-y: scroll; 
-			}
-			
-			.checkbox {
-				margin-top: 0px;
-				margin-bottom: 0px;
-				line-height: 20px;
-				}
-				
-				/*http://jsfiddle.net/4NB2N/11/*/
-				.mygrid-wrapper-div {
-				    border: solid red 5px;
-				    overflow: scroll;
-				}				
-		  </style>		  
+		  
 </head>
 <body>
 		<!-- Wrap all page content here -->  
@@ -124,7 +83,7 @@
 				<div class="row">
 	
 					<!--Sidebar content-->
-					<div id = "limit_width" class="col-sm-3">
+					<div id = "limit_width" class="col-sm-4">
 	
 						<div class="col-sm-12 well lform">
 	
@@ -194,7 +153,7 @@
 					</div>
 					<!-- End of Sidebar content-->
 	
-					<div id = "#max_width" class="col-sm-9">
+					<div id = "#max_width" class="col-sm-8">
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">
@@ -211,7 +170,7 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">Отчет 03 "По Производителям ПТО" в Компаниях-операторах:</h3>
+							<h3 class="page-header">Отчет 03 "Кол-во Механизмов разных Производителей"</h3>
 						</div>
 						<table id="machine_table" class="table_report_header">
 							<tbody>
@@ -235,7 +194,7 @@
 						</table>
 						
 						<table id="account_report_table" class="table table-striped table-bordered">
-							<thead>
+							<thead class= "tablehead">
 								<tr>
 									<th class="column-check nowrap">&nbsp;№</th>
 									<th class="nowrap">Производитель&nbsp;&nbsp;</th>
