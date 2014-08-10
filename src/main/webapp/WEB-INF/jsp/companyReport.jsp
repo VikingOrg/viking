@@ -172,7 +172,7 @@
 				<div class="row" style="margin:-15px">
 	
 					<!--Sidebar content-->
-					<div class="col-sm-4">
+					<div id = "limit_width" class="col-sm-3">
 	
 						<div class="col-sm-12 well lform">
 
@@ -181,8 +181,8 @@
 								<div class="col-sm-12">
 
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Компания</label>
-										<div class="col-sm-8 multiple_select">
+										<label>Компания</label>
+										<div class="multiple_select">
 											<span class="checkbox nowrap">
 												<form:checkbox path="stevidorSelection" value="0" cssClass="newCheckbox"/>Все компании<br/>
 											</span>	
@@ -208,45 +208,38 @@
 									</div>
 --%>																
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Группа</label>
-										<div class="col-sm-8">
+										<label>Группа</label>
 											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
 												<form:option value="0" >Все группы</form:option>
 												<c:forEach items="${reportSelectionCommand.groupMap}" var="group">
 													<form:option value="${group.key}" label="${group.value.name}" />
 												</c:forEach>
 											</form:select>
-										</div>
 									</div>
 						        	<div class="form-group">
-					                    <label class="col-sm-4 control-label">Модель</label>
-					                    <div class="col-sm-8">
+					                    <label>Модель</label>
 											<form:select id="modelSelect" path="modelId" cssClass="form-control col-sm-12">
 												<form:option value="0">Все модели</form:option>
 								                <c:forEach items="${reportSelectionCommand.machineModelMap}" var="model">
 								                    <form:option value="${model.key}" label="${model.value.name}" />
 								                </c:forEach>									
 											</form:select>
-										</div>
 						        	</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Год&nbsp;выпуска</label>
-										<div class="col-sm-4">
-											<form:select id="releaseYearSelect" path="releaseYear"
-												cssClass="form-control" title="Выборка по году выпуска">
-												<form:option value="" label="С" />
-												<form:options items="${reportSelectionCommand.yearMap}" />
-											</form:select>
-										</div>
-										<div class="col-sm-4">
-											<select class="form-control" title="Выборка по году выпуска">
-												<option value="" label="По" />
-											</select>
-										</div>
+										<label class="col-sm-4 control-label">Год выпуска</label>
+											<div class="col-sm-8" style="padding-right: 0px">
+												<form:select id="releaseYearSelect" path="releaseYear"
+													cssClass="form-control" title="Выборка по году выпуска">
+													<form:option value="" label="С" />
+													<form:options items="${reportSelectionCommand.yearMap}" />
+												</form:select>
+												<select class="form-control" title="Выборка по году выпуска">
+													<option value="" label="По" />
+												</select>
+											</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Производитель</label>
-										<div class="col-sm-8">
+										<label>Производитель</label>
 											<form:select id="manufacturerId" path="manufacturerId"
 												cssClass="form-control" title="Выборка по производителю">
 												<form:option value="0">Все производители</form:option>
@@ -254,10 +247,9 @@
 													<form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
 												</c:forEach>
 											</form:select>
-										</div>
 									</div>
 									<div id="data_table_elements" class="form-group">
-										<label class="col-sm-4 control-label">Кол.строк:</label>
+										<label>Кол.строк:</label>
 										<div id="table_length"></div>					
 									</div>	
 								</div>
@@ -272,7 +264,7 @@
 										<!--  Кнопочка сформировать отчет -->
 										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 										<span class="pull-right">&nbsp;</span>
-										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Очистить" />
+										<button id="sumbit_report" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
 									</div>	
 								</div>
 							</div>	
@@ -285,7 +277,7 @@
 					</div>
 					<!-- End of Sidebar content-->
 	
-					<div id = "print" class="col-sm-8">
+					<div id = "#max_width" class="col-sm-9">
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">

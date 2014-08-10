@@ -11,7 +11,7 @@
 <head>
 <title>Отчет по количеству ПТО</title>
 		<jsp:include page="common/headCoreElements.jsp" />
-		
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  $(document).ready(function() {
@@ -38,12 +38,31 @@
                   }
               });	
               $('#account_report_table').dataTable({
+            	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
+            	  tableTools: {
+           			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+           		 	"aButtons": [
+             	                "copy",
+             	             	{
+             	                    "sExtends":     "print",
+             	                    "bHeader": true
+             	                	},
+             	            	{
+             	                    "sExtends":     "csv",
+             	                    "sButtonText": "Save",
+             	                    "bHeader": true
+             	                	}
+             	            ]
+           	   },
             	  "bJQueryUI": true,
-                  "iDisplayLength": 15,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
-                   }  
-
+                   },  
+                   "fnInitComplete": function(oSettings) {
+                	   $("#tableActions").appendTo("#table_Actions");
+                	   $('select[name="account_report_table_length"]').appendTo("#table_length");
+                	   $('select[name="account_report_table_length"]').addClass("form-control");
+ 	              },
               });
               			
 		  });
@@ -53,7 +72,42 @@
 				color: black;
 				background-color: #d9edf7;
 				border-color: #bce8f1;
+				
 				}
+			.table_report_header{
+			    height: 100%;
+			    width: 100%;
+			    margin:0px;
+			    padding:0px;
+			    border-top: 0px solid #dddddd;
+			    line-height: 1.42857;
+			    padding: 10px;
+			    vertical-align: top;
+			}
+			.report_header{
+				font-family: 'Open Sans', sans-serif;
+				font-weight:300;
+				font-style: italic;
+			}
+			.multiple_select {
+				border:2px solid #ccc;
+				background : white; 
+				width:220px; 
+				height: 200px; 
+				overflow-y: scroll; 
+			}
+			
+			.checkbox {
+				margin-top: 0px;
+				margin-bottom: 0px;
+				line-height: 20px;
+				}
+				
+				/*http://jsfiddle.net/4NB2N/11/*/
+				.mygrid-wrapper-div {
+				    border: solid red 5px;
+				    overflow: scroll;
+				}				
 		  </style>		  
 </head>
 <body>
@@ -62,7 +116,6 @@
 <jsp:include page="common/menu.jsp" />
 	<!-- Begin page content -->
 	<div class="container">
-<!-- 		<h1 class="page-header">Отчеты.</h1> -->
 		<div class="alert alert-info">
 			
 			<form:form id="report_select_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="${action}" 
@@ -71,7 +124,7 @@
 				<div class="row">
 	
 					<!--Sidebar content-->
-					<div class="col-sm-4">
+					<div id = "limit_width" class="col-sm-3">
 	
 						<div class="col-sm-12 well lform">
 	
@@ -79,83 +132,69 @@
 	
 								<div class="col-sm-12">
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Компания</label>
-										<div class="col-sm-8">
+										<label>Компания</label>
 											<form:select id="stevidorSelection" path="stevidorSelection" cssClass="form-control col-sm-12" multiple="true">
 												<form:option value="0">Все компании</form:option>
 												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
 													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
 												</c:forEach>
 											</form:select>
-										</div>
 									</div>							
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Группа</label>
-										<div class="col-sm-8">
+										<label>Группа</label>
 											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
 												<form:option value="0" >Все группы</form:option>
 												<c:forEach items="${reportSelectionCommand.groupMap}" var="group">
 													<form:option value="${group.key}" label="${group.value.name}" />
 												</c:forEach>
 											</form:select>
-										</div>
 									</div>
 						        	<div class="form-group">
-					                    <label class="col-sm-4 control-label">Модель</label>
-					                    <div class="col-sm-8">
+					                    <label>Модель</label>
 											<form:select id="modelSelect" path="modelId" cssClass="form-control col-sm-12">
 												<form:option value="0">Все модели</form:option>
 								                <c:forEach items="${reportSelectionCommand.machineModelMap}" var="model">
 								                    <form:option value="${model.key}" label="${model.value.name}" />
 								                </c:forEach>									
 											</form:select>
-										</div>
 						        	</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Год&nbsp;выпуска</label>
-										<div class="col-sm-8">
+										<label class="col-sm-4 control-label">Год выпуска</label>
+										<div class="col-sm-8" style="padding-right: 0px">
 											<form:select id="releaseYearSelect" path="releaseYear"
 												cssClass="form-control" title="Выборка по году выпуска">
 												<form:option value="" label="Все года" />
 												<form:options items="${reportSelectionCommand.yearMap}" />
 											</form:select>
+												<select class="form-control" title="Выборка по году выпуска">
+													<option value="" label="По" />
+												</select>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label">Производитель</label>
-										<div class="col-sm-8">
-											<form:select id="manufacturerId" path="manufacturerId"
-												cssClass="form-control" title="Выборка по производителю">
-												<form:option value="0">Все производители</form:option>
-												<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
-													<form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
-												</c:forEach>
-											</form:select>
-										</div>
+										<label>Кол.строк:</label>
+										<div id="table_length"></div>					
 									</div>
 								</div>
 	
 							</div>
-							<hr>
-							<!--  Кнопочка сформировать отчет -->
-							<div class="form-group">	
+							
+						</div>
+						<!--  Кнопочка сформировать отчет -->
+						<div class="col-sm-12 well lform">
+							<div class="row" style="padding-right:10px">
 								<div class="col-sm-12">
-									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />						
+									<div class="form-group">
+										<button id="sumbit_report" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
+										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
+									</div>
 								</div>
 							</div>
-						</div>
-						
-						<p>*Для ознакомления с правилами формирования отчета звоните в службу поддержки.</p>
-						<p>&nbsp;</p>
+						</div>		
 					</div>
 					<!-- End of Sidebar content-->
 	
-					<div class="col-sm-8">
-						<div class="pull-right">
-							<h4>
-								Составитель отчета: <span id="username">${userModel.firstName}&nbsp;</span>
-							</h4>
-						</div>
+					<div id = "#max_width" class="col-sm-9">
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">
@@ -172,17 +211,26 @@
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
-							<h3 class="page-header">Отчет 03 "По количеству ПТО" в Компаниях-операторах:</h3>
+							<h3 class="page-header">Отчет 03 "По Производителям ПТО" в Компаниях-операторах:</h3>
 						</div>
-						<table id="machine_table" class="table table-striped table-bordered">
+						<table id="machine_table" class="table_report_header">
 							<tbody>
 								<tr>
-									<td class="column-check "><span style="font-weight: bold;">Группа:&nbsp;</span><br>${reportSelectionCommand.groupName}</td>
-									<td class="column-check nowrap"><span style="font-weight: bold;">Модель:&nbsp;</span><br>${reportSelectionCommand.modelName}</td>
-									<td class="column-check "><span style="font-weight: bold;">Год выпуска:&nbsp;</span><br>${reportSelectionCommand.relYearName}</td>
-									<td class="column-check "><span style="font-weight: bold;">Производитель:&nbsp;</span><br>${reportSelectionCommand.manufactName}</td>
+									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
+									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
 								</tr>
-	
+								<tr>
+									<td class="nowrap">Компания:&nbsp;<span class="report_header">${reportSelectionCommand.manufactName}</span></td>
+								</tr>
+								<tr>
+									<td class="nowrap">Группа:&nbsp;<span class="report_header">${reportSelectionCommand.groupName}</span></td>
+								</tr>
+								<tr>
+									<td class="nowrap">Модель:&nbsp;<span class="report_header">${reportSelectionCommand.modelName}</span></td>
+								</tr>
+								<tr>
+									<td class="nowrap">Год выпуска:&nbsp;<span class="report_header">${reportSelectionCommand.relYearName}</span></td>
+								</tr>
 							</tbody>
 						</table>
 						
@@ -190,7 +238,7 @@
 							<thead>
 								<tr>
 									<th class="column-check nowrap">&nbsp;№</th>
-									<th class="hidden-sm hidden-xs hidden-md nowrap">Компания&nbsp;&nbsp;</th>
+									<th class="nowrap">Производитель&nbsp;&nbsp;</th>
 									<th class="nowrap">Кол-во&nbsp;&nbsp;</th>
 								</tr>
 							</thead>
@@ -198,14 +246,14 @@
 				            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
 									<tr>
 										<td class="column-check nowrap"><c:out value="${loop.index}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[0]}"/></td>
-										<td class="column-check nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="nowrap"><c:out value="${companyReportRow[0]}"/></td>
+										<td class="nowrap"><c:out value="${companyReportRow[1]}"/></td>
 									</tr>
 						        </c:forEach>
 								<tr>
-									<td class="column-check "></td>
-									<td class="column-check "><span style="font-weight: bold;">Всего механизмов:</span></td>
-									<td class="column-check "><c:out value="${reportSelectionCommand.totalMachineCount}"/></td>
+									<td class="column-check"></td>
+									<td class="nowrap"><span style="font-weight: bold;">Всего механизмов:</span></td>
+									<td class="nowrap"><c:out value="${reportSelectionCommand.totalMachineCount}"/></td>
 								</tr>					        
 							</tbody>
 						</table>

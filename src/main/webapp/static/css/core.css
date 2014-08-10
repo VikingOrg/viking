@@ -107,8 +107,14 @@
    		  margin-right: 0;
 		}
 		
-		.control-label {
-		    padding-left: 0;
+		label {
+		  font-weight:bold;
+		  margin-bottom:0;
+		}
+		
+		.form-horizontal.mini .control-label {
+		  font-weight:bold;
+		  padding-left: 0;
 		}
 		
 		td.column-check {
