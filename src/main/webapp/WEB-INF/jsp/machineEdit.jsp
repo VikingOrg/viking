@@ -15,6 +15,7 @@
 	<head>
 	    <title>Редактирование Механизма</title>
 	    <meta name="viewport" content="width=device-width">
+	    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
         <jsp:include page="common/headCoreElements.jsp" />
        
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
@@ -25,7 +26,7 @@
 	    <script type="text/javascript" src="<c:url value="/static/js/dropzone.js"/>"></script>
 		  
 		<!-- Optional theme 
-		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+		
 		 -->
 		  
 		<script>
@@ -194,6 +195,61 @@
 			    opacity: 1;
 			}			
 			
+    html, body {
+      height: 100%;
+    }
+    #actions {
+      margin: 2em 0;
+    }
+
+
+    /* Mimic table appearance */
+    div.table {
+      display: table;
+    }
+    div.table .file-row {
+      display: table-row;
+    }
+    div.table .file-row > div {
+      display: table-cell;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+      padding: 8px;
+    }
+    div.table .file-row:nth-child(odd) {
+      background: #f9f9f9;
+    }
+
+
+
+    /* The total progress gets shown by event listeners */
+    #total-progress {
+      opacity: 0;
+      transition: opacity 0.3s linear;
+    }
+
+    /* Hide the progress bar when finished */
+    #previews .file-row.dz-success .progress {
+      opacity: 0;
+      transition: opacity 0.3s linear;
+    }
+
+    /* Hide the delete button initially */
+    #previews .file-row .delete {
+      display: none;
+    }
+
+    /* Hide the start and cancel buttons and show the delete button */
+
+    #previews .file-row.dz-success .start,
+    #previews .file-row.dz-success .cancel {
+      display: none;
+    }
+    #previews .file-row.dz-success .delete {
+      display: block;
+    }			
+			
+			
 		  </style>			  
 	</head>
 	<body>
@@ -251,8 +307,18 @@
 							      <div id = "dropZone" class="row">
 							        <div class="col-sm-9 col-sm-offset-1">
 							        	<div class="">
-											<div class="panel panel-default"
-												style="margin: 10px; margin: 10px;">
+											<!--  Вывод сообщений и предупреждений  -->
+											
+											<div id="success_upload" class="alert alert-success hide">
+												<span>Файлы были успешно загружены на сервер.</span>	
+												<button type="button" class="close" data-dismiss="alert">&times;</button>
+											</div>
+											<div class="alert alert-danger hide">
+												<button type="button" class="close" data-dismiss="alert">&times;</button>
+											</div>
+
+							        		
+											<div class="panel panel-default" style="margin: 10px; margin: 10px;">
 												<div class="panel-heading">Кран (Такой-то)</div>
 												<div class="panel-body">
 
@@ -531,20 +597,22 @@
      var previewTemplate = previewNode.parentNode.innerHTML;
      previewNode.parentNode.removeChild(previewNode);
 
-     var myDropzone = new Dropzone("div#dropZone", { // Make the whole body a dropzone
-       url: "${pageContext.request.contextPath}/fileController/upload", // Set the url
-       thumbnailWidth: 80,
-       thumbnailHeight: 80,
-       parallelUploads: 20,
-       previewTemplate: previewTemplate,
-       autoQueue: false, // Make sure the files aren't queued until manually added
-       previewsContainer: "#previews", // Define the container to display the previews
-       clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+     var myDropzone = new Dropzone("div#dropZone", {
+	    url: "${pageContext.request.contextPath}/fileController/upload", // Set the url
+	    parallelUploads: 100,
+	    maxFiles: 100,       
+	    thumbnailWidth: 80,
+	    thumbnailHeight: 80,
+	    previewTemplate: previewTemplate,
+	    autoQueue: false, // Make sure the files aren't queued until manually added
+	    previewsContainer: "#previews", // Define the container to display the previews
+	    clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
      });
 
      myDropzone.on("addedfile", function(file) {
        // Hookup the start button
        file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+       $('#success_upload').attr("class","alert alert-success hide");
      });
 
      // Update the total progress bar
@@ -563,29 +631,17 @@
      // Hide the total progress bar when nothing's uploading anymore
      myDropzone.on("queuecomplete", function(progress) {
        document.querySelector("#total-progress").style.opacity = "0";
+       /*Customm message*/
+       $('#success_upload').attr("class","alert alert-success show");
      });
 
      myDropzone.on("success", function(response, serverResponse) {
-   	  if(response.code == 501){ // succeeded
-   	    return file.previewElement.classList.add("dz-success"); // from source
-   	  }else if (response.code == 403){  //  error
-   	    // below is from the source code too
-   	    var node, _i, _len, _ref, _results;
-   	    var message = response.msg // modify it to your error message
-   	    file.previewElement.classList.add("dz-error");
-   	    _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-   	    _results = [];
-   	    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-   	      node = _ref[_i];
-   	      _results.push(node.textContent = message);
-   	    }
-   	    return _results;
-   	  }
+         $.each(serverResponse, function (i, object) {
+        	 var uploadOK = object.uploadOK;
+        	 var fileName = object.fileName;  
+         });
      });
-         
-     myDropzone.on("error", function(file, message) { 
-         alert(message); 
-     });
+
 
      
      // Setup the buttons for all transfers

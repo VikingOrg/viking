@@ -9,11 +9,20 @@ public class FileMeta {
     private String fileName;
     private String fileSize;
     private String fileType;
+    private String uploadOK;
  
-    private byte[] bytes;
+//    private byte[] bytes;
 
 	public String getFileName() {
 		return fileName;
+	}
+
+	public String getUploadOK() {
+		return uploadOK;
+	}
+
+	public void setUploadOK(String uploadOK) {
+		this.uploadOK = uploadOK;
 	}
 
 	public void setFileName(String fileName) {
@@ -34,13 +43,5 @@ public class FileMeta {
 
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
-	}
-
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
 	}
 }
