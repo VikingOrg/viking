@@ -1,16 +1,21 @@
 package com.seaport.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import javax.persistence.*;
-import javax.validation.Valid;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 
 /**
@@ -34,11 +39,15 @@ public class Machine implements Serializable {
 
 	@Column(name="factory_numb")
 	private String factoryNumb;
-
+	
 	@Min(1)
 	@Column(name="group_id")
 	private Integer groupId;
-
+	
+	@Min(1)
+	@Column(name="model_id")
+	private Integer modelId;
+	
 	@Column(name="inventory_numb")
 	private String inventoryNumb;
 
@@ -87,10 +96,6 @@ public class Machine implements Serializable {
 	@OneToOne()
 	@JoinColumn(name = "stevidor_id", insertable = false, updatable = false)
 	private Stevidor stevidor;
-	
-	@Min(1)
-	@Column(name="model_id")
-	private Integer modelId;
 	
 //	@Valid
 //	@OneToOne(cascade = CascadeType.ALL)

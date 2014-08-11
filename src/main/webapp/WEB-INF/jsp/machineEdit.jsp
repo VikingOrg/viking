@@ -294,7 +294,11 @@
 				    <ul id="machineEditTab" class="nav nav-tabs responsive" role="tablist">
 				      <li class="active <c:if test="${machineEditCommand.machine.archived == '1'}">active-red</c:if>">
 				      	  <a href="#main" role="tab" data-toggle="tab">
-						   	  Основные характеристики (Устройство №<c:out value="${machineEditCommand.machine.machineId} "/><c:if test="${machineEditCommand.machine.archived == '1'}">Удалено!</c:if>)
+						   	  Основные характеристики 
+						   	  <c:if test="${not empty machineEditCommand.machine.machineId}">
+						   	  	 (Устройство № <c:out value="${machineEditCommand.machine.machineId} "/>
+						   	  	 <c:if test="${machineEditCommand.machine.archived == '1'}">Удалено!</c:if>)	
+						   	  </c:if>
 				      	  </a>
 				      </li>
 				      <li><a id = "click_to_init" href="#tab_image" role="tab" data-toggle="tab">Дополнительные сведения</a></li>
@@ -518,7 +522,9 @@
 			          <div class="form-actions">
 
 		            	<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_new" onclick="submitForm()" value="Сохранить" />
-			            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_copy" onclick="submitForm()" value="Скопировать" />
+		            	<c:if test="${not empty machineEditCommand.machine.machineId}">
+		            		<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_copy" onclick="submitForm()" value="Скопировать" />
+		            	</c:if>
 			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';" value="Klick">Отмена</a>			            
 			            
 			          </div>

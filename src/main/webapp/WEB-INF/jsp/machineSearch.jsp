@@ -1,13 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page
-	import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-<%@ page
-	import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
 
 <!doctype html>
 <html lang="ru">
@@ -45,10 +42,24 @@
 	                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                     },
 	        	        "aoColumnDefs": [
+	        	                         {
+		        	   	        		      "aTargets": [ 1 ],
+		        	   	        		      "mData": 1,
+		        	   	        		      "mRender": function ( data, type, full ) {
+		        	   	        		      	  var input;
+		        	   	        		      	  if(full[22]=='Y') {
+		        	   	        		      		  input = 'Удл.';	  
+			        	   	        		      } else {
+			        	   	        		    	  input = '<input id="machineSelection'+full[1]+'" class="newCheckbox" type="checkbox" value="'+full[1]+'" name="machineSelection">';
+				        	   	        		  }
+			        	   	        		       
+												  return input;
+		        	   	        		      }
+	        	   	        		     },	        	 	        	        
 	        	                         { "bVisible": true,  "aTargets": [ 1 ] },
 	        	                         {
-		        	   	        		      "aTargets": [ 3 ],
-		        	   	        		      "mData": 3,
+		        	   	        		      "aTargets": [ 4 ],
+		        	   	        		      "mData": 4,
 		        	   	        		      "mRender": function ( data, type, full ) {
 		        	   	        		        return '<a href="${pageContext.request.contextPath}/machineEdit?machineId='+full[0]+'">'+data+'</a>';
 		        	   	        		      }
@@ -74,41 +85,40 @@
                 $('#groupSelect').change(function() {
                     group = $(this).val();
                     if(group==''){
-                    	oTable.fnFilter(group, 1);
+                    	oTable.fnFilter(group, 2);
                     } else {
-                    	oTable.fnFilter( "^"+group+"$", 1 , true);
+                    	oTable.fnFilter( "^"+group+"$", 2 , true);
                     }         
-                	//oTable.fnFilter( $(this).val(), 19);
                 });
                 
                 $('#modelSelect').change(function() {
                     modelId = $(this).val();
                     if(modelId==''){
-                    	oTable.fnFilter(modelId, 2);
+                    	oTable.fnFilter(modelId, 3);
                     } else {
-                    	oTable.fnFilter( "^"+modelId+"$", 2 , true);
+                    	oTable.fnFilter( "^"+modelId+"$", 3 , true);
                     } 
                 });
                              
                 $('#stevidorSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 5);
+                	oTable.fnFilter( $(this).val(), 6);
                 });
                                    		 
                 $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 6);
+                	oTable.fnFilter( $(this).val(), 7);
                 });
                 $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 7);
+                	oTable.fnFilter( $(this).val(), 8);
                 });
 
                 $('#manufacturerSelect').change(function() {
                 	oTable.fnFilter( $(this).val());
                 });                                                
-                $('#releaseYearSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 10);
-                });
+                //$('#releaseYearSelect').change(function() {
+                //	oTable.fnFilter( $(this).val(), 11);
+                //});
                 $('#recordTypeSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 21);
+                	oTable.fnFilter( $(this).val(), 22);
                 });
                 
                 $('#groupSelect').change(function() {
@@ -139,7 +149,7 @@
     	    function( settings, data, dataIndex ) {
     	        var min = parseInt( $('#startRangeSelect').val(), 10 );
     	        var max = parseInt( $('#endRangeSelect').val(), 10 );
-    	        var age = parseFloat( data[10] ) || 0; // use data for the age column
+    	        var age = parseFloat( data[11] ) || 0; // use data for the age column
     	 
     	        if ( ( isNaN( min ) && isNaN( max ) ) ||
     	             ( isNaN( min ) && age <= max ) ||
@@ -319,6 +329,7 @@
 			        <thead>
 			            <tr>
 			                <th>Id</th>
+			                <th>Статус</th>
 			                <th>group Id</th>
 			                <th>model Id</th>
 			                <th>Группа</th>

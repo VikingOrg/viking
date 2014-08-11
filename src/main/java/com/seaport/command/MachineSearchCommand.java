@@ -40,6 +40,14 @@ public class MachineSearchCommand {
 	private Integer manufacturerId;
 	private Integer modelId;
 	
+	private String[] machineSelection;
+	
+	public String[] getMachineSelection() {
+		return machineSelection;
+	}
+	public void setMachineSelection(String[] machineSelection) {
+		this.machineSelection = machineSelection;
+	}
 	public Integer getModelId() {
 		return modelId;
 	}

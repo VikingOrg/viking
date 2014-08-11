@@ -118,14 +118,10 @@ public class MachineEditController {
 		}
 		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		if (requestType.equalsIgnoreCase("new")) {
-			
-		} else if (requestType.equalsIgnoreCase("copy")) {
-			
-		} else {
-			model.addAttribute("error", "message.user.error.generic");
-			return "machineEdit";
-		}
+		if (requestType.equalsIgnoreCase("new") || requestType.equalsIgnoreCase("copy")) {
+			machineEditCommand.getMachine().setMachineId(null);
+
+		} 
 		
 		if (machineEditCommand.getMachine().getMachineModel() == null) {
 			MachineModel machineModel = machineService.getModel(machineEditCommand.getMachine().getModelId());

@@ -80,9 +80,11 @@ public class MachineSearchController {
 		return Collections.singletonMap("aaData", getJSONForMachine(machineList));
 	}	
      
-    /**
-    * I only want certain user info..
-    */
+	/**
+	 * 
+	 * @param machineList
+	 * @return
+	 */
     public Object[] getJSONForMachine(Collection<Machine> machineList){
         Object[] rdArray = new Object[machineList.size()];
         int i = 0;
@@ -179,7 +181,7 @@ public class MachineSearchController {
 			} 
     		
     		
-            Object[] objectArray = new String[]{machine.getMachineId().toString(), groupId, machine.getModelId()==null?MACHINE_FIELD_FILLER:machine.getModelId().toString(),
+            Object[] objectArray = new String[]{machine.getMachineId().toString(), machine.getMachineId().toString(), groupId, machine.getModelId()==null?MACHINE_FIELD_FILLER:machine.getModelId().toString(),
 							            		groupName, modelName,
 							            		stevidorFullName, portCountry, portName, modelDetail, manufactorName, releaseYear,
 							            		startDate, contractNum, inventoryNumb, transNumb, factoryNumb,
@@ -192,6 +194,16 @@ public class MachineSearchController {
         return rdArray;
     }   
 	
+    /**
+     * Using for machine delete functionality. Nothing else get submitted from machine search page.
+     * @param request
+     * @param model
+     * @param machineSearchCommand
+     * @param result
+     * @param redirectAttributes
+     * @return
+     * @throws Exception
+     */
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model,
 								@Valid @ModelAttribute("machineSearchCommand") MachineSearchCommand machineSearchCommand,
@@ -201,13 +213,13 @@ public class MachineSearchController {
 			model.addAttribute("error", "message.user.error.generic");
 			return "machineSearch";
 		}
-		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		List<Machine> machineList = machineSearchCommand.getMachineList();
-		for (Machine machine : machineList) {
-			if (machine.getArchived()!=null && machine.getArchived().equalsIgnoreCase("Y")) {
-				machineService.saveMachine(machine);	
-			}
+		String[] machineSelection = machineSearchCommand.getMachineSelection();
+		for (int i = 0; i < machineSelection.length; i++) {
+			Machine machine = machineService.getMachine(Integer.parseInt(machineSelection[i]));
+			machine.setArchived("Y");
+			machineService.saveMachine(machine);
 		}
-		return "machineSearch";
+		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		return "redirect:machineSearch";
 	}
 }

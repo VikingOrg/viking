@@ -54,7 +54,7 @@ public class MachineDAOImpl implements IMachineDAO {
 	@Override
 	public List<Machine> getMachines(User user){
 		if (user.getRole().getId().intValue() > 1) {
-			Query query = getCurrentSession().createQuery("from Machine m where m.stevidorId = :stevidorId");
+			Query query = getCurrentSession().createQuery("from Machine m where m.stevidorId = :stevidorId order by m.machineId");
 			query.setParameter("stevidorId", user.getStevidorId());
 			return query.list();
 		} else {
