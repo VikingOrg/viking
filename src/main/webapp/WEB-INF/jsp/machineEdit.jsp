@@ -18,10 +18,16 @@
         <jsp:include page="common/headCoreElements.jsp" />
        
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/dropzone.css">
+  
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	    <script src="<c:url value="/static/js/load-image.min.js"/>"></script>
 	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
-		
+	    <script type="text/javascript" src="<c:url value="/static/js/dropzone.js"/>"></script>
+		  
+		<!-- Optional theme 
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+		 -->
+		  
 		<script>
 		  $(document).ready(function() {
 		      $( "#datepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
@@ -88,19 +94,21 @@
                         }
                     });
               });
-
-              document.getElementById('file-input').onchange = function (e) {
-          	    loadImage(
-          	        e.target.files[0],
-          	        function (img) {
-          	            document.body.appendChild(img);
-          	        },
-          	        {maxWidth: 600} // Options
-          	    );
-          	};
               
-		  });
+              $( "#machine_edit_form" ).submit(function( event ) {
+                  if (submittignForm) {
+                  } else {
+                	  event.preventDefault();
+                  }
+              });
+              
 
+		  });
+		  
+            
+          //  $("#submitCopy").click(function(e) {
+          //  });
+		  
       	function refreshModel(modelId){
           $.getJSON('${pageContext.request.contextPath}/machineEdit/getModel/' + modelId, function(machineModel) {
         	  if (!$.trim(machineModel.details)) {
@@ -132,15 +140,7 @@
               }
           });
         }
-		  
-      	function closingModal(machineModelId){
-    		$('#machineModelModal').modal('hide');
-    		refreshModel(machineModelId);
-    		//$('#'+machineModelId).removeClass("odd even");
-    		//$('#'+machineModelId).addClass( "success" );
-    		//var myClass = $('#'+machineModelId).attr('class');        		
-        }
-			      
+		      
 		  </script>
 		  <style type="text/css">
 		  
@@ -199,13 +199,13 @@
 	<body>
 		<!-- Wrap all page content here -->  
 		<div id="wrap"> 
-		   <jsp:include page="common/menu.jsp" />
-		   <!----- Begin page content ------>
-		 <div class="container"> 
+			<jsp:include page="common/menu.jsp" />
+		   	<!----- Begin page content ------>
+			<div class="container"> 
 				<form:form id="machine_edit_form" action="machineEdit" commandName="machineEditCommand" method="post" accept-charset="UTF-8">
 				
-				<!-- Start of Tab Container -->
-			    <div class="container">
+			   	<!-- Start of Tab Container -->
+			   	<div class="container">
 					<div class="col-md-10 col-md-offset-1">
 						<c:choose>
 							<c:when test="${machineEditCommand.formType=='E'}">
@@ -241,20 +241,80 @@
 						   	  Основные характеристики (Устройство №<c:out value="${machineEditCommand.machine.machineId} "/><c:if test="${machineEditCommand.machine.archived == '1'}">Удалено!</c:if>)
 				      	  </a>
 				      </li>
-				      <li><a href="#tab_image" role="tab" data-toggle="tab">Дополнительные сведения</a></li>
+				      <li><a id = "click_to_init" href="#tab_image" role="tab" data-toggle="tab">Дополнительные сведения</a></li>
 				    </ul>
 				    
 					<div id="myTabContent" class="tab-content responsive">
-
-							<div class="tab-pane fade tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>" id="tab_image">
-							      <div class="row">
+						
+							<!-- Dropzone here -->
+							<div class="tab-pane fade tab-bordered" id="tab_image">
+							      <div id = "dropZone" class="row">
 							        <div class="col-sm-9 col-sm-offset-1">
 							        	<div class="">
 											<div class="panel panel-default"
 												style="margin: 10px; margin: 10px;">
 												<div class="panel-heading">Кран (Такой-то)</div>
 												<div class="panel-body">
-													<div id="result" class="result"></div>
+
+												    <div id="actions" class="row">
+												      <div class="col-lg-7">
+												        <!-- The fileinput-button span is used to style the file input field as button -->
+												        <span class="btn btn-success fileinput-button">
+												            <i class="glyphicon glyphicon-plus"></i>
+												            <span>Add files...</span>
+												        </span>
+												        <button type="submit" class="btn btn-primary start">
+												            <i class="glyphicon glyphicon-upload"></i>
+												            <span>Start upload</span>
+												        </button>
+												        <button type="reset" class="btn btn-warning cancel">
+												            <i class="glyphicon glyphicon-ban-circle"></i>
+												            <span>Cancel upload</span>
+												        </button>
+												      </div>
+												
+												      <div class="col-lg-5">
+												        <!-- The global file processing state -->
+												        <span class="fileupload-process">
+												          <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+												            <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+												          </div>
+												        </span>
+												      </div>
+												    </div>
+												
+												    <div class="table table-striped" class="files" id="previews">
+												      <div id="template" class="file-row">
+												        <!-- This is used as the file preview template -->
+												        <div>
+												            <span class="preview"><img data-dz-thumbnail /></span>
+												        </div>
+												        <div>
+												            <p class="name" data-dz-name></p>
+												            <strong class="error text-danger" data-dz-errormessage></strong>
+												        </div>
+												        <div>
+												            <p class="size" data-dz-size></p>
+												            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+												              <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+												            </div>
+												        </div>
+												        <div>
+												          <button class="btn btn-primary start">
+												              <i class="glyphicon glyphicon-upload"></i>
+												              <span>Start</span>
+												          </button>
+												          <button data-dz-remove class="btn btn-warning cancel">
+												              <i class="glyphicon glyphicon-ban-circle"></i>
+												              <span>Cancel</span>
+												          </button>
+												          <button data-dz-remove class="btn btn-danger delete">
+												            <i class="glyphicon glyphicon-trash"></i>
+												            <span>Delete</span>
+												          </button>
+												        </div>
+												      </div>
+												    </div>
 				
 												</div>
 											</div>
@@ -262,25 +322,8 @@
 							            
 							        </div>							      
 								  </div>	
-							      <div class="row">
-							        <div class="col-sm-9 col-sm-offset-1">
-							        	<div class="">
-										    <div class="col-sm-4 col-sm-offset-1">
-												<p>
-													<input type="file" id="file-input">
-												</p>
-												<p id="actions" style="display: none;">
-													<button class="btn btn-primary" type="button" id="edit">Редактировать</button>
-													<button class="btn btn-primary" type="button" id="crop">Обрезать</button>
-												</p>
-											</div>							
-							            </div>
-							            <div id="fileuploader">Upload</div>
-							        </div>							      
-								  </div>									  
-								  
-								  
-							</div>
+							</div>												    
+							<!-- End of Dropzone here -->
 							<div class="tab-pane fade in active tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>"" id="main">
 							      <div class="row">
 							        <div class="col-sm-4 col-sm-offset-1">
@@ -401,38 +444,161 @@
 					</div>
 			    </div>
 			    <!-- End of Tab Container -->
+			    
+			    <!-- Buttons -->
 			    <div class="container">
 			      <div class="form-actions" style= "padding: 20px">
 			          <br>
 			          <div class="form-actions">
-			            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
-			            <input type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#confirmSave" onclick="submitForm()" value="Скопировать" />
-			            <a class="cancelbtn" type="button"
-			            	onclick="window.location.href = '<c:url value="machineSearch"/>';" 
-			            	value="Klick">Отмена</a>
+
+		            	<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_new" onclick="submitForm()" value="Сохранить" />
+			            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_copy" onclick="submitForm()" value="Скопировать" />
+			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';" value="Klick">Отмена</a>			            
+			            
 			          </div>
 			      </div>
 			    </div>
+			    <!-- End of Buttons -->
 			    
-			    
-		    <!-- 		Модальное окно подтверждения сохранения введенных данных -->
-		<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-body" align="center">
-		        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</h4>
-		      </div>
-		      <div class="modal-footer">
-		        <a class="cancelbtn" type="button" data-dismiss="modal">Отмена</a>
-		        <button type="submit" class="btn btn-primary">Сохранить</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+				<!-- Mодальное окно подтверждения сохранения нового механизма -->
+				<div class="modal fade" id="confirm_new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-body" align="center">
+				        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ НОВОГО МЕХАНИЗМА</h4>
+				      </div>
+				      <div class="modal-footer">
+				        <a id = "modal_new_cancel" class="cancelbtn" type="button" data-dismiss="modal">Отмена</a>
+				        <a id = "moda_new_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
+				      </div>
+				      <script type="text/javascript">
+		      		    $("#modal_new_cancel").click(function(e) {
+		      		    	$('#confirm_copy').modal('hide');
+		                });
+		                
+		      		    $("#moda_new_submit").click(function(e) {
+		      		    	$('#confirm_new').modal('hide');
+			              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/new");
+			              	$('#machine_edit_form').attr('method', "post");
+			              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
+			              	submittignForm = true;
+			              	$('#machine_edit_form').submit();
+		                });		      
+				      </script>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+
+				<!-- Mодальное окно подтверждения сохранения копии текущего механизма -->
+				<div class="modal fade" id="confirm_copy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-body" align="center">
+				        <h4>ПОДТВЕРДИТЕ КОПИРОВИНИЕ МЕХАНИЗМА</h4>
+				      </div>
+				      <div class="modal-footer">
+				        <a id = "modal_copy_cancel" class="cancelbtn" type="button" data-dismiss="modal">Отмена</a>
+				        <a id = "moda_copy_submit" class="btn btn-primary" type="button" data-dismiss="modal">Скопировать</a>
+				      </div>
+				     
+   				      <script type="text/javascript">
+		      		    $("#modal_copy_cancel").click(function(e) {
+		      		    	$('#confirm_copy').modal('hide');
+		                });
+		                
+		      		    $("#moda_copy_submit").click(function(e) {
+		      		    	$('#confirm_copy').modal('hide');
+			              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/copy");
+			              	$('#machine_edit_form').attr('method', "post");
+			              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
+			              	submittignForm = true;
+			              	$('#machine_edit_form').submit();
+		                });
+		                				      
+				      </script>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 			    
 			</form:form>
 			
+  <script>
+ 	 var submittignForm = false; 
+	 Dropzone.autoDiscover = false;
+     // Get the template HTML and remove it from the doument
+     var previewNode = document.querySelector("#template");
+     previewNode.id = "";
+     var previewTemplate = previewNode.parentNode.innerHTML;
+     previewNode.parentNode.removeChild(previewNode);
+
+     var myDropzone = new Dropzone("div#dropZone", { // Make the whole body a dropzone
+       url: "${pageContext.request.contextPath}/fileController/upload", // Set the url
+       thumbnailWidth: 80,
+       thumbnailHeight: 80,
+       parallelUploads: 20,
+       previewTemplate: previewTemplate,
+       autoQueue: false, // Make sure the files aren't queued until manually added
+       previewsContainer: "#previews", // Define the container to display the previews
+       clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+     });
+
+     myDropzone.on("addedfile", function(file) {
+       // Hookup the start button
+       file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+     });
+
+     // Update the total progress bar
+     myDropzone.on("totaluploadprogress", function(progress) {
+       document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+     });
+ 	
+     myDropzone.on("sending", function(file, xhr, formData) {
+ 	    formData.append("name", "MyValue"); // Append all the additional input data of your form here!
+       // Show the total progress bar when upload starts
+       document.querySelector("#total-progress").style.opacity = "1";
+       // And disable the start button
+       file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+     });
+
+     // Hide the total progress bar when nothing's uploading anymore
+     myDropzone.on("queuecomplete", function(progress) {
+       document.querySelector("#total-progress").style.opacity = "0";
+     });
+
+     myDropzone.on("success", function(response, serverResponse) {
+   	  if(response.code == 501){ // succeeded
+   	    return file.previewElement.classList.add("dz-success"); // from source
+   	  }else if (response.code == 403){  //  error
+   	    // below is from the source code too
+   	    var node, _i, _len, _ref, _results;
+   	    var message = response.msg // modify it to your error message
+   	    file.previewElement.classList.add("dz-error");
+   	    _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+   	    _results = [];
+   	    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+   	      node = _ref[_i];
+   	      _results.push(node.textContent = message);
+   	    }
+   	    return _results;
+   	  }
+     });
+         
+     myDropzone.on("error", function(file, message) { 
+         alert(message); 
+     });
+
+     
+     // Setup the buttons for all transfers
+     // The "add files" button doesn't need to be setup because the config
+     // `clickable` has already been specified.
+     document.querySelector("#actions .start").onclick = function() {
+       myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+     };
+     document.querySelector("#actions .cancel").onclick = function() {
+       myDropzone.removeAllFiles(true);
+     };
+    
+    </script>		
 				<div id="machineModelModal" class="modal modal-wide fade">
 				  <div class="modal-dialog">
 				    <div id="machineModelModalContent" class="modal-content">
@@ -441,7 +607,7 @@
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->			
 					
-			</div> <!-- End of Main Container -->
+		    </div> <!-- End of Main Container -->
 	
 	</div> <!-- Closing div tag for wrap -->
 		   <jsp:include page="common/footer.jsp" />

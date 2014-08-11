@@ -1,5 +1,7 @@
 package com.seaport.controller;
  
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -12,6 +14,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -32,7 +35,8 @@ public class FileController {
      * @return LinkedList<FileMeta> as json format
      ****************************************************/
     @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public @ResponseBody LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody LinkedList<FileMeta> upload(@RequestParam("name") String[] names,
+    		MultipartHttpServletRequest request, HttpServletResponse response) {
  
         //1. build an iterator
          Iterator<String> itr =  request.getFileNames();
@@ -59,12 +63,26 @@ public class FileController {
                 fileMeta.setBytes(mpf.getBytes());
  
                  // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)           
-                 FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:/temp/files/"+mpf.getOriginalFilename()));
+                 //FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:/temp/files/"+mpf.getOriginalFilename()));
+                
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+                if (!dir.exists())
+                    dir.mkdirs();
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + mpf.getOriginalFilename());
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(mpf.getBytes());
+                stream.close();
  
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+             // This is for nothing it's just to test building fuctionality.
              //2.4 add to files
              files.add(fileMeta);
          }
@@ -72,6 +90,48 @@ public class FileController {
         // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
         return files;
     }
+    
+    /**
+     * Upload multiple file using Spring Controller
+     */
+    @RequestMapping(value = "/uploadSecond", method = RequestMethod.POST)
+    public @ResponseBody
+    String uploadMultipleFileHandler(@RequestParam("name") String[] names,
+            @RequestParam("file") MultipartFile[] files) {
+ 
+        if (files.length != names.length)
+            return "Mandatory information missing";
+ 
+        String message = "";
+        for (int i = 0; i < files.length; i++) {
+            MultipartFile file = files[i];
+            String nameDD = names[i];
+            try {
+                byte[] bytes = file.getBytes();
+ 
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+                if (!dir.exists())
+                    dir.mkdirs();
+ 
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + file.getOriginalFilename());
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+                message = message + "You successfully uploaded file=" + file.getOriginalFilename()
+                        + "<br />";
+                throw new Exception();
+            } catch (Exception e) {
+                return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
+            }
+        }
+        return message;
+    }
+    
     /***************************************************
      * URL: /rest/controller/get/{value}
      * get(): get file as an attachment

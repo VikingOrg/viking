@@ -42,8 +42,7 @@ public class MachineEditController {
 	private IMachineService machineService;	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String setUpForm(HttpServletRequest request, 
-							ModelMap model) throws Exception {
+	public String setUpForm(HttpServletRequest request, ModelMap model) throws Exception {
 		MachineEditCommand machineEditCommand = new MachineEditCommand();
 		
 		String machineId = request.getParameter("machineId");
@@ -109,8 +108,8 @@ public class MachineEditController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST) 
-	public String onSubmit(HttpServletRequest request, Model model,
+	@RequestMapping(value="/persist/{requestType}", method = RequestMethod.POST) 
+	public String onSubmit(@PathVariable String requestType, HttpServletRequest request, Model model,
 								@Valid @ModelAttribute("machineEditCommand") MachineEditCommand machineEditCommand,
 								BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		if (result.hasErrors()) {
@@ -119,12 +118,21 @@ public class MachineEditController {
 		}
 		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		if (requestType.equalsIgnoreCase("new")) {
+			
+		} else if (requestType.equalsIgnoreCase("copy")) {
+			
+		} else {
+			model.addAttribute("error", "message.user.error.generic");
+			return "machineEdit";
+		}
+		
 		if (machineEditCommand.getMachine().getMachineModel() == null) {
 			MachineModel machineModel = machineService.getModel(machineEditCommand.getMachine().getModelId());
 			machineEditCommand.getMachine().setMachineModel(machineModel);
 		}
 		machineService.saveMachine(machineEditCommand.getMachine());
-		return "redirect:machineSearch";
+		return "redirect:/machineSearch";
 	}
 	
 }
