@@ -26,6 +26,9 @@
 		/* Custom page CSS
 		-------------------------------------------------- */
 		/* Not required for template or sticky footer method. */
+		.glyphicon {
+		  padding-right:5px;
+		}
 
 		.navbar .nav > li > a {
 		  padding: 6px 7px;

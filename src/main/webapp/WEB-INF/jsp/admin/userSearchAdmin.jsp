@@ -46,9 +46,9 @@
                                    "sUrl": "static/js/dataTable_ru_RU.txt"
                                 },
                                 "fnInitComplete": function(oSettings) {
-                             	   $("#source").appendTo("#table_length");
-                         		   $("#table_length").addClass("col-sm-8");
-                           	   $("#tableActions").appendTo("#table_Actions");
+                                   $('select[name="user_table_length"]').appendTo("#table_length");
+          	                	   $('select[name="user_table_length"]').addClass("form-control");
+                           	   	   $("#tableActions").appendTo("#table_Actions");
                	              },                     
                 } );
 
@@ -113,68 +113,58 @@
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
-					<div class="col-sm-4">
+					<div id = "limit_width" class="col-sm-4">
 			
 						<div class="col-sm-12 well lform">
 			
 							<div class="row">
 									
-									<div class="col-sm-12">
-								<div class="form-group">
-					        	<label class="col-sm-4 control-label">Страна</label>
-											<div class="col-sm-8">
-											<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
-												<form:option value="">Все</form:option>
-								                <c:forEach items="${userSearchCommand.userCountry}" var="country">
-								                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-								                </c:forEach>
-									</form:select>
+								<div class="col-sm-12">
+									<div class="form-group">
+						        	<label>Страна</label>
+										<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
+											<form:option value="">Все Страны</form:option>
+							                <c:forEach items="${userSearchCommand.userCountry}" var="country">
+							                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+							                </c:forEach>
+										</form:select>
 									</div>	
-								</div>	
-								<div class="form-group">
-											<label class="col-sm-4 control-label">Порт</label>
-											<div class="col-sm-8">
-											<form:select id="portSelect" path="portId" cssClass="form-control col-sm-12">
-												<form:option value="">Все</form:option>
-								                <c:forEach items="${userSearchCommand.userPort}" var="port">
-								                    <form:option value="${port.value.name}" label="${port.value.name}" />
-								                </c:forEach>							
-									</form:select>
+									<div class="form-group">
+										<label>Порт</label>
+										<form:select id="portSelect" path="portId" cssClass="form-control col-sm-12">
+											<form:option value="">Все Порты</form:option>
+							                <c:forEach items="${userSearchCommand.userPort}" var="port">
+							                    <form:option value="${port.value.name}" label="${port.value.name}" />
+							                </c:forEach>							
+										</form:select>
 									</div>	
-								</div>	
-								<div class="form-group">	          
-						          <label class="col-sm-4 control-label">Компания</label>
-						          	<div class="col-sm-8">
-									<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
-									    <form:option value="">Все</form:option>
-						                <c:forEach items="${userSearchCommand.userStevidor}" var="stevidor">
-						                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
-						                </c:forEach>								
-									</form:select>
+									<div class="form-group">	          
+							          <label>Компания</label>
+										<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
+										    <form:option value="">Все Компании</form:option>
+							                <c:forEach items="${userSearchCommand.userStevidor}" var="stevidor">
+							                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
+							                </c:forEach>								
+										</form:select>
+									</div>	
+				                    <div class="form-group">
+									    <label>Поиск</label>
+				                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
 									</div>
-								</div>	
-		                    <div class="form-group">
-							    <label class="col-sm-4 control-label">Поиск</label>
-						                    	<div class="col-sm-8">
-						                        <input id="dataTableSearch" class="form-control" placeholder="Введите..." title="Введите для поиска по всем полям" type="text"/>
-						                        </div>
-							 </div>
-							 <div class="form-group">
-												<label class="col-sm-4 control-label">Кол.строк:</label>
-												<div id="table_length"></div>					
-							</div>
-		                 </div>
-		                 </div>
-				                     
+									 <div class="form-group">
+										<label>Кол.строк:</label>
+										<div id="table_length"></div>					
+									</div>
+		                 		</div>
+		                 	</div>      
 						</div>
-						
 						<div class="col-sm-12 well lform">
-							<div class="row" style="padding-right:10px">
+							<div class="row" style="margin-left:-25px; margin-right:-25px;">
 								<!--  Операции с данными в таблице -->
 				                    <div class="col-sm-12">
 										<div class="form-group">
-				                            <a id="submitNewUser" href="<c:url value="/userEditAdmin"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
-				                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+				                            <a id="submitNewUser" href="<c:url value="/userEditAdmin"/>" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a><span class="pull-right">&nbsp;</span>
+				                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 			                            </div>
 									</div>
 							</div>
@@ -224,7 +214,7 @@
 						                       		<td class="column-check nowrap">
 						                       			<form:checkbox path="userList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<c:if test="${system.localConfig}" >
-						                              		<span class="alert-danger">
+						                              		<span class="badge">
 						                              			<c:out value="(${user.userId})"/>
 						                              		</span>
 						                              	</c:if>							                       			

@@ -6,23 +6,30 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<title>Таблица Портов</title>
+<title>Таблица Групп Механизмов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		
 		<script type="text/javascript">
             $(document).ready(function() {
-            	var oTable = $('#port_table').dataTable({
+            	var oTable = $('#group_table').dataTable( {
+            	"aoColumns": [
+                	               { "bSortable": false },
+                	               null,
+                	               { "bSortable": false },
+                	           ],
                     "sDom": '<"#tableActions"T>t<"#source"l>ip',
                 	tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
              		 	"aButtons": [
                	                "copy",
                	             	{
-               	                    "sExtends":     "print"
+               	                    "sExtends":     "print",
+               	                    "bHeader": true
                	                	},
                	            	{
                	                    "sExtends":     "csv",
-               	                    "sButtonText": "Save"
+               	                    "sButtonText": "Save",
+               	                    "bHeader": true
                	                	}
                	            ]
              	   },
@@ -31,8 +38,8 @@
                         "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                      },
                      "fnInitComplete": function(oSettings) {
-	                	   $('select[name="port_table_length"]').appendTo("#table_length");
-	                	   $('select[name="port_table_length"]').addClass("form-control");
+	                	   $('select[name="group_table_length"]').appendTo("#table_length");
+	                	   $('select[name="group_table_length"]').addClass("form-control");
 	 	              },                   
                 } );
 
@@ -69,18 +76,6 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="form-group">
-									<label>Страна</label>
-										<form:select id="countrySelect" path="countryId"
-											cssClass="form-control col-sm-12">
-											<form:option value="">Все Страны</form:option>
-											<c:forEach items="${portSearchCommand.userCountry}"
-												var="country">
-												<form:option value="${country.value.nameRus}"
-													label="${country.value.nameRus}" />
-											</c:forEach>
-										</form:select>
-								</div>
-								<div class="form-group">
 									<label>Поиск</label>
 										<input id="dataTableSearch" class="form-control"
 											placeholder="Введите..."
@@ -98,7 +93,7 @@
 							<!--  Операции с данными в таблице -->
 								<div class="col-sm-12">
 									<div class="form-group">
-										<a href="<c:url value="portEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
+										<a href="<c:url value="groupEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
 										<span class="pull-right">&nbsp;</span> 
 										<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 									</div>
@@ -107,7 +102,7 @@
 					</div>
 				</div>
 				<!-- End of Sidebar content-->
-				<div id="#max_width" class="col-sm-8">
+				<div id = "#max_width" class="col-sm-8">
 	
 					<!-- Start table content -->
 	
@@ -126,14 +121,13 @@
 					</c:if>
 	
 	
-					<!-- Таблица со списком портов -->
-					<h3 class="page-header">Список портов</h3>
-					<table id="port_table" class="table table-striped table-bordered">
+					<!-- Таблица со списком Групп Механизмов -->
+					<h3 class="page-header">Список Групп Механизмов</h3>
+					<table id="group_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
 								<th class="column-check nowrap">&nbsp;</th>
-								<th class="nowrap">Порт&nbsp;&nbsp;</th>
-								<th class="nowrap">Страна&nbsp;&nbsp;</th>
+								<th class="nowrap">Группа&nbsp;&nbsp;</th>
 								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
 							</tr>
 						</thead>
@@ -142,12 +136,14 @@
 								items="${portSearchCommand.portList}">
 								<c:if test="${port.archived != '1'}">
 									<tr>
-										<td class="column-check nowrap"><form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
+										<td class="column-check nowrap"><form:checkbox
+												path="portList[${loop.index}].archived" value="Y"></form:checkbox>
 										</td>
 										<td class="nowrap">
-											<a href="<c:url value="portEdit/edit/${port.portId}"/>"><c:out value="${port.name}" /></a></td>
-										<td class="nowrap"><c:out value="${port.country.nameRus}" /></td>
-										<td class="nowrap"><c:out value="${port.portNote}" /></td>
+											<a href="<c:url value="portEdit/edit/${port.portId}"/>"><c:out
+													value="${port.name}" /></a></td>
+										<td class="nowrap"><c:out
+												value="${port.portNote}" /></td>
 									</tr>
 								</c:if>
 							</c:forEach>

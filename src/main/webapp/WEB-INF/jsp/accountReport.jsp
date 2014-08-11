@@ -141,7 +141,7 @@
 						</div>
 						<!--  Кнопочка сформировать отчет -->
 						<div class="col-sm-12 well lform">
-							<div class="row" style="padding-right:10px">
+							<div class="row" style="margin-left:-25px; margin-right:-25px;">
 								<div class="col-sm-12">
 									<div class="form-group">
 										<button id="sumbit_report" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>

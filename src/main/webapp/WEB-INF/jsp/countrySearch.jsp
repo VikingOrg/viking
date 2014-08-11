@@ -72,7 +72,7 @@
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
-					<div id = "limit_width" class="col-sm-3">
+					<div id="limit_width" class="col-sm-4">
 			
 						<div class="col-sm-12 well lform">
 			
@@ -91,14 +91,15 @@
 							</div>
 						</div>
 						<div class="col-sm-12 well lform">
-							<div class="row" style="padding-right:10px">	
-		                    <!--  Операции с данными в таблице -->
-		                    <div class="col-sm-12">
-			                    <div class="form-group">
-		                            <a href="<c:url value="countryEdit/new/"/>" class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span class="pull-right">&nbsp;</span>
-		                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
-	                            </div>
-	                        </div>
+							<div class="row" style="margin-left:-25px; margin-right:-25px;">	
+			                    <!--  Операции с данными в таблице -->
+			                    <div class="col-sm-12">
+				                    <div class="form-group">
+			                            <a href="<c:url value="countryEdit/new/"/>" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
+			                            <span class="pull-right">&nbsp;</span>
+			                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
+		                            </div>
+		                        </div>
 							</div>
 						</div>
 						
@@ -106,7 +107,7 @@
 				<!-- End of Sidebar content-->	
 				
 				
-					<div id = "#max_width" class="col-sm-9">
+					<div id="#max_width" class="col-sm-8">
 				
 						<!-- Start table content -->
 

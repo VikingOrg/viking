@@ -113,14 +113,6 @@
             }
             
         </script>	
-		<style type="text/css">
-			#limit_width{
-				max-width:280px !important;
-			}
-			#max_width{
-			    width:100% !important;
-			}
-		</style>
 	<body>
 		<!-- Wrap all page content here -->  
 		<div id="wrap"> 
@@ -132,7 +124,7 @@
 		<div class="row">
 
 			<!--Sidebar content-->
-			<div id = "limit_width" class="col-sm-3">
+			<div id="limit_width" class="col-sm-4">
 
 				<div class="col-sm-12 well lform">
 
@@ -189,15 +181,13 @@
 				</div>
 								<!--  Операции с данными в таблице -->
 				<div class="col-sm-12 well lform">
-					<div class="row" style="padding-right:10px">
+					<div class="row" style="margin-left:-25px; margin-right:-25px;">
 						<div class="col-sm-12">
 							<div class="form-group">
 								<a href="<c:url value="machineEdit"/>"
-									class="btn btn-primary pull-right" title="Ввод нового">Добавить</a><span
-									class="pull-right">&nbsp;</span> 
-									<a href="#"
-									class="btn btn-primary pull-right" title="Удалить"
-									data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+									class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
+									<span class="pull-right">&nbsp;</span> 
+									<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 							</div>	
 						</div>
 					</div>	
@@ -205,7 +195,7 @@
 			</div>
 			<!-- End of Sidebar content-->
 
-			<div class="col-sm-9">
+			<div id="#max_width" class="col-sm-8">
 	                            					                    <!--  Вывод сообщений и предупреждений  -->
 										<c:if test="${not empty message}"> 
 											<div class="alert alert-success show"><spring:message code="${message}" />
