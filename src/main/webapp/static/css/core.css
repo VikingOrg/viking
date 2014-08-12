@@ -29,6 +29,10 @@
 		.glyphicon {
 		  padding-right:5px;
 		}
+		
+		.modal-backdrop {
+		background:url('../images/greystrips.gif') repeat
+		}
 
 		.progress {
 		    margin-bottom: 0px;
@@ -236,12 +240,12 @@
 		}
 		
 		.modal-processing {
-		  background-color: rgba(255, 255, 255, 0.4);
+		  background-color: rgba(255, 255, 255, 0.6);
 		  border: 0px solid #999999;
-		  border: 1px solid rgba(255, 255, 255, 0.5);
+		  border: 1px solid rgba(255, 255, 255, 0.8);
 		  border-radius: 6px;
 		  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.0);
-		  box-shadow: 0 3px 9px rgba(255, 255, 255, 0.2);
+		  box-shadow: 0 3px 9px rgba(255, 255, 255, 0.4);
 		  background-clip: padding-box;
 		  outline: none;
 		}

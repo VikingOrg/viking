@@ -397,12 +397,9 @@
 			<div class="modal-dialog">
 				<div class="modal-processing">
 					<div class="modal-body" align="center">
-						<h3 style="color:white">Подождите, идет загрузка данных</h3>
+						<h3 style="color:#448800">Подождите, идет загрузка данных</h3>
 						<img src="<c:url value="/static/images/32.gif"/>">
 					</div> 
-					<div class="modal-footer" align="center">
-						
-				    </div>
 				</div>
 				<!-- /.modal-content -->
 			</div>
