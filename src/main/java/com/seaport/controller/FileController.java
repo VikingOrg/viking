@@ -66,47 +66,6 @@ public class FileController {
         return fileMetaList;
     }
     
-    /**
-     * Upload multiple file using Spring Controller
-     */
-    @RequestMapping(value = "/uploadSecond", method = RequestMethod.POST)
-    public @ResponseBody
-    String uploadMultipleFileHandler(@RequestParam("name") String[] names,
-            @RequestParam("file") MultipartFile[] files) {
- 
-        if (files.length != names.length)
-            return "Mandatory information missing";
- 
-        String message = "";
-        for (int i = 0; i < files.length; i++) {
-            MultipartFile file = files[i];
-            String nameDD = names[i];
-            try {
-                byte[] bytes = file.getBytes();
- 
-                // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
-                    dir.mkdirs();
- 
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + file.getOriginalFilename());
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-                message = message + "You successfully uploaded file=" + file.getOriginalFilename()
-                        + "<br />";
-                throw new Exception();
-            } catch (Exception e) {
-                return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
-            }
-        }
-        return message;
-    }
-    
     /***************************************************
      * URL: /rest/controller/get/{value}
      * get(): get file as an attachment

@@ -14,15 +14,27 @@
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
 
+		<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
+
+
 		<script type="text/javascript">
 
 		$(document).ready(function() {
-	        	var oTable = $('#machine_table').dataTable( {
+	        	var oTable = $('#machine_table')
+		        	    .on( 'processing.dt', function ( e, settings, processing ) {
+		        	    	$('#wait_modal').modal('show');
+    					} ).dataTable( {
 	        	        "bJQueryUI": true,
 	        	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
 	        	        "sPaginationType": "full_numbers",
 	        	        "bProcessing": true,
 	        	        "responsive": false,
+	        	        "fnPreDrawCallback": function() {
+	        	            // gather info to compose a message
+	        	            
+	        	            return true;
+	        	        },
+	        	        
 	                 	tableTools: {
 	             			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
 	             		 	"aButtons": [
@@ -70,9 +82,12 @@
 	                    "fnInitComplete": function(oSettings) {
 	                	   $('select[name="machine_table_length"]').appendTo("#table_length");
 	                	   $('select[name="machine_table_length"]').addClass("form-control");
+	                	   this.fnSetFilteringDelay(500);
+	                	   $('#wait_modal').modal('hide');
+
 	 	              },
 	        	    } );
-
+	        	
                 // Event listener to the two range filtering inputs to redraw on input
                 $('#startRangeSelect, #endRangeSelect').change( function() {
                 	oTable.fnDraw();
@@ -144,6 +159,7 @@
 //                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
 //                 });
         } );
+        
     	/* Custom filtering function which will search data in column four between two values */
     	$.fn.dataTable.ext.search.push(
     	    function( settings, data, dataIndex ) {
@@ -368,6 +384,23 @@
 					<div class="modal-footer">
 						<a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
 						<button type="submit" class="btn btn-primary">Удалить</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+		<!-- 		Модальное окно подтверждения удаления данных -->
+		<div class="modal fade" id="wait_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body" align="center">
+						<h4>Подождите, идет загрузка данных</h4>
+					</div>
+					<div class="modal-footer">
+						<img src="<c:url value="/static/images/Processing3.gif"/>">
 					</div>
 				</div>
 				<!-- /.modal-content -->
