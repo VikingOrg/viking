@@ -131,11 +131,6 @@
 	
 					<!--Sidebar content-->
 					<div id = "limit_width" class="col-sm-4">
-						
-						<div id="company_pie" class="col-sm-12 well lform">
-							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	
-							<div id="companyReportPie" class="form-group"></div>
-						</div>
 	
 						<div class="col-sm-12 well lform">
 
@@ -230,7 +225,11 @@
 								</div>
 							</div>	
 						</div>					
-												
+						
+						<div id="company_pie" class="col-sm-12 well lform">
+							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	
+							<div id="companyReportPie" class="form-group"></div>
+						</div>						
 					</div>
 					<!-- End of Sidebar content-->
 	
