@@ -301,7 +301,7 @@
 						   	  </c:if>
 				      	  </a>
 				      </li>
-				      <li><a id = "click_to_init" href="#tab_image" role="tab" data-toggle="tab">Дополнительные сведения</a></li>
+				      <li><a id="click_to_init" href="#tab_image" role="tab" data-toggle="tab">Изображения</a></li>
 				    </ul>
 				    
 					<div id="myTabContent" class="tab-content responsive">
@@ -313,37 +313,36 @@
 							        	<div class="">
 											<!--  Вывод сообщений и предупреждений  -->
 											
-											<div id="success_upload" class="alert alert-success hide">
-												<span>Файлы были успешно загружены на сервер.</span>	
+											<div id="success_upload" class="alert alert-success hide" style="margin: 10px;">
+												<span>Изображения успешно загружены.</span>	
 												<button type="button" class="close" data-dismiss="alert">&times;</button>
 											</div>
-											<div class="alert alert-danger hide">
+											<div class="alert alert-danger hide" style="margin: 10px;">
 												<button type="button" class="close" data-dismiss="alert">&times;</button>
 											</div>
 
 							        		
-											<div class="panel panel-default" style="margin: 10px; margin: 10px;">
-												<div class="panel-heading">Кран (Такой-то)</div>
-												<div class="panel-body">
-
-												    <div id="actions" class="row">
-												      <div class="col-lg-7">
+											<div class="panel panel-default" style="margin: 10px;">
+												<div id="actions" class="row panel-heading" style="margin: 0"><div class="col-sm-8"><b><c:out value="${machineEditCommand.machine.name} "/></b></div>
+												
+												
+												      <div class="col-sm-1">
 												        <!-- The fileinput-button span is used to style the file input field as button -->
-												        <span class="btn btn-success fileinput-button">
-												            <i class="glyphicon glyphicon-plus"></i>
-												            <span>Add files...</span>
+												        <span class="btn btn-primary fileinput-button">
+												            <span class="glyphicon glyphicon-camera"></span>
+												           <span>Добавить</span>
 												        </span>
-												        <button type="submit" class="btn btn-primary start">
+												        <!--<button type="submit" class="btn btn-primary start">
 												            <i class="glyphicon glyphicon-upload"></i>
-												            <span>Start upload</span>
-												        </button>
-												        <button type="reset" class="btn btn-warning cancel">
+												             <span>Загрузка</span> 
+												        </button>-->
+												        <!-- <button type="reset" class="btn cancelbtn">
 												            <i class="glyphicon glyphicon-ban-circle"></i>
-												            <span>Cancel upload</span>
-												        </button>
+												            <span>Отмена</span>
+												        </button> -->
 												      </div>
 												
-												      <div class="col-lg-5">
+												      <div class="col-sm-1">
 												        <!-- The global file processing state -->
 												        <span class="fileupload-process">
 												          <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -351,8 +350,10 @@
 												          </div>
 												        </span>
 												      </div>
-												    </div>
 												
+												</div>
+												
+												<div class="panel-body">
 												    <div class="table table-striped" class="files" id="previews">
 												      <div id="template" class="file-row">
 												        <!-- This is used as the file preview template -->
@@ -371,16 +372,16 @@
 												        </div>
 												        <div>
 												          <button class="btn btn-primary start">
-												              <i class="glyphicon glyphicon-upload"></i>
-												              <span>Start</span>
+												              <i class="glyphicon glyphicon-arrow-up"></i>
+												              <span>Загрузить</span>
 												          </button>
-												          <button data-dz-remove class="btn btn-warning cancel">
+												          <!-- <button data-dz-remove class="btn cancelbtn">
 												              <i class="glyphicon glyphicon-ban-circle"></i>
-												              <span>Cancel</span>
-												          </button>
+												              <span>Отмена</span>
+												          </button> -->
 												          <button data-dz-remove class="btn btn-danger delete">
 												            <i class="glyphicon glyphicon-trash"></i>
-												            <span>Delete</span>
+												            <span>Удалить</span>
 												          </button>
 												        </div>
 												      </div>
@@ -394,7 +395,7 @@
 								  </div>	
 							</div>												    
 							<!-- End of Dropzone here -->
-							<div class="tab-pane fade in active tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>"" id="main">
+							<div class="tab-pane fade in active tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>" id="main">
 							      <div class="row">
 							        <div class="col-sm-4 col-sm-offset-1">
 							        	<br/>
@@ -418,54 +419,60 @@
 							        	</spring:bind>
 							        	<spring:bind path="machine.modelId">
 								        	<div class="form-group ${status.error ? 'has-error' : '' }">
-							                    <label class="form-label">Модель*
-							                    	<span class="report_header">
-							                    		(Нету в списке? Создайте <a href="#" rel="createNewModel">
-								                    	новую</a>, или отредактируйте
+							                    <label class="form-label">Модель*&nbsp; </label>
+							                    	<a href="#" rel="createNewModel" title="Ввод нового">
+							                    	<span class="glyphicon glyphicon-plus"></span>Добавить</a>&nbsp;
 								                    	<span id="edit_machine_model">
-									                    	<a href="#" id="editExistingModel" 
+									                    	<a href="#" id="editExistingModel"
 									                    	data-param1="<c:out value="${machineEditCommand.machine.modelId}"/>">
-									                    	текущую</a>
-									                    </span> 
-									                    модель механизма.)
-								                    	
-							                    	</span>
-							                    </label>
-												<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
-													<form:option value="0">Не выбрана (или отсутствует в базе моделей)</form:option>
-									                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
-									                    <form:option value="${model.key}" label="(${model.key})${model.value.name}" />
-														<c:if test="${machineEditCommand.machine.modelId == model.key}">
-															<c:set var="currentModel" scope="request" value="${model.value}"/> 
-														</c:if>									                    
-									                </c:forEach>									
-												</form:select>
-												<form:errors path="machine.modelId" cssClass="control-label"/>
-												<span id="model_details" class="report_header">Характеристика Модели:<c:out value=" ${currentModel.details}"/></span><br/>
-								            	<span id="model_manuf_name_rus" class="report_header">Компания Произовдитель:<c:out value=" ${currentModel.manufacturer.nameRus}"/></span><br/>
-								            	<span id="model_manuf_country_name_rus" class="report_header">Место Производства:<c:out value=" ${currentModel.manufacturer.country.nameRus}"/></span><br/>
-								            	<span id="model_note" class="report_header">Примечание:<c:out value=" ${currentModel.note}"/></span><br/>
-												
+									                    	<span class="glyphicon glyphicon-edit"></span>Редактировать
+									                    	</a>
+									                    </span>
+							                    <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+						                    		<div class="panel-heading">
+													<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
+														<form:option value="0">Не выбрана (или отсутствует в базе моделей)</form:option>
+										                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
+										                    <form:option value="${model.key}" label="(${model.key})${model.value.name}" />
+															<c:if test="${machineEditCommand.machine.modelId == model.key}">
+																<c:set var="currentModel" scope="request" value="${model.value}"/> 
+															</c:if>									                    
+										                </c:forEach>									
+													</form:select>
+													<form:errors path="machine.modelId" cssClass="control-label"/>
+													</div>
+													<div  class="panel-body">
+														<span id="model_details" class="report_header"><b>Характеристика Модели:</b><c:out value=" ${currentModel.details}"/></span><br/>
+										            	<span id="model_manuf_name_rus" class="report_header"><b>Компания Производитель:</b><c:out value=" ${currentModel.manufacturer.nameRus}"/></span><br/>
+										            	<span id="model_manuf_country_name_rus" class="report_header"><b>Страна Производства:</b><c:out value=" ${currentModel.manufacturer.country.nameRus}"/></span><br/>
+										            	<span id="model_note" class="report_header"><b>Примечания:</b><c:out value=" ${currentModel.note}"/></span><br/>
+													</div>
+												</div>
 								        	</div>
 							        	</spring:bind>
 							        							        	
 							        	<div class="form-group">
 				  				            <label class="form-label">Компания*</label>
-											<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control">
-											    <form:option value="">Не выбрана (отсутствует)</form:option>
-								                <c:forEach items="${machineEditCommand.stevidorMap}" var="stevidor">
-								                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
-								                    <c:out value="${stevidor.key}"/>:${machineEditCommand.machine.stevidorId}:
-								                    <c:out value="${stevidor.value.fullName}"/>
-													<c:if test="${machineEditCommand.machine.stevidorId == stevidor.key}">
-														<c:set var="currentStevidor" scope="request" value="${stevidor.value}"/> 
-													</c:if>								                    
-								                </c:forEach>								
-											</form:select>
-											<span id="stevidor_port_name" class="report_header">Порт приписки:<c:out value="${currentStevidor.port.name}"/></span><br/>
-											<span id="stevidor_port_country_name_rus" class="report_header">Страна:<c:out value="${currentStevidor.port.country.nameRus}"/></span><br/>
+				  				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+					                    		<div class="panel-heading">
+													<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control">
+													    <form:option value="">Не выбрана (отсутствует)</form:option>
+										                <c:forEach items="${machineEditCommand.stevidorMap}" var="stevidor">
+										                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
+										                    <c:out value="${stevidor.key}"/>:${machineEditCommand.machine.stevidorId}:
+										                    <c:out value="${stevidor.value.fullName}"/>
+															<c:if test="${machineEditCommand.machine.stevidorId == stevidor.key}">
+																<c:set var="currentStevidor" scope="request" value="${stevidor.value}"/> 
+															</c:if>								                    
+										                </c:forEach>								
+													</form:select>
+												</div>
+												<div  class="panel-body">		
+													<span id="stevidor_port_name" class="report_header"><b>Порт приписки:&nbsp;</b><c:out value="${currentStevidor.port.name}"/></span><br/>
+													<span id="stevidor_port_country_name_rus" class="report_header"><b>Страна:&nbsp;</b><c:out value="${currentStevidor.port.country.nameRus}"/></span><br/>
+								        		</div>
+							        		</div>
 							        	</div>
-							        	
 										<%-- 						        	 	
 							        	<div class="form-group">
 								          <label class="form-label">Страна Производства</label>
@@ -522,9 +529,7 @@
 			          <div class="form-actions">
 
 		            	<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_new" onclick="submitForm()" value="Сохранить" />
-		            	<c:if test="${not empty machineEditCommand.machine.machineId}">
-		            		<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_copy" onclick="submitForm()" value="Скопировать" />
-		            	</c:if>
+			            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_copy" onclick="submitForm()" value="Скопировать" />
 			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';" value="Klick">Отмена</a>			            
 			            
 			          </div>
@@ -541,14 +546,14 @@
 				      </div>
 				      <div class="modal-footer">
 				        <a id = "modal_new_cancel" class="cancelbtn" type="button" data-dismiss="modal">Отмена</a>
-				        <a id = "moda_new_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
+				        <a id = "modal_new_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
 				      </div>
 				      <script type="text/javascript">
 		      		    $("#modal_new_cancel").click(function(e) {
 		      		    	$('#confirm_copy').modal('hide');
 		                });
 		                
-		      		    $("#moda_new_submit").click(function(e) {
+		      		    $("#modal_new_submit").click(function(e) {
 		      		    	$('#confirm_new').modal('hide');
 			              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/new");
 			              	$('#machine_edit_form').attr('method', "post");

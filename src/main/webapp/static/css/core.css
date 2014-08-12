@@ -30,6 +30,10 @@
 		  padding-right:5px;
 		}
 
+		.progress {
+		    margin-bottom: 0px;
+		}
+
 		.navbar .nav > li > a {
 		  padding: 6px 7px;
 		}
@@ -103,6 +107,10 @@
 		  text-align:center;
 		  vertical-align:middle;
 		  white-space:nowrap;
+		}
+		
+		.btn-warning, .btn-danger {
+		  padding: 4px 10px;
 		}
 		
 		.cancelbtn:hover {
@@ -225,6 +233,17 @@
 			border: 1px solid;
 			border-color: #aaaaaa;
     		border-radius: 4px 4px 4px 4px;
+		}
+		
+		.modal-processing {
+		  background-color: rgba(255, 255, 255, 0.4);
+		  border: 0px solid #999999;
+		  border: 1px solid rgba(255, 255, 255, 0.5);
+		  border-radius: 6px;
+		  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.0);
+		  box-shadow: 0 3px 9px rgba(255, 255, 255, 0.2);
+		  background-clip: padding-box;
+		  outline: none;
 		}
 		
 		.flag {

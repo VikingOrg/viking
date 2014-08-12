@@ -395,13 +395,14 @@
 		<!-- 		Модальное окно подтверждения удаления данных -->
 		<div class="modal fade" id="wait_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content">
+				<div class="modal-processing">
 					<div class="modal-body" align="center">
-						<h4>Подождите, идет загрузка данных</h4>
-					</div>
-					<div class="modal-footer">
-						<img src="<c:url value="/static/images/Processing3.gif"/>">
-					</div>
+						<h3 style="color:white">Подождите, идет загрузка данных</h3>
+						<img src="<c:url value="/static/images/32.gif"/>">
+					</div> 
+					<div class="modal-footer" align="center">
+						
+				    </div>
 				</div>
 				<!-- /.modal-content -->
 			</div>
