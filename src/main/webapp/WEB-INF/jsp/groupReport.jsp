@@ -19,6 +19,7 @@
             	$('#report_select_form').attr('method', "post");
             	$('#report_select_form').attr('accept-charset', "UTF-8");
             	$('#report_select_form').submit();
+        	    $('#wait_modal').modal('show');
 				});
 
               $('#groupSelect').change(function() {
@@ -247,6 +248,20 @@
 	
 					</div>
 				</div> <!--End of Report 2-->
+				<!-- 		Модальное окно ожидания загрузки данных -->
+				<div class="modal fade" id="wait_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-processing">
+							<div class="modal-body" align="center">
+								<h3 style="color:#448800">Подождите, идет загрузка данных</h3>
+								<img src="<c:url value="/static/images/32.gif"/>">
+							</div> 
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
 			</form:form>
 	
 		</div>
