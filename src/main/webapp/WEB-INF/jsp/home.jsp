@@ -7,16 +7,9 @@
 <html lang="ru">
 	<head>
 	    <title>Главная страница</title>
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
+		<jsp:include page="common/headCoreElements.jsp" />
 	    
-	    <!--[if lt IE 9]>
-			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-	    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
-		<script type="text/javascript" src="<c:url value="/static/js/ammap/ammap.js"/>"></script>
+	    <script type="text/javascript" src="<c:url value="/static/js/ammap/ammap.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/static/js/ammap/maps/js/russiaHigh.js"/>"></script>
 		<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
 		<script type="text/javascript">
