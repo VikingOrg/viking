@@ -90,7 +90,7 @@
 										<div class="form-group">
 											<label>Страна</label>
 											<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
-												<form:option value="">Все</form:option>
+												<form:option value="">Все Страны</form:option>
 								                <c:forEach items="${stevidorSearchCommand.userCountry}" var="country">
 								                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 								                </c:forEach>
@@ -99,7 +99,7 @@
 										<div class="form-group">
 											<label>Порт</label>
 											<form:select id="portSelect" path="portId" cssClass="form-control col-sm-12">
-												<form:option value="">Все</form:option>
+												<form:option value="">Все Порты</form:option>
 								                <c:forEach items="${stevidorSearchCommand.userPort}" var="port">
 								                    <form:option value="${port.value.name}" label="${port.value.name}" />
 								                </c:forEach>							

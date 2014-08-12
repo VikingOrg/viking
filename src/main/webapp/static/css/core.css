@@ -167,6 +167,12 @@
 		  border-color: #bce8f1;
 		}
 		
+		.alert-success {
+		    background-color: #dff0d8;
+		    border-color: #d6e9c6;
+		    color: #468847;
+		}
+		
 		thead.tablehead {
 		  color: #448800;
 		  background-color:#DDEDCC
