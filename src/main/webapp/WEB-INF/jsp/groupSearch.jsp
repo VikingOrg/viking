@@ -147,16 +147,18 @@
 						</thead>
 						<tbody>
 							<c:forEach var="group" varStatus="loop" items="${groupCommand.groupList}">
-								<tr>
-									<td class="column-check nowrap"><form:checkbox
-											path="groupList[${loop.index}].archived" value="Y"></form:checkbox>
+								<tr id="${group.groupId}">
+									<td class="column-check nowrap">
+										<form:checkbox path="groupList[${loop.index}].archived" value="Y"></form:checkbox>
 									</td>
 									<td class="nowrap">
 										<a href="#" rel="tableRowEdit" data-param1="${group.groupId}">
 							            	<span id="name${group.groupId}"><c:out value="${group.name}"/></span>
 							            </a>
 									</td>
-									<td class="nowrap"><c:out value="${group.groupNote}" /></td>
+									<td class="nowrap">
+										<span id="note${group.groupId}"><c:out value="${group.groupNote}"/></span>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

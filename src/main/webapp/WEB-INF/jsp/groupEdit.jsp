@@ -31,14 +31,13 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-4 col-sm-offset-1">
-						<v:input path="currentGroup.name" label="Наименование" required="true" title="Введите наименование"/>
+						<v:input id = "groupName" path="currentGroup.name" label="Наименование" required="true" title="Введите наименование"/>
 					</div>
 					<div class="col-sm-4 col-sm-offset-1">
 						<div class="form-group">
 							<label class="form-label">Примечания</label>
 							<div class="controls">
-								<form:textarea path="currentGroup.groupNote" rows="3"
-									cssClass="form-control" />
+								<form:textarea id="groupNote" path="currentGroup.groupNote" rows="3" cssClass="form-control" />
 							</div>
 						</div>
 					</div>
@@ -66,17 +65,15 @@
               	ajaxObjectId =  $("#ajaxObjectId").val();
                $.ajax({
                	type: "POST",
-       		    url: "${pageContext.request.contextPath}/group/save/"+ajaxObjectId,
+       		    url: "${pageContext.request.contextPath}/group/save/",
        		    data: $("#ajaxSubmitForm").serialize(),
                       complete : function( response ) {
                           $("#groupEditModalContent").html(response.responseText);
                           check = $("#ajaxSuccessFlag").val();
                           if(check=='true'){
                       		/*For DOM DataTable.*/
-                      		//$('#group'+machineModelId).text($('#groupSelectModal option:selected').text());
-                      		//$('#name'+machineModelId).text($('#machineModelName').val());
-                      		//$('#manafacturer'+machineModelId).text($( "#manufacturerSelectModal option:selected" ).text() );
-                      		//$('#note'+machineModelId).text($('#macnineModelNote').val());
+                      		$('#name'+ajaxObjectId).text($('#groupName').val());
+                      		$('#note'+ajaxObjectId).text($('#groupNote').val());
 
                       		/*Closing Modal.*/
                        	closingModal(ajaxObjectId);	

@@ -95,7 +95,7 @@ public class GroupController {
 		groupService.saveGroup(groupCommand.getCurrentGroup());
 		groupCommand.setSuccessFlag("true");
 		model.addAttribute("message", "message.user.success.generic");
-		return "groupSearch";
+		return "groupEdit";
 	}
 		
 	
