@@ -60,8 +60,20 @@ public class Manufacturer implements Serializable {
 	@OneToOne()
 	@JoinColumn(name = "country_id", insertable = false, updatable = false)
 	private Country country;
+
+	@OneToOne()
+	@JoinColumn(name="create_user_id", referencedColumnName="id", insertable = false, updatable = false, nullable = true)
+	private User createUser;
 	
 	public Manufacturer() {
+	}
+
+	public User getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(User createUser) {
+		this.createUser = createUser;
 	}
 
 	public Country getCountry() {

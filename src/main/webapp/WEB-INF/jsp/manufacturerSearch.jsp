@@ -64,14 +64,20 @@
                     });
                 });            
 
-                $('#manufacturer_summury').popover({
+                $("a[rel^='tableRowEdit']").popover({
                 	trigger:'hover',
                 	container:'body',
                 	html:'true',
                 	template:'<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
-                	title:'Заголовок',
-                	content:'OK',
+                	title:'Дополнительные данные о записи Фирмы Производителя.',
                 	placement:'auto',
+                    delay: { 
+                        show: "1000", 
+                        hide: "100"
+                    },
+                    content: function() {
+                        return $('#popoverContent'+this.dataset['param1']).html();
+                    },
                 });    
                 
             } );
@@ -81,6 +87,15 @@
         		$('#'+manufacturerId).addClass( "success" );
             }
         </script>
+
+
+    <style type="text/css">
+        .popover{
+            max-width:600px;
+        }
+    </style>
+
+        
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -169,7 +184,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="manufacturer" varStatus="loop" items="${manufacturerCommand.manufacturerList}">
-								<tr id="manufacturer_summury">
+								<tr>
 									<td class="column-check nowrap">
 										<form:checkbox path="manufacturerList[${loop.index}].archived" value="Y"></form:checkbox>
 									</td>
@@ -177,6 +192,28 @@
 										<a href="#" rel="tableRowEdit" data-param1="${manufacturer.manufacturerId}">
 							            	<span id="name${manufacturer.manufacturerId}"><c:out value="${manufacturer.nameRus}"/></span>
 							            </a>
+							            <span class="hidden" id="popoverContent${manufacturer.manufacturerId}">
+							            
+											<table class="table_report_header">
+												<tbody>
+													<tr>
+														<td>
+											            	<span class="nowrap">
+											            		Автор записи:<c:out value="${manufacturer.createUser.firstName}"/>
+											            					 <c:out value="${manufacturer.createUser.lastName}"/><br>
+											            	</span> 
+											            	<span class="nowrap">Запись создана:<c:out value="${manufacturer.createDate}"/><br></span>
+											            	<span class="nowrap">Последние изменение внесены:<c:out value="${manufacturer.updateDate}"/><br></span>
+											            	<span class="nowrap">Пользователем с ID:<c:out value="${manufacturer.updateUserId}"/><br></span>
+														
+														</td>
+														<td>
+															<img src="<c:url value="/static/images/users/myImg.jpg"/>">					
+														</td>
+													</tr>
+												</tbody>
+											</table>							            
+							            </span>
 									</td>
 									<td class="nowrap">
 										<c:out  value="${manufacturer.country.nameRus}"/>
