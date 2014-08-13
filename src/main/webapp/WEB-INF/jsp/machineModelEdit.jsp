@@ -14,9 +14,8 @@
 						<c:if test="${empty machineModalEditCommand.machineModel.modelId}"> 
 				        	<h4 class="text-muted">СОЗДАНИЕ НОВОЙ МОДЕЛИ</h4>
 				        </c:if>				        
-										        
-
-				      </div>
+				      </div> <!-- modal header end -->
+				      
 				      <div class="modal-body">
    					  	<div class="container">
 					      <div class="masthead">
@@ -72,6 +71,7 @@
 					      </div>
 					    </div>
 				      </div> <!-- /.modal-body -->
+				      
 				      <div class="modal-footer">
 				        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
 				        <button id="submitMachineModel" type="button" class="btn btn-primary">Сохранить</button>

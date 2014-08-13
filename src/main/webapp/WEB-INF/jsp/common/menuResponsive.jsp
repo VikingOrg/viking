@@ -60,8 +60,8 @@
 								<li><a href="<c:url value="/countrySearch"/>">Страны</a></li>
 					            <li class="divider"></li>
 					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
-					            <li><a href="<c:url value="/machineModel"/>">Группы Механизмов</a></li>
-					            <li><a href="<c:url value="/machineModel"/>">Производители Механизмов</a></li>
+					            <li><a href="<c:url value="/group"/>">Группы Механизмов</a></li>
+					            <li><a href="<c:url value="/manufacturer"/>">Производители Механизмов</a></li>
 							</ul>
 						</li>
 			</sec:authorize>

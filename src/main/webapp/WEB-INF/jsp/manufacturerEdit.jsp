@@ -1,136 +1,111 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page
-	import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 
-<!doctype html>
-<html lang="ru">
-<head>
-<title>Редактирование Производителя Механизма</title>
-	    <jsp:include page="common/headCoreElements.jsp" />
-	</head>
-	<body>
-		<!-- Wrap all page content here -->  
-		<div id="wrap">	
-<jsp:include page="common/menu.jsp" />
-<!----- Begin page content ------>
-<div class="container">
-	<form:form action="portEdit" commandName="portEditCommand" method="post" accept-charset="UTF-8">
-		<div class="container">
-			<div class="col-md-10 col-md-offset-1">
+<form:form id="ajaxSubmitForm" action="/manufacturerEdit" commandName="manufacturerCommand" method="post" accept-charset="UTF-8">
 
-				<c:choose>
-					<c:when test="${not empty portEditCommand.port.portId}">
-						<h3 class="page-header">
-							Редактирование Производителя<br>
-						</h3>
-					</c:when>
-					<c:otherwise>
-						<h3 class="page-header">
-							Добавление Производителя<br>
-						</h3>
-					</c:otherwise>
-				</c:choose>
-
-				<c:if test="${not empty error}">
-					<div class="alert alert-danger show">
-						<spring:message code="${error}" />
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
+	      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<c:if test="${not empty manufacturerCommand.currentManufacturer.manufacturerId}"> 
+		        	<h4 class="text-muted">РЕДАКТИРОВАНИЕ ФИРМЫ ПРОИЗВОДТЕЛЯ (№ ${manufacturerCommand.currentManufacturer.manufacturerId})</h4>
+		        </c:if>
+				<c:if test="${empty manufacturerCommand.currentManufacturer.manufacturerId}"> 
+		        	<h4 class="text-muted">СОЗДАНИЕ НОВОЙ ФИРМЫ ПРОИЗВОДИТЕЛЯ</h4>
+		        </c:if>				        
+	      </div> <!-- modal header end -->
+	
+	
+	      <div class="modal-body">
+				<div class="container">
+					<div class="col-md-10 col-md-offset-1">
+						<c:if test="${not empty error}">
+							<div class="alert alert-danger show">
+								<spring:message code="${error}" />
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						</c:if>
 					</div>
-				</c:if>
+				</div>
+				<div class="row">
+				
+					<div class="col-sm-4 col-sm-offset-1">
+						<v:input path="currentManufacturer.nameRus" label="Наименование на русском" required="true" title="Введите наименование"/>
+						<v:input path="currentManufacturer.nameEn" label="Наименование на английском" required="true" title="Введите наименование по английски"/>
+					</div>
 
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-4 col-sm-offset-1">
-
-				<spring:bind path="port.name">
-					<div class="form-group ${status.error ? 'has-error' : ''}">
-						<div class="controls">
-							<label class="form-label">Наименование на русском</label>
-							<form:input path="port.name" cssClass="form-control"
-								title="Введите наименование" />
-							<form:errors class="control-label" path="port.name" />
+					<div class="col-sm-4 col-sm-offset-1">
+						<div class="form-group">
+							<label class="form-label">Страна производства</label>
+							<form:select path="currentManufacturer.countryId" cssClass="form-control">
+								<c:forEach items="${manufacturerCommand.countryMap}" var="country">
+									<form:option value="${country.key}" label="${country.value.nameRus}" />
+								</c:forEach>
+							</form:select>
 						</div>
-					</div>
-				</spring:bind>
-				<div class="form-group">
-					<label class="form-label">Наименование на английском</label>
-					<form:select path="port.portId" cssClass="form-control">
-						<c:forEach items="${portEditCommand.countryMap}" var="country">
-							<form:option value="${country.key}" label="${country.value.nameRus}" />
-						</c:forEach>
-					</form:select>
+						<div class="form-group">
+							<label class="form-label">Примечания</label>
+							<div class="controls">
+								<form:textarea path="currentManufacturer.note" rows="3"
+									cssClass="form-control" />
+							</div>
+						</div>
+					</div>					
 				</div>
-				
-
-			</div>
-			<div class="col-sm-4 col-sm-offset-1">
-				
-				<div class="form-group">
-					<label class="form-label">Страна производства</label>
-					<form:select path="port.portId" cssClass="form-control">
-						<c:forEach items="${portEditCommand.countryMap}" var="country">
-							<form:option value="${country.key}" label="${country.value.nameRus}" />
-						</c:forEach>
-					</form:select>
-				</div>
-				<div class="form-group">
-					<label class="form-label">Примечания</label>
-					<div class="controls">
-						<form:textarea path="port.portNote" rows="3"
-							cssClass="form-control" />
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-10 col-sm-offset-1">
-					<div class="form-actions">
-
-						<input type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#confirmSave" onclick="submitForm()" value="Сохранить" />
-							
-						<input type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#confirmSave" onclick="submitForm()" value="Скопировать" />
-							
-						<input type="button" class="btn cancelbtn" data-toggle="modal"
-							data-target="#confirmSave" onclick="submitForm()" value="Отмена" />
-							
-					</div>
-				</div>
-			</div>
-		</div>
-		
-
-		<!-- 		Модальное окно подтверждения сохранения введенных данных -->
-		<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body" align="center">
-						<h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</h4>
-					</div>
-					<div class="modal-footer">
-						<a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
-						<button type="submit" class="btn btn-primary">Сохранить</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-
+				<!-- Need this for Ajax call -->
+				<form:hidden id="ajaxObjectId" path="currentManufacturer.manufacturerId" />
+				<form:hidden id="ajaxSuccessFlag" path="successFlag" />
+	
+		  </div> <!-- end of modal body -->
+			
+			
+	      <div class="modal-footer">
+	        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
+	        <button id="submitAjax" type="button" class="btn btn-primary">Сохранить</button>
+	        <button id="submitAjax" type="button" class="btn btn-primary">Скопировать</button>
+	      </div>
+      		
 	</form:form>
-</div>
-<!-- End of Main Container -->
-</div>
-<!-- Closing div tag for wrap -->
-<jsp:include page="common/footer.jsp" />
-</body>
-</html>
+
+
+
+	 <script type="text/javascript">
+              $("#submitAjax").click(function(e) {
+              	e.preventDefault();
+              	ajaxObjectId =  $("#ajaxObjectId").val();
+               $.ajax({
+               	type: "POST",
+       		    url: "${pageContext.request.contextPath}/manufacturer/save/"+ajaxObjectId,
+       		    data: $("#ajaxSubmitForm").serialize(),
+                      complete : function( response ) {
+                          $("#manufacturerEditModalContent").html(response.responseText);
+                          check = $("#ajaxSuccessFlag").val();
+                          if(check=='true'){
+                      		/*For DOM DataTable.*/
+                      		//$('#group'+machineModelId).text($('#groupSelectModal option:selected').text());
+                      		//$('#name'+machineModelId).text($('#machineModelName').val());
+                      		//$('#manafacturer'+machineModelId).text($( "#manufacturerSelectModal option:selected" ).text() );
+                      		//$('#note'+machineModelId).text($('#macnineModelNote').val());
+
+                      		/*Closing Modal.*/
+                       	closingModal(ajaxObjectId);	
+                       }
+                      },	        	        
+       	        error: function(){
+       	        	alert("failure");
+       	        }
+               });
+               });  				 	
+	 </script>
+
+
+
+
+
+
+
+
+
+
+

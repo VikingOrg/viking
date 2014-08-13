@@ -12,12 +12,11 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#group_table').dataTable( {
-            	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               { "bSortable": false },
-                	           ],
-                    "sDom": '<"#tableActions"T>t<"#source"l>ip',
+        	        "bJQueryUI": true,
+        	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
+        	        "sPaginationType": "full_numbers",
+        	        "bProcessing": true,
+        	        "responsive": false,
                 	tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
              		 	"aButtons": [
@@ -46,16 +45,31 @@
 
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
-                });   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
                 });
-                $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 2);
+
+
+                $("a[rel^='tableRowEdit']").click(function(e){
+
+                    $.ajax('${pageContext.request.contextPath}/group/edit/'+this.dataset['param1'], {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#groupEditModalContent").html(response.responseText);
+                            $('#groupEditModal').modal('show');
+                            
+                        }
+                    });
                 });
-                
+
+                   		 
             } );
 
+        	function closingModal(groupId){
+        		$('#groupEditModal').modal('hide');
+        		$('#'+groupId).addClass( "success" );
+            }
     
         </script>
 	</head>
@@ -66,8 +80,8 @@
 <!----- Begin page content ------>
 	<div class="container">
 	
-		<form:form id="port_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="portSearch"
-			commandName="portSearchCommand" method="post" accept-charset="UTF-8">
+		<form:form id="group_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="groupSearch"
+			commandName="groupCommand" method="post" accept-charset="UTF-8">
 			<div class="row">
 	
 				<!--Sidebar content-->
@@ -132,20 +146,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="port" varStatus="loop"
-								items="${portSearchCommand.portList}">
-								<c:if test="${port.archived != '1'}">
-									<tr>
-										<td class="column-check nowrap"><form:checkbox
-												path="portList[${loop.index}].archived" value="Y"></form:checkbox>
-										</td>
-										<td class="nowrap">
-											<a href="<c:url value="portEdit/edit/${port.portId}"/>"><c:out
-													value="${port.name}" /></a></td>
-										<td class="nowrap"><c:out
-												value="${port.portNote}" /></td>
-									</tr>
-								</c:if>
+							<c:forEach var="group" varStatus="loop" items="${groupCommand.groupList}">
+								<tr>
+									<td class="column-check nowrap"><form:checkbox
+											path="groupList[${loop.index}].archived" value="Y"></form:checkbox>
+									</td>
+									<td class="nowrap">
+										<a href="#" rel="tableRowEdit" data-param1="${group.groupId}">
+							            	<span id="name${group.groupId}"><c:out value="${group.name}"/></span>
+							            </a>
+									</td>
+									<td class="nowrap"><c:out value="${group.groupNote}" /></td>
+								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
@@ -160,6 +172,14 @@
 <jsp:include page="common/footer.jsp" />
 
 
+<div id="groupEditModal" class="modal modal-wide fade">
+  <div class="modal-dialog">
+    <div id="groupEditModalContent" class="modal-content">
+    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->			
+	
 
 </body>
 </html>

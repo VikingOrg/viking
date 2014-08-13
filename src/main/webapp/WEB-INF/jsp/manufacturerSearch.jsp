@@ -12,13 +12,11 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#manufacturer_table').dataTable( {
-            	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	           ],
-                    "sDom": '<"#tableActions"T>t<"#source"l>ip',
+        	        "bJQueryUI": true,
+        	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
+        	        "sPaginationType": "full_numbers",
+        	        "bProcessing": true,
+        	        "responsive": false,
                 	tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
              		 	"aButtons": [
@@ -49,15 +47,29 @@
                 	oTable.fnFilter( $(this).val());
                 });   		 
                 $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
-                });
-                $('#portSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 2);
                 });
+
+                $("a[rel^='tableRowEdit']").click(function(e){
+                    $.ajax('${pageContext.request.contextPath}/manufacturer/edit/'+this.dataset['param1'], {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#manufacturerEditModalContent").html(response.responseText);
+                            $('#manufacturerEditModal').modal('show');
+                            
+                        }
+                    });
+                });                
                 
             } );
 
-    
+        	function closingModal(manufacturerId){
+        		$('#manufacturerEditModal').modal('hide');
+        		$('#'+manufacturerId).addClass( "success" );
+            }
         </script>
 	</head>
 	<body>
@@ -67,10 +79,10 @@
 <!----- Begin page content ------>
 	<div class="container">
 	
-		<form:form id="port_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="portSearch"
-			commandName="portSearchCommand" method="post" accept-charset="UTF-8">
+		<form:form id="manufacturer_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="manufacturer"
+			commandName="manufacturerCommand" method="post" accept-charset="UTF-8">
+			
 			<div class="row">
-	
 				<!--Sidebar content-->
 				<div id="limit_width" class="col-sm-4">
 					<div class="col-sm-12 well lform">
@@ -81,8 +93,7 @@
 										<form:select id="countrySelect" path="countryId"
 											cssClass="form-control col-sm-12">
 											<form:option value="">Все Страны</form:option>
-											<c:forEach items="${portSearchCommand.userCountry}"
-												var="country">
+											<c:forEach items="${manufacturerCommand.countryMap}" var="country">
 												<form:option value="${country.value.nameRus}"
 													label="${country.value.nameRus}" />
 											</c:forEach>
@@ -141,28 +152,30 @@
 							<tr>
 								<th class="column-check nowrap">&nbsp;</th>
 								<th class="nowrap">Рус. наименование&nbsp;&nbsp;</th>
+								<th class="nowrap">Страна&nbsp;&nbsp;</th>
 								<th class="nowrap">Англ. наименование&nbsp;&nbsp;</th>
 								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="port" varStatus="loop"
-								items="${portSearchCommand.portList}">
-								<c:if test="${port.archived != '1'}">
-									<tr>
-										<td class="column-check nowrap"><form:checkbox
-												path="portList[${loop.index}].archived" value="Y"></form:checkbox>
-										</td>
-										<td class="nowrap">
-											<a href="<c:url value="portEdit/edit/${port.portId}"/>"><c:out
-													value="${port.name}" /></a></td>
-										<td class="nowrap">
-											<a href="<c:url value="portEdit/edit/${port.portId}"/>"><c:out
-													value="${port.name}" /></a></td>
-										<td class="nowrap"><c:out
-												value="${port.portNote}" /></td>
-									</tr>
-								</c:if>
+							<c:forEach var="manufacturer" varStatus="loop" items="${manufacturerCommand.manufacturerList}">
+								<tr>
+									<td class="column-check nowrap">
+										<form:checkbox path="manufacturerList[${loop.index}].archived" value="Y"></form:checkbox>
+									</td>
+									<td class="nowrap">
+										<a href="#" rel="tableRowEdit" data-param1="${manufacturer.manufacturerId}">
+							            	<span id="name${manufacturer.manufacturerId}"><c:out value="${manufacturer.nameRus}"/></span>
+							            </a>
+									</td>
+									<td class="nowrap">
+										<c:out  value="${manufacturer.country.nameRus}"/>
+									</td>
+									<td class="nowrap">
+											<c:out value="${manufacturer.nameEn}" />
+									</td>
+									<td class="nowrap"><c:out value="${manufacturer.note}" /></td>
+								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
@@ -176,7 +189,13 @@
 <!-- Closing div tag for wrap -->
 <jsp:include page="common/footer.jsp" />
 
-
+<div id="manufacturerEditModal" class="modal modal-wide fade">
+  <div class="modal-dialog">
+    <div id="manufacturerEditModalContent" class="modal-content">
+    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->	
 
 </body>
 </html>
