@@ -61,7 +61,7 @@
 					            <li class="divider"></li>
 					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
 					            <li><a href="<c:url value="/group"/>">Группы Механизмов</a></li>
-					            <li><a href="<c:url value="/manufacturer"/>">Производители Механизмов</a></li>
+					            <li><a href="<c:url value="/manufacturer"/>">Фирмы Производители</a></li>
 							</ul>
 						</li>
 			</sec:authorize>

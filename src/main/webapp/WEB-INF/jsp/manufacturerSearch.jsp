@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<title>Таблица Производителей Механизмов</title>
+<title>Таблица Фирм Производителей</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		
 		<script type="text/javascript">
@@ -62,7 +62,17 @@
                             
                         }
                     });
-                });                
+                });            
+
+                $('#manufacturer_summury').popover({
+                	trigger:'hover',
+                	container:'body',
+                	html:'true',
+                	template:'<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+                	title:'Заголовок',
+                	content:'OK',
+                	placement:'auto',
+                });    
                 
             } );
 
@@ -146,7 +156,7 @@
 	
 	
 					<!-- Таблица со списком Производителей Механизмов -->
-					<h3 class="page-header">Список Производителей Механизмов</h3>
+					<h3 class="page-header">Список Фирм Производителей</h3>
 					<table id="manufacturer_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
@@ -159,7 +169,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="manufacturer" varStatus="loop" items="${manufacturerCommand.manufacturerList}">
-								<tr>
+								<tr id="manufacturer_summury">
 									<td class="column-check nowrap">
 										<form:checkbox path="manufacturerList[${loop.index}].archived" value="Y"></form:checkbox>
 									</td>
