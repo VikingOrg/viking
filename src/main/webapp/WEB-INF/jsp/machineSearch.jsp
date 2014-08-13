@@ -392,7 +392,7 @@
 		</div>
 		<!-- /.modal -->
 
-		<!-- 		Модальное окно подтверждения удаления данных -->
+		<!-- 		Модальное окно ожидания загрузки данных -->
 		<div class="modal fade" id="wait_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-processing">
