@@ -7,18 +7,40 @@
 <html lang="ru">
 	<head>
 	    <title>Редактирование данных пользователя</title>
-	    
-	    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
         <jsp:include page="../common/headCoreElements.jsp" />
        
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/dropzone.css">
   
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
-	    <script type="text/javascript" src="<c:url value="/static/js/dropzone.js"/>"></script>
 
-		
+		<script>
+		  $(document).ready(function() {
+			  
+				$("#submit_avatar").click( function(event) {
+ 				    var formData = new FormData();
+					formData.append('file', $('#file')[0].files[0]);
+					formData.append("name", "name");
+					$.ajax({
+					       url: '${pageContext.request.contextPath}/fileController/avatar/${registrationCommand.user.userId}',
+					       data: formData,
+					       async: false,
+					       contentType: false,
+					       processData: false,
+					       cache: false,
+					       type: 'POST',
+					       success: function(response) {
+					          alert('Успешно загружен!');
+					       },
+			               error: errorHandler = function() {
+			                    alert("What the fuck!");
+			               },					       
+					     });    return false;    
+				});		  
+		  });
+	      
+		</script>
+		  
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -60,26 +82,36 @@
 							</form:select>			            	
 			          	</div>
 				     
-				     <v:input path="user.lastName" label="Фамилия" required="true" title="Введите свою фамилию"/>
-				     <v:input path="user.firstName" label="Имя" required="true" title="Введите своё имя"/>
-					 <v:input path="user.middleInitial" label="Отчество" title="Введите своё отчество"/>
-					 <v:input path="user.userEmail" type="email" label="E-Mail" title="Укажите свой e-mail в качестве логина"/>
+					     <v:input path="user.lastName" label="Фамилия" required="true" title="Введите свою фамилию"/>
+					     <v:input path="user.firstName" label="Имя" required="true" title="Введите своё имя"/>
+						 <v:input path="user.middleInitial" label="Отчество" title="Введите своё отчество"/>
+						 <v:input path="user.userEmail" type="email" label="E-Mail" title="Укажите свой e-mail в качестве логина"/>
 			          
-			          <div class="form-group">
-			            <div class="controls">
-			                <label class="form-label">Пароль</label>
-			                <form:input path="user.password" type="password" cssClass="form-control" title="Укажите пароль для входа"/>
-			            </div>
-			          </div>
-			          <div class="form-group">
-			            <div class="controls">
-			            <label class="form-label">Повторите пароль</label>
-			            	<form:input path="pswordCheck" type="password" cssClass="form-control" title="Повторно укажите пароль"/>
-			            </div>
-			          </div>
-				      <div id = "dropZone" class="row">
-						      
-					  </div>			          
+				          <div class="form-group">
+				            <div class="controls">
+				                <label class="form-label">Пароль</label>
+				                <form:input path="user.password" type="password" cssClass="form-control" title="Укажите пароль для входа"/>
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <div class="controls">
+				            <label class="form-label">Повторите пароль</label>
+				            	<form:input path="pswordCheck" type="password" cssClass="form-control" title="Повторно укажите пароль"/>
+				            </div>
+				          </div>
+			          	<div class="form-group">
+	 				            
+	 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+	                    		<div class="panel-heading">
+									<label class="form-label">Загрузить аватар.</label>
+								</div>
+								<div  class="panel-body">		
+							       <label>Выбрать файл для загрузки:</label><br>
+							       <input type="file" id="file" required />
+							       <input id="submit_avatar" type="submit" value="Upload" class="btn btn-primary"/>
+				        		</div>
+			        		</div>
+			        	</div>			          
 			          	
 			          
 			        </div>
