@@ -1,7 +1,9 @@
 package com.seaport.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -19,6 +21,7 @@ public class Group implements Serializable {
 	private static final long serialVersionUID = -7693200082841883559L;
 
 	@Id
+	@GeneratedValue
 	@Column(name="group_id")	
 	private Integer groupId;
 	

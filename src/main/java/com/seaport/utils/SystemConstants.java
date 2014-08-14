@@ -2,6 +2,10 @@ package com.seaport.utils;
 
 public class SystemConstants {
 	public static final String USER_MODEL = "userModel";
+	public static String TRANS_TYPE_DELETE = "delete";
+	public static String TRANS_TYPE_CREATE = "create";
+	public static String TRANS_TYPE_UPDATE = "update";
+	public static String TRANS_TYPE_COPY = "copy";
 	
 	public boolean localConfig;
 	public boolean responsiveDesign;

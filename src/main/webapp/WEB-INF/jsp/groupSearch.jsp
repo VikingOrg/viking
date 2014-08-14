@@ -63,6 +63,19 @@
                     });
                 });
 
+                $('#addNewGroup').click(function(e){
+
+                    $.ajax('${pageContext.request.contextPath}/group/createNew/', {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#groupEditModalContent").html(response.responseText);
+                            $('#groupEditModal').modal('show');
+                        }
+                    });
+                });
                    		 
             } );
 
@@ -107,9 +120,11 @@
 							<!--  Операции с данными в таблице -->
 								<div class="col-sm-12">
 									<div class="form-group">
-										<a href="<c:url value="groupEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
+										<a id="addNewGroup" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
 										<span class="pull-right">&nbsp;</span> 
+										<!-- 
 										<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
+										 -->
 									</div>
 								</div>
 							</div>
@@ -140,7 +155,7 @@
 					<table id="group_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th class="column-check nowrap">&nbsp;</th>
+								<th class="column-check nowrap">№&nbsp;</th>
 								<th class="nowrap">Группа&nbsp;&nbsp;</th>
 								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
 							</tr>
@@ -149,7 +164,8 @@
 							<c:forEach var="group" varStatus="loop" items="${groupCommand.groupList}">
 								<tr id="${group.groupId}">
 									<td class="column-check nowrap">
-										<form:checkbox path="groupList[${loop.index}].archived" value="Y"></form:checkbox>
+										<c:out value="${group.groupId}"/>
+										<%--<form:checkbox path="groupList[${loop.index}].archived" value="Y"></form:checkbox> --%>
 									</td>
 									<td class="nowrap">
 										<a href="#" rel="tableRowEdit" data-param1="${group.groupId}">

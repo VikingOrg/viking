@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -94,6 +93,9 @@ public class User implements Serializable {
 
 	private String archived;
 	
+	private String img;
+	private String dev;
+	
 	@Column(name = "CREATE_DATE", nullable = false)
 	private Timestamp createDate;
 	
@@ -110,6 +112,22 @@ public class User implements Serializable {
 	)
 	
 	private Role role;
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getDev() {
+		return dev;
+	}
+
+	public void setDev(String dev) {
+		this.dev = dev;
+	}
 
 	public String getArchived() {
 		return archived;

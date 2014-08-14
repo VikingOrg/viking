@@ -51,8 +51,14 @@
 			
 	      <div class="modal-footer">
 	        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
-	        <button id="submitAjax" type="button" class="btn btn-primary">Сохранить</button>
-	        <button id="submitAjax" type="button" class="btn btn-primary">Скопировать</button>
+	        
+			<c:if test="${not empty groupCommand.currentGroup.groupId}"> 
+		        <button id="submitAjax" type="button" class="btn btn-primary" data-param1="update">Сохранить</button>
+		        <button id="submitAjax" type="button" class="btn btn-primary" data-param1="copy">Скопировать</button>
+	        </c:if>
+			<c:if test="${empty groupCommand.currentGroup.groupId}"> 
+		        <button id="submitAjax" type="button" class="btn btn-primary" data-param1="create">Создать</button>
+	        </c:if>				        
 	      </div>
       		
 	</form:form>
@@ -60,29 +66,30 @@
 
 
 	 <script type="text/javascript">
-              $("#submitAjax").click(function(e) {
-              	e.preventDefault();
-              	ajaxObjectId =  $("#ajaxObjectId").val();
+           $("#submitAjax").click(function(e) {
+ 
+               e.preventDefault();
+               ajaxObjectId =  $("#ajaxObjectId").val();
                $.ajax({
-               	type: "POST",
-       		    url: "${pageContext.request.contextPath}/group/save/",
-       		    data: $("#ajaxSubmitForm").serialize(),
-                      complete : function( response ) {
-                          $("#groupEditModalContent").html(response.responseText);
-                          check = $("#ajaxSuccessFlag").val();
-                          if(check=='true'){
-                      		/*For DOM DataTable.*/
-                      		$('#name'+ajaxObjectId).text($('#groupName').val());
-                      		$('#note'+ajaxObjectId).text($('#groupNote').val());
-
-                      		/*Closing Modal.*/
-                       	closingModal(ajaxObjectId);	
-                       }
-                      },	        	        
-       	        error: function(){
-       	        	alert("failure");
-       	        }
+	               	type: "POST",
+	       		    url: "${pageContext.request.contextPath}/group/save/" + this.dataset['param1'],
+	       		    data: $("#ajaxSubmitForm").serialize(),
+	                      complete : function( response ) {
+	                          $("#groupEditModalContent").html(response.responseText);
+	                          check = $("#ajaxSuccessFlag").val();
+	                          if(check=='true'){
+	                      		/*For DOM DataTable.*/
+	                      		$('#name'+ajaxObjectId).text($('#groupName').val());
+	                      		$('#note'+ajaxObjectId).text($('#groupNote').val());
+	
+	                      		/*Closing Modal.*/
+	                       	closingModal(ajaxObjectId);	
+	                       }
+	                      },	        	        
+	       	        error: function(){
+	       	        	alert("failure");
+	       	        }
                });
-               });  				 	
+           });  				 	
 	 </script>
 
