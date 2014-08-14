@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.util.Date;
 
 
@@ -63,6 +65,7 @@ public class Manufacturer implements Serializable {
 
 	@OneToOne()
 	@JoinColumn(name="create_user_id", referencedColumnName="id", insertable = false, updatable = false, nullable = true)
+	@JsonBackReference
 	private User createUser;
 	
 	public Manufacturer() {
