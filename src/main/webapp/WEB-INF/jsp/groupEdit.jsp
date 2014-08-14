@@ -17,10 +17,16 @@
 		        </c:if>				        
 	      </div> <!-- modal header end -->
 	
-	
 	      <div class="modal-body">
 				<div class="container">
 					<div class="col-md-10 col-md-offset-1">
+						<c:if test="${not empty message}">
+							<div class="alert alert-success show">
+								<span id="successMessage"><spring:message code="${message}" /></span>
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						</c:if>					
+					
 						<c:if test="${not empty error}">
 							<div class="alert alert-danger show">
 								<spring:message code="${error}" />
@@ -53,43 +59,68 @@
 	        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
 	        
 			<c:if test="${not empty groupCommand.currentGroup.groupId}"> 
-		        <button id="submitAjax" type="button" class="btn btn-primary" data-param1="update">Сохранить</button>
-		        <button id="submitAjax" type="button" class="btn btn-primary" data-param1="copy">Скопировать</button>
+		        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+		        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
 	        </c:if>
 			<c:if test="${empty groupCommand.currentGroup.groupId}"> 
-		        <button id="submitAjax" type="button" class="btn btn-primary" data-param1="create">Создать</button>
+		        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
 	        </c:if>				        
 	      </div>
       		
 	</form:form>
 
-
-
 	 <script type="text/javascript">
-           $("#submitAjax").click(function(e) {
- 
-               e.preventDefault();
-               ajaxObjectId =  $("#ajaxObjectId").val();
-               $.ajax({
-	               	type: "POST",
-	       		    url: "${pageContext.request.contextPath}/group/save/" + this.dataset['param1'],
-	       		    data: $("#ajaxSubmitForm").serialize(),
-	                      complete : function( response ) {
-	                          $("#groupEditModalContent").html(response.responseText);
-	                          check = $("#ajaxSuccessFlag").val();
-	                          if(check=='true'){
-	                      		/*For DOM DataTable.*/
-	                      		$('#name'+ajaxObjectId).text($('#groupName').val());
-	                      		$('#note'+ajaxObjectId).text($('#groupNote').val());
+
+           $("#submitUpdate").click(function(e) {
+        	   e.preventDefault();
+ 			   initiateAjaxCall("update");
+           });
+           $("#submitCopy").click(function(e) {
+        	   e.preventDefault();
+ 			   initiateAjaxCall("copy");
+           });
+           $("#submitCreate").click(function(e) {
+        	   e.preventDefault();
+ 			   initiateAjaxCall("create");
+           });
+           
+	       function initiateAjaxCall(requestType){
+	            ajaxObjectId =  $("#ajaxObjectId").val();
+	            $.ajax({
+		               	type: "POST",
+		       		    url: "${pageContext.request.contextPath}/group/save/" + requestType,
+		       		    data: $("#ajaxSubmitForm").serialize(),
+		                      complete : function( response ) {
+		                          $("#groupEditModalContent").html(response.responseText);
+		                          check = $("#ajaxSuccessFlag").val();
 	
-	                      		/*Closing Modal.*/
-	                       	closingModal(ajaxObjectId);	
-	                       }
-	                      },	        	        
-	       	        error: function(){
-	       	        	alert("failure");
-	       	        }
-               });
-           });  				 	
+		                          if(check=='true'){
+			                          var successMsg = $("#successMessage").html();
+			                          
+			                          if(requestType == "update"){
+				                      		/*For DOM DataTable.*/
+				                      		$('#name'+ajaxObjectId).text($('#groupName').val());
+				                      		$('#note'+ajaxObjectId).text($('#groupNote').val());
+				                      		/*Closing Modal.*/
+				                       	    closingModal(ajaxObjectId, successMsg);	
+				                      } else {
+				                    	  	var obj = $('#group_table').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
+						                    	                 			                    	     $('#groupName').val(), 
+						                    	                 			                    	     $('#groupName').val()] 
+			 			                    	  													 );
+				                    	  	$(obj.nTr).addClass( "success" );
+			                      			/*Closing Modal.*/
+			                       	    	closingModal($("#ajaxObjectId").val(), successMsg);	
+					                  }
+		
+		                          }
+		                      },	        	        
+		       	        error: function(){
+		       	        	alert("failure");
+		       	        }
+	            });           	
+	       }
+
+        
 	 </script>
 

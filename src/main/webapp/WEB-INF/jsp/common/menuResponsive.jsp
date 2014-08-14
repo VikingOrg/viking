@@ -82,8 +82,8 @@
 				              <li><a href="<c:url value="/reportSelection/company/"/>">По Компаниям</a></li>
 				          </sec:authorize>
 				              <li><a href="<c:url value="/reportSelection/group/"/>">По Группам</a></li>
-				              <li><a href="<c:url value="/reportSelection/account/"/>">По Производителям</a></li><!--  сменить на  manufacturers-->
-				              <li><a href="<c:url value="/reportSelection/company/"/>">Списочный</a></li>
+				              <li><a href="<c:url value="/reportSelection/manufacturer/"/>">По Производителям</a></li><!--  сменить на  manufacturers-->
+				              <li><a href="<c:url value="/reportSelection/account/"/>">Списочный</a></li>
 			              </ul>
 					  </li>
 						

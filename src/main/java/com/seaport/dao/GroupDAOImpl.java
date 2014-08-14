@@ -1,5 +1,7 @@
 package com.seaport.dao;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,9 +9,12 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.seaport.domain.Group;
+import com.seaport.domain.User;
+import com.seaport.service.IUserService;
 
 /**
  * The DAO class that serves any type of Group requests 
@@ -22,6 +27,8 @@ import com.seaport.domain.Group;
 public class GroupDAOImpl implements IGroupDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+	@Autowired
+	private IUserService userService;
 	
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
@@ -41,6 +48,16 @@ public class GroupDAOImpl implements IGroupDAO {
 	
 	@Override
 	public void saveGroup(Group group) {
+		Timestamp updateDate = new Timestamp(new Date().getTime());
+		User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		/*for insert.*/
+		if (group.getGroupId() == null) {
+			group.setCreateUserId(user.getUserId());
+			group.setCreateDate(updateDate);
+		}
+		group.setUpdateUserId(user.getUserId());
+		group.setUpdateDate(updateDate);
 		getCurrentSession().saveOrUpdate(group);
 	}
 	

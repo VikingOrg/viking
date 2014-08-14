@@ -8,6 +8,7 @@
 <head>
 <title>Таблица Групп Механизмов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {
@@ -49,7 +50,7 @@
 
 
                 $("a[rel^='tableRowEdit']").click(function(e){
-
+                	$('#success_alert').attr("class","alert alert-success hidden");
                     $.ajax('${pageContext.request.contextPath}/group/edit/'+this.dataset['param1'], {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -64,7 +65,7 @@
                 });
 
                 $('#addNewGroup').click(function(e){
-
+                	$('#success_alert').attr("class","alert alert-success hidden");
                     $.ajax('${pageContext.request.contextPath}/group/createNew/', {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -79,11 +80,14 @@
                    		 
             } );
 
-        	function closingModal(groupId){
+        	function closingModal(groupId, successMsg){
         		$('#groupEditModal').modal('hide');
         		$('#'+groupId).addClass( "success" );
+        		$(this).attr("class","newclass");
+        		$('#success_alert').attr("class","alert alert-success");
+        		$("#success_alert_message").html(successMsg);
             }
-    
+            
         </script>
 	</head>
 	<body>
@@ -135,7 +139,7 @@
 	
 					<!--  Вывод сообщений и предупреждений  -->
 					<c:if test="${not empty message}">
-						<div class="alert alert-success show">
+						<div id="success" class="alert alert-success show">
 							<spring:message code="${message}" />
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
 						</div>
@@ -146,7 +150,11 @@
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
 						</div>
 					</c:if>
-	
+					
+					<div id="success_alert" class="alert alert-success hidden">
+						<span id="success_alert_message"></span>
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					</div>
 	
 					<!-- Таблица со списком Групп Механизмов -->
 					<h3 class="page-header">Список Групп Механизмов</h3>
