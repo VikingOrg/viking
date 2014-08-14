@@ -50,21 +50,22 @@
 				  <!-- Collect the nav links, forms, and other content for toggling -->
 				  <div class="collapse navbar-collapse navbar-ex1-collapse">
 				    <ul class="nav navbar-nav">
-						<li><a href="<c:url value="/home"/>" class="first"><span class="glyphicon glyphicon-home" title="Копировать"></span>&nbsp;&nbsp;Главная</a></li>
-			<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+						<li><a href="<c:url value="/home"/>" class="first"><span class="glyphicon glyphicon-home" title="Главная"></span>&nbsp;&nbsp;Главная</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники <b class="caret"></b></a>
 							<ul class="dropdown-menu">
+							<sec:authorize access="hasRole('ROLE_ADMIN')"> 
 								<li><a href="<c:url value="/stevidorSearch"/>">Компании-операторы</a></li>
 								<li><a href="<c:url value="/portSearch"/>">Порты</a></li>
 								<li><a href="<c:url value="/countrySearch"/>">Страны</a></li>
 					            <li class="divider"></li>
+					        </sec:authorize>
 					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
 					            <li><a href="<c:url value="/group"/>">Группы Механизмов</a></li>
 					            <li><a href="<c:url value="/manufacturer"/>">Фирмы Производители</a></li>
 							</ul>
 						</li>
-			</sec:authorize>
+			
 			<sec:authorize access="hasRole('ROLE_USER')">
 			          <li class="dropdown">
 			          	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>
@@ -77,7 +78,9 @@
 					  <li class="dropdown">
 					  	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>	
 			          	  <ul class="dropdown-menu">
+			          	  <sec:authorize access="hasRole('ROLE_ADMIN')"> 
 				              <li><a href="<c:url value="/reportSelection/company/"/>">По Компаниям</a></li>
+				          </sec:authorize>
 				              <li><a href="<c:url value="/reportSelection/group/"/>">По Группам</a></li>
 				              <li><a href="<c:url value="/reportSelection/account/"/>">По Производителям</a></li><!--  сменить на  manufacturers-->
 				              <li><a href="<c:url value="/reportSelection/company/"/>">Списочный</a></li>

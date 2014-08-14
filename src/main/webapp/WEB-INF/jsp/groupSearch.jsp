@@ -121,10 +121,8 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<a id="addNewGroup" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
-										<span class="pull-right">&nbsp;</span> 
-										<!-- 
-										<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-										 -->
+										<span class="pull-right">&nbsp;</span>
+										<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 									</div>
 								</div>
 							</div>
