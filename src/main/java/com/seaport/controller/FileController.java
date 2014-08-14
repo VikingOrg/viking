@@ -53,7 +53,7 @@ public class FileController {
              try {
                 // Creating the directory to store file
 //                String rootPath = System.getProperty("catalina.home");
-                String rootPath = request.getServletContext().getRealPath("/")+ "\\static\\images\\users\\";
+                String rootPath = request.getServletContext().getRealPath("/")+ "static\\images\\users\\";
 //                File dir = new File(rootPath + File.separator + "tmpFiles");
                 File dir = new File(rootPath);
                 if (!dir.exists()) {
