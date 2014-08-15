@@ -13,7 +13,9 @@ import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
+import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
+import com.seaport.dto.ManufacturerReportDTO;
 
 /**
  * The abstract form class contains common data to be shared by others 
@@ -52,28 +54,30 @@ public class ReportSelectionCommand {
 	private Integer totalMachineCount = 0;
 	
 	/*reports*/
-	private List<String[]> companyReportList= new ArrayList<String[]>();
+	private List<CompanyReportDTO> companyReportList= new ArrayList<CompanyReportDTO>();
 	private List<GroupReportDTO> groupReportList= new ArrayList<GroupReportDTO>();
-	private List<String[]> manufacturerReportLsit= new ArrayList<String[]>();
+	private List<ManufacturerReportDTO> manufacturerReportLsit= new ArrayList<ManufacturerReportDTO>();
 	Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
 
-	public List<String[]> getCompanyReportList() {
+
+	public List<CompanyReportDTO> getCompanyReportList() {
 		return companyReportList;
 	}
-	public void setCompanyReportList(List<String[]> companyReportList) {
+	public void setCompanyReportList(List<CompanyReportDTO> companyReportList) {
 		this.companyReportList = companyReportList;
+	}
+	public List<ManufacturerReportDTO> getManufacturerReportLsit() {
+		return manufacturerReportLsit;
+	}
+	public void setManufacturerReportLsit(
+			List<ManufacturerReportDTO> manufacturerReportLsit) {
+		this.manufacturerReportLsit = manufacturerReportLsit;
 	}
 	public List<GroupReportDTO> getGroupReportList() {
 		return groupReportList;
 	}
 	public void setGroupReportList(List<GroupReportDTO> groupReportList) {
 		this.groupReportList = groupReportList;
-	}
-	public List<String[]> getManufacturerReportLsit() {
-		return manufacturerReportLsit;
-	}
-	public void setManufacturerReportLsit(List<String[]> manufacturerReportLsit) {
-		this.manufacturerReportLsit = manufacturerReportLsit;
 	}
 	public Map<String[], List<Machine>> getAccountReportMap() {
 		return accountReportMap;

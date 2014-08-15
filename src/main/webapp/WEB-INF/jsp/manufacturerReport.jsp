@@ -16,7 +16,7 @@
 		<script>
 		  $(document).ready(function() {
 			  $("#sumbit_report").click(function(e) {
-              	$('#report_select_form').attr('action', "${action}/accountReport/");
+              	$('#report_select_form').attr('action', "${action}/manufacturerReport/");
             	$('#report_select_form').attr('method', "post");
             	$('#report_select_form').attr('accept-charset', "UTF-8");
             	$('#report_select_form').submit();
@@ -38,6 +38,8 @@
                   }
               });	
               $('#account_report_table').dataTable({
+            	  "bJQueryUI": true,
+            	  "sPaginationType": "full_numbers",                  
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  tableTools: {
            			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -53,8 +55,8 @@
              	                    "bHeader": true
              	                	}
              	            ]
-           	   },
-            	  "bJQueryUI": true,
+           	  	   },
+
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },  
@@ -139,12 +141,15 @@
 							</div>
 							
 						</div>
+						
+						
+						<!--  Кнопочка сформировать отчет -->
 						<!--  Кнопочка сформировать отчет -->
 						<div class="col-sm-12 well lform">
 							<div class="row" style="margin-left:-25px; margin-right:-25px;">
 								<div class="col-sm-12">
 									<div class="form-group">
-										<button id="sumbit_report" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
+										<button id="refresh" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
 										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 									</div>
 								</div>
@@ -201,19 +206,16 @@
 									<th class="nowrap">Кол-во&nbsp;&nbsp;</th>
 								</tr>
 							</thead>
+							
 							<tbody>
-				            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
+
+				            	<c:forEach items="${reportSelectionCommand.manufacturerReportLsit}" var="manufacturerReport" varStatus="loop">
 									<tr>
-										<td class="column-check nowrap"><c:out value="${loop.index}"/></td>
-										<td class="nowrap"><c:out value="${companyReportRow[0]}"/></td>
-										<td class="nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="column-check nowrap"><c:out value="${manufacturerReport.manufacturerId}"/></td>
+										<td class="nowrap"><c:out value="${manufacturerReport.name}"/></td>
+										<td class="nowrap"><c:out value="${manufacturerReport.count}"/></td>
 									</tr>
 						        </c:forEach>
-								<tr>
-									<td class="column-check"></td>
-									<td class="nowrap"><span style="font-weight: bold;">Всего механизмов:</span></td>
-									<td class="nowrap"><c:out value="${reportSelectionCommand.totalMachineCount}"/></td>
-								</tr>					        
 							</tbody>
 						</table>
 	

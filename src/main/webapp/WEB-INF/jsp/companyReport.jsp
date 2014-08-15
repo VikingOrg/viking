@@ -43,9 +43,10 @@
                   }
               });	
               oTable = $('#company_report_table').dataTable({
+            	  "bJQueryUI": true,
+            	  "sPaginationType": "full_numbers",
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  "responsive": true,
-            	  "bJQueryUI": true,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },
@@ -218,10 +219,12 @@
 							<div class="row" style="padding-right:10px">
 								<div class="col-sm-12">
 									<div class="form-group">
+									
+										<!--  Кнопочка сформировать отчет -->
 										<!--  Кнопочка сформировать отчет -->
 										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 										<span class="pull-right">&nbsp;</span>
-										<button id="sumbit_report" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
+										<button id="refresh" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
 									</div>	
 								</div>
 							</div>	
@@ -292,18 +295,16 @@
 								</tr>
 							</thead>
 							<tbody>
-				            	<c:forEach items="${reportSelectionCommand.companyReport}" var="companyReportRow" varStatus="loop">
+
+				            	<c:forEach items="${reportSelectionCommand.companyReportList}" var="companyReport" varStatus="loop">
 									<tr>
-										<td class="nowrap"><c:out value="${loop.index}"/></td>
-										<td class="nowrap"><c:out value="${companyReportRow[0]}"/></td>
-										<td class="nowrap"><c:out value="${companyReportRow[1]}"/></td>
+										<td class="nowrap"><c:out value="${companyReport.stevidorId}"/></td>
+										<td class="nowrap"><c:out value="${companyReport.name}"/></td>
+										<td class="nowrap"><c:out value="${companyReport.count}"/></td>
 									</tr>
 						        </c:forEach>
-<%-- 								<tr>
-									<td class="column-check "></td>
-									<td class="column-check "><span style="font-weight: bold;">Всего механизмов:</span></td>
-									<td class="column-check "><c:out value="${reportSelectionCommand.totalMachineCount}"/></td>
-								</tr> --%>					        
+
+			        
 							</tbody>
 						</table>
 					<!-- 	</div>  -->

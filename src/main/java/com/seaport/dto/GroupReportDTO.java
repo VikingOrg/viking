@@ -3,7 +3,6 @@ package com.seaport.dto;
 import java.math.BigInteger;
 
 public class GroupReportDTO {
-//	SELECT b.group_id, b.name, COUNT(*) AS count
 	Integer groupId;
 	String name;
 	BigInteger count;

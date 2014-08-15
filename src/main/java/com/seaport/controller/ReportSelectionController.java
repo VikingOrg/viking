@@ -1,5 +1,6 @@
 package com.seaport.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,9 @@ import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.Stevidor;
+import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
+import com.seaport.dto.ManufacturerReportDTO;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
@@ -108,28 +111,33 @@ public class ReportSelectionController {
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
-		/*Populate report header parameters and set filter flags.*/
-		Map<String, Boolean> filtersMap = setFilterValuesAndTitle(reportSelectionCommand);
-
-		/*Populate model list for provided groupId*/
-		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
-		/*Machine Report*/
-		reportSelectionCommand.getCompanyReportList().clear();
-		reportSelectionCommand.setTotalMachineCount(Integer.valueOf(0));
+		/*Populate report header parameters and set filter flags - obsolete!.*/
+		setFilterValuesAndTitle(reportSelectionCommand);
 		
-		/*Check if report runs for all companies*/
-		if (reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
-			for (Map.Entry<Integer, Stevidor> entry : reportSelectionCommand.getStevidorMap().entrySet()) {
-				Stevidor stevidor = entry.getValue();
-				populateCompanyReport(stevidor, filtersMap, reportSelectionCommand);
-			}
-		} else {
-			for (int i = 0; i < reportSelectionCommand.getStevidorSelection().length; i++) {
-				String stevedorId = reportSelectionCommand.getStevidorSelection()[i];
-				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(stevedorId));
-				populateCompanyReport(stevidor, filtersMap, reportSelectionCommand);
-			}
-		}
+		/*Populate map with .*/
+		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
+		List<CompanyReportDTO> groupReportDTOs  = reportDAO.getCompanyReportDTOs(filtersMap);
+		reportSelectionCommand.setCompanyReportList(groupReportDTOs);	
+		
+		/*Populate model list for provided groupId*/
+//		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
+//		/*Machine Report*/
+//		reportSelectionCommand.getCompanyReportList().clear();
+//		reportSelectionCommand.setTotalMachineCount(Integer.valueOf(0));
+//		
+//		/*Check if report runs for all companies*/
+//		if (reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
+//			for (Map.Entry<Integer, Stevidor> entry : reportSelectionCommand.getStevidorMap().entrySet()) {
+//				Stevidor stevidor = entry.getValue();
+//				populateCompanyReport(stevidor, filtersMap, reportSelectionCommand);
+//			}
+//		} else {
+//			for (int i = 0; i < reportSelectionCommand.getStevidorSelection().length; i++) {
+//				String stevedorId = reportSelectionCommand.getStevidorSelection()[i];
+//				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(stevedorId));
+//				populateCompanyReport(stevidor, filtersMap, reportSelectionCommand);
+//			}
+//		}
 		return "companyReport";
 	}
 
@@ -142,29 +150,8 @@ public class ReportSelectionController {
 		
 		/*Populate map with .*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
-		List<GroupReportDTO> groupReportDtoList  = reportDAO.getGroupReportDTOs(filtersMap);
-		reportSelectionCommand.setGroupReportList(groupReportDtoList);		
-//		for (Entry<String, Object> entry : filtersMap.entrySet()) {
-//			/*below is account specific logic.*/
-//			String key = entry.getKey();
-//			Object value = entry.getValue();
-//			
-//		}
-
-		/*For all groups.*/
-//		List<Machine> machineList =  machineService.getMachines();
-
-//		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
-
-		
-//		SELECT b.group_id, b.name, COUNT(*) as count FROM machines a, groups b 
-//		WHERE a.group_id = b.group_id
-//		GROUP BY group_id ORDER BY count DESC;
-//
-//
-//		SELECT b.group_id, b.name, COUNT(*) as count 
-//		FROM machines a RIGHT JOIN groups b ON a.group_id = b.group_id
-//		GROUP BY group_id ORDER BY group_id;
+		List<GroupReportDTO> groupReportDTOs  = reportDAO.getGroupReportDTOs(filtersMap);
+		reportSelectionCommand.setGroupReportList(groupReportDTOs);		
 		
 		//clear the command object from the session
 //		status.setComplete();
@@ -177,12 +164,10 @@ public class ReportSelectionController {
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
-		if (result.hasErrors()) {
-			model.addAttribute("error", "message.user.error.generic");
-			return "reportSelection";
-		}
-		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		redirectAttributes.addFlashAttribute(reportSelectionCommand);
+		/*Populate map with .*/
+		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
+		List<ManufacturerReportDTO> manufacturerReportDTOs  = reportDAO.getManufacturerReportDTOs(filtersMap);
+		reportSelectionCommand.setManufacturerReportLsit(manufacturerReportDTOs);	
 		
 		//clear the command object from the session
 //		status.setComplete();
@@ -214,37 +199,28 @@ public class ReportSelectionController {
 		/*Populate report header parameters and set filter flags.*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
 		
-		for (Entry<String, Object> entry : filtersMap.entrySet()) {
-			/*below is account specific logic.*/
-			String key = entry.getKey();
-			Object value = entry.getValue();
-			
-		}
-		
-		
 		/*For all groups.*/
 		List<Machine> machineList =  machineService.getMachines();
 		Map<Integer, Group> groupMap = reportSelectionCommand.getGroupMap();
 		for (Map.Entry<Integer, Group> entry : groupMap.entrySet()) {
-//			Group group = entry.getValue();
-//			Integer countModels = 0;
-//			List<Machine> machineListByGroup = new ArrayList<Machine>();
-//			for (Machine machine : machineList) {
-//				try {
-//					if (group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
-//						machineListByGroup.add(machine);
-//						countModels++;
-//					}
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			groupReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
+			Group group = entry.getValue();
+			Integer countModels = 0;
+			List<Machine> machineListByGroup = new ArrayList<Machine>();
+			for (Machine machine : machineList) {
+				try {
+					if (group.getGroupId().equals(machine.getGroupId())) {
+						machineListByGroup.add(machine);
+						countModels++;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			groupReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
 		}
 		reportSelectionCommand.setAccountReportMap(groupReportMap);
 
-		return "groupReport";
+		return "accountReport";
 	}
 
 	/**
@@ -253,31 +229,31 @@ public class ReportSelectionController {
 	 * @param filtersMap
 	 * @param reportSelectionCommand
 	 */
-	private void populateCompanyReport(Stevidor stevidor, Map<String, Boolean> filtersMap, ReportSelectionCommand reportSelectionCommand) {
-		Integer countNumber = 0;
-		List<Machine> machineList = machineService.getMachineByStevedorId(stevidor.getStevidorId());
-		
-		for (Machine machine : machineList) {
-			if (filtersMap.get(GROUP_FILTER)){
-				if (machine.getMachineModel() == null || 
-						!machine.getMachineModel().getGroupId().equals(reportSelectionCommand.getGroupId())) {
-					continue;	
-				}
-			}
-			if (filtersMap.get(MODEL_FILTER) && !machine.getModelId().equals(reportSelectionCommand.getModelId())) {
-				continue;
-			}
-			if (filtersMap.get(YEAR_FILTER) && !machine.getReleaseYear().equals(reportSelectionCommand.getReleaseYear())) {
-				continue;
-			}
-			if (filtersMap.get(MANUFACTOR_FILTER) && !machine.getMachineModel().getManufacturerId().equals(reportSelectionCommand.getManufacturerId())) {
-				continue;
-			}					
-			countNumber++;
-		}
-		reportSelectionCommand.getCompanyReportList().add(new String[]{stevidor.getFullName(), countNumber.toString()});
-		reportSelectionCommand.setTotalMachineCount(reportSelectionCommand.getTotalMachineCount()+countNumber);
-	}
+//	private void populateCompanyReport(Stevidor stevidor, Map<String, Boolean> filtersMap, ReportSelectionCommand reportSelectionCommand) {
+//		Integer countNumber = 0;
+//		List<Machine> machineList = machineService.getMachineByStevedorId(stevidor.getStevidorId());
+//		
+//		for (Machine machine : machineList) {
+//			if (filtersMap.get(GROUP_FILTER)){
+//				if (machine.getMachineModel() == null || 
+//						!machine.getMachineModel().getGroupId().equals(reportSelectionCommand.getGroupId())) {
+//					continue;	
+//				}
+//			}
+//			if (filtersMap.get(MODEL_FILTER) && !machine.getModelId().equals(reportSelectionCommand.getModelId())) {
+//				continue;
+//			}
+//			if (filtersMap.get(YEAR_FILTER) && !machine.getReleaseYear().equals(reportSelectionCommand.getReleaseYear())) {
+//				continue;
+//			}
+//			if (filtersMap.get(MANUFACTOR_FILTER) && !machine.getMachineModel().getManufacturerId().equals(reportSelectionCommand.getManufacturerId())) {
+//				continue;
+//			}					
+//			countNumber++;
+//		}
+//		reportSelectionCommand.getCompanyReportList().add(new String[]{stevidor.getFullName(), countNumber.toString()});
+//		reportSelectionCommand.setTotalMachineCount(reportSelectionCommand.getTotalMachineCount()+countNumber);
+//	}
 	
 	/**
 	 * Setting filter maps for all reports request type (few get used for each report).

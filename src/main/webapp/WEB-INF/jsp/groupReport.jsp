@@ -15,6 +15,8 @@
 	<script>
 		  $(document).ready(function() {
               $('#group_report_table').dataTable({
+            	  "bJQueryUI": true,
+            	  "sPaginationType": "full_numbers",
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  tableTools: {
            			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -30,8 +32,8 @@
              	                    "bHeader": true
              	                	}
              	            ]
-           	   },
-            	  "bJQueryUI": true,
+           	      },
+
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },  
