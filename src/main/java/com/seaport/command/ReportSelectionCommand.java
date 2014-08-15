@@ -13,6 +13,7 @@ import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
+import com.seaport.dto.GroupReportDTO;
 
 /**
  * The abstract form class contains common data to be shared by others 
@@ -51,23 +52,28 @@ public class ReportSelectionCommand {
 	private Integer totalMachineCount = 0;
 	
 	/*reports*/
-	private List<String[]> companyReport= new ArrayList<String[]>();
-	private List<String[]> groupReport= new ArrayList<String[]>();
-	private List<String[]> manufacturerReport= new ArrayList<String[]>();
+	private List<String[]> companyReportList= new ArrayList<String[]>();
+	private List<GroupReportDTO> groupReportList= new ArrayList<GroupReportDTO>();
+	private List<String[]> manufacturerReportLsit= new ArrayList<String[]>();
 	Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
 
-	
-	public List<String[]> getGroupReport() {
-		return groupReport;
+	public List<String[]> getCompanyReportList() {
+		return companyReportList;
 	}
-	public void setGroupReport(List<String[]> groupReport) {
-		this.groupReport = groupReport;
+	public void setCompanyReportList(List<String[]> companyReportList) {
+		this.companyReportList = companyReportList;
 	}
-	public List<String[]> getManufacturerReport() {
-		return manufacturerReport;
+	public List<GroupReportDTO> getGroupReportList() {
+		return groupReportList;
 	}
-	public void setManufacturerReport(List<String[]> manufacturerReport) {
-		this.manufacturerReport = manufacturerReport;
+	public void setGroupReportList(List<GroupReportDTO> groupReportList) {
+		this.groupReportList = groupReportList;
+	}
+	public List<String[]> getManufacturerReportLsit() {
+		return manufacturerReportLsit;
+	}
+	public void setManufacturerReportLsit(List<String[]> manufacturerReportLsit) {
+		this.manufacturerReportLsit = manufacturerReportLsit;
 	}
 	public Map<String[], List<Machine>> getAccountReportMap() {
 		return accountReportMap;
@@ -93,12 +99,7 @@ public class ReportSelectionCommand {
 	public void setTotalMachineCount(Integer totalMachineCount) {
 		this.totalMachineCount = totalMachineCount;
 	}
-	public List<String[]> getCompanyReport() {
-		return companyReport;
-	}
-	public void setCompanyReport(List<String[]> companyReport) {
-		this.companyReport = companyReport;
-	}
+
 	public String getGroupName() {
 		return groupName;
 	}

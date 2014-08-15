@@ -3,6 +3,7 @@ package com.seaport.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.ReportSelectionCommand;
+import com.seaport.dao.IReportDAO;
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.Stevidor;
+import com.seaport.dto.GroupReportDTO;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
@@ -46,6 +49,9 @@ public class ReportSelectionController {
 	private IPortService portService;
 	@Autowired
 	private IMachineService machineService;
+	@Autowired
+	private IReportDAO reportDAO;
+	
 	
 	private static String COMPANY_FILTER = "1";
 	private static String GROUP_FILTER = "2";
@@ -98,17 +104,17 @@ public class ReportSelectionController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/companyReport/", method = RequestMethod.POST) 
-	public String groupReport(HttpServletRequest request, Model model, 
+	public String companyReport(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
 		/*Populate report header parameters and set filter flags.*/
-		Map<String, Boolean> filtersMap = setFilterValues(reportSelectionCommand);
+		Map<String, Boolean> filtersMap = setFilterValuesAndTitle(reportSelectionCommand);
 
 		/*Populate model list for provided groupId*/
 		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
 		/*Machine Report*/
-		reportSelectionCommand.getCompanyReport().clear();
+		reportSelectionCommand.getCompanyReportList().clear();
 		reportSelectionCommand.setTotalMachineCount(Integer.valueOf(0));
 		
 		/*Check if report runs for all companies*/
@@ -129,16 +135,26 @@ public class ReportSelectionController {
 
 	/*not implemented*/
 	@RequestMapping(value="/groupReport/", method = RequestMethod.POST) 
-	public String getGroupReport(HttpServletRequest request, Model model, 
+	public String groupReport(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 
-		/*Populate report header parameters and set filter flags.*/
-		Map<String, Boolean> filtersMap = setFilterValues(reportSelectionCommand);
-		/*For all groups.*/
-		List<Machine> machineList =  machineService.getMachines();
+		
+		/*Populate map with .*/
+		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
+		List<GroupReportDTO> groupReportDtoList  = reportDAO.getGroupReportDTOs(filtersMap);
+		reportSelectionCommand.setGroupReportList(groupReportDtoList);		
+//		for (Entry<String, Object> entry : filtersMap.entrySet()) {
+//			/*below is account specific logic.*/
+//			String key = entry.getKey();
+//			Object value = entry.getValue();
+//			
+//		}
 
-		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
+		/*For all groups.*/
+//		List<Machine> machineList =  machineService.getMachines();
+
+//		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
 
 		
 //		SELECT b.group_id, b.name, COUNT(*) as count FROM machines a, groups b 
@@ -188,7 +204,7 @@ public class ReportSelectionController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/accountReport/", method = RequestMethod.POST) 
-	public String groupReport(HttpServletRequest request, Model model, 
+	public String accountReport(HttpServletRequest request, Model model, 
 								@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status, 
 								HttpServletResponse response, HttpServletRequest req) throws Exception {
@@ -196,8 +212,16 @@ public class ReportSelectionController {
 		Map<String[], List<Machine>> groupReportMap = new HashMap<String[], List<Machine>>();
 		
 		/*Populate report header parameters and set filter flags.*/
-		Map<String, Boolean> filtersMap = setFilterValues(reportSelectionCommand);
-
+		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
+		
+		for (Entry<String, Object> entry : filtersMap.entrySet()) {
+			/*below is account specific logic.*/
+			String key = entry.getKey();
+			Object value = entry.getValue();
+			
+		}
+		
+		
 		/*For all groups.*/
 		List<Machine> machineList =  machineService.getMachines();
 		Map<Integer, Group> groupMap = reportSelectionCommand.getGroupMap();
@@ -251,7 +275,7 @@ public class ReportSelectionController {
 			}					
 			countNumber++;
 		}
-		reportSelectionCommand.getCompanyReport().add(new String[]{stevidor.getFullName(), countNumber.toString()});
+		reportSelectionCommand.getCompanyReportList().add(new String[]{stevidor.getFullName(), countNumber.toString()});
 		reportSelectionCommand.setTotalMachineCount(reportSelectionCommand.getTotalMachineCount()+countNumber);
 	}
 	
@@ -269,12 +293,59 @@ public class ReportSelectionController {
 		reportSelectionCommand.setStevidorSelection(new String[]{"0"});
 	}
 	
+	
+	
 	/**
 	 * Setting up map with set of filter flags.
 	 * @param reportSelectionCommand
 	 * @return
 	 */
-	private Map<String, Boolean> setFilterValues(ReportSelectionCommand reportSelectionCommand){
+	private Map<String, Object> setFilterValues(ReportSelectionCommand reportSelectionCommand){
+		Map<String, Object> filtersMap= new HashMap<String, Object>();
+		/*Company Filter (value) pair.*/ 
+		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
+			String [] companySelection = reportSelectionCommand.getStevidorSelection();
+			String [] companyNames = new String[companySelection.length];
+			for (int i = 0; i < companySelection.length; i++) {
+				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(companySelection[i]));
+				companyNames[i] = stevidor.getFullName();
+			}
+			reportSelectionCommand.setCompanyNames(companyNames);
+			filtersMap.put(COMPANY_FILTER, companyNames);
+		}
+		
+		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
+			String groupName = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId()).getName();
+			reportSelectionCommand.setGroupName(groupName);
+			filtersMap.put(GROUP_FILTER, groupName);
+		} 
+		
+		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
+			MachineModel machineModel = machineService.getModel(reportSelectionCommand.getModelId());
+			reportSelectionCommand.setModelName(machineModel.getName());
+			filtersMap.put(MODEL_FILTER, machineModel.getName());
+		}
+		
+		if (reportSelectionCommand.getReleaseYear()!=null && !reportSelectionCommand.getReleaseYear().equalsIgnoreCase("")) {
+			reportSelectionCommand.setRelYearName(reportSelectionCommand.getReleaseYear());
+			filtersMap.put(YEAR_FILTER, reportSelectionCommand.getReleaseYear());
+		} else 
+		
+		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
+			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getNameRus();
+			reportSelectionCommand.setManufactName(manufactName);
+			filtersMap.put(MANUFACTOR_FILTER, manufactName);
+		} 
+		
+		return filtersMap;
+	}
+	
+	/**
+	 * Setting up map with set of filter flags.
+	 * @param reportSelectionCommand
+	 * @return
+	 */
+	private Map<String, Boolean> setFilterValuesAndTitle(ReportSelectionCommand reportSelectionCommand){
 		Map<String, Boolean> filtersMap= new HashMap<String, Boolean>();
 		 
 		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {

@@ -129,6 +129,9 @@
 						<div class="row" style="padding-right:10px">
 							<div class="col-sm-12">
 								<div class="form-group">
+								
+									<!--  Кнопочка сформировать отчет -->
+									<!--  Кнопочка сформировать отчет -->
 									<!--  Кнопочка сформировать отчет -->
 									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 									<span class="pull-right">&nbsp;</span>
@@ -206,13 +209,15 @@
 								</tr>
 							</thead>
 							<tbody>
-					            <c:forEach items="${reportSelectionCommand.groupReportMap}" var="groupReport" varStatus="loop">
+							
+					            <c:forEach items="${reportSelectionCommand.groupReportList}" var="groupReport" varStatus="loop">
 									<tr>
-										<td class="column-check"><c:out value="${loop.index}"/></td>
-										<td class="nowrap" id="pieDescription"><c:out value="${groupReport.key[0]}"/></td>
-										<td class="nowrap" id="pieValues"><c:out value="${groupReport.key[1]}"/></td>
+										<td class="column-check"><c:out value="${groupReport.groupId}"/></td>
+										<td class="nowrap" id="pieDescription"><c:out value="${groupReport.name}"/></td>
+										<td class="nowrap" id="pieValues"><c:out value="${groupReport.count}"/></td>
 									</tr>			            
 				                </c:forEach>						
+							
 							</tbody>
 						</table>
 	
