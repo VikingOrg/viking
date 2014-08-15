@@ -132,13 +132,23 @@ public class ReportSelectionController {
 	public String getGroupReport(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
+
+		/*Populate report header parameters and set filter flags.*/
+		Map<String, Boolean> filtersMap = setFilterValues(reportSelectionCommand);
+		/*For all groups.*/
+		List<Machine> machineList =  machineService.getMachines();
+
+		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
+
 		
-		if (result.hasErrors()) {
-			model.addAttribute("error", "message.user.error.generic");
-			return "reportSelection";
-		}
-		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		redirectAttributes.addFlashAttribute(reportSelectionCommand);
+//		SELECT b.group_id, b.name, COUNT(*) as count FROM machines a, groups b 
+//		WHERE a.group_id = b.group_id
+//		GROUP BY group_id ORDER BY count DESC;
+//
+//
+//		SELECT b.group_id, b.name, COUNT(*) as count 
+//		FROM machines a RIGHT JOIN groups b ON a.group_id = b.group_id
+//		GROUP BY group_id ORDER BY group_id;
 		
 		//clear the command object from the session
 //		status.setComplete();
@@ -208,7 +218,7 @@ public class ReportSelectionController {
 //			}
 //			groupReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
 		}
-		reportSelectionCommand.setGroupReportMap(groupReportMap);
+		reportSelectionCommand.setAccountReportMap(groupReportMap);
 
 		return "groupReport";
 	}
@@ -246,14 +256,13 @@ public class ReportSelectionController {
 	}
 	
 	/**
-	 * Setting filter maps for each report request type.
+	 * Setting filter maps for all reports request type (few get used for each report).
 	 * @param reportSelectionCommand
 	 */
 	private void setFilterMaps(ReportSelectionCommand reportSelectionCommand){
 		reportSelectionCommand.setUserCountry(userService.getContriesMap());
 		reportSelectionCommand.setUserPort(portService.getPortsMap());
 		reportSelectionCommand.setStevidorMap(portService.getStevidorsMap());
-
 		reportSelectionCommand.setGroupMap(machineService.getGroupsMap());
 		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
 		reportSelectionCommand.setYearMap(machineService.getYearMap());

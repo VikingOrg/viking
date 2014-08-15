@@ -52,19 +52,34 @@ public class ReportSelectionCommand {
 	
 	/*reports*/
 	private List<String[]> companyReport= new ArrayList<String[]>();
-	Map<String[], List<Machine>> groupReportMap = new HashMap<String[], List<Machine>>();
+	private List<String[]> groupReport= new ArrayList<String[]>();
+	private List<String[]> manufacturerReport= new ArrayList<String[]>();
+	Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
 
+	
+	public List<String[]> getGroupReport() {
+		return groupReport;
+	}
+	public void setGroupReport(List<String[]> groupReport) {
+		this.groupReport = groupReport;
+	}
+	public List<String[]> getManufacturerReport() {
+		return manufacturerReport;
+	}
+	public void setManufacturerReport(List<String[]> manufacturerReport) {
+		this.manufacturerReport = manufacturerReport;
+	}
+	public Map<String[], List<Machine>> getAccountReportMap() {
+		return accountReportMap;
+	}
+	public void setAccountReportMap(Map<String[], List<Machine>> accountReportMap) {
+		this.accountReportMap = accountReportMap;
+	}
 	public Integer getStevidorId() {
 		return stevidorId;
 	}
 	public void setStevidorId(Integer stevidorId) {
 		this.stevidorId = stevidorId;
-	}
-	public Map<String[], List<Machine>> getGroupReportMap() {
-		return groupReportMap;
-	}
-	public void setGroupReportMap(Map<String[], List<Machine>> groupReportMap) {
-		this.groupReportMap = groupReportMap;
 	}
 	public String[] getCompanyNames() {
 		return companyNames;

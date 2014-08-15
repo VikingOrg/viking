@@ -15,7 +15,7 @@
 		<script>
 		  $(document).ready(function() {
 			  $("#sumbit_report").click(function(e) {
-              	$('#report_select_form').attr('action', "${action}/groupReport/");
+              	$('#report_select_form').attr('action', "${action}/accountReport/");
             	$('#report_select_form').attr('method', "post");
             	$('#report_select_form').attr('accept-charset', "UTF-8");
             	$('#report_select_form').submit();
@@ -219,9 +219,9 @@
 								</tr>
 							</thead>
 							<tbody>
-					            <c:forEach items="${reportSelectionCommand.groupReportMap}" var="groupReport">
+					            <c:forEach items="${reportSelectionCommand.accountReportMap}" var="accountReport">
 									<tr>
-										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;"><c:out value="${groupReport.key[0]}"/><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего по группе:&nbsp;&nbsp;<c:out value="${groupReport.key[1]}"/></span></td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;"><c:out value="${accountReport.key[0]}"/><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего по группе:&nbsp;&nbsp;<c:out value="${accountReport.key[1]}"/></span></td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
@@ -229,7 +229,7 @@
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
 									</tr>
-									<c:forEach items="${groupReport.value}" var="machine">
+									<c:forEach items="${accountReport.value}" var="machine">
 										<tr>
 											<td class="nowrap"><c:out value="${machine.machineModel.name}"/></td>
 											<td class="nowrap"><c:out value="${machine.machineModel.details}"/></td>

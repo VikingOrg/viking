@@ -10,33 +10,10 @@
 <html lang="ru">
 <head>
 <title>Отчет по количеству ПТО</title>
-		<jsp:include page="common/headCoreElements.jsp" />
-		<spring:url var = "action" value='/reportSelection'/> 
-		<script>
+	<jsp:include page="common/headCoreElements.jsp" />
+	<spring:url var = "action" value='/reportSelection'/> 
+	<script>
 		  $(document).ready(function() {
-			  $("#sumbit_report").click(function(e) {
-              	$('#report_select_form').attr('action', "${action}/groupReport/");
-            	$('#report_select_form').attr('method', "post");
-            	$('#report_select_form').attr('accept-charset', "UTF-8");
-            	$('#report_select_form').submit();
-        	    $('#wait_modal').modal('show');
-				});
-
-              $('#groupSelect').change(function() {
-            	  var groupId = $(this).val();
-            	  if(groupId=='0'){
-            		  $('#modelSelect').html("<option value='0'>Все модели</option>");
-                  } else {
-	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-	                      var options='';
-                          options += "<option value='0'>Все модели</option>";
-	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
-	                      });
-	                      $('#modelSelect').html(options);
-	                  });
-                  }
-              });	
               $('#group_report_table').dataTable({
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  tableTools: {
@@ -64,6 +41,15 @@
                 	   $('select[name="group_report_table_length"]').addClass("form-control");
  	              },
               });
+
+			  $("#sumbit_report").click(function(e) {
+	              	$('#report_select_form').attr('action', "${action}/groupReport/");
+	            	$('#report_select_form').attr('method', "post");
+	            	$('#report_select_form').attr('accept-charset', "UTF-8");
+	            	$('#report_select_form').submit();
+	        	    $('#wait_modal').modal('show');
+  			  });
+              
               $('#group_report_table').attc({
                   "controls":{
                 	  showHide:false,
@@ -71,9 +57,10 @@
                 	  chartType:false,
                 	  },
                   "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
-                  });
+              });
 		  });
-		  </script>		  
+		  
+	  </script>		  
 </head>
 <body>
 		<!-- Wrap all page content here -->  
@@ -100,42 +87,14 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>Компания</label>
-											<form:select id="stevidorSelection" path="stevidorSelection" cssClass="form-control col-sm-12" multiple="true">
+											<form:select id="stevidorId" path="stevidorId" cssClass="form-control col-sm-12">
 												<form:option value="0">Все компании</form:option>
 												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
 													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
 												</c:forEach>
 											</form:select>
 									</div>
-									
-									<div class="form-group">
-										<label>Компания</label>
-											<form:select id="manufacturerId" path="manufacturerId"
-												cssClass="form-control" title="Выборка по производителю">
-												<form:option value="0">Все производители</form:option>
-												<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
-													<form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
-												</c:forEach>
-											</form:select>
-									</div>																
-									<%-- <div class="form-group">
-										<label>Группа</label>
-											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
-												<form:option value="0" >Все группы</form:option>
-												<c:forEach items="${reportSelectionCommand.groupMap}" var="group">
-													<form:option value="${group.key}" label="${group.value.name}" />
-												</c:forEach>
-											</form:select>
-									</div>
-						        	<div class="form-group">
-					                    <label>Модель</label>
-											<form:select id="modelSelect" path="modelId" cssClass="form-control col-sm-12">
-												<form:option value="0">Все модели</form:option>
-								                <c:forEach items="${reportSelectionCommand.machineModelMap}" var="model">
-								                    <form:option value="${model.key}" label="${model.value.name}" />
-								                </c:forEach>									
-											</form:select>
-						        	</div> --%>
+
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Год выпуска</label>
 										<div class="col-sm-8" style="padding-right: 0px">
@@ -173,7 +132,7 @@
 									<!--  Кнопочка сформировать отчет -->
 									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 									<span class="pull-right">&nbsp;</span>
-									<button id="sumbit_report" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
+									<button id="refresh" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
 								</div>	
 							</div>
 						</div>	
