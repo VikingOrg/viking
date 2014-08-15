@@ -36,6 +36,7 @@ public class ReportSelectionCommand {
 	private Integer portId;
 	private Integer countryId;
 	private String[] stevidorSelection;
+	private Integer stevidorId;
 	private String releaseYear;
 	private Integer manufacturerId;
 	private Integer reportType;
@@ -52,9 +53,13 @@ public class ReportSelectionCommand {
 	/*reports*/
 	private List<String[]> companyReport= new ArrayList<String[]>();
 	Map<String[], List<Machine>> groupReportMap = new HashMap<String[], List<Machine>>();
-	
-	
 
+	public Integer getStevidorId() {
+		return stevidorId;
+	}
+	public void setStevidorId(Integer stevidorId) {
+		this.stevidorId = stevidorId;
+	}
 	public Map<String[], List<Machine>> getGroupReportMap() {
 		return groupReportMap;
 	}

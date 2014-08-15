@@ -1,6 +1,5 @@
 package com.seaport.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +69,14 @@ public class ReportSelectionController {
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "groupReport";
 	}
+	@RequestMapping(value="/manufacturer/", method = RequestMethod.GET)
+	public String setupManufacturerReport(HttpServletRequest request, ModelMap model)  throws Exception{
+		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
+		setFilterMaps(reportSelectionCommand);
+		
+		model.put("reportSelectionCommand", reportSelectionCommand);
+		return "manufacturerReport";
+	}	
 	@RequestMapping(value="/account/", method = RequestMethod.GET)
 	public String setupCounReport(HttpServletRequest request, ModelMap model) throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
@@ -119,6 +126,43 @@ public class ReportSelectionController {
 		}
 		return "companyReport";
 	}
+
+	/*not implemented*/
+	@RequestMapping(value="/groupReport/", method = RequestMethod.POST) 
+	public String getGroupReport(HttpServletRequest request, Model model, 
+								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
+								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("error", "message.user.error.generic");
+			return "reportSelection";
+		}
+		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		redirectAttributes.addFlashAttribute(reportSelectionCommand);
+		
+		//clear the command object from the session
+//		status.setComplete();
+		return "groupReport";
+	}
+
+	/*not implemented*/
+	@RequestMapping(value="/manufacturerReport/", method = RequestMethod.POST) 
+	public String getManufacturerReport(HttpServletRequest request, Model model, 
+								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
+								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("error", "message.user.error.generic");
+			return "reportSelection";
+		}
+		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
+		redirectAttributes.addFlashAttribute(reportSelectionCommand);
+		
+		//clear the command object from the session
+//		status.setComplete();
+		return "manufacturerReport";
+	}
+
 	
 	/**
 	 * Request to generate group type report.
@@ -133,7 +177,7 @@ public class ReportSelectionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/groupReport/", method = RequestMethod.POST) 
+	@RequestMapping(value="/accountReport/", method = RequestMethod.POST) 
 	public String groupReport(HttpServletRequest request, Model model, 
 								@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status, 
@@ -148,43 +192,25 @@ public class ReportSelectionController {
 		List<Machine> machineList =  machineService.getMachines();
 		Map<Integer, Group> groupMap = reportSelectionCommand.getGroupMap();
 		for (Map.Entry<Integer, Group> entry : groupMap.entrySet()) {
-			Group group = entry.getValue();
-			Integer countModels = 0;
-			List<Machine> machineListByGroup = new ArrayList<Machine>();
-			for (Machine machine : machineList) {
-				try {
-					if (group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
-						machineListByGroup.add(machine);
-						countModels++;
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			groupReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
+//			Group group = entry.getValue();
+//			Integer countModels = 0;
+//			List<Machine> machineListByGroup = new ArrayList<Machine>();
+//			for (Machine machine : machineList) {
+//				try {
+//					if (group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
+//						machineListByGroup.add(machine);
+//						countModels++;
+//					}
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			groupReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
 		}
 		reportSelectionCommand.setGroupReportMap(groupReportMap);
 
 		return "groupReport";
-	}
-	
-	/*not implemented*/
-	@RequestMapping(value="/accountReport/", method = RequestMethod.POST) 
-	public String countReport(HttpServletRequest request, Model model, 
-								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
-								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
-		
-		if (result.hasErrors()) {
-			model.addAttribute("error", "message.user.error.generic");
-			return "reportSelection";
-		}
-		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
-		redirectAttributes.addFlashAttribute(reportSelectionCommand);
-		
-		//clear the command object from the session
-//		status.setComplete();
-		return "accountReport";
 	}
 
 	/**

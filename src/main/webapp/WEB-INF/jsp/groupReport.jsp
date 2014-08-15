@@ -106,7 +106,18 @@
 													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
 												</c:forEach>
 											</form:select>
-									</div>							
+									</div>
+									
+									<div class="form-group">
+										<label>Компания</label>
+											<form:select id="manufacturerId" path="manufacturerId"
+												cssClass="form-control" title="Выборка по производителю">
+												<form:option value="0">Все производители</form:option>
+												<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
+													<form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
+												</c:forEach>
+											</form:select>
+									</div>																
 									<%-- <div class="form-group">
 										<label>Группа</label>
 											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
