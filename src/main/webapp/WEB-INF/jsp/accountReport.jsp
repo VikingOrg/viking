@@ -18,6 +18,7 @@
               	$('#report_select_form').attr('action', "${action}/accountReport/");
             	$('#report_select_form').attr('method', "post");
             	$('#report_select_form').attr('accept-charset', "UTF-8");
+            	showProgressModal('#wait_modal');
             	$('#report_select_form').submit();
 				});
 
@@ -95,7 +96,7 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>Компания</label>
-											<form:select id="stevidorSelection" path="stevidorSelection" cssClass="form-control col-sm-12" multiple="true">
+											<form:select id="stevidorSelection" path="stevidorId" cssClass="form-control col-sm-12">
 												<form:option value="0">Все компании</form:option>
 												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
 													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
@@ -111,6 +112,7 @@
 												</c:forEach>
 											</form:select>
 									</div>
+									<%--
 						        	<div class="form-group">
 					                    <label>Модель</label>
 											<form:select id="modelSelect" path="modelId" cssClass="form-control col-sm-12">
@@ -133,6 +135,7 @@
 											</select>
 										</div>
 									</div>
+									 --%>
 									<div class="form-group">
 										<label>Производитель</label>
 											<form:select id="manufacturerId" path="manufacturerId"
@@ -255,6 +258,22 @@
 	</div>
 </div>
 <!-- Closing div tag for wrap -->
+
+
+<!-- 		Модальное окно ожидания загрузки данных -->
+<div class="modal fade" id="wait_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body" align="center">
+				<h3 style="color:#448800">Подождите, идет загрузка данных</h3>
+				<img src="<c:url value="/static/images/32.gif"/>">
+			</div> 
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <jsp:include page="common/footer.jsp" />
 </body>
