@@ -21,9 +21,18 @@
 		<div id="wrap">
 		  <!-- Begin page content -->
 		  <div class="container">
-		      <h3 class="page-header">Сессия завершена.</h3>
-			<p>Списибо, что вы использовали нашу систему. Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!</p>
-					<p>Если вы хотите продолжить работу <a href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p>
+			  <div class="panel  panel-success" style="margin-top: 50px;">
+			      <div class="panel-heading" style="background-color:#DDEDCC;">
+					    <h3 class="page-header">Сессия завершена.</h3>
+			      </div>
+				  <div class="panel-body">
+				    <p><br>Списибо, что вы использовали нашу систему.<br> Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!<br></p>
+					
+				  </div>
+				  <div class="panel-footer"><p>Для продолжения работы<a href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p></div>
+			  </div>
+		      
+			
 		  </div>
 		</div>
 

@@ -12,6 +12,8 @@
 <title>Отчет по количеству ПТО</title>
 	<jsp:include page="common/headCoreElements.jsp" />
 	<spring:url var = "action" value='/reportSelection'/> 
+	<script type="text/javascript" src="//www.google.com/jsapi"></script>
+	<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
 	<script>
 		  $(document).ready(function() {
               $('#group_report_table').dataTable({
@@ -87,6 +89,7 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
 									<div class="form-group">
 										<label>Компания</label>
 											<form:select id="stevidorId" path="stevidorId" cssClass="form-control col-sm-12">
@@ -96,6 +99,7 @@
 												</c:forEach>
 											</form:select>
 									</div>
+									</sec:authorize>
 
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Год выпуска</label>
@@ -131,9 +135,6 @@
 						<div class="row" style="padding-right:10px">
 							<div class="col-sm-12">
 								<div class="form-group">
-								
-									<!--  Кнопочка сформировать отчет -->
-									<!--  Кнопочка сформировать отчет -->
 									<!--  Кнопочка сформировать отчет -->
 									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 									<span class="pull-right">&nbsp;</span>

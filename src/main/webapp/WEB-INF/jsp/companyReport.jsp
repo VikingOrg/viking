@@ -221,7 +221,6 @@
 									<div class="form-group">
 									
 										<!--  Кнопочка сформировать отчет -->
-										<!--  Кнопочка сформировать отчет -->
 										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 										<span class="pull-right">&nbsp;</span>
 										<button id="refresh" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
@@ -231,7 +230,7 @@
 						</div>					
 						
 						<div id="company_pie" class="col-sm-12 well lform">
-							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	
+							<%-- <span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	 --%>
 							<div id="companyReportPie" class="form-group"></div>
 						</div>						
 					</div>
