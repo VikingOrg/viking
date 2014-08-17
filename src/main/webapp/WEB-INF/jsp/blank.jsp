@@ -8,31 +8,39 @@
 	<head>
 	    <title>Страница не найдена</title>
 	    <meta name="viewport" content="width=device-width">
-	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
-	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+		<jsp:include page="common/headCoreElements.jsp" />
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
 		<div id="wrap">
 			<!-- Begin page content -->
 		    <div class="container">
-
-		    <div class="page-header">
-		      <h1>Система не может обработать Ваш запрос!</h1>
-		    </div>
-			<p><h4>Извините, но на Ваш зарпос система показала код ошибки (
-	<c:if test="${not empty status}">
-			<b>Response Status:</b> ${status}
-			<c:if test="${error}">(${error})</c:if>
-	</c:if>			
-			).</h4></p>
-					<p>Если вы зарегистрированный пользователь и хотите войти в систему вам <a href="<c:url value="login" />" > Сюда</a> </p>
-					<p>Если вы новый пользователь, вам нужно пройти регистрацию <a href="<c:url value="register" />" > Здесь</a> </p>
-					
-					
-	<!-- 
+				<div class="panel  panel-success" style="margin-top: 50px;">
+			      <div class="panel-heading" style="background-color:#DDEDCC;">
+					    <h1>Система не может обработать Ваш запрос!</h1>
+			      </div>
+				  <div class="panel-body">
+				    <p><h4>Извините, но на Ваш запрос система показала код ошибки (
+						<c:if test="${not empty status}">
+								<b>Response Status:</b> ${status}
+								<c:if test="${error}">(${error})</c:if>
+						</c:if>			
+								).</h4>
+					</p>
+					<p>Если ошибка повторится, обратитесь в службу поддержки.</p>
+				
+					<p>Служба поддержки может попросить Вас выслать им 'код' этой страницы.<br> Для получения кода, нужно после нажатия 
+					на правую кнопку мыши, выбрать View Page Source. Затем скопировать код и выслать в службу потдержки с кратким описанием 
+					Ваших шагов, которые привели к ошибке.</p>
+				  </div>
+				  <div class="panel-footer">			
+						<p>Для продолжения работы вернитесь <INPUT TYPE="button" class="cancelbtn" VALUE="НАЗАД" onClick="history.go(-1);"> ,
+						 либо <a class="cancelbtn" href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p>
+	
+				  </div>
+			  </div>
+		<!-- 
    An error page with hidden stack-trace suitable for tech support.
  -->
 
@@ -56,12 +64,8 @@
 			<c:if test="${error}">(${error})</c:if>
 		</p>
 	</c:if>
-
-	<p>Если ошибка повториться, обратитесь в службу потдержки.</p>
-
-	<p>Служба потдежки может попросить Вас выслать им 'код' этой страницы.<br> Для получения кода, нужно после нажатия 
-	на правую кнопку мыши, выбрать View Page Source. Затем скопировать код и выслать в службу потдержки с кратким описанием 
-	Ваших шагов, которые привели к ошибке.</p>
+			
+	
 
 	<!--
     Failed URL: ${url}
@@ -71,10 +75,7 @@
     -->	
 			</div> <!-- End of Main Container -->
 		</div> <!-- End of Wrapping -->
-		<div id="footer">
-		  <div class="container">
-		   <jsp:include page="common/footer.jsp" />
-		  </div>
-		</div>
+		
+		<jsp:include page="common/footer.jsp" />
 	</body>
 </html>

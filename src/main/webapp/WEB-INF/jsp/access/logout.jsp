@@ -9,7 +9,6 @@
 	    <title>Выход из системы</title>
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
@@ -26,10 +25,10 @@
 					    <h3 class="page-header">Сессия завершена.</h3>
 			      </div>
 				  <div class="panel-body">
-				    <p><br>Списибо, что вы использовали нашу систему.<br> Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!<br></p>
+				    <p><br>Списибо, что вы использовали нашу систему.<br><span style="color:lightgray"> Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!</span><br></p>
 					
 				  </div>
-				  <div class="panel-footer"><p>Для продолжения работы<a href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p></div>
+				  <div class="panel-footer"><p>Для продолжения работы <a class="cancelbtn" href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p></div>
 			  </div>
 		      
 			
