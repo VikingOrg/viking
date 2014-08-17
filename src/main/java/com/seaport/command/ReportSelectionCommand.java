@@ -41,16 +41,13 @@ public class ReportSelectionCommand {
 	private String[] stevidorSelection;
 	private Integer stevidorId;
 	private String releaseYear;
+	
+	private String releaseStartYear;
+	private String releaseEndYear;
 	private Integer manufacturerId;
 	private Integer reportType;
 	private Integer modelId;
-	
-	/*report headers parameters*/
-	private String groupName = "По всем группам.";
-	private String modelName = "По всем моделям.";
-	private String relYearName = "За все года.";
-	private String manufactName = "По всем производителям.";
-	private String[] companyNames;
+
 	private Integer totalMachineCount = 0;
 	
 	/*reports*/
@@ -60,6 +57,18 @@ public class ReportSelectionCommand {
 	Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
 
 
+	public String getReleaseStartYear() {
+		return releaseStartYear;
+	}
+	public void setReleaseStartYear(String releaseStartYear) {
+		this.releaseStartYear = releaseStartYear;
+	}
+	public String getReleaseEndYear() {
+		return releaseEndYear;
+	}
+	public void setReleaseEndYear(String releaseEndYear) {
+		this.releaseEndYear = releaseEndYear;
+	}
 	public List<CompanyReportDTO> getCompanyReportList() {
 		return companyReportList;
 	}
@@ -91,12 +100,7 @@ public class ReportSelectionCommand {
 	public void setStevidorId(Integer stevidorId) {
 		this.stevidorId = stevidorId;
 	}
-	public String[] getCompanyNames() {
-		return companyNames;
-	}
-	public void setCompanyNames(String[] companyNames) {
-		this.companyNames = companyNames;
-	}
+
 	public Integer getTotalMachineCount() {
 		return totalMachineCount;
 	}
@@ -104,30 +108,6 @@ public class ReportSelectionCommand {
 		this.totalMachineCount = totalMachineCount;
 	}
 
-	public String getGroupName() {
-		return groupName;
-	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
-	public String getModelName() {
-		return modelName;
-	}
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
-	}
-	public String getRelYearName() {
-		return relYearName;
-	}
-	public void setRelYearName(String relYearName) {
-		this.relYearName = relYearName;
-	}
-	public String getManufactName() {
-		return manufactName;
-	}
-	public void setManufactName(String manufactName) {
-		this.manufactName = manufactName;
-	}
 	public String[] getStevidorSelection() {
 		return stevidorSelection;
 	}

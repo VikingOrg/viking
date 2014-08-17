@@ -38,7 +38,8 @@
                   }
               });	
               $('#group_report_table').dataTable({
-            	  "bJQueryUI": true,
+            	  "bJQueryUI": true,  	                     
+                  "sScrollX": "99%",
             	  "sPaginationType": "full_numbers",
             	  "bSort": false,
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
@@ -94,6 +95,7 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
 									<div class="form-group">
 										<label>Компания</label>
 											<form:select id="stevidorSelection" path="stevidorId" cssClass="form-control col-sm-12">
@@ -102,7 +104,8 @@
 													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
 												</c:forEach>
 											</form:select>
-									</div>							
+									</div>		
+									</sec:authorize>					
 									<div class="form-group">
 										<label>Группа</label>
 											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
@@ -135,7 +138,6 @@
 											</select>
 										</div>
 									</div>
-									 --%>
 									<div class="form-group">
 										<label>Производитель</label>
 											<form:select id="manufacturerId" path="manufacturerId"
@@ -146,6 +148,7 @@
 												</c:forEach>
 											</form:select>
 									</div>
+									 --%>
 									<div id="data_table_elements" class="form-group">
 										<label>Кол.строк:</label>
 										<div id="table_length"></div>					

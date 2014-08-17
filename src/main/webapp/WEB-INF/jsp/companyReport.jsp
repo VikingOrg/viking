@@ -19,13 +19,13 @@
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  $(document).ready(function() {
-			  $("#sumbit_report").click(function(e) {
-              	$('#report_select_form').attr('action', "${action}/companyReport/");
-            	$('#report_select_form').attr('method', "post");
-            	$('#report_select_form').attr('accept-charset', "UTF-8");
-            	$('#report_select_form').submit();
-        	    $('#wait_modal').modal('show');
-				});
+			  $("#sumbit_report_X").click(function(e) {
+	          	$('#report_select_form').attr('action', "${action}/companyReport/");
+	            $('#report_select_form').attr('method', "post");
+	            $('#report_select_form').attr('accept-charset', "UTF-8");
+	            $('#report_select_form').submit();
+	        	$('#wait_modal').modal('show');
+			  });
 
               $('#groupSelect').change(function() {
             	  var groupId = $(this).val();
@@ -94,11 +94,17 @@
               "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
               });
 
-              oTable.fnAdjustColumnSizing();
-              	
-		  });
+              //oTable.fnAdjustColumnSizing();
 
-
+              $("#sumbit_report").click(function(e) {
+              		e.preventDefault();
+              		var data = $("#report_select_form").serialize();
+            		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", data, function (result) {
+            		    alert(result);
+            		});
+              });
+                	 	
+		  }); //end of document.ready
 
 		  $(function() {  
 			    var window_height = $(window).height(),
@@ -221,7 +227,6 @@
 									<div class="form-group">
 									
 										<!--  Кнопочка сформировать отчет -->
-										<!--  Кнопочка сформировать отчет -->
 										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
 										<span class="pull-right">&nbsp;</span>
 										<button id="refresh" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
@@ -231,7 +236,7 @@
 						</div>					
 						
 						<div id="company_pie" class="col-sm-12 well lform">
-							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	
+							<%-- <span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	 --%>
 							<div id="companyReportPie" class="form-group"></div>
 						</div>						
 					</div>
@@ -263,16 +268,16 @@
 									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Группа: <span class="report_header">${reportSelectionCommand.groupName}</span></td>
+									<td class="nowrap">Группа: <span class="report_header"></span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Модель: <span class="report_header">${reportSelectionCommand.modelName}</span></td>
+									<td class="nowrap">Модель: <span class="report_header"></span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Год выпуска: <span class="report_header">${reportSelectionCommand.relYearName}</span></td>
+									<td class="nowrap">Год выпуска: <span class="report_header"></span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Производитель: <span class="report_header">${reportSelectionCommand.manufactName}</span></td>
+									<td class="nowrap">Производитель: <span class="report_header"></span></td>
 								</tr>
 							</tbody>
 						</table>

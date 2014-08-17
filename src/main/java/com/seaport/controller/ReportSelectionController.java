@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -26,14 +26,13 @@ import com.seaport.command.ReportSelectionCommand;
 import com.seaport.dao.IReportDAO;
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
-import com.seaport.domain.MachineModel;
-import com.seaport.domain.Stevidor;
 import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
 import com.seaport.dto.ManufacturerReportDTO;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.SystemConstants;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -55,12 +54,6 @@ public class ReportSelectionController {
 	@Autowired
 	private IReportDAO reportDAO;
 	
-	
-	private static String COMPANY_FILTER = "1";
-	private static String GROUP_FILTER = "2";
-	private static String MODEL_FILTER = "3";
-	private static String YEAR_FILTER = "4";
-	private static String MANUFACTOR_FILTER = "5";
 	
 	@RequestMapping(value="/company/", method = RequestMethod.GET)
 	public String setupGroupReport(HttpServletRequest request, ModelMap model) throws Exception {
@@ -95,6 +88,34 @@ public class ReportSelectionController {
 		return "accountReport";
 	}
 	
+	
+	/**
+     * Fetch a the machine list from the service, and package up into a Map that is
+     * compatible with datatables.net
+	 * @param groupId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getCompanyReport/", method = RequestMethod.GET)
+	@ResponseBody
+	public List<CompanyReportDTO> getCompanyReport(HttpServletRequest request, ModelMap model, 
+					@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand) throws Exception {
+		/*Populate map with .*/
+		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);		
+		List<CompanyReportDTO> groupReportDTOs  = reportDAO.getCompanyReportDTOs(filtersMap);
+		return groupReportDTOs;
+	}
+
+	/*do not remove code below!*/
+//	@RequestMapping(value = "/{app}/conf/{fnm}", method=RequestMethod.GET)
+//	public ResponseEntity<?> getConf(@PathVariable("app") String app, @PathVariable("fnm") String fnm) {
+//	   log.debug("AppName:" + app);
+//	   log.debug("fName:" + fnm);
+//	           ...
+//	           return ...
+//	  }
+	
 	/**
 	 * Request to generate company type report. 
 	 * @param request
@@ -112,7 +133,7 @@ public class ReportSelectionController {
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
 		/*Populate report header parameters and set filter flags - obsolete!.*/
-		setFilterValuesAndTitle(reportSelectionCommand);
+//		setFilterValuesAndTitle(reportSelectionCommand);
 		
 		/*Populate map with .*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
@@ -272,7 +293,7 @@ public class ReportSelectionController {
 	
 	
 	/**
-	 * Setting up map with set of filter flags.
+	 * Setting up map with set of filter values.
 	 * @param reportSelectionCommand
 	 * @return
 	 */
@@ -280,94 +301,85 @@ public class ReportSelectionController {
 		Map<String, Object> filtersMap= new HashMap<String, Object>();
 		/*Company Filter (value) pair.*/ 
 		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
-			String [] companySelection = reportSelectionCommand.getStevidorSelection();
-			String [] companyNames = new String[companySelection.length];
-			for (int i = 0; i < companySelection.length; i++) {
-				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(companySelection[i]));
-				companyNames[i] = stevidor.getFullName();
-			}
-			reportSelectionCommand.setCompanyNames(companyNames);
-			filtersMap.put(COMPANY_FILTER, companyNames);
+			filtersMap.put(SystemConstants.COMPANY_MULTI_FILTER, reportSelectionCommand.getStevidorSelection());
 		}
-		
-		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
-			String groupName = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId()).getName();
-			reportSelectionCommand.setGroupName(groupName);
-			filtersMap.put(GROUP_FILTER, groupName);
+		if (reportSelectionCommand.getStevidorId()!=null && reportSelectionCommand.getStevidorId().intValue()!=0) {
+			filtersMap.put(SystemConstants.COMPANY_SINGLE_FILTER, reportSelectionCommand.getStevidorId());
 		} 
-		
+		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
+			filtersMap.put(SystemConstants.GROUP_FILTER, reportSelectionCommand.getGroupId());
+		} 
 		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
-			MachineModel machineModel = machineService.getModel(reportSelectionCommand.getModelId());
-			reportSelectionCommand.setModelName(machineModel.getName());
-			filtersMap.put(MODEL_FILTER, machineModel.getName());
+			filtersMap.put(SystemConstants.MODEL_FILTER, reportSelectionCommand.getModelId());
 		}
 		
-		if (reportSelectionCommand.getReleaseYear()!=null && !reportSelectionCommand.getReleaseYear().equalsIgnoreCase("")) {
-			reportSelectionCommand.setRelYearName(reportSelectionCommand.getReleaseYear());
-			filtersMap.put(YEAR_FILTER, reportSelectionCommand.getReleaseYear());
-		} else 
+		if (reportSelectionCommand.getReleaseStartYear()!=null && !reportSelectionCommand.getReleaseStartYear().equalsIgnoreCase("")) {
+			filtersMap.put(SystemConstants.YEAR_START_FILTER, reportSelectionCommand.getReleaseStartYear());
+		}  
+
+		if (reportSelectionCommand.getReleaseEndYear()!=null && !reportSelectionCommand.getReleaseEndYear().equalsIgnoreCase("")) {
+			filtersMap.put(SystemConstants.YEAR_END_FILTER, reportSelectionCommand.getReleaseEndYear());
+		}  
 		
 		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
-			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getNameRus();
-			reportSelectionCommand.setManufactName(manufactName);
-			filtersMap.put(MANUFACTOR_FILTER, manufactName);
+			filtersMap.put(SystemConstants.MANUFACTOR_FILTER, reportSelectionCommand.getManufacturerId());
 		} 
 		
 		return filtersMap;
 	}
 	
-	/**
-	 * Setting up map with set of filter flags.
-	 * @param reportSelectionCommand
-	 * @return
-	 */
-	private Map<String, Boolean> setFilterValuesAndTitle(ReportSelectionCommand reportSelectionCommand){
-		Map<String, Boolean> filtersMap= new HashMap<String, Boolean>();
-		 
-		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
-			String [] companySelection = reportSelectionCommand.getStevidorSelection();
-			String [] companyNames = new String[companySelection.length];
-			for (int i = 0; i < companySelection.length; i++) {
-				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(companySelection[i]));
-				companyNames[i] = stevidor.getFullName();
-			}
-			reportSelectionCommand.setCompanyNames(companyNames);
-			filtersMap.put(COMPANY_FILTER, Boolean.TRUE);
-		} else {
-			filtersMap.put(COMPANY_FILTER, Boolean.FALSE);
-		}
-
-		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
-			String groupName = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId()).getName();
-			reportSelectionCommand.setGroupName(groupName);
-			filtersMap.put(GROUP_FILTER, Boolean.TRUE);
-		} else {
-			filtersMap.put(GROUP_FILTER, Boolean.FALSE);
-		}
-		
-		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
-			MachineModel machineModel = machineService.getModel(reportSelectionCommand.getModelId());
-			reportSelectionCommand.setModelName(machineModel.getName());
-			filtersMap.put(MODEL_FILTER, Boolean.TRUE);
-		} else {
-			filtersMap.put(MODEL_FILTER, Boolean.FALSE);
-		}
-		
-		if (reportSelectionCommand.getReleaseYear()!=null && !reportSelectionCommand.getReleaseYear().equalsIgnoreCase("")) {
-			reportSelectionCommand.setRelYearName(reportSelectionCommand.getReleaseYear());
-			filtersMap.put(YEAR_FILTER, Boolean.TRUE);
-		} else {
-			filtersMap.put(YEAR_FILTER, Boolean.FALSE);
-		}
-		
-		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
-			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getNameRus();
-			reportSelectionCommand.setManufactName(manufactName);
-			filtersMap.put(MANUFACTOR_FILTER, Boolean.TRUE);
-		} else {
-			filtersMap.put(MANUFACTOR_FILTER, Boolean.FALSE);
-		}
-		
-		return filtersMap;
-	}
+//	/**
+//	 * Setting up map with set of filter flags.
+//	 * @param reportSelectionCommand
+//	 * @return
+//	 */
+//	private Map<String, Boolean> setFilterValuesAndTitle(ReportSelectionCommand reportSelectionCommand){
+//		Map<String, Boolean> filtersMap= new HashMap<String, Boolean>();
+//		 
+//		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
+//			String [] companySelection = reportSelectionCommand.getStevidorSelection();
+//			String [] companyNames = new String[companySelection.length];
+//			for (int i = 0; i < companySelection.length; i++) {
+//				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(companySelection[i]));
+//				companyNames[i] = stevidor.getFullName();
+//			}
+//			reportSelectionCommand.setCompanyNames(companyNames);
+//			filtersMap.put(COMPANY_FILTER, Boolean.TRUE);
+//		} else {
+//			filtersMap.put(COMPANY_FILTER, Boolean.FALSE);
+//		}
+//
+//		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
+//			String groupName = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId()).getName();
+//			reportSelectionCommand.setGroupName(groupName);
+//			filtersMap.put(GROUP_FILTER, Boolean.TRUE);
+//		} else {
+//			filtersMap.put(GROUP_FILTER, Boolean.FALSE);
+//		}
+//		
+//		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
+//			MachineModel machineModel = machineService.getModel(reportSelectionCommand.getModelId());
+//			reportSelectionCommand.setModelName(machineModel.getName());
+//			filtersMap.put(MODEL_FILTER, Boolean.TRUE);
+//		} else {
+//			filtersMap.put(MODEL_FILTER, Boolean.FALSE);
+//		}
+//		
+//		if (reportSelectionCommand.getReleaseYear()!=null && !reportSelectionCommand.getReleaseYear().equalsIgnoreCase("")) {
+//			reportSelectionCommand.setRelYearName(reportSelectionCommand.getReleaseYear());
+//			filtersMap.put(YEAR_FILTER, Boolean.TRUE);
+//		} else {
+//			filtersMap.put(YEAR_FILTER, Boolean.FALSE);
+//		}
+//		
+//		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
+//			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getNameRus();
+//			reportSelectionCommand.setManufactName(manufactName);
+//			filtersMap.put(MANUFACTOR_FILTER, Boolean.TRUE);
+//		} else {
+//			filtersMap.put(MANUFACTOR_FILTER, Boolean.FALSE);
+//		}
+//		
+//		return filtersMap;
+//	}
 }
