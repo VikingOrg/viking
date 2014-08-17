@@ -293,7 +293,7 @@
 				      	  <a href="#main" role="tab" data-toggle="tab">
 						   	  Основные характеристики 
 						   	  <c:if test="${not empty machineEditCommand.machine.machineId}">
-						   	  	 (Устройство № <c:out value="${machineEditCommand.machine.machineId} "/>
+						   	  	 (Машина № <c:out value="${machineEditCommand.machine.machineId} "/>
 						   	  	 <c:if test="${machineEditCommand.machine.archived == '1'}">Удалено!</c:if>)	
 						   	  </c:if>
 				      	  </a>
@@ -315,13 +315,13 @@
 							<div class="tab-pane fade in active tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>" id="main">
 							      <div class="row">
 							        <div class="col-sm-4 col-sm-offset-1">
-							        	<br/>
+							        	<%-- <br/>
 							            <label class="form-label">
 							            	<span class="required">Описание механизма*</span>
 							            	<span class="report_header">(Пример правильного описания: Старый кран, кабина разбита...
 							        	Пример не правильного описания: Портальный Кран ГАНЦ 5/6тн. Стрела 30м.)</span>
 							            </label>
-							        	<v:input path="machine.name"  title="Описание Механизма"/>
+							        	<v:input path="machine.name"  title="Описание Механизма"/> --%>
 							        	<spring:bind path="machine.groupId">
 								        	<div class="form-group ${status.error ? 'has-error' : '' }">
 							                    <label class="form-label">Группа*</label>

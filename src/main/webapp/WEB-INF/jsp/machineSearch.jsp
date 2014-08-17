@@ -68,7 +68,7 @@
 												  return input;
 		        	   	        		      }
 	        	   	        		     },	        	 	        	        
-	        	                         { "bVisible": true,  "aTargets": [ 1 ] },
+	        	                         { "bVisible": false,  "aTargets": [0, 2, 3, 22] },
 	        	                         {
 		        	   	        		      "aTargets": [ 4 ],
 		        	   	        		      "mData": 4,
@@ -229,8 +229,8 @@
 											<form:option value="">Все Компании</form:option>
 											<c:forEach items="${machineSearchCommand.userStevidor}"
 												var="stevidor">
-												<form:option value="${stevidor.value.fullName}"
-													label="${stevidor.value.fullName}" />
+												<form:option value="${stevidor.value.name}"
+													label="${stevidor.value.name}" />
 											</c:forEach>
 										</form:select>
 								</div>
@@ -313,7 +313,7 @@
 							<div class="form-group">
 								<a href="<c:url value="machineEdit"/> "class="btn btn-primary pull-right" title="Ввод нового">Добавить</a>
 									<span class="pull-right">&nbsp;</span> 
-								<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
+								<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
 							</div>
 						</div>
 					</div>

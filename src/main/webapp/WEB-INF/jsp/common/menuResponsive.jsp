@@ -101,7 +101,7 @@
 				    </ul>
 
 				    <ul class="nav navbar-nav navbar-right">		
-						        	<li>
+						        	<%-- <li>
 									    <a style="border-left: 0px solid #f5f5f5; color: black; padding:10px 4px 1px 4px;" href="?lang=ru">
 									    	<img alt="__" title="Russian" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-ru">
 									    </a>
@@ -110,7 +110,7 @@
 									    <a style="border-left: 0px solid #f5f5f5; color: black; padding:10px 4px 1px 4px;" href="?lang=en">
 									        <img alt="__" title="US" src="<c:url value="/static/images/flags/blank.gif"/>" class="flag flag-us">
 									    </a>
-									</li>									
+									</li> --%>									
 									<li class="dropdown" style="padding:4px;">
 										<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5; font-weight: bold;">${userModel.firstName} &nbsp;${userModel.lastName} <strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
