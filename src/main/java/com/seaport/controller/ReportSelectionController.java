@@ -88,12 +88,13 @@ public class ReportSelectionController {
 		return "accountReport";
 	}
 	
-	
 	/**
-     * Fetch a the machine list from the service, and package up into a Map that is
+     * Gets company reports DTO list from the service and send to the client as JSON formatted object array
      * compatible with datatables.net
-	 * @param groupId
+     * 
+	 * @param request
 	 * @param model
+	 * @param reportSelectionCommand
 	 * @return
 	 * @throws Exception
 	 */
@@ -101,65 +102,10 @@ public class ReportSelectionController {
 	@ResponseBody
 	public List<CompanyReportDTO> getCompanyReport(HttpServletRequest request, ModelMap model, 
 					@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand) throws Exception {
-		/*Populate map with .*/
+		/*Populate map with filter flag - value pair.*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);		
 		List<CompanyReportDTO> groupReportDTOs  = reportDAO.getCompanyReportDTOs(filtersMap);
 		return groupReportDTOs;
-	}
-
-	/*do not remove code below!*/
-//	@RequestMapping(value = "/{app}/conf/{fnm}", method=RequestMethod.GET)
-//	public ResponseEntity<?> getConf(@PathVariable("app") String app, @PathVariable("fnm") String fnm) {
-//	   log.debug("AppName:" + app);
-//	   log.debug("fName:" + fnm);
-//	           ...
-//	           return ...
-//	  }
-	
-	/**
-	 * Request to generate company type report. 
-	 * @param request
-	 * @param model
-	 * @param reportSelectionCommand
-	 * @param result
-	 * @param redirectAttributes
-	 * @param status
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/companyReport/", method = RequestMethod.POST) 
-	public String companyReport(HttpServletRequest request, Model model, 
-								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
-								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
-		
-		/*Populate report header parameters and set filter flags - obsolete!.*/
-//		setFilterValuesAndTitle(reportSelectionCommand);
-		
-		/*Populate map with .*/
-		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
-		List<CompanyReportDTO> groupReportDTOs  = reportDAO.getCompanyReportDTOs(filtersMap);
-		reportSelectionCommand.setCompanyReportList(groupReportDTOs);	
-		
-		/*Populate model list for provided groupId*/
-//		reportSelectionCommand.setMachineModelMap(machineService.getModelsMap(reportSelectionCommand.getGroupId()));	
-//		/*Machine Report*/
-//		reportSelectionCommand.getCompanyReportList().clear();
-//		reportSelectionCommand.setTotalMachineCount(Integer.valueOf(0));
-//		
-//		/*Check if report runs for all companies*/
-//		if (reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
-//			for (Map.Entry<Integer, Stevidor> entry : reportSelectionCommand.getStevidorMap().entrySet()) {
-//				Stevidor stevidor = entry.getValue();
-//				populateCompanyReport(stevidor, filtersMap, reportSelectionCommand);
-//			}
-//		} else {
-//			for (int i = 0; i < reportSelectionCommand.getStevidorSelection().length; i++) {
-//				String stevedorId = reportSelectionCommand.getStevidorSelection()[i];
-//				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(stevedorId));
-//				populateCompanyReport(stevidor, filtersMap, reportSelectionCommand);
-//			}
-//		}
-		return "companyReport";
 	}
 
 	/*not implemented*/
@@ -245,38 +191,6 @@ public class ReportSelectionController {
 	}
 
 	/**
-	 * Populating company reports with data.
-	 * @param stevidor
-	 * @param filtersMap
-	 * @param reportSelectionCommand
-	 */
-//	private void populateCompanyReport(Stevidor stevidor, Map<String, Boolean> filtersMap, ReportSelectionCommand reportSelectionCommand) {
-//		Integer countNumber = 0;
-//		List<Machine> machineList = machineService.getMachineByStevedorId(stevidor.getStevidorId());
-//		
-//		for (Machine machine : machineList) {
-//			if (filtersMap.get(GROUP_FILTER)){
-//				if (machine.getMachineModel() == null || 
-//						!machine.getMachineModel().getGroupId().equals(reportSelectionCommand.getGroupId())) {
-//					continue;	
-//				}
-//			}
-//			if (filtersMap.get(MODEL_FILTER) && !machine.getModelId().equals(reportSelectionCommand.getModelId())) {
-//				continue;
-//			}
-//			if (filtersMap.get(YEAR_FILTER) && !machine.getReleaseYear().equals(reportSelectionCommand.getReleaseYear())) {
-//				continue;
-//			}
-//			if (filtersMap.get(MANUFACTOR_FILTER) && !machine.getMachineModel().getManufacturerId().equals(reportSelectionCommand.getManufacturerId())) {
-//				continue;
-//			}					
-//			countNumber++;
-//		}
-//		reportSelectionCommand.getCompanyReportList().add(new String[]{stevidor.getFullName(), countNumber.toString()});
-//		reportSelectionCommand.setTotalMachineCount(reportSelectionCommand.getTotalMachineCount()+countNumber);
-//	}
-	
-	/**
 	 * Setting filter maps for all reports request type (few get used for each report).
 	 * @param reportSelectionCommand
 	 */
@@ -289,7 +203,6 @@ public class ReportSelectionController {
 		reportSelectionCommand.setYearMap(machineService.getYearMap());
 		reportSelectionCommand.setStevidorSelection(new String[]{"0"});
 	}
-	
 	
 	
 	/**
@@ -328,58 +241,12 @@ public class ReportSelectionController {
 		return filtersMap;
 	}
 	
-//	/**
-//	 * Setting up map with set of filter flags.
-//	 * @param reportSelectionCommand
-//	 * @return
-//	 */
-//	private Map<String, Boolean> setFilterValuesAndTitle(ReportSelectionCommand reportSelectionCommand){
-//		Map<String, Boolean> filtersMap= new HashMap<String, Boolean>();
-//		 
-//		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
-//			String [] companySelection = reportSelectionCommand.getStevidorSelection();
-//			String [] companyNames = new String[companySelection.length];
-//			for (int i = 0; i < companySelection.length; i++) {
-//				Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(Integer.parseInt(companySelection[i]));
-//				companyNames[i] = stevidor.getFullName();
-//			}
-//			reportSelectionCommand.setCompanyNames(companyNames);
-//			filtersMap.put(COMPANY_FILTER, Boolean.TRUE);
-//		} else {
-//			filtersMap.put(COMPANY_FILTER, Boolean.FALSE);
-//		}
-//
-//		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
-//			String groupName = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId()).getName();
-//			reportSelectionCommand.setGroupName(groupName);
-//			filtersMap.put(GROUP_FILTER, Boolean.TRUE);
-//		} else {
-//			filtersMap.put(GROUP_FILTER, Boolean.FALSE);
-//		}
-//		
-//		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
-//			MachineModel machineModel = machineService.getModel(reportSelectionCommand.getModelId());
-//			reportSelectionCommand.setModelName(machineModel.getName());
-//			filtersMap.put(MODEL_FILTER, Boolean.TRUE);
-//		} else {
-//			filtersMap.put(MODEL_FILTER, Boolean.FALSE);
-//		}
-//		
-//		if (reportSelectionCommand.getReleaseYear()!=null && !reportSelectionCommand.getReleaseYear().equalsIgnoreCase("")) {
-//			reportSelectionCommand.setRelYearName(reportSelectionCommand.getReleaseYear());
-//			filtersMap.put(YEAR_FILTER, Boolean.TRUE);
-//		} else {
-//			filtersMap.put(YEAR_FILTER, Boolean.FALSE);
-//		}
-//		
-//		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
-//			String manufactName = reportSelectionCommand.getManufacturerMap().get(reportSelectionCommand.getManufacturerId()).getNameRus();
-//			reportSelectionCommand.setManufactName(manufactName);
-//			filtersMap.put(MANUFACTOR_FILTER, Boolean.TRUE);
-//		} else {
-//			filtersMap.put(MANUFACTOR_FILTER, Boolean.FALSE);
-//		}
-//		
-//		return filtersMap;
-//	}
+	/*do not remove code below!*//*do not remove code below!*//*do not remove code below!*/
+//	@RequestMapping(value = "/{app}/conf/{fnm}", method=RequestMethod.GET)
+//	public ResponseEntity<?> getConf(@PathVariable("app") String app, @PathVariable("fnm") String fnm) {
+//	   log.debug("AppName:" + app);
+//	   log.debug("fName:" + fnm);
+//	           ...
+//	           return ...
+//	  }
 }

@@ -201,16 +201,16 @@
 									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Компания:&nbsp;<span class="report_header">${reportSelectionCommand.manufactName}</span></td>
+									<td class="nowrap">Компания:&nbsp;<span class="report_header">Все компании</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Группа:&nbsp;<span class="report_header">${reportSelectionCommand.groupName}</span></td>
+									<td class="nowrap">Группа:&nbsp;<span class="report_header">Все группы</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Модель:&nbsp;<span class="report_header">${reportSelectionCommand.modelName}</span></td>
+									<td class="nowrap">Модель:&nbsp;<span class="report_header">Все модели</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Год выпуска:&nbsp;<span class="report_header">${reportSelectionCommand.relYearName}</span></td>
+									<td class="nowrap">Год выпуска:&nbsp;<span class="report_header">Все года</span></td>
 								</tr>
 							</tbody>
 						</table>

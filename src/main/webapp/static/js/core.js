@@ -8,3 +8,8 @@ function showProgressModal(selector) {
     $(selector).modal('show');
     $('.modal-backdrop').addClass('background-backdrop');
 }
+
+function closeProgressModal(selector) {
+    $(selector).modal('hide');
+}
+

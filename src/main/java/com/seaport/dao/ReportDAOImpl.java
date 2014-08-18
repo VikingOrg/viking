@@ -2,6 +2,7 @@ package com.seaport.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
 import com.seaport.dto.ManufacturerReportDTO;
+import com.seaport.utils.SystemConstants;
 
 /**
  * The DAO class that serves any type of User requests 
@@ -34,6 +36,45 @@ public class ReportDAOImpl implements IReportDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<CompanyReportDTO> getCompanyReportDTOs(Map<String, Object> filtersMap) {
+		StringBuilder strBuilder = new StringBuilder();
+		strBuilder.append("SELECT b.stevidor_id AS stevidorId, b.full_name AS name, COUNT(*) AS count ");
+		strBuilder.append("FROM machines a RIGHT JOIN stevidors b ON a.stevidor_id = b.stevidor_id ");
+		/*Starting filter logic.*/
+		if (filtersMap.size() > 0) {
+			strBuilder.append("WHERE ");
+			boolean andRequired = false;
+			if (filtersMap.containsKey(SystemConstants.COMPANY_MULTI_FILTER)) {
+				if (andRequired) {
+					strBuilder.append("AND ");
+				}
+				strBuilder.append("a.stevidor_id in (");
+				String[] companySelectionIds = (String[])filtersMap.get(SystemConstants.COMPANY_MULTI_FILTER);
+				for (String strElement: companySelectionIds) {
+					strBuilder.append(strElement).append(",");
+			    }
+				strBuilder.deleteCharAt(strBuilder.length() - 1);
+				strBuilder.append(") ");
+				andRequired = true;
+			}
+			if (filtersMap.containsKey(SystemConstants.GROUP_FILTER)) {
+				if (andRequired) {
+					strBuilder.append("AND ");
+				}
+				Integer filterValue = (Integer)filtersMap.get(SystemConstants.GROUP_FILTER);
+				strBuilder.append("a.group_id = ").append(filterValue).append(" ");
+				andRequired = true;
+			}
+		}
+
+		strBuilder.append("GROUP BY b.stevidor_id ORDER BY b.stevidor_id");
+		Query query = openSession().createSQLQuery(strBuilder.toString()).setResultTransformer(Transformers.aliasToBean(CompanyReportDTO.class));
+		List<CompanyReportDTO> result = query.list();
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<GroupReportDTO> getGroupReportDTOs(Map<String, Object> filtersMap) {
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append("SELECT b.group_id AS groupId, b.name, COUNT(*) AS count ");
@@ -44,19 +85,6 @@ public class ReportDAOImpl implements IReportDAO {
 		List<GroupReportDTO> result = query.list();
 		
 //		"select s.stock_code from stock s where s.stock_code = :stockCode")
-		return result;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<CompanyReportDTO> getCompanyReportDTOs(Map<String, Object> filtersMap) {
-		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT b.stevidor_id AS stevidorId, b.full_name AS name, COUNT(*) AS count ");
-		strBuilder.append("FROM machines a RIGHT JOIN stevidors b ON a.stevidor_id = b.stevidor_id ");
-		strBuilder.append("");
-		strBuilder.append("GROUP BY b.stevidor_id ORDER BY b.stevidor_id");
-		Query query = openSession().createSQLQuery(strBuilder.toString()).setResultTransformer(Transformers.aliasToBean(CompanyReportDTO.class));
-		List<CompanyReportDTO> result = query.list();
 		return result;
 	}
 	

@@ -176,20 +176,13 @@
 									<td class="nowrap" rowspan="4" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
-									<td class="nowrap"><span>Компания(и):&nbsp;</span><br>
-									<c:forEach var="arrayVar" items="${companyNames}">
-										<li>${arrayVar}</li>
-									</c:forEach>
-									</td>
-								</tr>
-								<%-- <tr>
-									<td class="nowrap">Модель: <span class="report_header">${reportSelectionCommand.modelName}</span></td>
-								</tr> --%>
-								<tr>
-									<td class="nowrap">Год выпуска: <span class="report_header">${reportSelectionCommand.relYearName}</span></td>
+									<td class="nowrap">Компания:<span>Все компании</span><br></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Производитель: <span class="report_header">${reportSelectionCommand.manufactName}</span></td>
+									<td class="nowrap">Год выпуска: <span class="report_header">Все года</span></td>
+								</tr>
+								<tr>
+									<td class="nowrap">Производитель: <span class="report_header">Все производители</span></td>
 								</tr>
 							</tbody>
 						</table>

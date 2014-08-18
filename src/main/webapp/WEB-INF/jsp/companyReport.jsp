@@ -19,29 +19,7 @@
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  $(document).ready(function() {
-			  $("#sumbit_report_X").click(function(e) {
-	          	$('#report_select_form').attr('action', "${action}/companyReport/");
-	            $('#report_select_form').attr('method', "post");
-	            $('#report_select_form').attr('accept-charset', "UTF-8");
-	            $('#report_select_form').submit();
-	        	$('#wait_modal').modal('show');
-			  });
 
-              $('#groupSelect').change(function() {
-            	  var groupId = $(this).val();
-            	  if(groupId=='0'){
-            		  $('#modelSelect').html("<option value='0'>Все модели</option>");
-                  } else {
-	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-	                      var options='';
-                          options += "<option value='0'>Все модели</option>";
-	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
-	                      });
-	                      $('#modelSelect').html(options);
-	                  });
-                  }
-              });	
               oTable = $('#company_report_table').dataTable({
             	  "bJQueryUI": true,
             	  "sPaginationType": "full_numbers",
@@ -50,6 +28,11 @@
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },
+                   "aoColumns": [
+                                 { "mDataProp": "stevidorId" },
+                                 { "mDataProp": "name" },
+                                 { "mDataProp": "count" }
+                               ],                   
                   "fnInitComplete": function(oSettings) {
                 	   $("#tableActions").appendTo("#table_Actions");
                 	   $('select[name="company_report_table_length"]').appendTo("#table_length");
@@ -84,6 +67,31 @@
                	            ]
              	   }            	                			
               });
+			  
+			  $("#sumbit_report_X").click(function(e) {
+	          	$('#report_select_form').attr('action', "${action}/companyReport/");
+	            $('#report_select_form').attr('method', "post");
+	            $('#report_select_form').attr('accept-charset', "UTF-8");
+	            $('#report_select_form').submit();
+	        	
+			  });
+
+              $('#groupSelect').change(function() {
+            	  var groupId = $(this).val();
+            	  if(groupId=='0'){
+            		  $('#modelSelect').html("<option value='0'>Все модели</option>");
+                  } else {
+	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
+	                      var options='';
+                          options += "<option value='0'>Все модели</option>";
+	                      $.each(machineModel, function (i, e) {
+	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
+	                      });
+	                      $('#modelSelect').html(options);
+	                  });
+                  }
+              });	
+
  		     
               $('#company_report_table').attc({
               "controls":{
@@ -98,10 +106,21 @@
 
               $("#sumbit_report").click(function(e) {
               		e.preventDefault();
-              		var data = $("#report_select_form").serialize();
-            		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", data, function (result) {
-            		    alert(result);
-            		});
+              		$('#divErrorMessage').attr("class","alert alert-danger hide");
+              		showProgressModal('#wait_modal');
+              		oTable.fnClearTable();
+              		var pageData =  $("#report_select_form").serialize();
+            		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", pageData, function (data) {
+            			if (data.length != 0 ) {
+            				oTable.fnAddData(data);
+            			}
+            			setReportTitle();
+            			closeProgressModal('#wait_modal');
+            		}).fail( function(d, textStatus, error) {
+            	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+            	        closeProgressModal('#wait_modal');
+            	        $('#divErrorMessage').attr("class","alert alert-danger show");
+            	    });
               });
                 	 	
 		  }); //end of document.ready
@@ -111,14 +130,22 @@
 			       content_height = window_height - 400;
 
 			    $('.mygrid-wrapper-div').height(content_height);
-			});
+		   });
 
-			$( window ).resize(function() {
+		   $( window ).resize(function() {
 			    var window_height = $(window).height(),
 			       content_height = window_height - 400;
 			    $('.mygrid-wrapper-div').height(content_height);
-			});
-		  
+		   });
+
+		   function setReportTitle() {
+			   //$('#title_group').html($('#groupSelect').children(':selected'));manufacturerId
+			   $('#title_group').html($("#groupSelect option:selected").text());
+			   $('#title_model').html($("#modelSelect option:selected").text());
+			   $('#title_model').html($("#modelSelect option:selected").text());
+			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
+			   releaseStartYearSelect
+			}			  
 		  </script>
 		    
 </head>
@@ -194,19 +221,21 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Год выпуска</label>
 											<div class="col-sm-8" style="padding-right: 0px">
-												<form:select id="releaseYearSelect" path="releaseYear"
+												<form:select id="releaseStartYearSelect" path="releaseStartYear"
 													cssClass="form-control" title="Выборка по году выпуска">
-													<form:option value="" label="С" />
+													<form:option value="" label="Все года" />
 													<form:options items="${reportSelectionCommand.yearMap}" />
 												</form:select>
-												<select class="form-control" title="Выборка по году выпуска">
-													<option value="" label="По" />
-												</select>
+												<form:select id="releaseEndYearSelect" path="releaseEndYear"
+													cssClass="form-control" title="Выборка по году выпуска">
+													<form:option value="" label="Все года" />
+													<form:options items="${reportSelectionCommand.yearMap}" />
+												</form:select>
 											</div>
 									</div>
 									<div class="form-group">
 										<label>Производитель</label>
-											<form:select id="manufacturerId" path="manufacturerId"
+											<form:select id="manufacturerSelect" path="manufacturerId"
 												cssClass="form-control" title="Выборка по производителю">
 												<form:option value="0">Все производители</form:option>
 												<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
@@ -256,7 +285,11 @@
 								<button type="button" class="close" data-dismiss="alert">&times;</button>
 							</div>
 						</c:if>
-	
+						<div id="divErrorMessage" class="alert alert-danger hide">
+							<span id="errorMessage">Произошла ошибка во время формирования отчета!</span>
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+						</div>
+							
 						<!-- Таблица отчета -->
 						<div class="pull-left">
 							<h3 class="page-header">Отчет 01 "Кол-во Механизмов в Компаниях-операторах"</h3>
@@ -268,16 +301,16 @@
 									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Группа: <span class="report_header"></span></td>
+									<td class="nowrap">Группа: <span id="title_group" class="report_header">Все группы.</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Модель: <span class="report_header"></span></td>
+									<td class="nowrap">Модель: <span id="title_model" class="report_header">Все модели.</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Год выпуска: <span class="report_header"></span></td>
+									<td class="nowrap">Год выпуска: <span id="title_year" class="report_header">Все года</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Производитель: <span class="report_header"></span></td>
+									<td class="nowrap">Производитель: <span id="title_manufacturer" class="report_header">Все производители</span></td>
 								</tr>
 							</tbody>
 						</table>
@@ -300,7 +333,7 @@
 								</tr>
 							</thead>
 							<tbody>
-
+								<%--
 				            	<c:forEach items="${reportSelectionCommand.companyReportList}" var="companyReport" varStatus="loop">
 									<tr>
 										<td class="nowrap"><c:out value="${companyReport.stevidorId}"/></td>
@@ -308,7 +341,7 @@
 										<td class="nowrap"><c:out value="${companyReport.count}"/></td>
 									</tr>
 						        </c:forEach>
-
+ 								--%>
 			        
 							</tbody>
 						</table>
