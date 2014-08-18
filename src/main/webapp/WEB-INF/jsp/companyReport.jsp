@@ -67,14 +67,6 @@
                	            ]
              	   }            	                			
               });
-			  
-			  $("#sumbit_report_X").click(function(e) {
-	          	$('#report_select_form').attr('action', "${action}/companyReport/");
-	            $('#report_select_form').attr('method', "post");
-	            $('#report_select_form').attr('accept-charset', "UTF-8");
-	            $('#report_select_form').submit();
-	        	
-			  });
 
               $('#groupSelect').change(function() {
             	  var groupId = $(this).val();
@@ -125,26 +117,12 @@
                 	 	
 		  }); //end of document.ready
 
-		  $(function() {  
-			    var window_height = $(window).height(),
-			       content_height = window_height - 400;
-
-			    $('.mygrid-wrapper-div').height(content_height);
-		   });
-
-		   $( window ).resize(function() {
-			    var window_height = $(window).height(),
-			       content_height = window_height - 400;
-			    $('.mygrid-wrapper-div').height(content_height);
-		   });
-
 		   function setReportTitle() {
 			   //$('#title_group').html($('#groupSelect').children(':selected'));manufacturerId
 			   $('#title_group').html($("#groupSelect option:selected").text());
 			   $('#title_model').html($("#modelSelect option:selected").text());
-			   $('#title_model').html($("#modelSelect option:selected").text());
 			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
-			   releaseStartYearSelect
+			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
 			}			  
 		  </script>
 		    

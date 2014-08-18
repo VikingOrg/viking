@@ -108,37 +108,29 @@ public class ReportSelectionController {
 		return groupReportDTOs;
 	}
 
-	/*not implemented*/
-	@RequestMapping(value="/groupReport/", method = RequestMethod.POST) 
-	public String groupReport(HttpServletRequest request, Model model, 
-								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
-								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 
-		
-		/*Populate map with .*/
+	@RequestMapping(value="/getGroupReport/", method = RequestMethod.GET)
+	@ResponseBody
+	public List<GroupReportDTO> groupReport(HttpServletRequest request, Model model, 
+					@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand) throws Exception {
+
+		/*Populate map with filter flag - value pair.*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
 		List<GroupReportDTO> groupReportDTOs  = reportDAO.getGroupReportDTOs(filtersMap);
-		reportSelectionCommand.setGroupReportList(groupReportDTOs);		
-		
-		//clear the command object from the session
-//		status.setComplete();
-		return "groupReport";
+		return groupReportDTOs;
 	}
 
-	/*not implemented*/
-	@RequestMapping(value="/manufacturerReport/", method = RequestMethod.POST) 
-	public String getManufacturerReport(HttpServletRequest request, Model model, 
+
+	@RequestMapping(value="/getManufacturerReport/", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ManufacturerReportDTO> getManufacturerReport(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
 		/*Populate map with .*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
 		List<ManufacturerReportDTO> manufacturerReportDTOs  = reportDAO.getManufacturerReportDTOs(filtersMap);
-		reportSelectionCommand.setManufacturerReportLsit(manufacturerReportDTOs);	
-		
-		//clear the command object from the session
-//		status.setComplete();
-		return "manufacturerReport";
+		return manufacturerReportDTOs;
 	}
 
 	

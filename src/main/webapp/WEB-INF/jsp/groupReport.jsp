@@ -16,13 +16,13 @@
 	<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
 	<script>
 		  $(document).ready(function() {
-              $('#group_report_table').dataTable({
+			  oTable = $('#group_report_table').dataTable({
             	  "bJQueryUI": true,
             	  "sPaginationType": "full_numbers",
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
             	  tableTools: {
-           			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
-           		 	"aButtons": [
+           		  "sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+           		  "aButtons": [
              	                "copy",
              	             	{
              	                    "sExtends":     "print",
@@ -35,24 +35,39 @@
              	                	}
              	            ]
            	      },
-
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
-                   },  
-                   "fnInitComplete": function(oSettings) {
+                  },
+                  "aoColumns": [
+                                 { "mDataProp": "groupId" },
+                                 { "mDataProp": "name" },
+                                 { "mDataProp": "count" }
+                               ],                      
+                  "fnInitComplete": function(oSettings) {
                 	   $("#tableActions").appendTo("#table_Actions");
                 	   $('select[name="group_report_table_length"]').appendTo("#table_length");
                 	   $('select[name="group_report_table_length"]').addClass("form-control");
  	              },
               });
 
-			  $("#sumbit_report").click(function(e) {
-	              	$('#report_select_form').attr('action', "${action}/groupReport/");
-	            	$('#report_select_form').attr('method', "post");
-	            	$('#report_select_form').attr('accept-charset', "UTF-8");
-	            	$('#report_select_form').submit();
-	        	    $('#wait_modal').modal('show');
-  			  });
+              $("#sumbit_report").click(function(e) {
+	           		e.preventDefault();
+	           		$('#divErrorMessage').attr("class","alert alert-danger hide");
+	           		showProgressModal('#wait_modal');
+	           		oTable.fnClearTable();
+	           		var pageData =  $("#report_select_form").serialize();
+	          		$.getJSON("${pageContext.request.contextPath}/reportSelection/getGroupReport/", pageData, function (data) {
+	          			if (data.length != 0 ) {
+	          				oTable.fnAddData(data);
+	          			}
+	          			setReportTitle();
+	          			closeProgressModal('#wait_modal');
+	          		}).fail( function(d, textStatus, error) {
+	          	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+	          	        closeProgressModal('#wait_modal');
+	          	        $('#divErrorMessage').attr("class","alert alert-danger show");
+	         	   	});
+              });
               
               $('#group_report_table').attc({
                   "controls":{
@@ -62,8 +77,15 @@
                 	  },
                   "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
               });
-		  });
-		  
+              
+		  });  //end of document.ready
+
+		  function setReportTitle() {
+			   $('#title_company').html($("#stevidorSelect option:selected").text());
+			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
+			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
+		  }
+					  
 	  </script>		  
 </head>
 <body>
@@ -92,7 +114,7 @@
 									<sec:authorize access="hasRole('ROLE_ADMIN')">
 									<div class="form-group">
 										<label>Компания</label>
-											<form:select id="stevidorId" path="stevidorId" cssClass="form-control col-sm-12">
+											<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control col-sm-12">
 												<form:option value="0">Все компании</form:option>
 												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
 													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
@@ -104,19 +126,21 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Год выпуска</label>
 										<div class="col-sm-8" style="padding-right: 0px">
-											<form:select id="releaseYearSelect" path="releaseYear"
+											<form:select id="releaseStartYearSelect" path="releaseStartYear"
 												cssClass="form-control" title="Выборка по году выпуска">
-												<form:option value="" label="С" />
+												<form:option value="" label="Все года" />
 												<form:options items="${reportSelectionCommand.yearMap}" />
 											</form:select>
-											<select Class="form-control" title="Выборка по году выпуска">
-												<option value="" label="По" />
-											</select>
+											<form:select id="releaseEndYearSelect" path="releaseEndYear"
+												cssClass="form-control" title="Выборка по году выпуска">
+												<form:option value="" label="Все года" />
+												<form:options items="${reportSelectionCommand.yearMap}" />
+											</form:select>										
 										</div>
 									</div>
 									<div class="form-group">
 										<label>Производитель</label>
-											<form:select id="manufacturerId" path="manufacturerId"
+											<form:select id="manufacturerSelect" path="manufacturerId"
 												cssClass="form-control" title="Выборка по производителю">
 												<form:option value="0">Все производители</form:option>
 												<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
@@ -164,6 +188,10 @@
 								<button type="button" class="close" data-dismiss="alert">&times;</button>
 							</div>
 						</c:if>
+						<div id="divErrorMessage" class="alert alert-danger hide">
+							<span id="errorMessage">Произошла ошибка во время формирования отчета!</span>
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+						</div>
 	
 						<!-- Таблица отчета -->
 						<div class="pull-left">
@@ -176,13 +204,13 @@
 									<td class="nowrap" rowspan="4" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Компания:<span>Все компании</span><br></td>
+									<td class="nowrap">Компания:<span id="title_company" class="report_header">Все компании</span><br></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Год выпуска: <span class="report_header">Все года</span></td>
+									<td class="nowrap">Год выпуска: <span id="title_year" class="report_header">Все года</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Производитель: <span class="report_header">Все производители</span></td>
+									<td class="nowrap">Производитель: <span id="title_manufacturer" class="report_header">Все производители</span></td>
 								</tr>
 							</tbody>
 						</table>
@@ -205,7 +233,7 @@
 								</tr>
 							</thead>
 							<tbody>
-							
+								<%--
 					            <c:forEach items="${reportSelectionCommand.groupReportList}" var="groupReport" varStatus="loop">
 									<tr>
 										<td class="column-check"><c:out value="${groupReport.groupId}"/></td>
@@ -213,7 +241,7 @@
 										<td class="nowrap" id="pieValues"><c:out value="${groupReport.count}"/></td>
 									</tr>			            
 				                </c:forEach>						
-							
+							 	--%>
 							</tbody>
 						</table>
 	

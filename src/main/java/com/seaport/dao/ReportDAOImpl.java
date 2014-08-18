@@ -2,7 +2,6 @@ package com.seaport.dao;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -38,8 +37,9 @@ public class ReportDAOImpl implements IReportDAO {
 	@Override
 	public List<CompanyReportDTO> getCompanyReportDTOs(Map<String, Object> filtersMap) {
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT b.stevidor_id AS stevidorId, b.full_name AS name, COUNT(*) AS count ");
+		strBuilder.append("SELECT b.stevidor_id AS stevidorId, b.full_name AS name, COUNT(a.stevidor_id) AS count ");
 		strBuilder.append("FROM machines a RIGHT JOIN stevidors b ON a.stevidor_id = b.stevidor_id ");
+		strBuilder.append("LEFT JOIN models c ON a.model_id = c.model_id ");
 		/*Starting filter logic.*/
 		if (filtersMap.size() > 0) {
 			strBuilder.append("WHERE ");
@@ -64,6 +64,46 @@ public class ReportDAOImpl implements IReportDAO {
 				Integer filterValue = (Integer)filtersMap.get(SystemConstants.GROUP_FILTER);
 				strBuilder.append("a.group_id = ").append(filterValue).append(" ");
 				andRequired = true;
+			}
+			if (filtersMap.containsKey(SystemConstants.MODEL_FILTER)) {
+				if (andRequired) {
+					strBuilder.append("AND ");
+				}
+				Integer filterValue = (Integer)filtersMap.get(SystemConstants.MODEL_FILTER);
+				strBuilder.append("a.model_id = ").append(filterValue).append(" ");
+				andRequired = true;
+			}
+			if (filtersMap.containsKey(SystemConstants.MANUFACTOR_FILTER)) {
+				if (andRequired) {
+					strBuilder.append("AND ");
+				}
+				Integer filterValue = (Integer)filtersMap.get(SystemConstants.MANUFACTOR_FILTER);
+				strBuilder.append("c.manufacturer_id = ").append(filterValue).append(" ");
+				andRequired = true;
+			}
+			if (filtersMap.containsKey(SystemConstants.YEAR_START_FILTER) && filtersMap.containsKey(SystemConstants.YEAR_END_FILTER)) {
+				if (andRequired) {
+					strBuilder.append("AND ");
+				}
+				strBuilder.append("a.release_year BETWEEN ");
+				String filterValueOne = (String)filtersMap.get(SystemConstants.YEAR_START_FILTER);
+				String filterValueTwo = (String)filtersMap.get(SystemConstants.YEAR_END_FILTER);
+				strBuilder.append(filterValueOne).append(" AND ").append(filterValueTwo).append(" ");
+				andRequired = true;
+			} else if (filtersMap.containsKey(SystemConstants.YEAR_START_FILTER)) {
+				if (andRequired) {
+					strBuilder.append("AND ");
+				}
+				String filterValue = (String)filtersMap.get(SystemConstants.YEAR_START_FILTER);
+				strBuilder.append("a.release_year >= ").append(filterValue).append(" ");
+				andRequired = true;				
+			} else if (filtersMap.containsKey(SystemConstants.YEAR_END_FILTER)) {
+				if (andRequired) {
+					strBuilder.append("AND ");
+				}
+				String filterValue = (String)filtersMap.get(SystemConstants.YEAR_END_FILTER);
+				strBuilder.append("a.release_year <= ").append(filterValue).append(" ");
+				andRequired = true;				
 			}
 		}
 
