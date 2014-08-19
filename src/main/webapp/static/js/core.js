@@ -5,6 +5,7 @@
  */
 
 function showProgressModal(selector) {
+	//$('body').append("common/progressModal.jsp");
     $(selector).modal('show');
     $('.modal-backdrop').addClass('background-backdrop');
 }

@@ -156,7 +156,7 @@ public class ReportSelectionController {
 		Map<String[], List<Machine>> groupReportMap = new HashMap<String[], List<Machine>>();
 		
 		/*Populate report header parameters and set filter flags.*/
-		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
+//		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
 		
 		/*For all groups.*/
 		List<Machine> machineList =  machineService.getMachines();

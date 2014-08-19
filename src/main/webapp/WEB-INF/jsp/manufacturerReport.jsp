@@ -282,7 +282,7 @@
 	</div>
 </div>
 <!-- Closing div tag for wrap -->
-
+<jsp:include page="common/progressModal.jsp" />
 <jsp:include page="common/footer.jsp" />
 </body>
 </html>

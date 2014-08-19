@@ -93,6 +93,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование <b class="caret"></b></a>
 							<ul class="dropdown-menu">
                                 <li><a href="<c:url value="/userSearchAdmin"/>">Список пользователей</a></li>
+                                <li><a href="<c:url value="/utility"/>">Утилиты Ужаса!</a></li>
 				              <li class="divider"></li>
 				              <li><a href="<c:url value="/userEditAdmin"/>">Добавить Пользователя</a></li>
 							</ul>
