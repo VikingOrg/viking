@@ -1,7 +1,7 @@
    <%@ page contentType="text/html; charset=UTF-8" %>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    <!-- Site footer -->
-<div class="container">
+<div class="container-fluid">
 <footer>
 	<hr />	
 	<p class="pull-right"><a href="#">Наверх</a></p>

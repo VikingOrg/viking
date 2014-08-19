@@ -11,7 +11,7 @@
 
 
          
-    <div class="container">        
+    <div class="container-fluid">        
  		<div class="row"><!-- start header -->
 			<div class="col-sm-4 col-xs-6 logo">
 				<a href="index.html">

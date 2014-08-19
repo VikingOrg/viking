@@ -205,6 +205,37 @@
 		    border-bottom: 0px solid #111111;
 		}
 		
+		@media (min-width: 768px) {
+		table.dataTable {
+		    float: left;
+		}
+		
+		.dataTables_wrapper {
+		    clear: none;
+		}
+		
+		.dataTables_wrapper .dataTables_scroll {
+		    clear: right;
+		}
+		
+		.max-limit {
+		margin-left:300px;
+		}
+		
+		.left-limit {
+		width:280px;
+		float:left;
+		}
+		
+		}
+		
+		@media (max-width: 767px) {
+		.max-limit {
+		margin-left:0;
+		}
+		
+		}		
+		
 		.nav-tabs > li > a, .nav-tabs > li > a:hover {
 		    border: 1px solid transparent;
     		border-radius: 4px 4px 0 0;
