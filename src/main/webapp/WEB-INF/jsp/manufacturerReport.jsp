@@ -112,16 +112,16 @@
 <div id="wrap">			
 <jsp:include page="common/menu.jsp" />
 	<!-- Begin page content -->
-	<div class="container">
+	<div class="container-fluid">
 		<div class="alert alert-info">
 			
 			<form:form id="report_select_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="${action}" 
 								commandName="reportSelectionCommand" method="post" accept-charset="UTF-8">
 				<!--Report 1 part 1-->
-				<div class="row">
+				<div class="row" style="margin:-15px">
 	
 					<!--Sidebar content-->
-					<div id = "limit_width" class="col-sm-4">
+					<div class="col-sm-4 col-md-3 col-lg-3">
 	
 						<div class="col-sm-12 well lform">
 	
@@ -185,14 +185,15 @@
 						
 						<!--  Кнопочка сформировать отчет -->
 						<div class="col-sm-12 well lform">
-							<div class="row" style="margin-left:-25px; margin-right:-25px;">
+							<div class="row">
 								<div class="col-sm-12">
-									<div class="form-group">
-										<button id="refresh" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
-										<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
-									</div>
+									<div class="btn-group pull-right">
+										<!--  Кнопочка сформировать отчет -->
+										<button id="" class="btn cancelbtn"><span class="glyphicon glyphicon-refresh"></span> </button>
+										<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
+									</div>	
 								</div>
-							</div>
+							</div>	
 						</div>	
 						
 						<div id="group_pie" class="col-sm-12 well lform">
@@ -202,7 +203,7 @@
 					</div>
 					<!-- End of Sidebar content-->
 	
-					<div id = "#max_width" class="col-sm-8">
+					<div class="col-sm-8 col-md-9 col-lg-9">
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">
@@ -218,9 +219,16 @@
 						</c:if>
 	
 						<!-- Таблица отчета -->
-						<div class="pull-left">
-							<h3 class="page-header">Отчет 03 "Кол-во Механизмов разных Производителей"</h3>
-						</div>
+						<table id="company_header" class="table_report_header">
+							<tbody>
+								<tr>
+									<td class="nowrap">
+										<h3 class="page-header">Отчет 03 "Кол-во Механизмов разных Производителей"</h3>
+									</td>
+									<td class="nowrap hidden-xs" valign="bottom" id="table_Actions"></td>
+								</tr>
+							</tbody>
+						</table>
 						<table id="machine_table" class="table_report_header">
 							<tbody>
 								<tr>
@@ -254,7 +262,7 @@
 				    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
 							<thead class= "tablehead">
 								<tr>
-									<th class="column-check nowrap">&nbsp;№</th>
+									<th class="column-check">&nbsp;№</th>
 									<th class="nowrap">Производитель&nbsp;&nbsp;</th>
 									<th class="nowrap">Кол-во&nbsp;&nbsp;</th>
 								</tr>

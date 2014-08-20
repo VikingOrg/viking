@@ -17,7 +17,6 @@
           		                   "orderable": false
           		               },
           		           ],
-                	           "scrollX": true,
                 	           "sDom": '<"#tableActions"T>t<"#source"l>ip',
                            	tableTools: {
                         			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -65,14 +64,14 @@
 		<div id="wrap">      
 		   <jsp:include page="common/menu.jsp" />
 		   <!----- Begin page content ------>
-		 <div class="container"> 
+		 <div class="container-fluid"> 
 		 
 								
 		<form:form id="country_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="countrySearch" commandName="countrySearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
-					<div id="limit_width" class="col-sm-4">
+					<div class="col-sm-4 col-md-3 col-lg-3">
 			
 						<div class="col-sm-12 well lform">
 			
@@ -107,7 +106,7 @@
 				<!-- End of Sidebar content-->	
 				
 				
-					<div id="#max_width" class="col-sm-8">
+					<div class="col-sm-8 col-md-9 col-lg-9">
 				
 						<!-- Start table content -->
 

@@ -93,7 +93,7 @@
 <div id="wrap">			
 <jsp:include page="common/menu.jsp" />
 	<!-- Begin page content -->
-	<div class="container">
+	<div class="container-fluid">
 <!-- 		<h1 class="page-header">Отчеты.</h1> -->
 		<div class="alert alert-info">
 			
@@ -104,7 +104,7 @@
 				<div class="row" style="margin:-15px">
 	
 					<!--Sidebar content-->
-					<div id = "limit_width" class="col-sm-4">
+					<div class="col-sm-4 col-md-3 col-lg-3">
 	
 						<div class="col-sm-12 well lform">
 	
@@ -156,25 +156,24 @@
 							</div>
 						</div>
 					<div class="col-sm-12 well lform">
-						<div class="row" style="padding-right:10px">
+						<div class="row">
 							<div class="col-sm-12">
-								<div class="form-group">
+								<div class="btn-group pull-right">
 									<!--  Кнопочка сформировать отчет -->
-									<input id="sumbit_report" type="button" class="btn btn-primary pull-right"  value="Сформировать" />
-									<span class="pull-right">&nbsp;</span>
-									<button id="refresh" class="btn cancelbtn pull-left"><span class="glyphicon glyphicon-refresh"></span> </button>
+									<button id="" class="btn cancelbtn"><span class="glyphicon glyphicon-refresh"></span> </button>
+									<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
 								</div>	
 							</div>
 						</div>	
 					</div>
-					<div id="group_pie" class="col-sm-12 well lform">
+					<div id="company_pie" class="col-sm-12 well lform">
 						<%-- <span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	 --%>
 						<div id="groupReportPie" class="form-group"></div>
 					</div>
 				</div>
 					<!-- End of Sidebar content-->
 	
-					<div id = "#max_width" class="col-sm-8">
+					<div class="col-sm-8 col-md-9 col-lg-9">
 						<!--  Вывод сообщений и предупреждений  -->
 						<c:if test="${not empty message}">
 							<div class="alert alert-success show">
@@ -194,9 +193,16 @@
 						</div>
 	
 						<!-- Таблица отчета -->
-						<div class="pull-left">
-							<h3 class="page-header">Отчет 02  "Кол-во Механизмов в Группах"</h3>
-						</div>
+						<table id="company_header" class="table_report_header">
+							<tbody>
+								<tr>
+									<td class="nowrap">
+											<h3 class="page-header">Отчет 02  "Кол-во Механизмов в Группах"</h3>
+									</td>
+									<td class="nowrap hidden-xs" valign="bottom" id="table_Actions"></td>
+								</tr>
+							</tbody>
+						</table>
 						<table id="machine_table" class="table_report_header">
 							<tbody>
 								<tr>

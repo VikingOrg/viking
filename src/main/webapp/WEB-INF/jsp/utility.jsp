@@ -95,14 +95,14 @@
 	<jsp:include page="common/menu.jsp" />
 
     <!----- Begin page content ------>
-	<div class="container">
+	<div class="container-fluid">
 	
 		<form:form id="group_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="groupSearch"
 			commandName="utilityCommand" method="post" accept-charset="UTF-8">
 			<div class="row">
 	
 				<!--Sidebar content-->
-				<div id="toggleOne" class="col-sm-4">
+				<div id="toggleOne" class="col-sm-4 col-md-3 col-lg-3">
 					<div class="col-sm-12 well lform">
 						<div class="row">
 							<div class="col-sm-12">
@@ -134,7 +134,7 @@
 				</div>
 				<!-- End of Sidebar content--><!-- End of Sidebar content--><!-- End of Sidebar content--><!-- End of Sidebar content-->
 				
-				<div id="toggleTwo" class="col-sm-8">
+				<div id="toggleTwo" class="col-sm-8 col-md-9 col-lg-9">
 	
 					<!-- Start table content -->
 					<!-- Таблица со списком Групп Механизмов -->
@@ -143,9 +143,9 @@
 							<tbody>
 								<tr>
 									<td class="nowrap"><span class="report_header">
-										<!-- <a id="closeFilters" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Схлопнуть</a> -->
-										<h3 class="page-header">Список Ужасных Утилит!</h3></span></td>
-									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
+										<h3 class="page-header">Список Ужасных Утилит!</h3>
+										</span></td>
+									<td class="nowrap hidden-xs" valign="bottom" id="table_Actions"></td>
 								</tr>
 							</tbody>
 						</table>					
