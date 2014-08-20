@@ -116,167 +116,167 @@
 	<body>
 		<!-- Wrap all page content here -->  
 		<div id="wrap"> 
-			<jsp:include page="common/menu.jsp" /> 
-					<!----- Begin page content ------>
-			<div class="container-fluid">
-						    <form:form id="machine_search_form" action="modelSearch" class="form-horizontal mini" style="margin-bottom: 0px;" 
-						    commandName="modelSearchCommand" method="post" accept-charset="UTF-8">   
-					<div style="">
-			
-						<!--Sidebar content-->
-						<div class="left-limit">
-			
-							<div class="col-sm-12 well lform">
-			
-								<div class="row">
-			
-									<div class="col-sm-12">
-											<div class="form-group">
-							                    <label>Группа</label>
-												<form:select id="groupSelect" path="groupId" cssClass="form-control">
-												    <form:option value="">Все группы</form:option>
-									                <c:forEach items="${modelSearchCommand.groupMap}" var="group">
-									                    <form:option value="${group.key}" label="(${group.key})${group.value.name}" />
-									                </c:forEach>								
-												</form:select>
-						                    </div>
-									        <div class="form-group">
-							                    <label>Производитель</label>
-												<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
-												    <form:option value="">Все производители</form:option>
-									                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
-									                    <form:option value="${manufacturer.value.nameRus}" label="${manufacturer.value.nameRus}" />
-									                </c:forEach>								
-												</form:select>
-								        	</div>
-								        	<div class="form-group">
-							                    <label>Страна</label>
-												<form:select id="countrySelect" path="countryId" cssClass="form-control">
-													<form:option value="">Все страны</form:option>
-									                <c:forEach items="${modelSearchCommand.countryMap}" var="country">
-									                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
-									                </c:forEach>
-												</form:select>
-											</div>	
-						                    <div class="form-group">
-											<label>Поиск</label>
-													<input id="dataTableSearch" class="form-control"
-														placeholder="Введите..."
-														title="Введите для поиска по всем полям" type="text" />
-											</div>
-											<div class="form-group">
-													<label>Кол.строк:</label>
-													<div id="table_length"></div>					
-											</div>
-											<div class="form-group">
-							                    <label>Тип записей</label>
-												<select id="" class="form-control" title="Выборка по типу записи">
-													<option value="">Все типы</option>
-													<option value="0">Активные</option>
-													<option value="1">Удаленные</option>
-												</select>	                    
+<jsp:include page="common/menu.jsp" />
+<!----- Begin page content ------>
+<div class="container">
+			    <form:form id="machine_search_form" action="modelSearch" class="form-horizontal mini" style="margin-bottom: 0px;" 
+			    commandName="modelSearchCommand" method="post" accept-charset="UTF-8">   
+		<div class="row">
+
+			<!--Sidebar content-->
+			<div id="limit_width" class="col-sm-4">
+
+				<div class="col-sm-12 well lform">
+
+					<div class="row">
+
+						<div class="col-sm-12">
+								<div class="form-group">
+				                    <label>Группа</label>
+									<form:select id="groupSelect" path="groupId" cssClass="form-control">
+									    <form:option value="">Все группы</form:option>
+						                <c:forEach items="${modelSearchCommand.groupMap}" var="group">
+						                    <form:option value="${group.key}" label="(${group.key})${group.value.name}" />
+						                </c:forEach>								
+									</form:select>
 			                    </div>
-						               </div>
-								</div>
-							</div>
-											<!--  Операции с данными в таблице -->
-						<%-- 	<div class="col-sm-12 well lform">
-								<div class="row" style="margin-left:-25px; margin-right:-25px;">
-									<div class="col-sm-12">
-										<div class="form-group">
-											<a href="<c:url value="machineEdit"/>"
-												class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
-												<span class="pull-right">&nbsp;</span> 
-												<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-										</div>	
-									</div>
+						        <div class="form-group">
+				                    <label>Производитель</label>
+									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
+									    <form:option value="">Все производители</form:option>
+						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
+						                    <form:option value="${manufacturer.value.nameRus}" label="${manufacturer.value.nameRus}" />
+						                </c:forEach>								
+									</form:select>
+					        	</div>
+					        	<div class="form-group">
+				                    <label>Страна</label>
+									<form:select id="countrySelect" path="countryId" cssClass="form-control">
+										<form:option value="">Все страны</form:option>
+						                <c:forEach items="${modelSearchCommand.countryMap}" var="country">
+						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+						                </c:forEach>
+									</form:select>
 								</div>	
-							</div> --%>		
+			                    <div class="form-group">
+								<label>Поиск</label>
+										<input id="dataTableSearch" class="form-control"
+											placeholder="Введите..."
+											title="Введите для поиска по всем полям" type="text" />
+								</div>
+								<div class="form-group">
+										<label>Кол.строк:</label>
+										<div id="table_length"></div>					
+								</div>
+								<div class="form-group">
+				                    <label>Тип записей</label>
+									<select id="" class="form-control" title="Выборка по типу записи">
+										<option value="">Все типы</option>
+										<option value="0">Активные</option>
+										<option value="1">Удаленные</option>
+									</select>	                    
+                    </div>
+			               </div>
+					</div>
+				</div>
+								<!--  Операции с данными в таблице -->
+				<div class="col-sm-12 well lform">
+					<div class="row" style="margin-left:-25px; margin-right:-25px;">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<a href="<c:url value="machineEdit"/>"
+									class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
+									<span class="pull-right">&nbsp;</span> 
+									<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
+							</div>	
 						</div>
-						<!-- End of Sidebar content-->
-			
-						<div class="max-limit">
-				                            					                    <!--  Вывод сообщений и предупреждений  -->
-													<c:if test="${not empty message}"> 
-														<div class="alert alert-success show"><spring:message code="${message}" />
-															<button type="button" class="close" data-dismiss="alert">&times;</button>
-														</div>			
-													</c:if>
-													<c:if test="${not empty error}"> 
-														<div class="alert alert-danger show"><spring:message code="${error}" />
-															<button type="button" class="close" data-dismiss="alert">&times;</button>
-														</div>			
-													</c:if>	
-				                            
-			<!-- 							Таблица со списком машин -->
-							<h3 class="page-header">Модели Машин</h3>
-			                                    <table id="modelSearchTable" class="table table-striped table-bordered">
-						                          <thead>
-						                              <tr>
-			                                            <th class="nowrap column-check" width= "20px">&nbsp;</th>
-			                                            <th class="nowrap">Модель&nbsp;&nbsp;</th>
-			                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
-			                                            <th class="nowrap">Производитель&nbsp;&nbsp;</th>
-			                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Страна производства&nbsp;&nbsp;</th>
-			                                            <th class="nowrap">Примечания</th>
-			                                            <th  class="hide">group Id&nbsp;&nbsp;</th>
-			                                          </tr>
-						                          </thead>
-			        			                  <tbody>
-				        			                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
-					        			                  <c:if test="${machineModel.archived != '1'}" >
-					                                          <tr id="${machineModel.modelId}">
-									                             <td class="nowrap column-check" width= "20px">
-									                             	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
-									                              	<c:if test="${system.localConfig}" >
-									                              		<span class="badge">
-									                              			<c:out value="(${machineModel.modelId})"/>
-									                              		</span>
-									                              	</c:if>						                             	
-									                             </td>
-										                         <td class="nowrap">
-									                         	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
-										                         <span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
-									                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
-									                             <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.nameRus}"/></span></td>
-									                             <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
-									                             <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
-									                             <td class="hide"><c:out value="${machineModel.group.groupId}"/></td>											   
-									                        </tr> 
-					        			                  </c:if>
-				        			                  </c:forEach>
-							                        </tbody>
-			    			                    </table>
-			    			                   </div>
-						                   </div>
-					        
-							    <!-- 		Модальное окно подтверждения удаления данных -->
-								<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								  <div class="modal-dialog">
-								    <div class="modal-content">
-								      <div class="modal-body" align="center">
-								        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
-								      </div>
-								      <div class="modal-footer">
-								        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
-										<button type="submit" class="btn btn-primary">Удалить</button>
-								      </div>
-								    </div><!-- /.modal-content -->
-								  </div><!-- /.modal-dialog -->
-								</div><!-- /.modal -->
-								
-						</form:form>
-							<div id="machineModelModal" class="modal modal-wide fade">
-							  <div class="modal-dialog">
-							    <div id="machineModelModalContent" class="modal-content">
-							    
-							    </div><!-- /.modal-content -->
-							  </div><!-- /.modal-dialog -->
-							</div><!-- /.modal -->
+					</div>	
+				</div>		
 			</div>
-		</div>
-		<!-- Closing div tag for wrap -->
-	<jsp:include page="common/footer.jsp" />
+			<!-- End of Sidebar content-->
+
+			<div id="#max_width" class="col-sm-8">
+	                            					                    <!--  Вывод сообщений и предупреждений  -->
+										<c:if test="${not empty message}"> 
+											<div class="alert alert-success show"><spring:message code="${message}" />
+												<button type="button" class="close" data-dismiss="alert">&times;</button>
+											</div>			
+										</c:if>
+										<c:if test="${not empty error}"> 
+											<div class="alert alert-danger show"><spring:message code="${error}" />
+												<button type="button" class="close" data-dismiss="alert">&times;</button>
+											</div>			
+										</c:if>	
+	                            
+<!-- 							Таблица со списком машин -->
+				<h3 class="page-header">Модели Машин</h3>
+                                    <table id="modelSearchTable" class="table table-striped table-bordered">
+			                          <thead>
+			                              <tr>
+                                            <th class="nowrap column-check" width= "20px">&nbsp;</th>
+                                            <th class="nowrap">Модель&nbsp;&nbsp;</th>
+                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
+                                            <th class="nowrap">Производитель&nbsp;&nbsp;</th>
+                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Страна производства&nbsp;&nbsp;</th>
+                                            <th class="nowrap">Примечания</th>
+                                            <th  class="hide">group Id&nbsp;&nbsp;</th>
+                                          </tr>
+			                          </thead>
+        			                  <tbody>
+	        			                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
+		        			                  <c:if test="${machineModel.archived != '1'}" >
+		                                          <tr id="${machineModel.modelId}">
+						                             <td class="nowrap column-check" width= "20px">
+						                             	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
+						                              	<c:if test="${system.localConfig}" >
+						                              		<span class="badge">
+						                              			<c:out value="(${machineModel.modelId})"/>
+						                              		</span>
+						                              	</c:if>						                             	
+						                             </td>
+							                         <td class="nowrap">
+						                         	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
+							                         <span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
+						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
+						                             <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.nameRus}"/></span></td>
+						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
+						                             <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
+						                             <td class="hide"><c:out value="${machineModel.group.groupId}"/></td>											   
+						                        </tr> 
+		        			                  </c:if>
+	        			                  </c:forEach>
+				                        </tbody>
+    			                    </table>
+    			                   </div>
+			                   </div>
+		        
+				    <!-- 		Модальное окно подтверждения удаления данных -->
+					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-body" align="center">
+					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
+					      </div>
+					      <div class="modal-footer">
+					        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
+							<button type="submit" class="btn btn-primary">Удалить</button>
+					      </div>
+					    </div><!-- /.modal-content -->
+					  </div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+					
+			</form:form>
+				<div id="machineModelModal" class="modal modal-wide fade">
+				  <div class="modal-dialog">
+				    <div id="machineModelModalContent" class="modal-content">
+				    
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+</div>
+</div>
+<!-- Closing div tag for wrap -->
+<jsp:include page="common/footer.jsp" />	
 </body>
     
 </html>

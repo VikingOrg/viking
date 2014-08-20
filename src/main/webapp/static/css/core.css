@@ -314,3 +314,8 @@
 		
 		}		
 		*/
+		@media (min-width: 979px){
+		.col-sm-4 {width: 18% !important;}
+		@media (min-width: 979px){
+		.col-sm-8 {width: 82% !important;}
+		

@@ -9,6 +9,7 @@
 <title>УЖАС</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
+		 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {
@@ -38,6 +39,7 @@
                         "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                      },
                      "fnInitComplete": function(oSettings) {
+                    	   $("#tableActions").appendTo("#table_Actions");
 	                	   $('select[name="group_table_length"]').appendTo("#table_length");
 	                	   $('select[name="group_table_length"]').addClass("form-control");
 	 	              },                   
@@ -47,16 +49,40 @@
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 });
+
+                $('#closeFilters').on('click', function(e) {
+                    e.preventDefault();
+
+                    //$('#toggleOne').animate({
+                    //    "width": "0%"
+                    //}, "slow", function() {
+                        // Hide when width animation finishes
+                   //     $(this).hide();
+                   //     $('#toggleTwo').toggleClass('col-sm-12 col-sm-8')
+                   // });
+                    
+                    //$('#toggleOne').toggleClass('col-sm-0 col-sm-4');
+                    //$('#toggleTwo').toggleClass('col-sm-12 col-sm-8');
+
+                                        
+                    //var $lefty = $('#toggleOne');
+                    //$lefty.animate({
+                    //  left: parseInt($lefty.css('left'),10) == 0 ?
+                    //    -$lefty.outerWidth() :
+                    //    0
+                    //});
+                    //$('#toggleOne').animate({width: 'toggle'});                    
+                    //$('#toggleTwo').toggleClass('col-sm-12 col-sm-8')
+
+                });
+                
                    		 
             } );
             
         </script>
         
         <style type="text/css">
-			@media (min-width: 979px){
-			.col-sm-4 {width: 18% !important;}
-			@media (min-width: 979px){
-			.col-sm-8 {width: 82% !important;}
+
    		</style>
 	
 	</head>
@@ -76,7 +102,7 @@
 			<div class="row">
 	
 				<!--Sidebar content-->
-				<div class="col-sm-4">
+				<div id="toggleOne" class="col-sm-4">
 					<div class="col-sm-12 well lform">
 						<div class="row">
 							<div class="col-sm-12">
@@ -108,11 +134,21 @@
 				</div>
 				<!-- End of Sidebar content--><!-- End of Sidebar content--><!-- End of Sidebar content--><!-- End of Sidebar content-->
 				
-				<div id = "#max_width" class="col-sm-8">
+				<div id="toggleTwo" class="col-sm-8">
 	
 					<!-- Start table content -->
 					<!-- Таблица со списком Групп Механизмов -->
-					<h3 class="page-header">Список Ужасных Утилит!</h3>
+					
+						<table id="company_header" class="table_report_header">
+							<tbody>
+								<tr>
+									<td class="nowrap"><span class="report_header">
+										<!-- <a id="closeFilters" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Схлопнуть</a> -->
+										<h3 class="page-header">Список Ужасных Утилит!</h3></span></td>
+									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
+								</tr>
+							</tbody>
+						</table>					
 					<table id="group_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
