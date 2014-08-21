@@ -44,4 +44,14 @@ public class LinkNavigation {
 	public String getHelpPage() throws Exception {
 		return "common/help.html";
 	}
+	
+	@RequestMapping(value="/menu")
+	public String getMainMenu() throws Exception {
+		return "common/menuResponsive";
+	}
+	
+	@RequestMapping(value="/footer")
+	public String getFooter() throws Exception {
+		return "common/footer";
+	}	
 }

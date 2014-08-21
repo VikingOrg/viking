@@ -3,109 +3,527 @@
    <head>
     <meta charset="utf-8">
         <title>Помощь</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
-	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
-        
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-        
+	    <meta name="viewport" content="width=device-width">
+	    <link rel="shortcut icon" type="image/png" href="../favicon.ico"/>
+	    <!-- Bootstrap -->
+	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <!-- Data Table Related -->
+	    
+	    <link rel="stylesheet" type="text/css" media="screen" href="../css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="../css/theme.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="../css/core.css"/>
+		
+	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    	<script type="text/javascript">
+    		var pathname = window.location.pathname;
+            $(document).ready(function() {
+                $.ajax({
+                	type: "GET",
+        		    url: baseUrl()+"viking/menu",
+                    complete : function( response ) {
+                        $("#mainMenu").html(response.responseText);
+                    },	        	        
+        	        error: function(){
+        	        	alert("failure");
+        	        }
+                });
+                
+                $.ajax({
+                	type: "GET",
+        		    url: baseUrl()+"viking/footer",
+                    complete : function( response ) {
+                        $("#footer").html(response.responseText);
+                    },	        	        
+        	        error: function(){
+        	        	alert("failure");
+        	        }
+                });
+                
+
+            });
+            
+            function baseUrl() {
+            	   var href = window.location.href.split('/');
+            	   return href[0]+'//'+href[2]+'/';
+            }            
+         </script>        
     </head>
     
     
     <body>
-        <!-- Wrap all page content here -->
-    <div id="wrap">
-    	<!-- Fixed navbar -->
-			  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			    <div class="container">
-			      <div class="navbar-header">
-			        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			          <span class="icon-bar"></span>
-			          <span class="icon-bar"></span>
-			          <span class="icon-bar"></span>
-			        </button>
-			        <a class="navbar-brand" href="#" style="color: #569EF0">ИТТ24</a>
-			      </div>
-			      <div class="collapse navbar-collapse">
-			        <ul class="nav navbar-nav">
-						<li ><a href="/home">Главная</a></li>
-			          <li class="dropdown">
-			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Отчеты<b class="caret"></b></a>
-			            <ul class="dropdown-menu">
-			              <li><a href="deviceReport.html">Количественный состав</a></li>
-			              <li><a href="deviceYearsReport.html">Разрез по годам</a></li>
-			            </ul>
-			          </li>
-			          
-			        </ul>
-			        <ul class="nav navbar-nav navbar-right">
-				        <li>
-				          <a class="btn" data-toggle="modal" data-target="#confirmLogout">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</a>
-				        </li>
-				    </ul>
-			       </div>
-			       <!--/.nav-collapse -->
-			       
-			    </div>
-			  </nav>   
-    <div class="container">
-          <div class="col-md-10 col-md-offset-1">
-            <h4 class="text-muted page-header">СПРАВОЧНЫЙ РАЗДЕЛ<br></h4>
-          </div>
-      <div class="row">
-        <div class="col col-md-10 col-md-offset-1">
-            <p>Раздел "Оборудование" предназначен для ввода данных о всех перегрузочных машинах эксплуатируемых оператором морского терминала.
-            </p>
-        </div>
-        </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 col-md-offset-1">
-          <div class="form-actions">
-            <INPUT TYPE="button" class="btn btn-default" VALUE="НАЗАД" onClick="history.go(-1);">
-          </div>
-        </div>
-      </div>
-    </div>
-</div>		     
+	<!-- Wrap all page content here -->  
+	<div id="wrap">	
+		<div id="mainMenu">
+	 	</div>
 
-<!-- Site footer -->
-   <div class="footer">
-     <p class="text-center"><a href="about.html">О Системе</a>
-     	&nbsp;|&nbsp;
-     	<a href="participants.html">&nbsp;Участники</a>
-     	&nbsp;|&nbsp;
-     	<a href="rules.html">&nbsp;Правила</a>
-     	&nbsp;|&nbsp;
-     	<a href="support.html">&nbsp;Поддержка</a>
-     	&nbsp;|&nbsp;
-     	<a href="help.html">Справка</a>
-     </p>
-     <p class="text-center">&copy; ООО "ИТТ", 2013&nbsp;</p>
-   </div>
-   
-					    <!-- 		Модальное окно подтверждения выхода из системы -->
-					<div class="modal" id="confirmLogout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-body" align="center">
-					        <h4>ВЫХОД ИЗ СИСТЕМЫ</h4>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">ОТМЕНА</button>
-					        <a href="#" class="btn btn-primary" type="submit" class="btn btn-danger">ВЫЙТИ</a>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->    		        
-					    
+    <!----- Begin page content ------>
+	<div class="container-fluid">
+			<div class="row">
+	
+					<!-- Start table content -->
+					
+					<div class="container">
+						<div class="page-header">
+							<h1>
+								Помощь
+								<small>
+									по работе в Системе учета Машин и Механизмов
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
 
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="tabbable">
+									<!-- #section:pages/faq -->
+									<ul class="nav nav-tabs padding-18 tab-size-bigger" id="myTab">
+										<li class="active">
+											<a data-toggle="tab" href="#faq-tab-1">
+												<i class="fa-green fa fa-question-circle bigger-120"></i>
+												Общее
+											</a>
+										</li>
 
+										<li>
+											<a data-toggle="tab" href="#faq-tab-2">
+												<i class="fa-green fa fa-user bigger-120"></i>
+												Регистрация
+											</a>
+										</li>
 
-</body>
+										<li>
+											<a data-toggle="tab" href="#faq-tab-3">
+												<i class="fa-green fa fa-book bigger-120"></i>
+												Справочники
+											</a>
+										</li>
+										
+										<li>
+											<a data-toggle="tab" href="#faq-tab-4">
+												<i class="fa-green fa fa-truck bigger-120"></i>
+												Механизмы
+											</a>
+										</li>
+										
+										<li>
+											<a data-toggle="tab" href="#faq-tab-5">
+												<i class="fa-green fa fa-files-o bigger-120"></i>
+												Отчеты
+											</a>
+										</li>
 
+										<!-- <li class="dropdown">
+											<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+												<i class="fa-green fa fa-magic bigger-120"></i>
+
+												Прочее
+												<i class="fa fa-caret-down"></i>
+											</a>
+
+											<ul class="dropdown-menu dropdown-lighter dropdown-125">
+												<li>
+													<a data-toggle="tab" href="#faq-tab-6"> Affiliates </a>
+												</li>
+
+												<li>
+													<a data-toggle="tab" href="#faq-tab-7"> Merchants </a>
+												</li>
+											</ul>
+										</li> -->
+										<!-- /.dropdown -->
+									</ul>
+
+									<!-- /section:pages/faq -->
+									<div class="tab-content no-border padding-24">
+										<div id="faq-tab-1" class="tab-pane fade in active">
+											<h3 class="page-header">
+												Общие вопросы по работе в Системе
+											</h3>
+
+											<div class="space-8"></div>
+
+											<div id="faq-list-1" class="panel-group accordion-style1 accordion-style2">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-1-1" data-parent="#faq-list-1" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Описание Системы учета Механизмов
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-1-1">
+														<div class="panel-body">
+															<img src="../images/pics/laptop_files.jpg" width="400" height="300" 
+												            alt="Упорядоченность информации" align="right" 
+															vspace="10" hspace="10"><p>Настоящая система учета перегрузочных машин в морских портах разработана с соблюдением последних требований в области стандартизации и унификации ведения упорядоченного документооборота в российских портах и ориентирована на повышение уровня производительности и культуры организации отчетности технических и технологических служб операторов морских терминалов (стивидорных компаний).</p>
+												            <p>Для целей повышения производительности интерфейс приложения максимально упрощен и интуитивно понятен.</p>
+												            <p>Вся система построена на серверной технологии и для пользования сотрудниками требуется только компьютер, подключенный к сети Интернет и браузер, поддерживающий все основные функции языка гипертекстовой разметки. Подключение дополнительных устройств, программ и расширений не требуется.</p>
+												            <p>Кроме всего прочего, важным достоинством данной системы является то, что для поддержания ее в актуальном состоянии, расширения функциональности, работоспособности не требуются периодические обновления и отслеживания изменений - все действия производятся автоматически в фоновом режиме по мере внесения изменений в законодательство, интерфейс программы без затрагивания непосредственно данных хранящихся в базе.</p>
+												            <p>Безопасность вводимых данных обеспечивается уровнями проверки прав доступа и серверными технологиями.</p>
+												            <p>Целостность данных, хранящихся на удаленном сервере подвергается многократному резервированию и позволяет уверенно использовать базы данных даже для хранения критичной к сохранности информации.
+												            </p>
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-1-2" data-parent="#faq-list-1" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+
+															<i class="fa fa-question"></i>
+															&nbsp; Назначение Системы учета Механизмов
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-1-2">
+														<div class="panel-body">
+															<img src="../images/pics/port_worker.jpg" width="400" height="274" 
+												            alt="Гибкий учет" align="right" 
+															vspace="10" hspace="10">
+															<p>С помощью данной Системы пользователи могут вести учет любых машин и механизмов, находящихся на балансе Компании, своевременно вносить изменения в регистрах учета, формировать отчеты по списочному и количественному составу.</p>
+															<p>В отчетах применяются гибкие условия отбора и фильтрации записей. Это позволяет наглядно демонстрировать структуру, состав, дифференциацию Машин и Механизмов как внутри компании, так и в целом по всем Портам.</p>
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-1-3" data-parent="#faq-list-1" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Организация рабочего места
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-1-3">
+														<div class="panel-body">
+															<img src="../images/pics/browsers.png" width="310" height="140" 
+												            alt="Связь с Интернет" align="right" 
+															vspace="10" hspace="10">
+															<p>Для запуска и работы в Системе необходим компьютер, подключенный к сети Интернет.</p>
+															<p>Операционная система может быть любая.</p>
+															<p>Программное обеспечение должно содержать стандартный Интернет-браузер, с установленными последними обновлениями. </p>
+															<p><b>Версии рекомендуемые для работы:</b> </p>
+															<table class="table table-bordered table-striped">
+				                    						  <thead>
+									                              <tr>
+										                              <th class="column-check nowrap">&nbsp;</th>
+										                              <th class="nowrap">Интернет-браузер</th>
+										                              <th class="nowrap">Версия</th>
+									                              </tr>
+									                          </thead>
+									                          <tbody>
+										                            <tr>
+										                                <td class="column-check nowrap">
+										                                	1			                                	
+										                                </td>
+											                         	<td class="nowrap">
+											                         		Google Chrome
+											                         	</td>
+										                              <td class="nowrap">36</td>
+										                            </tr>
+										                            <tr>
+										                                <td class="column-check nowrap">
+										                                	2			                                	
+										                                </td>
+											                         	<td class="nowrap">
+											                         		Firefox
+											                         	</td>
+										                              <td class="nowrap">31</td>
+										                            </tr>
+										                            <tr>
+										                                <td class="column-check nowrap">
+										                                	3			                                	
+										                                </td>
+											                         	<td class="nowrap">
+											                         		Internet Explorer
+											                         	</td>
+										                              <td class="nowrap">8.0</td>
+										                            </tr>
+										                            <tr>
+										                                <td class="column-check nowrap">
+										                                	4			                                	
+										                                </td>
+											                         	<td class="nowrap">
+											                         		Safari
+											                         	</td>
+										                              <td class="nowrap">5.0</td>
+										                            </tr>
+									                          </tbody>
+									                    </table>
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-1-4" data-parent="#faq-list-1" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Связь с сетью Интернет
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-1-4">
+														<div class="panel-body">
+															<img src="../images/pics/internet.jpg" width="300" height="300" 
+												            alt="Связь с Интернет" align="right" 
+															vspace="10" hspace="10">
+															<p>Так как хранение и обработка введенной информации осуществляется на удаленных защищенных серверах, то для доступа к ним требуется подключение к сети Интернет.</p>
+															<p>Скорость соединения может влиять на проведение операций и осуществление запросов к базе данных. Рекомендуется использовать высокоскоростное подключение, а в местах где это невозможно подключение через модемы сотовой связи.</p>
+														</div>
+													</div>
+												</div>
+												
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-1-5" data-parent="#faq-list-1" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Безопасность хранимых данных
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-1-5">
+														<div class="panel-body">
+															<img src="../images/pics/data_protection.jpg" width="300" height="200" 
+												            alt="Безопасность данных" align="right" 
+															vspace="10" hspace="10">
+															<p>Для предотвращения несанкционированного доступа в Систему и к данным используется многоуровневая защита, основанная на проверке идентификационных данных пользователя.</p>
+															<p>В целях соблюдения конфиденциальности личных данных, доступ к ним ограничен и введен запрет на использование учетных данных и пароля другими лицами.</p>
+															<p>Сами учетные данные о Машинах и Механизмах хранятся на защищенных серверах и в целях сохранности ведется учет изменений и дополнений, вносимых пользователями.</p>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+										<div id="faq-tab-2" class="tab-pane fade">
+											<h3 class="page-header">
+												Справка по вопросам регистрации в Системе
+											</h3>
+
+											<div class="space-8"></div>
+
+											<div id="faq-list-2" class="panel-group accordion-style1 accordion-style2">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-2-1" data-parent="#faq-list-2" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Как зарегистрироваться в Системе?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-2-1">
+														<div class="panel-body">
+															<img src="<c:url value="../images/pics/registration.png"/>" width="515" height="431" 
+												            alt="Регистрационная форма" align="right" 
+															vspace="10" hspace="10">
+															<ol>
+															 <li>Составляется список лиц, допущенных к работе в Системе.</li>
+															 <li>Утвержденный руководителем Компании-оператора список направляется в адрес Службы поддержки.</li>
+															 <li>Пользователи на странице Регистрации заполняют форму с данными о себе.</li>
+															 <li>В течение 24 часов администратор Службы поддержки сверяет данные и разрешает работу в Системе.</li>
+															</ol>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+										<div id="faq-tab-3" class="tab-pane fade">
+											<h3 class="page-header">
+												Вопросы по работе со Справочниками Системы
+											</h3>
+
+											<div class="space-8"></div>
+
+											<div id="faq-list-3" class="panel-group accordion-style1 accordion-style2">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-3-1" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Для чего нужен Справочник Стран?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-3-1">
+														<div class="panel-body">
+															<p>Справочник Стран содержит сведения о написании русскоязычного и англоязычного наименования Страны.</p>
+															<p>Данный справочник используется в целях упорядочения информации по принадлежности Компании-оператора, а также при классификации Производителей Машин и Механизмов.</p>
+															<ul>
+															<li>Для редактирования записи нужно нажать наименование, <a href="#">выделенное цветом.</a></li>
+															<li>Для добавления в таблицу Справочника Стран новой записи следует нажать кнопку <a href="#" class="btn btn-primary" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a></li>
+															</ul>
+															<p>В появившемся окне следует заполнить соответствующие поля для данных.</p>
+															<img src="<c:url value="../images/pics/country_edit.png"/>" width="500"
+												            alt="Ввод новой Страны" align="left" 
+															vspace="10" hspace="10">
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-3-2" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+					  										&nbsp; Для чего нужен Справочник Производителей?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-3-2">
+														<div class="panel-body">
+															<p>Справочник Производителей содержит сведения об известных производителях.</p>
+															<p>Данный Справочник используется для классификации Моделей Машин и Механизмов, используемых в Компаниях-операторах Портов.</p>
+															<ul>
+															<li>Для редактирования записи нужно нажать наименование, <a href="#">выделенное цветом.</a></li>
+															<li>Для добавления в таблицу Справочника Производителей новой записи следует нажать кнопку <a href="#" class="btn btn-primary" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a></li>
+															</ul>
+															<div style="float:left">
+																<p>В появившемся окне следует заполнить соответствующие поля для данных.</p>
+																<img src="<c:url value="../images/pics/manufacturer_edit.png"/>" width="500"
+													            alt="Ввод новой Страны" align="left" style="clear:both;"
+																vspace="10" hspace="10">
+															</div>
+															<p>После нажатия кнопки <a href="#" class="btn btn-primary" title="Сохранить">Сохранить</a> измененные данные будут занесены в Базу данных системы.</p>
+															<p>После нажатия кнопки <a href="#" class="btn btn-primary" title="Скопировать">Скопировать</a> в Базе данных системы появится новая запись с введенными данными.</p>
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-3-3" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Для чего нужен Справочник Групп Машин и Механизмов?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-3-3">
+														<div class="panel-body">
+															<p>Справочник Групп позволяет вести упорядоченный учет и дифференциацию различных перегрузочных Машин и Механизмов с целью упрощения доступа и сортировки.</p>
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-3-4" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Для чего нужен Справочник Моделей Машин и Механизмов?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-3-4">
+														<div class="panel-body">
+															<p>Справочник Моделей содержит наиболее полный список разлличных видов перегрузочных Машин и Механизмов, используемых для работы в портах.	</p>
+															<p>В случае необходимости может быть дополнен необходимыми данными или внесены исправления в существующие записи.</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div id="faq-tab-4" class="tab-pane fade">
+											<h4 class="blue">
+												<i class="purple fa fa-magic bigger-110"></i>
+												Miscellaneous Questions
+											</h4>
+
+											<div class="space-8"></div>
+
+											<div id="faq-list-4" class="panel-group accordion-style1 accordion-style2">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-4-1" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-hand-o-right" data-icon-hide="fa fa-hand-o-down" data-icon-show="fa fa-hand-o-right"></i>&nbsp;
+						Enim eiusmod high life accusamus terry richardson?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-4-1">
+														<div class="panel-body">
+															Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-4-2" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-frown-o bigger-120" data-icon-hide="fa fa-smile-o" data-icon-show="fa fa-frown-o"></i>&nbsp;
+					  Single-origin coffee nulla assumenda shoreditch et?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-4-2">
+														<div class="panel-body">
+															Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-4-3" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-plus smaller-80" data-icon-hide="fa fa-minus" data-icon-show="fa fa-plus"></i>&nbsp;
+					  Sunt aliqua put a bird on it squid?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-4-3">
+														<div class="panel-body">
+															Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-4-4" data-parent="#faq-list-4" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-plus smaller-80" data-icon-hide="fa fa-minus" data-icon-show="fa fa-plus"></i>&nbsp;
+					  Brunch 3 wolf moon tempor sunt aliqua put?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-4-4">
+														<div class="panel-body">
+															Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+			
+				
+			</div>
+	</div>
+</div>
+<!-- Closing div tag for wrap -->    
+    
+ 	<div id="footer">
+ 	</div>	
 </html>
