@@ -9,8 +9,10 @@
 <title>УЖАС</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
-		 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-		
+		 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script><!--[if lte IE 8]><script type="text/javascript" src="../../excanvas.min.js"></script><![endif]-->
+	<%-- <script type="text/javascript" src="<c:url value="/static/js/jquery.js"/>"></script> --%>
+	<script type="text/javascript" src="<c:url value="/static/js/jquery.flot.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/static/js/jquery.flot.pie.js"/>"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#group_table').dataTable( {
@@ -75,15 +77,121 @@
                     //$('#toggleTwo').toggleClass('col-sm-12 col-sm-8')
 
                 });
-                
+                var data = [
+                			{ label: "Series1",  data: 10},
+                			{ label: "Series2",  data: 30},
+                			{ label: "Series3",  data: 90},
+                			{ label: "Series4",  data: 70},
+                			{ label: "Series5",  data: 80},
+                			{ label: "Series6",  data: 110}
+                		];
+
+                		var placeholder = $("#placeholder");
+
+                		$("#example-1").click(function() {
+
+                			placeholder.unbind();
+
+                			$("#title").text("Default pie chart");
+                			$("#description").text("The default pie chart with no options set.");
+
+                			$.plot(placeholder, data, {
+                				series: {
+                					pie: { 
+                						show: true
+                					}
+                				}
+                			});
+
+                			setCode([
+                				"$.plot('#placeholder', data, {",
+                				"    series: {",
+                				"        pie: {",
+                				"            show: true",
+                				"        }",
+                				"    }",
+                				"});"
+                			]);
+                		});
+
+                		$("#example-2").click(function() {
+
+                			placeholder.unbind();
+
+                			$("#title").text("Default without legend");
+                			$("#description").text("The default pie chart when the legend is disabled. Since the labels would normally be outside the container, the chart is resized to fit.");
+
+                			$.plot(placeholder, data, {
+                				series: {
+                					pie: { 
+                						show: true
+                					}
+                				},
+                				legend: {
+                					show: false
+                				}
+                			});
+
+                			setCode([
+                				"$.plot('#placeholder', data, {",
+                				"    series: {",
+                				"        pie: {",
+                				"            show: true",
+                				"        }",
+                				"    },",
+                				"    legend: {",
+                				"        show: false",
+                				"    }",
+                				"});"
+                			]);
+                		});
+
+                		// Show the initial default chart
+
+                		$("#example-1").click();
                    		 
             } );
-            
-        </script>
-        
-        <style type="text/css">
 
-   		</style>
+           
+        </script>
+        <link href="<c:url value="/static/css/flot.css"/>" rel="stylesheet" type="text/css">
+	<style type="text/css">
+
+	.demo-container {
+		position: relative;
+		height: 400px;
+	}
+
+	#placeholder {
+		width: 550px;
+	}
+
+	#menu {
+		position: absolute;
+		top: 20px;
+		left: 625px;
+		bottom: 20px;
+		right: 20px;
+		width: 200px;
+	}
+
+	#menu button {
+		display: inline-block;
+		width: 200px;
+		padding: 3px 0 2px 0;
+		margin-bottom: 4px;
+		background: #eee;
+		border: 1px solid #999;
+		border-radius: 2px;
+		font-size: 16px;
+		-o-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-ms-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		cursor: pointer;
+	}
+	</style>
 	
 	</head>
 	
@@ -176,7 +284,20 @@
 							</c:forEach>
 						</tbody>
 					</table>
-	
+						<div id="content">
+					
+							<h3 id="title"></h3>
+							<div class="demo-container">
+								<div id="placeholder" class="demo-placeholder"></div>
+								<div id="menu">
+									<button id="example-1">Default Options</button>
+									<button id="example-2">Without Legend</button>
+								</div>
+							</div>
+					
+							<p id="description"></p>
+					
+						</div>
 				</div>
 			</div>
 	
