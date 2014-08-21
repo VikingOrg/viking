@@ -17,31 +17,32 @@
         <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     
     	<script type="text/javascript">
-    		var pathname = window.location.pathname;
             $(document).ready(function() {
                 $.ajax({
                 	type: "GET",
         		    url: baseUrl()+"viking/menu",
                     complete : function( response ) {
-                        $("#mainMenu").html(response.responseText);
+                    	if(response.responseText.indexOf('Регистрация') >= 0) {
+                    		window.location.href = baseUrl()+"viking";
+                    	} else {
+                    		$("#mainMenu").html(response.responseText);
+                    		$('#mainContext').attr('class','container');
+                            $.ajax({
+                            	type: "GET",
+                    		    url: baseUrl()+"viking/footer",
+                                complete : function( response ) {
+                                    $("#footer").html(response.responseText);
+                                },	        	        
+                    	        error: function(){
+                    	        	alert("failure");
+                    	        }
+                            });
+                        }
                     },	        	        
         	        error: function(){
         	        	alert("failure");
         	        }
                 });
-                
-                $.ajax({
-                	type: "GET",
-        		    url: baseUrl()+"viking/footer",
-                    complete : function( response ) {
-                        $("#footer").html(response.responseText);
-                    },	        	        
-        	        error: function(){
-        	        	alert("failure");
-        	        }
-                });
-                
-
             });
             
             function baseUrl() {
@@ -50,7 +51,6 @@
             }            
         </script>        
     </head>
-    
     
     <body>
 	<!-- Wrap all page content here -->  
@@ -64,7 +64,7 @@
 	
 					<!-- Start table content -->
 					
-					<div class="container">
+					<div id="mainContext" class="container hidden">
 						<div class="page-header">
 							<h1>
 								Помощь

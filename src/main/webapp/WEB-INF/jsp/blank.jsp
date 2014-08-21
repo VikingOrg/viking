@@ -8,6 +8,7 @@
 	<head>
 	    <title>Страница не найдена</title>
 	    <meta name="viewport" content="width=device-width">
+	    <jsp:include page="common/headCoreElements.jsp" />
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
