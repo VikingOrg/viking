@@ -199,7 +199,7 @@
 									<td class="nowrap">
 											<h3 class="page-header">Отчет 02  "Кол-во Механизмов в Группах"</h3>
 									</td>
-									<td class="nowrap hidden-xs" valign="bottom" id="table_Actions"></td>
+									
 								</tr>
 							</tbody>
 						</table>
@@ -207,7 +207,7 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
-									<td class="nowrap" rowspan="4" valign="bottom" id="table_Actions"></td>
+									<td class="nowrap hidden-xs" rowspan="4" valign="bottom" id="table_Actions"></td>
 								</tr>
 								<tr>
 									<td class="nowrap">Компания:<span id="title_company" class="report_header">Все компании</span><br></td>

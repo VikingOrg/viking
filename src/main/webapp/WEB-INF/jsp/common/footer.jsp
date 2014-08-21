@@ -10,7 +10,7 @@
 		<a href="<c:url value="static/html/participants.html"/>">Участники</a> |
 		<a href="<c:url value="static/html/rules.html"/>">Правила</a> |
 		<a href="<c:url value="static/html/support.html"/>">Поддержка</a> |
-		<a href="<c:url value="static/html/help.html"/>">Справка</a><br />
+		<a href="<c:url value="static/html/help.html"/>">Помощь</a><br />
 		&copy; 2013 | <a href="#">ИТТ24</a>.
 	</p>
 </footer>

@@ -272,7 +272,7 @@
 									<td class="nowrap">
 										<h3 class="page-header">Отчет 01 "Кол-во Механизмов в Компаниях-операторах"</h3>
 									</td>
-									<td class="nowrap hidden-xs" valign="bottom" id="table_Actions"></td>
+									
 								</tr>
 							</tbody>
 						</table>
