@@ -87,9 +87,7 @@
             
         </script>
         
-        <style type="text/css">
-
-   		</style>
+        
 	
 	</head>
 	
@@ -200,7 +198,9 @@
 
 													<div class="panel-collapse collapse" id="faq-1-1">
 														<div class="panel-body">
-															<p>Настоящая система учета перегрузочных машин в морских портах разработана с соблюдением последних требований в области стандартизации и унификации ведения упорядоченного документооборота в российских портах и ориентирована на повышение уровня производительности и культуры организации отчетности технических и технологических служб операторов морских терминалов (стивидорных компаний).</p>
+															<img src="<c:url value="/static/images/pics/laptop_files.jpg"/>" width="400" height="300" 
+												            alt="Упорядоченность информации" align="right" 
+															vspace="10" hspace="10"><p>Настоящая система учета перегрузочных машин в морских портах разработана с соблюдением последних требований в области стандартизации и унификации ведения упорядоченного документооборота в российских портах и ориентирована на повышение уровня производительности и культуры организации отчетности технических и технологических служб операторов морских терминалов (стивидорных компаний).</p>
 												            <p>Для целей повышения производительности интерфейс приложения максимально упрощен и интуитивно понятен.</p>
 												            <p>Вся система построена на серверной технологии и для пользования сотрудниками требуется только компьютер, подключенный к сети Интернет и браузер, поддерживающий все основные функции языка гипертекстовой разметки. Подключение дополнительных устройств, программ и расширений не требуется.</p>
 												            <p>Кроме всего прочего, важным достоинством данной системы является то, что для поддержания ее в актуальном состоянии, расширения функциональности, работоспособности не требуются периодические обновления и отслеживания изменений - все действия производятся автоматически в фоновом режиме по мере внесения изменений в законодательство, интерфейс программы без затрагивания непосредственно данных хранящихся в базе.</p>
@@ -223,8 +223,11 @@
 
 													<div class="panel-collapse collapse" id="faq-1-2">
 														<div class="panel-body">
+															<img src="<c:url value="/static/images/pics/port_worker.jpg"/>" width="400" height="274" 
+												            alt="Гибкий учет" align="right" 
+															vspace="10" hspace="10">
 															<p>С помощью данной Системы пользователи могут вести учет любых машин и механизмов, находящихся на балансе Компании, своевременно вносить изменения в регистрах учета, формировать отчеты по списочному и количественному составу.</p>
-															<p>В отчетах применяются гибкие условия отбора и фильтрации записей. Это позволяет наглдядно демонстрировать структуру, состав, дифференциацию Машин и Механизмов как внутри компании, так и в целом по всем Портам.</p>
+															<p>В отчетах применяются гибкие условия отбора и фильтрации записей. Это позволяет наглядно демонстрировать структуру, состав, дифференциацию Машин и Механизмов как внутри компании, так и в целом по всем Портам.</p>
 														</div>
 													</div>
 												</div>
@@ -241,9 +244,13 @@
 
 													<div class="panel-collapse collapse" id="faq-1-3">
 														<div class="panel-body">
+															<img src="<c:url value="/static/images/pics/browsers.png"/>" width="310" height="140" 
+												            alt="Связь с Интернет" align="right" 
+															vspace="10" hspace="10">
 															<p>Для запуска и работы в Системе необходим компьютер, подключенный к сети Интернет.</p>
 															<p>Операционная система может быть любая.</p>
-															<p>Программное обеспечение должно содержать стандартный Интернет-браузер, с установленными последними обновлениями. <b>Рекомендуемые для работы:</b> </p>
+															<p>Программное обеспечение должно содержать стандартный Интернет-браузер, с установленными последними обновлениями. </p>
+															<p><b>Версии рекомендуемые для работы:</b> </p>
 															<table class="table table-bordered table-striped">
 				                    						  <thead>
 									                              <tr>
@@ -307,6 +314,9 @@
 
 													<div class="panel-collapse collapse" id="faq-1-4">
 														<div class="panel-body">
+															<img src="<c:url value="/static/images/pics/internet.jpg"/>" width="300" height="300" 
+												            alt="Связь с Интернет" align="right" 
+															vspace="10" hspace="10">
 															<p>Так как хранение и обработка введенной информации осуществляется на удаленных защищенных серверах, то для доступа к ним требуется подключение к сети Интернет.</p>
 															<p>Скорость соединения может влиять на проведение операций и осуществление запросов к базе данных. Рекомендуется использовать высокоскоростное подключение, а в местах где это невозможно подключение через модемы сотовой связи.</p>
 														</div>
@@ -325,6 +335,9 @@
 
 													<div class="panel-collapse collapse" id="faq-1-5">
 														<div class="panel-body">
+															<img src="<c:url value="/static/images/pics/data_protection.jpg"/>" width="300" height="200" 
+												            alt="Безопасность данных" align="right" 
+															vspace="10" hspace="10">
 															<p>Для предотвращения несанкционированного доступа в Систему и к данным используется многоуровневая защита, основанная на проверке идентификационных данных пользователя.</p>
 															<p>В целях соблюдения конфиденциальности личных данных, доступ к ним ограничен и введен запрет на использование учетных данных и пароля другими лицами.</p>
 															<p>Сами учетные данные о Машинах и Механизмах хранятся на защищенных серверах и в целях сохранности ведется учет изменений и дополнений, вносимых пользователями.</p>
@@ -346,13 +359,17 @@
 												<div class="panel panel-default">
 													<div class="panel-heading">
 														<a href="#faq-2-1" data-parent="#faq-list-2" data-toggle="collapse" class="accordion-toggle collapsed">
-															<i class="fa fa-chevron-right smaller-80" data-icon-hide="fa fa-chevron-down align-top" data-icon-show="fa fa-chevron-right"></i>
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
 															&nbsp; Как зарегистрироваться в Системе?
 														</a>
 													</div>
 
 													<div class="panel-collapse collapse" id="faq-2-1">
 														<div class="panel-body">
+															<img src="<c:url value="/static/images/pics/registration.png"/>" width="515" height="431" 
+												            alt="Регистрационная форма" align="right" 
+															vspace="10" hspace="10">
 															<ol>
 															 <li>Составляется список лиц, допущенных к работе в Системе.</li>
 															 <li>Утвержденный руководителем Компании-оператора список направляется в адрес Службы поддержки.</li>
@@ -377,8 +394,9 @@
 												<div class="panel panel-default">
 													<div class="panel-heading">
 														<a href="#faq-3-1" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
-															<i class="fa fa-plus smaller-80" data-icon-hide="fa fa-minus" data-icon-show="fa fa-plus"></i>&nbsp;
-															Для чего нужен Справочник Стран?
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Для чего нужен Справочник Стран?
 														</a>
 													</div>
 
@@ -386,6 +404,14 @@
 														<div class="panel-body">
 															<p>Справочник Стран содержит сведения о написании русскоязычного и англоязычного наименования Страны.</p>
 															<p>Данный справочник используется в целях упорядочения информации по принадлежности Компании-оператора, а также при классификации Производителей Машин и Механизмов.</p>
+															<ul>
+															<li>Для редактирования записи нужно нажать наименование, <a href="#">выделенное цветом.</a></li>
+															<li>Для добавления в таблицу Справочника Стран новой записи следует нажать кнопку <a href="#" class="btn btn-primary" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a></li>
+															</ul>
+															<p>В появившемся окне следует заполнить соответствующие поля для данных.</p>
+															<img src="<c:url value="/static/images/pics/country_edit.png"/>" width="500"
+												            alt="Ввод новой Страны" align="left" 
+															vspace="10" hspace="10">
 														</div>
 													</div>
 												</div>
@@ -393,14 +419,28 @@
 												<div class="panel panel-default">
 													<div class="panel-heading">
 														<a href="#faq-3-2" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
-															<i class="fa fa-plus smaller-80" data-icon-hide="fa fa-minus" data-icon-show="fa fa-plus"></i>&nbsp;
-					  										Для чего нужен Справочник Производителей?
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+					  										&nbsp; Для чего нужен Справочник Производителей?
 														</a>
 													</div>
 
 													<div class="panel-collapse collapse" id="faq-3-2">
 														<div class="panel-body">
-															<p>Справочник Производителей используется для классификации Моделей Машин и Механизмов, используемых в Компаниях-операторах Портов.</p>
+															<p>Справочник Производителей содержит сведения об известных производителях.</p>
+															<p>Данный Справочник используется для классификации Моделей Машин и Механизмов, используемых в Компаниях-операторах Портов.</p>
+															<ul>
+															<li>Для редактирования записи нужно нажать наименование, <a href="#">выделенное цветом.</a></li>
+															<li>Для добавления в таблицу Справочника Производителей новой записи следует нажать кнопку <a href="#" class="btn btn-primary" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a></li>
+															</ul>
+															<div style="float:left">
+																<p>В появившемся окне следует заполнить соответствующие поля для данных.</p>
+																<img src="<c:url value="/static/images/pics/manufacturer_edit.png"/>" width="500"
+													            alt="Ввод новой Страны" align="left" style="clear:both;"
+																vspace="10" hspace="10">
+															</div>
+															<p>После нажатия кнопки <a href="#" class="btn btn-primary" title="Сохранить">Сохранить</a> измененные данные будут занесены в Базу данных системы.</p>
+															<p>После нажатия кнопки <a href="#" class="btn btn-primary" title="Скопировать">Скопировать</a> в Базе данных системы появится новая запись с введенными данными.</p>
 														</div>
 													</div>
 												</div>
@@ -408,8 +448,9 @@
 												<div class="panel panel-default">
 													<div class="panel-heading">
 														<a href="#faq-3-3" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
-															<i class="fa fa-plus smaller-80" data-icon-hide="fa fa-minus" data-icon-show="fa fa-plus"></i>&nbsp;
-															Для чего нужен Справочник Групп Машин и Механизмов?
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Для чего нужен Справочник Групп Машин и Механизмов?
 														</a>
 													</div>
 
@@ -423,8 +464,9 @@
 												<div class="panel panel-default">
 													<div class="panel-heading">
 														<a href="#faq-3-4" data-parent="#faq-list-3" data-toggle="collapse" class="accordion-toggle collapsed">
-															<i class="fa fa-plus smaller-80" data-icon-hide="fa fa-minus" data-icon-show="fa fa-plus"></i>&nbsp;
-															Для чего нужен Справочник Моделей Машин и Механизмов?
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-question bigger-130"></i>
+															&nbsp; Для чего нужен Справочник Моделей Машин и Механизмов?
 														</a>
 													</div>
 
