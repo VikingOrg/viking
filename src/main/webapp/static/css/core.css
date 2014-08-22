@@ -89,6 +89,16 @@
 		  white-space: nowrap ;
 		}
 		
+		.unfoldbtn {
+		  background: none;
+		  padding: 5px;
+		  border:solid #bfbfbf;
+		  border-width: 0 0 1px 1px;
+		  border-radius:0 4px 0 4px;
+		  float:right;
+		}
+		
+		
 		.cancelbtn {
 		  background-color: white;
 		  padding: 10px;

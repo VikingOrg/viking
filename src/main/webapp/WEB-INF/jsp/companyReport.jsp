@@ -13,7 +13,6 @@
 		<jsp:include page="common/headCoreElements.jsp" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="//www.google.com/jsapi"></script>
-		<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
 		
 		
 		<spring:url var = "action" value='/reportSelection'/> 
@@ -37,16 +36,16 @@
                 	   $("#tableActions").appendTo("#table_Actions");
                 	   $('select[name="company_report_table_length"]').appendTo("#table_length");
                 	   $('select[name="company_report_table_length"]').removeClass( "form-control input-sm" ).addClass("form-control");
-                	   var rowCount = $('#company_report_table tr').length;	    
-                	   if(rowCount > 2) {
-                		   $("#table_length").addClass("col-sm-8");
+                	  /*  var rowCount = $('#company_report_table tr').length;	    
+                	   if(rowCount > 2) { 
+                		   $("#table_length").addClass("col-sm-8");*/
                 		   $("#company_pie").removeClass("hidden");
                 		   $("#data_table_elements").removeClass("hidden");            		    
-                	   } else {
+                	  /*  } else {
                 		   $("#table_length").addClass("col-sm-8 hidden");
                 		   $("#company_pie").addClass("hidden");
                 		   $("#data_table_elements").addClass("hidden");
-                	   }
+                	   } */
                 	   $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
                 	   
 	              },
@@ -83,16 +82,6 @@
                   }
               });	
 
- 		     
-              $('#company_report_table').attc({
-              "controls":{
-            	  showHide:false,
-            	  create:false,
-            	  chartType:false,
-            	  },
-              "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
-              });
-
               //oTable.fnAdjustColumnSizing();
 
               $("#sumbit_report").click(function(e) {
@@ -122,7 +111,47 @@
 			   $('#title_model').html($("#modelSelect option:selected").text());
 			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
 			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
-			}			  
+			}			
+
+		      // Load the Visualization API and the piechart package.
+		      google.load('visualization', '1.0', {'packages':['corechart']});
+
+		      // Set a callback to run when the Google Visualization API is loaded.
+		      google.setOnLoadCallback(drawChart);
+
+		      // Callback that creates and populates a data table,
+		      // instantiates the pie chart, passes in the data and
+		      // draws it.
+		      function drawChart() {
+
+		        // Create the data table.
+		        var data = new google.visualization.DataTable();
+		        data.addColumn('string', 'Topping');
+		        data.addColumn('number', 'Slices');
+		        data.addRows([
+		          ['Mushrooms', 3],
+		          ['Onions', 1],
+		          ['Olives', 1],
+		          ['Zucchini', 1],
+		          ['Pepperoni', 2]
+		        ]);
+
+		        // Set chart options
+		        var options = {
+				  'legend':'bottom',
+				  'title':'Общее кол-во:',
+				  'is3D':true,
+				  'width':300,
+				  'height':300,
+				  'backgroundColor':'none',
+				};
+
+		        // Instantiate and draw our chart, passing in some options.
+		        var chart = new google.visualization.PieChart(document.getElementById('companyReportChart'));
+		        chart.draw(data, options);
+
+		        
+		      }  
 		  </script>
 		    
 </head>
@@ -237,11 +266,22 @@
 									</div>	
 								</div>
 							</div>	
-						</div>				
+						</div>				 
 						
-						<div id="company_pie" class="col-sm-12 well lform">
+						<div id="company_pie" class="col-sm-12 well lform bs-example" style="padding:0px;">
+							<div class="row" style="margin:0px 0px 0 0">
+								<div class="col-sm-6 offset-sm-4 pull-left" style="padding: 2px 0 0 2px;">
+									<select class="form-control">
+									  <option>Круговая</option>
+									  <option>Столбцы</option>
+									</select>
+								</div>
+								<div class="col-sm-2 pull-right" style="padding-right: 0px;">
+										<button class="unfoldbtn" data-toggle="modal" data-target="#unfoldChart"><span class="glyphicon glyphicon-new-window"></span></button>
+								</div>
+							</div>
 							<%-- <span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	 --%>
-							<div id="companyReportPie" class="form-group"></div>
+							<div id="companyReportChart"></div>
 						</div>						
 					</div>
 					<!-- End of Sidebar content-->
@@ -297,21 +337,12 @@
 							</tbody>
 						</table>
 						<!-- <div class="mygrid-wrapper-div">  -->
-						<table id="company_report_table" class="table table-striped table-bordered"
-							title="Распределение ПТО по Компаниям"  
-				    		summary="pieDescription" 
-				    		data-attc-createChart="false"
-				    		data-attc-colDescription="pieDescription" 
-				    		data-attc-colValues="pieValues" 
-				    		data-attc-location="companyReportPie" 
-				    		data-attc-hideTable="false" 
-				    		data-attc-type="pie"
-				    		data-attc-controls='{"showHide":false,"create":false,"chartType":false}'>
+						<table id="company_report_table" class="table table-striped table-bordered">
 							<thead class="tablehead">
 								<tr>
 									<th class="column-check">№</th>
-									<th class="nowrap" id="pieDescription">Компания&nbsp;&nbsp;</th>
-									<th class="nowrap" id="pieValues">Кол-во&nbsp;&nbsp;</th>
+									<th class="nowrap">Компания&nbsp;&nbsp;</th>
+									<th class="nowrap">Кол-во&nbsp;&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -331,19 +362,25 @@
 					</div>
 				</div> <!--End of Report 1-->
 				<!-- 		Модальное окно ожидания загрузки данных -->
-				<div class="modal fade" id="wait_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body" align="center">
-								<h3 style="color:#448800">Подождите, идет загрузка данных</h3>
-								<img src="<c:url value="/static/images/32.gif"/>">
-							</div> 
-						</div>
-						<!-- /.modal-content -->
+				<jsp:include page="common/progressModal.jsp" />
+				
+					<!--   Модальное окно  разворачивания диаграммы-->
+					<div class="modal fade" id="#unfoldChart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					        <h4 class="modal-title" id="myModalLabel">Кол-во Механизмов в Компаниях-операторах</h4>
+					      </div>
+					      <div class="modal-body">
+					        <div id="companyReportChart"></div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="cancelbtn" data-dismiss="modal">Закрыть</button>
+					      </div>
+					    </div>
+					  </div>
 					</div>
-					<!-- /.modal-dialog -->
-				</div>
-				<!-- /.modal -->
 			</form:form>
 	
 		</div>
