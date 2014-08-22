@@ -15,10 +15,7 @@
         <jsp:include page="common/headCoreElements.jsp" />
 
 		<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
-
-
 		<script type="text/javascript">
-
 		$(document).ready(function() {
 	        	var oTable = $('#machine_table')
 		        	    .on( 'processing.dt', function ( e, settings, processing ) {
@@ -82,6 +79,7 @@
 	                    "fnInitComplete": function(oSettings) {
 	                	   $('select[name="machine_table_length"]').appendTo("#table_length");
 	                	   $('select[name="machine_table_length"]').addClass("form-control");
+                   	   	   $("#tableActions").appendTo("#table_Actions");
 	                	   this.fnSetFilteringDelay(500);
 	                	   $('#wait_modal').modal('hide');
 
@@ -186,14 +184,14 @@
 
 <!----- Begin page content ------>
 
-<div class="container">
+<div class="container-fluid">
 	<form:form id="machine_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="machineSearch" 
 	commandName="machineSearchCommand" method="post" accept-charset="UTF-8">
 	
 		<div class="row">
 
 			<!--Sidebar content-->
-			<div id = "limit_width" class="col-sm-3">
+			<div class="col-sm-4 col-md-3 col-lg-3">
 				<div class="col-sm-12 well lform">
 					<div class="row">
 						<div class="col-sm-12">
@@ -308,20 +306,17 @@
 			
 			<!--  Операции с данными в таблице -->
 				<div class="col-sm-12 well lform">
-					<div class="row" style="padding-right:10px">
+					<div class="row">
 						<div class="col-sm-12">
-							<div class="form-group">
-								<a href="<c:url value="machineEdit"/> "class="btn btn-primary pull-right" title="Ввод нового">Добавить</a>
-									<span class="pull-right">&nbsp;</span> 
-								<a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete">Удалить</a>
-							</div>
+								<a href="#" class="btn btn-danger pull-left" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="<c:url value="machineEdit"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- End of Sidebar content-->
 
-			<div id = "#max_width" class="col-sm-9">
+			<div class="col-sm-8 col-md-9 col-lg-9">
 
 				<!-- Start table content -->
 
@@ -340,7 +335,16 @@
 				</c:if>
 
 				<!-- 	Таблица со списком машин -->
-				<h3 class="page-header">Машины и Механизмы</h3>
+							<table id="company_header" class="table_report_header">
+								<tbody>
+									<tr>
+										<td class="nowrap">
+											<h3 class="page-header">Машины и Механизмы</h3>
+										</td>
+										<td class="nowrap" id="table_Actions"></td>
+									</tr>
+								</tbody>
+							</table>
 				<table id="machine_table" class="table table-striped table-bordered">
 			        <thead>
 			            <tr>

@@ -14,18 +14,18 @@
         	var oTable = $('#stevidor_table').dataTable( {
         		"sDom": '<"#tableActions"T>t<"#source"l>ip',
         		"bJQueryUI": true,
-        		"sPaginationType": "full_numbers",
+        		"sPaginationType": "full_numbers",          
+ 	            "scrollX": true,
         		"columnDefs": [
         		               {
         		                   "targets": [ 0,4 ],
         		                   "orderable": false
         		               },
         		               {
-        		                   "targets": [ 4 ],
+        		                   "targets": [ 0,4 ],
         		                   "visible": false
         		               }
         		           ],
-            	           "scrollX": true,
              	tableTools: {
          			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
          		 	"aButtons": [
@@ -47,6 +47,7 @@
                  "fnInitComplete": function(oSettings) {
               	   $('select[name="stevidor_table_length"]').appendTo("#table_length");
               	   $('select[name="stevidor_table_length"]').addClass("form-control");
+           	   	   $("#tableActions").appendTo("#table_Actions");
 	              },                 
             } );
 
@@ -74,13 +75,13 @@
 		<div id="wrap">	       
 		   <jsp:include page="common/menu.jsp" />
 		   <!----- Begin page content ------>
-		 <div class="container"> 
+		 <div class="container-fluid"> 
 		 
 			<form:form id="stevidor_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
-					<div id="limit_width" class="col-sm-4">
+					<div class="col-sm-4 col-md-3 col-lg-3">
 			
 						<div class="col-sm-12 well lform">
 			
@@ -118,20 +119,18 @@
 							</div> 
 						</div>
 						<div class="col-sm-12 well lform">
-							<div class="row" style="margin-left:-25px; margin-right:-25px;">	
+							<div class="row">	
 							  <!--  Операции с данными в таблице -->
 				                 <div class="col-sm-12">
-				                    <div class="form-group">
-			                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a><span class="pull-right">&nbsp;</span>
+			                            <a href="<c:url value="stevidorEdit"/>" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a><span class="pull-right">&nbsp;</span>
 			                            <a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-		                            </div>
-								</div>
+		                         </div>
 							</div>
 						</div>
 					</div>
 				<!-- End of Sidebar content-->	
 				
-					<div id="#max_width" class="col-sm-8">
+					<div class="col-sm-8 col-md-9 col-lg-9">
 				
 						<!-- Start table content -->
 
@@ -149,12 +148,21 @@
 								</c:if>									
 								
 								<!-- Таблица со списком стивидоров -->
-								<h3 class="page-header">Список компаний-операторов
-								</h3>
+								<table id="company_header" class="table_report_header">
+								<tbody>
+									<tr>
+										<td class="nowrap">
+											<h3 class="page-header">Список компаний-операторов</h3>
+										</td>
+										
+										<td class="nowrap" id="table_Actions"></td>
+									</tr>
+								</tbody>
+							</table>
 				                    <table id="stevidor_table" class="table table-bordered table-striped">
 				                          <thead>
 				                              <tr>
-					                              <th class="column-check nowrap" width= "20px"></th>
+					                              <th class="column-check nowrap"></th>
 					                              <th class="nowrap">Компания-оператор&nbsp;&nbsp;</th>
 			                              		  <th class="nowrap">Порт&nbsp;&nbsp;</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Страна&nbsp;&nbsp;</th>

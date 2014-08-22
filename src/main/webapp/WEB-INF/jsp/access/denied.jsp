@@ -8,6 +8,9 @@
 	    <meta name="viewport" content="width=device-width">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
+	    
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 	</head>
@@ -18,13 +21,20 @@
 		  
 		  <!-- Begin page content -->
 		  <div class="container">
-		    <div class="page-header">
-		      <h1>Доступ Ограничен</h1>
-		    </div>
-			<p><span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p>
+		  	<div class="panel  panel-success" style="margin-top: 50px;">
+			      <div class="panel-heading" style="background-color:#DDEDCC;">
+					    <h2>Доступ Ограничен</h2>
+			      </div>
+				  <div class="panel-body">
+				    <p><span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>!</p>
 				  <p>У Вас нет допуска к этому ресурсу.</p>
-					
-		  </div>
+				  </div>
+				  <div class="panel-footer">			
+						<p>Для продолжения работы вернитесь <INPUT TYPE="button" class="cancelbtn" VALUE="НАЗАД" onClick="history.go(-1);"> ,
+						 либо <a class="cancelbtn" href="access/login" > ВОЙДИТЕ СНОВА</a></p>
+	
+				  </div>
+			  </div>
 		</div>
 
 		<div id="footer">

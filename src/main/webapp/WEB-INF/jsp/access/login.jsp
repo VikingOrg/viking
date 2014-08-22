@@ -7,10 +7,17 @@
 <html lang="ru">
 	<head>
 		<!-- Setting up common head elements -->
-		<jsp:include page="../common/headCoreElements.jsp" />
 	    <meta name="description" content="Login Page. Any unauthorized access will be prostecuted to the fullest extend of the law.">
 		
 		<title>Регистрация в системе</title>
+		
+	    <meta name="viewport" content="width=device-width">
+	    <link rel="shortcut icon" type="image/png" href="<c:url value="favicon.ico"/>"/>
+	    <!-- Bootstrap -->
+	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/><link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/dataTables.tableTools.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
 	
 	    <style type="text/css">
 	      body {

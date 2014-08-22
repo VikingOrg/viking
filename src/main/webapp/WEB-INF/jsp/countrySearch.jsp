@@ -11,13 +11,15 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#country_table').dataTable( {
-   	           "columnDefs": [
-          		               {
-          		                   "targets": [ 0,2 ],
-          		                   "orderable": false
-          		               },
-          		           ],
-                	           "sDom": '<"#tableActions"T>t<"#source"l>ip',
+			   	           "columnDefs": [
+			          		               {
+			          		                   "targets": [ 0 ],
+			          		                   "visible": false
+			          		               },
+          		           ],          
+            	            "scrollX": true,
+                	        "sDom": '<"#tableActions"T>t<"#source"l>ip',
+                   	        "sPaginationType": "full_numbers",
                            	tableTools: {
                         			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
                         		 	"aButtons": [
@@ -40,6 +42,7 @@
                                 "fnInitComplete": function(oSettings) {
          	                	   $('select[name="country_table_length"]').appendTo("#table_length");
          	                	   $('select[name="country_table_length"]').addClass("form-control");
+                           	   	   $("#tableActions").appendTo("#table_Actions");
          	 	              },                  
                 } );
 
@@ -90,14 +93,11 @@
 							</div>
 						</div>
 						<div class="col-sm-12 well lform">
-							<div class="row" style="margin-left:-25px; margin-right:-25px;">	
+							<div class="row">	
 			                    <!--  Операции с данными в таблице -->
 			                    <div class="col-sm-12">
-				                    <div class="form-group">
 			                            <a href="<c:url value="countryEdit/new/"/>" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
-			                            <span class="pull-right">&nbsp;</span>
 			                            <a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-		                            </div>
 		                        </div>
 							</div>
 						</div>
@@ -124,14 +124,21 @@
 								</c:if>								
 								
 								<!-- Таблица со списком стран -->
-								<h3 class="page-header">
-									Список стран
-									</h3>
+									<table id="company_header" class="table_report_header">
+										<tbody>
+											<tr>
+												<td class="nowrap">
+													<h3 class="page-header">Список стран</h3>
+												</td>
+												
+												<td class="nowrap" id="table_Actions"></td>
+											</tr>
+										</tbody>
+									</table>
 				                    <table id="country_table" class="table table-bordered table-striped">
-				                    
-				                          <thead>
+				                    	 <thead>
 				                              <tr>
-					                              <th class="column-check nowrap">&nbsp;</th>
+					                              <th class="column-check">&nbsp;</th>
 					                              <th class="nowrap">Страна (RUS)</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Страна (ENG)</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Примечания</th>
@@ -141,7 +148,7 @@
 				                          	<c:forEach var="country" varStatus="loop" items="${countrySearchCommand.countryList}" >
 				                          	<c:if test="${country.archived != '1'}" >
 					                            <tr>
-					                                <td class="column-check nowrap">
+					                                <td class="column-check">
 					                                	<form:checkbox path="countryList[${loop.index}].archived" value="Y"></form:checkbox>
 						                              	<%-- <c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">

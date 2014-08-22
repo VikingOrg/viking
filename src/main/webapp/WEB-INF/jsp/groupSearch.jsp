@@ -13,10 +13,15 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#group_table').dataTable( {
+       	           "columnDefs": [
+                		               {
+                		                   "targets": [ 0 ],
+                		                   "visible": false
+                		               },
+                	],
         	        "bJQueryUI": true,
         	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
         	        "sPaginationType": "full_numbers",
-        	        "bProcessing": true,
         	        "responsive": false,
                 	tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -24,12 +29,12 @@
                	                "copy",
                	             	{
                	                    "sExtends":     "print",
-               	                    "bHeader": true
+               	                    "bHeader": true,
                	                	},
                	            	{
                	                    "sExtends":     "csv",
                	                    "sButtonText": "Save",
-               	                    "bHeader": true
+               	                    "bHeader": true,
                	                	}
                	            ]
              	   },
@@ -40,6 +45,7 @@
                      "fnInitComplete": function(oSettings) {
 	                	   $('select[name="group_table_length"]').appendTo("#table_length");
 	                	   $('select[name="group_table_length"]').addClass("form-control");
+                   	   	   $("#tableActions").appendTo("#table_Actions");
 	 	              },                   
                 } );
 
@@ -95,14 +101,14 @@
 		<div id="wrap">	
 <jsp:include page="common/menu.jsp" />
 <!----- Begin page content ------>
-	<div class="container">
+	<div class="container-fluid">
 	
 		<form:form id="group_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="groupSearch"
 			commandName="groupCommand" method="post" accept-charset="UTF-8">
 			<div class="row">
 	
 				<!--Sidebar content-->
-				<div id = "limit_width" class="col-sm-4">
+				<div class="col-sm-4 col-md-3 col-lg-3">
 					<div class="col-sm-12 well lform">
 						<div class="row">
 							<div class="col-sm-12">
@@ -123,17 +129,14 @@
 							<div class="row" style="margin-left:-25px; margin-right:-25px;">	
 							<!--  Операции с данными в таблице -->
 								<div class="col-sm-12">
-									<div class="form-group">
-										<a id="addNewGroup" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
-										<span class="pull-right">&nbsp;</span>
+										<a id="addNewGroup" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
 										<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-									</div>
 								</div>
 							</div>
 					</div>
 				</div>
 				<!-- End of Sidebar content-->
-				<div id = "#max_width" class="col-sm-8">
+				<div class="col-sm-8 col-md-9 col-lg-9">
 	
 					<!-- Start table content -->
 	
@@ -157,11 +160,20 @@
 					</div>
 	
 					<!-- Таблица со списком Групп Механизмов -->
-					<h3 class="page-header">Список Групп Механизмов</h3>
+					<table id="company_header" class="table_report_header">
+						<tbody>
+							<tr>
+								<td class="nowrap">
+									<h3 class="page-header">Список Групп Механизмов</h3>
+								</td>
+								<td class="nowrap" id="table_Actions"></td>
+							</tr>
+						</tbody>
+					</table>
 					<table id="group_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th class="column-check nowrap">№&nbsp;</th>
+								<th class="column-check">№&nbsp;</th>
 								<th class="nowrap">Группа&nbsp;&nbsp;</th>
 								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
 							</tr>
@@ -169,7 +181,7 @@
 						<tbody>
 							<c:forEach var="group" varStatus="loop" items="${groupCommand.groupList}">
 								<tr id="${group.groupId}">
-									<td class="column-check nowrap">
+									<td class="column-check">
 										<c:out value="${group.groupId}"/>
 										<%--<form:checkbox path="groupList[${loop.index}].archived" value="Y"></form:checkbox> --%>
 									</td>

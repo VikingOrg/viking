@@ -12,10 +12,16 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#manufacturer_table').dataTable( {
+            		"columnDefs": [
+	          		               {
+	          		                   "targets": [ 0 ],
+	          		                   "visible": false
+	          		               },
+  		           ],          
+    	            "scrollX": true,
         	        "bJQueryUI": true,
         	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
         	        "sPaginationType": "full_numbers",
-        	        "bProcessing": true,
         	        "responsive": false,
                 	tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -39,6 +45,7 @@
                      "fnInitComplete": function(oSettings) {
 	                	   $('select[name="manufacturer_table_length"]').appendTo("#table_length");
 	                	   $('select[name="manufacturer_table_length"]').addClass("form-control");
+                   	   	   $("#tableActions").appendTo("#table_Actions");
 	 	              },                   
                 } );
 
@@ -102,14 +109,14 @@
 		<div id="wrap">	
 <jsp:include page="common/menu.jsp" />
 <!----- Begin page content ------>
-	<div class="container">
+	<div class="container-fluid">
 	
 		<form:form id="manufacturer_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="manufacturer"
 			commandName="manufacturerCommand" method="post" accept-charset="UTF-8">
 			
 			<div class="row">
 				<!--Sidebar content-->
-				<div id="limit_width" class="col-sm-4">
+				<div class="col-sm-4 col-md-3 col-lg-3">
 					<div class="col-sm-12 well lform">
 						<div class="row">
 							<div class="col-sm-12">
@@ -138,20 +145,17 @@
 						</div>
 					</div>
 					<div class="col-sm-12 well lform">
-							<div class="row" style="margin-left:-25px; margin-right:-25px;">	
+							<div class="row">	
 							<!--  Операции с данными в таблице -->
 								<div class="col-sm-12">
-									<div class="form-group">
-										<a href="<c:url value="manufacturerEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a>
-										<span class="pull-right">&nbsp;</span> 
+										<a href="<c:url value="manufacturerEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
 										<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-									</div>
 								</div>
 							</div>
 					</div>
 				</div>
 				<!-- End of Sidebar content-->
-				<div id = "#max_width" class="col-sm-8">
+				<div class="col-sm-8 col-md-9 col-lg-9">
 	
 					<!-- Start table content -->
 	
@@ -171,11 +175,20 @@
 	
 	
 					<!-- Таблица со списком Производителей Механизмов -->
-					<h3 class="page-header">Список Фирм Производителей</h3>
+					<table id="company_header" class="table_report_header">
+						<tbody>
+							<tr>
+								<td class="nowrap">
+									<h3 class="page-header">Список Производителей Механизмов</h3>
+								</td>
+								<td class="nowrap" id="table_Actions"></td>
+							</tr>
+						</tbody>
+					</table>
 					<table id="manufacturer_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th class="column-check nowrap">&nbsp;</th>
+								<th class="column-check">&nbsp;</th>
 								<th class="nowrap">Рус. наименование&nbsp;&nbsp;</th>
 								<th class="nowrap">Страна&nbsp;&nbsp;</th>
 								<th class="nowrap">Англ. наименование&nbsp;&nbsp;</th>
@@ -185,7 +198,7 @@
 						<tbody>
 							<c:forEach var="manufacturer" varStatus="loop" items="${manufacturerCommand.manufacturerList}">
 								<tr>
-									<td class="column-check nowrap">
+									<td class="column-check">
 										<form:checkbox path="manufacturerList[${loop.index}].archived" value="Y"></form:checkbox>
 									</td>
 									<td class="nowrap">

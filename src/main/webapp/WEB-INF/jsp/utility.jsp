@@ -7,6 +7,45 @@
 <html lang="ru">
 <head>
 <title>УЖАС</title>
+<link href="<c:url value="/static/css/flot.css"/>" rel="stylesheet" type="text/css">
+	<style type="text/css">
+
+	.demo-container {
+		position: relative;
+		height: 400px;
+	}
+
+	#placeholder {
+		width: 550px;
+	}
+
+	#menu {
+		position: absolute;
+		top: 20px;
+		left: 625px;
+		bottom: 20px;
+		right: 20px;
+		width: 200px;
+	}
+
+	#menu button {
+		display: inline-block;
+		width: 200px;
+		padding: 3px 0 2px 0;
+		margin-bottom: 4px;
+		background: #eee;
+		border: 1px solid #999;
+		border-radius: 2px;
+		font-size: 16px;
+		-o-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-ms-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		cursor: pointer;
+	}
+	</style>
+	
 		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script><!--[if lte IE 8]><script type="text/javascript" src="../../excanvas.min.js"></script><![endif]-->
@@ -154,45 +193,7 @@
 
            
         </script>
-        <link href="<c:url value="/static/css/flot.css"/>" rel="stylesheet" type="text/css">
-	<style type="text/css">
-
-	.demo-container {
-		position: relative;
-		height: 400px;
-	}
-
-	#placeholder {
-		width: 550px;
-	}
-
-	#menu {
-		position: absolute;
-		top: 20px;
-		left: 625px;
-		bottom: 20px;
-		right: 20px;
-		width: 200px;
-	}
-
-	#menu button {
-		display: inline-block;
-		width: 200px;
-		padding: 3px 0 2px 0;
-		margin-bottom: 4px;
-		background: #eee;
-		border: 1px solid #999;
-		border-radius: 2px;
-		font-size: 16px;
-		-o-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-		-ms-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-		-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-		box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-		cursor: pointer;
-	}
-	</style>
-	
+        
 	</head>
 	
 	<body>

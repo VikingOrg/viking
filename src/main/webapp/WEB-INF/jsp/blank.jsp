@@ -8,7 +8,12 @@
 	<head>
 	    <title>Страница не найдена</title>
 	    <meta name="viewport" content="width=device-width">
-	    <jsp:include page="common/headCoreElements.jsp" />
+	    <link rel="shortcut icon" type="image/png" href="<c:url value="favicon.ico"/>"/>
+	    <!-- Bootstrap -->
+	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
 	</head>
 	<body>
 		<!-- Wrap all page content here -->
@@ -17,7 +22,7 @@
 		    <div class="container">
 				<div class="panel  panel-success" style="margin-top: 50px;">
 			      <div class="panel-heading" style="background-color:#DDEDCC;">
-					    <h1>Система не может обработать Ваш запрос!</h1>
+					    <h2>Система не может обработать Ваш запрос!</h2>
 			      </div>
 				  <div class="panel-body">
 				    <p><h4>Извините, но на Ваш запрос система показала код ошибки (

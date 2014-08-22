@@ -107,13 +107,13 @@
 		<div id="wrap">	       
 		   <jsp:include page="../common/menu.jsp" />
 		   <!----- Begin page content ------>
-		 <div class="container"> 
+		 <div class="container-fluid"> 
 		 
 	  			<form:form id="user_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="userSearchAdmin" commandName="userSearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
-					<div id = "limit_width" class="col-sm-4">
+					<div class="col-sm-4 col-md-3 col-lg-3">
 			
 						<div class="col-sm-12 well lform">
 			
@@ -159,20 +159,18 @@
 		                 	</div>      
 						</div>
 						<div class="col-sm-12 well lform">
-							<div class="row" style="margin-left:-25px; margin-right:-25px;">
+							<div class="row">
 								<!--  Операции с данными в таблице -->
 				                    <div class="col-sm-12">
-										<div class="form-group">
-				                            <a id="submitNewUser" href="<c:url value="/userEditAdmin"/>" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>Добавить</a><span class="pull-right">&nbsp;</span>
-				                            <a href="#" class="btn btn-primary pull-right" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-			                            </div>
-									</div>
+				                            <a href="#" class="btn btn-danger" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span></a>
+				                            <a id="submitNewUser" href="<c:url value="/userEditAdmin"/>" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a><span class="pull-right">&nbsp;</span>
+			                        </div>
 							</div>
 						</div>
 					</div>
 				<!-- End of Sidebar content-->	 
 				
-		                <div class="col-sm-8">
+		                <div class="col-sm-8 col-md-9 col-lg-9">
 		                    <!--Body content-->
 		                    
 		                    <!--  Вывод сообщений и предупреждений  -->
@@ -189,8 +187,16 @@
                             
 
 <!-- 							Таблица со списком пользователей -->
-							<h3 class="page-header">Список пользователей
-								</h3>
+							<table id="company_header" class="table_report_header">
+								<tbody>
+									<tr>
+										<td class="nowrap">
+											<h3 class="page-header">Список пользователей</h3>
+										</td>
+										<td class="nowrap" id="table_Actions"></td>
+									</tr>
+								</tbody>
+							</table>
 		                    
 			                    <table id="user_table" class="table table-striped table-bordered">
 			                          <thead>
