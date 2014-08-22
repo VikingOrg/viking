@@ -54,13 +54,26 @@
              		 	"aButtons": [
                	                "copy",
                	             	{
-               	                    "sExtends":     "print",
-               	                    "bHeader": true
+               	                    "sExtends": "print",
+               	                    "sMessage": "<div><h3>Кол-во Механизмов в Компаниях-операторах</h3>"+
+               	                    "</br>"+
+                   	                "Составитель отчета: "+
+               	                    "</br>"+
+               	                    "Группа:"+
+               	                    "</br>"+
+               	                    "Модель: "+
+            	                    "</br>"+
+            	                    "Год выпуска:"+
+            	                    "</br>"+
+            	                    "Производитель:"+
+            	                    "</br></div>",
+               	                    "sInfo": "Нажмите ESC для выхода из режима ПЕЧАТИ.",
+               	                    
                	                	},
                	            	{
                	                    "sExtends":     "csv",
                	                    "sButtonText": "Save",
-               	                    "bHeader": true
+               	                    "sCharSet": "utf8",
                	                	}
                	            ]
              	   }            	                			
