@@ -554,6 +554,134 @@
 												</div>
 											</div>
 										</div>
+										
+										<div id="faq-tab-5" class="tab-pane fade">
+											<h3 class="page-header">
+												Вопросы по работе с Отчетами
+											</h3>
+
+											<div class="space-8"></div>
+
+											<div id="faq-list-5" class="panel-group accordion-style1 accordion-style2">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-5-1" data-parent="#faq-list-5" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-info-circle"></i>
+															Для чего нужны Отчеты?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-5-1">
+														<div class="panel-body">
+															<p>Отчеты это специальным образом формируемые таблицы, которые содержат либо сводные данные об имеющихся Машинах и Механизмах, либо особым образом сортированные и группированные данные с Машинами и Механизмами.</p>
+															<p>Основой каждого отчета являются записи о Машинах и Механизмах, которые были ранее занесены в соответствующий раздел Системы учета.</p>
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-5-2" data-parent="#faq-list-5" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-info-circle"></i>
+															Какие бывают Отчеты?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-5-2">
+														<div class="panel-body">
+															<p>Все отчеты делятся на два типа:</p>
+															<ul>
+																<li>Статистические
+																<li>Сводные
+															</ul>
+															<p>В качестве <b>Статистических</b> выступают таблицы, где на основе заданных параметров фильтров осуществляются расчеты по <b>количеству</b> единиц Машин и Механизмов и вывод их в наглядном виде.</p>
+															<p>В качестве <b>Сводных</b> выступают таблицы, где данные с Машинами и Механизмами <b>группируются </b>по определенному признаку и выводятся для печати и дальнейшего использования в качестве учетных документов.</p>
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-5-3" data-parent="#faq-list-5" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-info-circle"></i>
+															Для чего нужны Фильтры Отчетов?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-5-3">
+														<div class="panel-body">
+															<p>Все записи о Машинах и Механизмах имеют определенные признаки, по которым их можно классифицировать.</p>
+															<p>Например, каждая Машина или Механизм относятся к определенной<b> Группе</b> (в случае невозможности определения ее принадлежности она попадает в Группу "Прочие")</p>
+															<p>Соответственно, если есть необходимость включить в Отчет только "Экскаваторы", то в блоке фильтров для этой цели имеется опция <b>Группы</b> и в ней необходимо выбрать "Экскаваторы".</p>
+															<p>При этом после нажатия на кнопку <a href="#" class="btn btn-primary" title="Скопировать">Сформировать</a> в отчет будут включены сведения только об Экскаваторах (например их количество каждого из Производителей в отчете "Кол-во Механизмов разных Производителей").</p>
+															<img src="../images/pics/manuf_report_ekskav.png" width="500"
+													            alt="Вид Отчета по Производителям" align="left" style="clear:right;"
+																vspace="10" hspace="10">
+														</div>
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-5-4" data-parent="#faq-list-5" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-info-circle"></i>
+															Что содержит Отчет "Количество Механизмов в Группах"?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-5-4">
+														<div class="panel-body">
+															<p>Данный отчет осуществляет подсчет количества Машин и Механизмов в каждой из Групп.<p/> 
+															<br>
+															<p>В случае отсутствия записей по какой-либо Группе она не включается в Отчет.</p>
+															<p>Например, если в Компании-операторе отсутствуют Пневматические перегружатели, то и в Отчете они тоже отсутствуют.</p>
+														</div>
+													</div>
+												</div>
+												
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-5-5" data-parent="#faq-list-5" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-info-circle"></i>
+															Что содержит Отчет "Количество Механизмов по Производителям"?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-5-5">
+														<div class="panel-body">
+															<p>Данный отчет осуществляет подсчет в Компании-операторе количества Машин и Механизмов определенного Производителя.<p/> 
+															<p>Например, Toyota. Если данный брэнд в Компании представлен какой-либо техникой, это будет отражено в Отчете путем подсчета количества единиц техники.</p>
+															<p>В случае отсутствия записей по какому-либо Производителей он не включается в Отчет.</p>
+														</div>
+													</div>
+												</div>
+												
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a href="#faq-5-6" data-parent="#faq-list-5" data-toggle="collapse" class="accordion-toggle collapsed">
+															<i class="fa fa-chevron-left pull-right" data-icon-hide="fa fa-chevron-down" data-icon-show="fa fa-chevron-left"></i>
+															<i class="fa fa-info-circle"></i>
+															Что содержит Отчет "Список Механизмов"?
+														</a>
+													</div>
+
+													<div class="panel-collapse collapse" id="faq-5-6">
+														<div class="panel-body">
+															<p>Данный отчет не осуществляет подсчет количества Машин и Механизмов.<p/> 
+															<br>
+															<p>Его назначение сформировать таблицу, содержащую основные сведения о Машинах и Механизмах таким образом, что все записи будут упорядочены по<b> Группам.</b></p>
+															<p>Кроме того, если это необходимо, то данный отчет можно сократить только до вывода списка Машин и Механизмов определенной Группы.</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									
 									</div>
 								</div>
 
