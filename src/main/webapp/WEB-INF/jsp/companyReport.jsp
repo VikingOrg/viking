@@ -12,6 +12,7 @@
 <title>Отчет по количеству ПТО в Компаниях-операторах</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 		<script type="text/javascript" src="//www.google.com/jsapi"></script>
 		
 		
@@ -274,23 +275,27 @@
 								<div class="col-sm-12">
 									<div class="btn-group pull-right">
 										<!--  Кнопочка сформировать отчет -->
-										<button id="" class="btn cancelbtn"><span class="glyphicon glyphicon-refresh"></span> </button>
+										<button id="" class="btn cancelbtn"><i class="fa fa-refresh"></i></button>
 										<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
 									</div>	
 								</div>
 							</div>	
 						</div>				 
 						
-						<div id="company_pie" class="col-sm-12 well lform bs-example" style="padding:0px;">
-							<div class="row" style="margin:0px 0px 0 0">
-								<div class="col-sm-6 offset-sm-4 pull-left" style="padding: 2px 0 0 2px;">
+						<div id="company_pie" class="col-sm-12 well lform" style="padding:0px;">
+							<div class="row" style="padding-left: 0px;margin:0px 0px 0 0">
+								<div class="button-group pull-left">
+										<button class="chartselect-pie"><i class="fa fa-adjust"></i></button>
+										<button class="chartselect-bar"><i class="fa fa-bar-chart-o"></i></button>
+								</div>
+								<!-- <div class="col-sm-4" style="padding: 2px 0 0 2px;">
 									<select class="form-control">
 									  <option>Круговая</option>
 									  <option>Столбцы</option>
 									</select>
-								</div>
+								</div> -->
 								<div class="col-sm-2 pull-right" style="padding-right: 0px;">
-										<button class="unfoldbtn" data-toggle="modal" data-target="#unfoldChart"><span class="glyphicon glyphicon-new-window"></span></button>
+										<button class="unfoldbtn" data-toggle="modal" data-target="#unfoldChart"><i class="fa fa-external-link"></i></button>
 								</div>
 							</div>
 							<%-- <span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	 --%>
