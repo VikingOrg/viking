@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.MachineSearchCommand;
 import com.seaport.domain.Machine;
 import com.seaport.domain.User;
+import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
@@ -44,7 +45,10 @@ public class MachineSearchController {
 	@Autowired
 	private IPortService portService;
 	@Autowired
-	private IMachineService machineService;	
+	private IMachineService machineService;
+	@Autowired
+	private IGroupService groupService;
+	
 	private static String MACHINE_FIELD_FILLER = "XXX";
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -55,7 +59,7 @@ public class MachineSearchController {
 		machineSearchCommand.setUserCountry(userService.getContriesMap());
 		machineSearchCommand.setUserPort(portService.getPortsMap());
 		machineSearchCommand.setUserStevidor(portService.getStevidorsMap());
-		machineSearchCommand.setGroupMap(machineService.getGroupsMap());
+		machineSearchCommand.setGroupMap(groupService.getGroupMap());
 		machineSearchCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineSearchCommand.setYearMap(machineService.getYearMap());		
 		machineSearchCommand.setMachineList(machineService.getMachines(user));

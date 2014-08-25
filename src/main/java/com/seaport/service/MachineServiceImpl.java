@@ -43,10 +43,10 @@ public class MachineServiceImpl implements IMachineService {
 		machineDAO.saveMachine(machine);
 	}
 
-	@Override
-	public Map<Integer, Group> getGroupsMap() {
-		return machineDAO.getGroupsMap();
-	}
+//	@Override
+//	public Map<Integer, Group> getGroupsMap() {
+//		return machineDAO.getGroupsMap();
+//	}
 
 	@Override
 	public Map<Integer, MachineModel> getModelsMap() {

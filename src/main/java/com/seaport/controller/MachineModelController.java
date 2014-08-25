@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.MachineModelCommand;
 import com.seaport.command.MachineModelEditCommand;
 import com.seaport.domain.MachineModel;
+import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IUserService;
 
@@ -38,7 +39,8 @@ public class MachineModelController {
 	private IMachineService machineService;
 	@Autowired
 	private IUserService userService;
-	
+	@Autowired
+	private IGroupService groupService;	
 	/**
 	 * Create new Machine Model search form. 
 	 *  
@@ -52,7 +54,7 @@ public class MachineModelController {
 		
 		MachineModelCommand machineModelCommand = new MachineModelCommand();
 		machineModelCommand.setMachineModelList(machineService.getModels());
-		machineModelCommand.setGroupMap(machineService.getGroupsMap());
+		machineModelCommand.setGroupMap(groupService.getGroupMap());
 		machineModelCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineModelCommand.setCountryMap(userService.getContriesMap());
 		
@@ -70,7 +72,7 @@ public class MachineModelController {
 		
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
 		machineModelEditCommand.setMachineModel(machineService.getModel(machineModelId));
-		machineModelEditCommand.setGroupMap(machineService.getGroupsMap());
+		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
 		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineModelEditCommand.setCountryMap(userService.getContriesMap());	
 		model.put("machineModalEditCommand", machineModelEditCommand);
@@ -88,7 +90,7 @@ public class MachineModelController {
 	public String createEditNewModel(ModelMap model) throws Exception {
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
 		machineModelEditCommand.setMachineModel(null);
-		machineModelEditCommand.setGroupMap(machineService.getGroupsMap());
+		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
 		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineModelEditCommand.setCountryMap(userService.getContriesMap());	
 		model.put("machineModalEditCommand", machineModelEditCommand);

@@ -6,8 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
@@ -43,7 +45,9 @@ public class GroupDAOImpl implements IGroupDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Group> getGroups(){
-		return getCurrentSession().createCriteria(Group.class).list();
+		Criteria criteria = getCurrentSession().createCriteria(Group.class);
+		criteria.addOrder(Order.asc("groupOrder"));
+		return criteria.list();
 	}
 	
 	@Override

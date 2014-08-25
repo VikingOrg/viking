@@ -29,6 +29,7 @@ import com.seaport.domain.Machine;
 import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
 import com.seaport.dto.ManufacturerReportDTO;
+import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
@@ -50,9 +51,11 @@ public class ReportSelectionController {
 	@Autowired
 	private IPortService portService;
 	@Autowired
-	private IMachineService machineService;
+	private IGroupService groupService;
 	@Autowired
 	private IReportDAO reportDAO;
+	@Autowired
+	private IMachineService machineService;
 	
 	/**
 	 * Loads company report page
@@ -244,7 +247,7 @@ public class ReportSelectionController {
 		reportSelectionCommand.setUserCountry(userService.getContriesMap());
 		reportSelectionCommand.setUserPort(portService.getPortsMap());
 		reportSelectionCommand.setStevidorMap(portService.getStevidorsMap());
-		reportSelectionCommand.setGroupMap(machineService.getGroupsMap());
+		reportSelectionCommand.setGroupMap(groupService.getGroupMap());
 		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
 		reportSelectionCommand.setYearMap(machineService.getYearMap());
 		reportSelectionCommand.setStevidorSelection(new String[]{"0"});

@@ -22,7 +22,7 @@ public interface IMachineService {
 	public void saveMachine(Machine machine);
 	public Map<Integer, Integer> getYearMap();
 	public List<Machine> getMachines(User user);	
-	public Map<Integer, Group> getGroupsMap();
+//	public Map<Integer, Group> getGroupsMap();
 	public Map<Integer, MachineModel> getModelsMap();
 	public Map<Integer, Manufacturer> getManufacturerMap();
 	public List<MachineModel> getModels();

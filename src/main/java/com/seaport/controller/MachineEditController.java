@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.MachineEditCommand;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
+import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 
@@ -35,7 +36,8 @@ import com.seaport.service.IPortService;
 @RequestMapping("/machineEdit")
 @SessionAttributes("machineEditCommand")
 public class MachineEditController {
-
+	@Autowired
+	private IGroupService groupService;
 	@Autowired
 	private IPortService portService;
 	@Autowired
@@ -67,7 +69,7 @@ public class MachineEditController {
 			}
 		}
 		
-		machineEditCommand.setGroupMap(machineService.getGroupsMap());
+		machineEditCommand.setGroupMap(groupService.getGroupMap());
 		machineEditCommand.setStevidorMap(portService.getStevidorsMap());
 		machineEditCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineEditCommand.setYearMap(machineService.getYearMap());
