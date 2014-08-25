@@ -13,8 +13,7 @@
 		<jsp:include page="common/headCoreElements.jsp" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<spring:url var = "action" value='/reportSelection'/> 
-	<script type="text/javascript" src="//www.google.com/jsapi"></script>
-	<script src="<c:url value="/static/js/attc.googleCharts.js"/>"></script>
+
 		<script>
 		  $(document).ready(function() {
 			  oTable = $('#account_report_table').dataTable({
@@ -68,16 +67,7 @@
                   }
               });	
 
-              $('#account_report_table').attc({
-                  "controls":{
-                	  showHide:false,
-                	  create:false,
-                	  chartType:false,
-                	  },
-                  "googleOptions":{"is3D":true, "legend":"none", "backgroundColor": "none"},
-              });
-
-              $("#sumbit_report").click(function(e) {
+              $('#submitReport').click(function(e) {
             		e.preventDefault();
             		$('#divErrorMessage').attr("class","alert alert-danger hide");
             		showProgressModal('#wait_modal');
@@ -190,7 +180,7 @@
 									<div class="btn-group pull-right">
 										<!--  Кнопочка сформировать отчет -->
 										<button id="" class="btn cancelbtn"><span class="glyphicon glyphicon-refresh"></span> </button>
-										<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
+										<button id="submitReport" class="btn btn-primary">Сформировать</button>
 									</div>	
 								</div>
 							</div>	

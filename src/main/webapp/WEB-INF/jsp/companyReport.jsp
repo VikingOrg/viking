@@ -102,7 +102,7 @@
 
               //oTable.fnAdjustColumnSizing();
 
-              $("#sumbit_report").click(function(e) {
+              $("#submit_report").click(function(e) {
               		e.preventDefault();
               		$('#divErrorMessage').attr("class","alert alert-danger hide");
               		showProgressModal('#wait_modal');
@@ -280,7 +280,7 @@
 									<div class="btn-group pull-right">
 										<!--  Кнопочка сформировать отчет -->
 										<button id="" class="btn cancelbtn" title="Сброс"><i class="fa fa-refresh"></i></button>
-										<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
+										<button id="submit_report" class="btn btn-primary">Сформировать</button>
 									</div>	
 								</div>
 							</div>	

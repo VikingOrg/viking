@@ -54,7 +54,13 @@ public class ReportSelectionController {
 	@Autowired
 	private IReportDAO reportDAO;
 	
-	
+	/**
+	 * Loads company report page
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/company/", method = RequestMethod.GET)
 	public String setupGroupReport(HttpServletRequest request, ModelMap model) throws Exception {
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
@@ -63,6 +69,14 @@ public class ReportSelectionController {
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "companyReport";
 	}
+	
+	/**
+	 * Loads group report page
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/group/", method = RequestMethod.GET)
 	public String setupDynamicReport(HttpServletRequest request, ModelMap model)  throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
@@ -71,6 +85,13 @@ public class ReportSelectionController {
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "groupReport";
 	}
+	/**
+	 * Loads manufacturer report page
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/manufacturer/", method = RequestMethod.GET)
 	public String setupManufacturerReport(HttpServletRequest request, ModelMap model)  throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
@@ -79,6 +100,13 @@ public class ReportSelectionController {
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "manufacturerReport";
 	}	
+	/**
+	 * Load account report page
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/account/", method = RequestMethod.GET)
 	public String setupCounReport(HttpServletRequest request, ModelMap model) throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
@@ -108,7 +136,14 @@ public class ReportSelectionController {
 		return groupReportDTOs;
 	}
 
-
+	/**
+	 * Get group report
+	 * @param request
+	 * @param model
+	 * @param reportSelectionCommand
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/getGroupReport/", method = RequestMethod.GET)
 	@ResponseBody
 	public List<GroupReportDTO> groupReport(HttpServletRequest request, Model model, 
@@ -120,7 +155,17 @@ public class ReportSelectionController {
 		return groupReportDTOs;
 	}
 
-
+	/**
+	 * Get manufacturer Report
+	 * @param request
+	 * @param model
+	 * @param reportSelectionCommand
+	 * @param result
+	 * @param redirectAttributes
+	 * @param status
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/getManufacturerReport/", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ManufacturerReportDTO> getManufacturerReport(HttpServletRequest request, Model model, 
@@ -153,14 +198,23 @@ public class ReportSelectionController {
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status, 
 								HttpServletResponse response, HttpServletRequest req) throws Exception {
 		/*Empty report Map*/
-		Map<String[], List<Machine>> groupReportMap = new HashMap<String[], List<Machine>>();
+		Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
 		
-		/*Populate report header parameters and set filter flags.*/
-//		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
+		/*Populate map with filter flag - value pair.*/
+		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);	
 		
-		/*For all groups.*/
-		List<Machine> machineList =  machineService.getMachines();
-		Map<Integer, Group> groupMap = reportSelectionCommand.getGroupMap();
+		/*Get machines by stevidor.*/
+		Integer stevidorId = (Integer)filtersMap.get(SystemConstants.COMPANY_SINGLE_FILTER);
+		List<Machine> machineList =  machineService.getMachineByStevedorId(stevidorId);
+
+		Map<Integer, Group> groupMap = new HashMap<Integer, Group>();
+		if (filtersMap.containsKey(SystemConstants.GROUP_FILTER)) {
+			Integer groupId = (Integer)filtersMap.get(SystemConstants.GROUP_FILTER);
+			groupMap.put(groupId, reportSelectionCommand.getGroupMap().get(groupId));
+		} else {
+			groupMap = reportSelectionCommand.getGroupMap();
+		}
+
 		for (Map.Entry<Integer, Group> entry : groupMap.entrySet()) {
 			Group group = entry.getValue();
 			Integer countModels = 0;
@@ -175,9 +229,9 @@ public class ReportSelectionController {
 					e.printStackTrace();
 				}
 			}
-			groupReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
+			accountReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
 		}
-		reportSelectionCommand.setAccountReportMap(groupReportMap);
+		reportSelectionCommand.setAccountReportMap(accountReportMap);
 
 		return "accountReport";
 	}

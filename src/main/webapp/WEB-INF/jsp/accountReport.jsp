@@ -98,7 +98,6 @@
 									<div class="form-group">
 										<label>Компания</label>
 											<form:select id="stevidorSelection" path="stevidorId" cssClass="form-control col-sm-12">
-												<form:option value="0">Все компании</form:option>
 												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
 													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
 												</c:forEach>
@@ -205,13 +204,7 @@
 									<td class="nowrap">Компания: <span class="report_header">Все компании</span></td>
 								</tr>								
 								<tr>
-									<td class="nowrap">Модель: <span class="report_header">Все модели</span></td>
-								</tr>
-								<tr>
-									<td class="nowrap">Год выпуска: <span class="report_header">Все года</span></td>
-								</tr>
-								<tr>
-									<td class="nowrap">Производитель: <span class="report_header">Все производители</span></td>
+									<td class="nowrap">Группа: <span class="report_header">Все группы</span></td>
 								</tr>
 							</tbody>
 						</table>
