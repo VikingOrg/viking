@@ -364,7 +364,7 @@
 								<tr>
 									<th class="column-check">№</th>
 									<th class="nowrap">Компания&nbsp;&nbsp;</th>
-									<th class="nowrap">Кол-во&nbsp;&nbsp;</th>
+									<th class="nowrap" style="width:20%">Кол-во&nbsp;&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody>
