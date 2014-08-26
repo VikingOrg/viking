@@ -8,7 +8,8 @@
 <head>
 <title>Таблица Фирм Производителей</title>
 		<jsp:include page="common/headCoreElements.jsp" />
-		
+		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
+						
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#manufacturer_table').dataTable( {
@@ -58,6 +59,7 @@
                 });
 
                 $("a[rel^='tableRowEdit']").click(function(e){
+                	$('#success_alert').attr("class","alert alert-success hidden");
                     $.ajax('${pageContext.request.contextPath}/manufacturer/edit/'+this.dataset['param1'], {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -71,6 +73,21 @@
                     });
                 });            
 
+                $('#addNewManufacturer').click(function(e){
+                	$('#success_alert').attr("class","alert alert-success hidden");
+                    $.ajax('${pageContext.request.contextPath}/manufacturer/createNew/', {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#manufacturerEditModalContent").html(response.responseText);
+                            $('#manufacturerEditModal').modal('show');
+                        }
+                    });
+                });
+
+                /*Popover logic. Works only with DOM table elements.*/
                 $("a[rel^='tableRowEdit']").popover({
                 	trigger:'hover',
                 	container:'body',
@@ -85,14 +102,88 @@
                     content: function() {
                         return $('#popoverContent'+this.dataset['param1']).html();
                     },
-                });    
+                }); 
+
+
+                $("#editManufacturer").on("click","#submitCreate", function(){
+             	   e.preventDefault();
+      			   initiateAjaxCall("create");
+               });
+
+               /*Modal code.*/ 
+               $('#manufacturerEditModal').on('shown.bs.modal', function (e) {
+            	   
+                   $("#submitUpdate").click(function(e) {
+                	   e.preventDefault();
+         			   initiateAjaxCall("update");
+                   });
+                   $("#submitCopy").click(function(e) {
+                	   e.preventDefault();
+         			   initiateAjaxCall("copy");
+                   });
+                   
+                   $("#submitCreate").click(function(e) {
+                	   e.preventDefault();
+         			   initiateAjaxCall("create");
+                   });
+                   
+        	       function initiateAjaxCall(requestType){
+        	            ajaxObjectId =  $("#ajaxObjectId").val();
+        	            $.ajax({
+        		               	type: "POST",
+        		       		    url: "${pageContext.request.contextPath}/manufacturer/save/" + requestType,
+        		       		    data: $("#ajaxSubmitForm").serialize(),
+        		                complete : function( response ) {
+        		                          $("#manufacturerEditModalContent").html(response.responseText);
+        		                          check = $("#ajaxSuccessFlag").val();
+        	
+        		                          if(check=='true'){
+        			                          var successMsg = $("#successMessage").html();
+        			                          /*For any type of update we are assuming there is a record in DOM with provided id.*/
+        			                          if(requestType == "update"){
+        				                      		/*For DOM DataTable.*/
+        				                      		$('#manufacturerNameRus'+ajaxObjectId).text($('#currentManufacturerNameRus').val());
+        				                      		$('#countryNameRus'+ajaxObjectId).text($("#currentManufacturerCountryId option:selected").text());
+        				                      		$('#manufacturerNameEn'+ajaxObjectId).text($('#currentManufacturerNameEn').val());
+        				                      		$('#manufacturerNote'+ajaxObjectId).text($('#currentManufacturerNote').val());
+        				                      		/*Closing Modal.*/
+        				                       	    closingModal(ajaxObjectId, successMsg);	
+        				                      } else {
+        					                        /*For newly added records we insert new one at the end of Datatable object and move coursor to that position.*/
+        				                    	  	var obj = $('#manufacturer_table').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
+        						                    	                 			                    	     $('#currentManufacturerNameRus').val(), 
+        						                    	                 			                    	    $("#currentManufacturerCountryId option:selected").text(),
+        						                    	                 			                    	     $('#currentManufacturerNameEn').val(),
+        						                    	                 			                    	     $('#currentManufacturerNote').val()] 
+        			 			                    	  													 );
+        				                    	  	$(obj.nTr).addClass( "success" );
+        			                       	    	closingModal($("#ajaxObjectId").val(), successMsg);	
+        					                  }
+        		                          } else {
+        		                        	  closingModal($("#ajaxObjectId").val(), "Все плохо!");	
+            		                      }
+        		                          
+        		                },	        	        
+        		       	        error: function(){
+        		       	        	alert("failure");
+        		       	        }
+        	            });           	
+        	       }
+            	   
+               });                	                          
                 
             } );
 
-        	function closingModal(manufacturerId){
+            
+        	function closingModal(manufacturerId, successMsg){
         		$('#manufacturerEditModal').modal('hide');
         		$('#'+manufacturerId).addClass( "success" );
+
+        		$('#success_alert').attr("class","alert alert-success");
+        		$("#success_alert_message").html(successMsg);
+        		
             }
+            
         </script>
 
 
@@ -148,7 +239,7 @@
 							<div class="row">	
 							<!--  Операции с данными в таблице -->
 								<div class="col-sm-12">
-										<a href="<c:url value="manufacturerEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
+										<a id="addNewManufacturer" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
 										<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 								</div>
 							</div>
@@ -172,6 +263,10 @@
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
 						</div>
 					</c:if>
+					<div id="success_alert" class="alert alert-success hidden">
+						<span id="success_alert_message"></span>
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					</div>
 	
 	
 					<!-- Таблица со списком Производителей Механизмов -->
@@ -197,13 +292,14 @@
 						</thead>
 						<tbody>
 							<c:forEach var="manufacturer" varStatus="loop" items="${manufacturerCommand.manufacturerList}">
-								<tr>
+								<tr id="${manufacturer.manufacturerId}">
 									<td class="column-check">
+										<c:out value="${manufacturer.manufacturerId}"/>
 										<form:checkbox path="manufacturerList[${loop.index}].archived" value="Y"></form:checkbox>
 									</td>
 									<td class="nowrap">
 										<a href="#" rel="tableRowEdit" data-param1="${manufacturer.manufacturerId}">
-							            	<span id="name${manufacturer.manufacturerId}"><c:out value="${manufacturer.nameRus}"/></span>
+							            	<span id="manufacturerNameRus${manufacturer.manufacturerId}"><c:out value="${manufacturer.nameRus}"/></span>
 							            </a>
 							            <span class="hidden" id="popoverContent${manufacturer.manufacturerId}">
 							            
@@ -236,12 +332,14 @@
 							            </span>
 									</td>
 									<td class="nowrap">
-										<c:out  value="${manufacturer.country.nameRus}"/>
+										<span id="countryNameRus${manufacturer.manufacturerId}"><c:out  value="${manufacturer.country.nameRus}"/></span>
 									</td>
 									<td class="nowrap">
-											<c:out value="${manufacturer.nameEn}" />
+										<span id="manufacturerNameEn${manufacturer.manufacturerId}"><c:out value="${manufacturer.nameEn}"/></span>
 									</td>
-									<td class="nowrap"><c:out value="${manufacturer.note}" /></td>
+									<td class="nowrap">
+										<span id="manufacturerNote${manufacturer.manufacturerId}"><c:out value="${manufacturer.note}"/></span>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

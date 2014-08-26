@@ -11,6 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <title>Таблица Моделей Машин</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
+		
 		<script type="text/javascript">
 	        $(document).ready(function() {
 	        	oTable = $('#modelSearchTable').dataTable( {
@@ -20,7 +22,7 @@
 	    			"columnDefs": [
 	          		               {
 	          		                   "targets": [ 0 ],
-	          		                   "visible": false
+	          		                   "visible": true
 	          		               },
 	          		           ],
 	             	tableTools: {
@@ -82,41 +84,105 @@
                         }
                     });
                 });
-                
-                $("a[rel^='tableRowCopy']").click(function(e){
-                    e.preventDefault();
-                	$('#user_search_form').attr('action', "machineModel/copy/"+this.dataset['param1']);
-                	$('#user_search_form').attr('method', "get");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                });
-                $("#submitDelete").click(function(e) {
-                	e.preventDefault();
-                	$('#user_search_form').attr('action', "machineModel/delete/");
-                	$('#user_search_form').attr('method', "post");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                 });
-                $("#submitNewModel").click(function(e) {
-                	e.preventDefault();
-                	$('#user_search_form').attr('action', "machineModel/new/");
-                	$('#user_search_form').attr('method', "get");
-                	$('#user_search_form').attr('accept-charset', "UTF-8");
-                	$('#user_search_form').submit();
-                 });                 
 
-                $(".modal-wide").on("show.bs.modal", function() {
-                	  var height = $(window).height() - 200;
-                	  $(this).find(".modal-body").css("max-height", height);
+                $('#addNewModel').click(function(e){
+                	$('#success_alert').attr("class","alert alert-success hidden");
+                    $.ajax('${pageContext.request.contextPath}/machineModel/createNew/', {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#machineModelModalContent").html(response.responseText);
+                            $('#machineModelModal').modal('show');
+                        }
+                    });
                 });
+                
+                /*Modal code.*/ 
+                $('#machineModelModal').on('shown.bs.modal', function (e) {
+              	  	var height = $(window).height() - 200;
+            	  	$(this).find(".modal-body").css("max-height", height);
+            	               	   
+                    $("#submitUpdate").click(function(e) {
+                 	   e.preventDefault();
+          			   initiateAjaxCall("update");
+                    });
+                    $("#submitCopy").click(function(e) {
+                 	   e.preventDefault();
+          			   initiateAjaxCall("copy");
+                    });
+                    
+                    $("#submitCreate").click(function(e) {
+                 	   e.preventDefault();
+          			   initiateAjaxCall("create");
+                    });
+                    
+         	       function initiateAjaxCall(requestType){
+         	            ajaxObjectId =  $("#ajaxObjectId").val();
+         	            $.ajax({
+         		               	type: "POST",
+         		       		    url: "${pageContext.request.contextPath}/machineModel/save/" + requestType,
+         		       		    data: $("#ajaxSubmitForm").serialize(),
+         		                complete : function( response ) {
+         		                          $("#machineModelModalContent").html(response.responseText);
+         		                          check = $("#ajaxSuccessFlag").val();
+         	
+         		                          if(check=='true'){
+         			                          var successMsg = $("#successMessage").html();
+         			                          /*For any type of update we are assuming there is a record in DOM with provided id.*/
+         			                          if(requestType == "update"){
+         				                            /*For Ajax DataTable.*/
+         			                        		//var rowData = [];
+         			                        		//$('#'+machineModelId).children('td').each(function(i, data) {
+         			                        			//console.log("Debugging:"+$(this).html()+":End");	
+         			                        			//rowData.push($(this).html());
+         			                       			//});
+         			                        		//oTable.fnUpdate( rowData, document.getElementById(machineModelId) );
+         			                        		//oTable.fnUpdate( $('#machineModelName').val(), document.getElementById(machineModelId), 2 );
+         			                        		/*For DOM DataTable.*/
+         			                        		$('#group'+ajaxObjectId).text($('#groupSelectModal option:selected').text());
+         			                        		$('#name'+ajaxObjectId).text($('#machineModelName').val());
+         			                        		$('#manafacturer'+ajaxObjectId).text($( "#manufacturerSelectModal option:selected" ).text() );
+         			                        		$('#note'+ajaxObjectId).text($('#macnineModelNote').val());
+             			                          
+         				                      		/*Closing Modal.*/
+         				                       	    closingModal(ajaxObjectId, successMsg);	
+         				                      } else {
+         					                        /*For newly added records we insert new one at the end of Datatable object and move coursor to that position.*/
+         				                    	  	var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
+         				                    	  	                                                                      $('#machineModelName').val(), 
+         				                    	  	                                                                      $('#groupSelectModal option:selected').text(),
+         				                    	  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
+         						                    	                 			                    	              "Страна",
+         						                    	                 			                    	              $('#macnineModelNote').val(),
+         						                    	                 			                    	              $('#groupSelectModal').val()] 
+         			 			                    	  													 );
+
+         				                    	  	$(obj.nTr).addClass( "success" );
+         			                       	    	closingModal($("#ajaxObjectId").val(), successMsg);	
+         					                  }
+         		                          } //if not true - modal is still up with error message on the top.
+         		                          
+         		                },	        	        
+         		       	        error: function(){
+             		       	        //something went wrong on server side...
+         		       	        	alert("failure");
+         		       	        }
+         	            });           	
+         	       }
+             	   
+                });                    
             } );
                
-        	function closingModal(machineModelId){
+            
+        	function closingModal(modelId, successMsg){
         		$('#machineModelModal').modal('hide');
-        		//$('#'+machineModelId).removeClass("odd even");
-        		$('#'+machineModelId).addClass( "success" );
-        		//var myClass = $('#'+machineModelId).attr('class');        		
-        		//alert("classes = " + myClass);
+        		$('#'+modelId).addClass( "success" );
+
+        		$('#success_alert').attr("class","alert alert-success");
+        		$("#success_alert_message").html(successMsg);
+        		
             }
             
         </script>	
@@ -190,8 +256,7 @@
 				<div class="col-sm-12 well lform">
 					<div class="row"">
 						<div class="col-sm-12">
-							<a href="<c:url value="machineEdit"/>"
-								class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
+								<a id="addNewModel" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
 								<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 						</div>
 					</div>	
@@ -200,17 +265,23 @@
 			<!-- End of Sidebar content-->
 
 			<div class="col-sm-8 col-md-9 col-lg-9">
-	                            					                    <!--  Вывод сообщений и предупреждений  -->
-										<c:if test="${not empty message}"> 
-											<div class="alert alert-success show"><spring:message code="${message}" />
-												<button type="button" class="close" data-dismiss="alert">&times;</button>
-											</div>			
-										</c:if>
-										<c:if test="${not empty error}"> 
-											<div class="alert alert-danger show"><spring:message code="${error}" />
-												<button type="button" class="close" data-dismiss="alert">&times;</button>
-											</div>			
-										</c:if>	
+						<!--  Вывод сообщений и предупреждений  -->
+						<c:if test="${not empty message}">
+							<div class="alert alert-success show">
+								<spring:message code="${message}" />
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						</c:if>
+						<c:if test="${not empty error}">
+							<div class="alert alert-danger show">
+								<spring:message code="${error}" />
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						</c:if>
+						<div id="success_alert" class="alert alert-success hidden">
+							<span id="success_alert_message"></span>
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+						</div>
 	                            
 <!-- 							Таблица со списком машин -->
 									<table id="company_header" class="table_report_header">

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.ManufacturerCommand;
 import com.seaport.service.IManufacturerService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.SystemConstants;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -62,6 +63,7 @@ public class ManufacturerController {
 	public String createEditNewModel(ModelMap model, @PathVariable Integer manufacturerlId) throws Exception {
 		ManufacturerCommand manufacturerCommand = new ManufacturerCommand();
 		manufacturerCommand.setCurrentManufacturer(manufacturerService.getManufacturer(manufacturerlId));
+		manufacturerCommand.setCountryMap(userService.getContriesMap());
 		model.put("manufacturerCommand", manufacturerCommand);
 		return "manufacturerEdit";
 	}
@@ -80,25 +82,30 @@ public class ManufacturerController {
 		return "manufacturerEdit";
 	}	
 	
+	
 	/**
-	 * Set forms for a new Machine Model.
+	 * Saving data from Manufacturer Edit page.
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/save/", method = RequestMethod.POST)
-	public String createEditNewModel(Model model,
-									@Valid @ModelAttribute("machineModalEditCommand") ManufacturerCommand manufacturerCommand,
+	@RequestMapping(value="/save/{transType}", method = RequestMethod.POST)
+	public String createEditNewModel(Model model,  @PathVariable String transType, 
+									@Valid @ModelAttribute("manufacturerCommand") ManufacturerCommand manufacturerCommand,
 									BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
 			return "manufacturerEdit";
 		}
+		
+		if (transType.equalsIgnoreCase(SystemConstants.TRANS_TYPE_COPY)) {
+			manufacturerCommand.getCurrentManufacturer().setManufacturerId(null);
+		}
 		manufacturerService.saveManufacturer(manufacturerCommand.getCurrentManufacturer());
 		manufacturerCommand.setSuccessFlag("true");
 		model.addAttribute("message", "message.user.success.generic");
-		return "manufacturerSearch";
-	}
+		return "manufacturerEdit";
+	}	
 	
 }
 

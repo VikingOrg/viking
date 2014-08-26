@@ -23,6 +23,7 @@ public class Manufacturer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue	
 	@Column(name="manufacturer_id")
 	private Integer manufacturerId;
 

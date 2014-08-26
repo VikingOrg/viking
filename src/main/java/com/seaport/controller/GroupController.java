@@ -38,7 +38,7 @@ public class GroupController {
 	private IGroupService groupService;
 	
 	/**
-	 * Create new Group search form. 
+	 * Setup new Group search form page. 
 	 *  
 	 * @param request
 	 * @param model

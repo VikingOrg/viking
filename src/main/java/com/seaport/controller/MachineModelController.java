@@ -23,6 +23,7 @@ import com.seaport.domain.MachineModel;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.SystemConstants;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -89,7 +90,6 @@ public class MachineModelController {
 	@RequestMapping(value="/createNew/", method = RequestMethod.GET)
 	public String createEditNewModel(ModelMap model) throws Exception {
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
-		machineModelEditCommand.setMachineModel(null);
 		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
 		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineModelEditCommand.setCountryMap(userService.getContriesMap());	
@@ -103,8 +103,8 @@ public class MachineModelController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/save/{machineModelId}", method = RequestMethod.POST)
-	public String createEditNewModel(Model model,
+	@RequestMapping(value="/save/{transType}", method = RequestMethod.POST)
+	public String createEditNewModel(Model model, @PathVariable String transType,
 									@Valid @ModelAttribute("machineModalEditCommand") MachineModelEditCommand machineModelEditCommand,
 									BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		
@@ -112,12 +112,16 @@ public class MachineModelController {
 			model.addAttribute("error", "message.user.error.generic");
 			return "machineModelEdit";
 		}
+		
+		if (transType.equalsIgnoreCase(SystemConstants.TRANS_TYPE_COPY)) {
+			machineModelEditCommand.getMachineModel().setModelId(null);
+		}
+		
 		machineService.saveMachineModel(machineModelEditCommand.getMachineModel());
 		machineModelEditCommand.setSuccessFlag("true");
 		model.addAttribute("message", "message.user.success.generic");
 		return "machineModelEdit";
 	}
-		
 	
 	/**
 	 * This mapped method used to delete models. It returns to the same page with success message.
