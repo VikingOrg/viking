@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.MachineModelCommand;
 import com.seaport.command.MachineModelEditCommand;
 import com.seaport.domain.MachineModel;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IUserService;
@@ -41,7 +42,9 @@ public class MachineModelController {
 	@Autowired
 	private IUserService userService;
 	@Autowired
-	private IGroupService groupService;	
+	private IGroupService groupService;
+	@Autowired
+	private ICountryService countryService;	
 	/**
 	 * Create new Machine Model search form. 
 	 *  
@@ -57,7 +60,7 @@ public class MachineModelController {
 		machineModelCommand.setMachineModelList(machineService.getModels());
 		machineModelCommand.setGroupMap(groupService.getGroupMap());
 		machineModelCommand.setManufacturerMap(machineService.getManufacturerMap());
-		machineModelCommand.setCountryMap(userService.getContriesMap());
+		machineModelCommand.setCountryMap(countryService.getContriesMap());
 		
 		model.put("modelSearchCommand", machineModelCommand);
 		return "machineModel";
@@ -75,7 +78,7 @@ public class MachineModelController {
 		machineModelEditCommand.setMachineModel(machineService.getModel(machineModelId));
 		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
 		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
-		machineModelEditCommand.setCountryMap(userService.getContriesMap());	
+		machineModelEditCommand.setCountryMap(countryService.getContriesMap());	
 		model.put("machineModalEditCommand", machineModelEditCommand);
 		
 		return "machineModelEdit";
@@ -92,7 +95,7 @@ public class MachineModelController {
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
 		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
 		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
-		machineModelEditCommand.setCountryMap(userService.getContriesMap());	
+		machineModelEditCommand.setCountryMap(countryService.getContriesMap());	
 		model.put("machineModalEditCommand", machineModelEditCommand);
 		
 		return "machineModelEdit";

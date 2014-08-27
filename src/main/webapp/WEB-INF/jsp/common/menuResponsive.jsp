@@ -56,8 +56,8 @@
 							<ul class="dropdown-menu">
 							<sec:authorize access="hasRole('ROLE_ADMIN')"> 
 								<li><a href="<c:url value="/stevidorSearch"/>">Компании-операторы</a></li>
-								<li><a href="<c:url value="/portSearch"/>">Порты</a></li>
-								<li><a href="<c:url value="/countrySearch"/>">Страны</a></li>
+								<li><a href="<c:url value="/port"/>">Порты</a></li>
+								<li><a href="<c:url value="/country"/>">Страны</a></li>
 					            <li class="divider"></li>
 					        </sec:authorize>
 					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>

@@ -50,7 +50,6 @@ public class GroupController {
 		
 		GroupCommand groupCommand = new GroupCommand();
 		groupCommand.setGroupList(groupService.getGroups());
-		
 		model.put("groupCommand", groupCommand);
 		return "groupSearch";
 	}
@@ -80,7 +79,7 @@ public class GroupController {
 	}	
 	
 	/**
-	 * Set forms for a new Machine Model.
+	 * Persisting group data.
 	 * @param model
 	 * @return
 	 */

@@ -17,19 +17,32 @@ import com.seaport.domain.Port;
  * @version      1.0 07/09/14 <P>
  */
 
-public class PortSearchCommand {
+public class PortCommand {
 	private List<Port> portList = new ArrayList<Port>();
-	private Map<Integer, Country> userCountry = new LinkedHashMap<Integer,Country>();
+	private Map<Integer, Country> countryMap = new LinkedHashMap<Integer,Country>();
 	private Integer countryId;
+	private Port port = new Port();
+	private String successFlag = "false";
 	
-	public Map<Integer, Country> getUserCountry() {
-		return userCountry;
+	public String getSuccessFlag() {
+		return successFlag;
 	}
-
-	public void setUserCountry(Map<Integer, Country> userCountry) {
-		this.userCountry = userCountry;
+	public void setSuccessFlag(String successFlag) {
+		this.successFlag = successFlag;
 	}
-
+	public Port getPort() {
+		return port;
+	}
+	public void setPort(Port port) {
+		this.port = port;
+	}
+	
+	public Map<Integer, Country> getCountryMap() {
+		return countryMap;
+	}
+	public void setCountryMap(Map<Integer, Country> countryMap) {
+		this.countryMap = countryMap;
+	}
 	public Integer getCountryId() {
 		return countryId;
 	}

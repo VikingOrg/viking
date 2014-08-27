@@ -17,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.RegistrationCommand;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
@@ -37,6 +38,8 @@ public class UserEditController {
 	private IRoleService userRole;
 	@Autowired
 	private IPortService portService;
+	@Autowired
+	private ICountryService countryService;
 	
 	@RequestMapping(value="/edit/{userId}", method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId,
@@ -48,7 +51,7 @@ public class UserEditController {
 		registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
 		registrationCommand.setUserPort(portService.getPortsMap());
 		registrationCommand.setUserStevidor(portService.getStevidorsMap());
-		registrationCommand.setUserCountry(userService.getContriesMap());
+		registrationCommand.setUserCountry(countryService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);
 		return "admin/userEditAdmin";
@@ -66,7 +69,7 @@ public class UserEditController {
 		registrationCommand.getUser().setUserId(null);
 		registrationCommand.setUserPort(portService.getPortsMap());
 		registrationCommand.setUserStevidor(portService.getStevidorsMap());
-		registrationCommand.setUserCountry(userService.getContriesMap());
+		registrationCommand.setUserCountry(countryService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);
 		return "admin/userEditAdmin";
@@ -82,7 +85,7 @@ public class UserEditController {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setUserPort(portService.getPortsMap());
 		registrationCommand.setUserStevidor(portService.getStevidorsMap());
-		registrationCommand.setUserCountry(userService.getContriesMap());
+		registrationCommand.setUserCountry(countryService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);
 		return "admin/userEditAdmin";

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.PassRecoverCommand;
 import com.seaport.command.RegistrationCommand;
 import com.seaport.domain.User;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IUserService;
@@ -45,6 +46,8 @@ public class PassRecoverController {
 	private IRoleService roleService;
 	@Autowired
 	private IPortService portService;
+	@Autowired
+	private ICountryService countryService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
@@ -52,7 +55,7 @@ public class PassRecoverController {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setUserPort(portService.getPortsMap());
 		registrationCommand.setUserStevidor(portService.getStevidorsMap());
-		registrationCommand.setUserCountry(userService.getContriesMap());
+		registrationCommand.setUserCountry(countryService.getContriesMap());
 		
     	model.put("registrationCommand", registrationCommand);
 		return "passRecover";

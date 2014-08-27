@@ -42,18 +42,18 @@ public class UserServiceImpl implements IUserService {
 	public User getUser(Integer userId){
 		return userDAO.getUser(userId);
 	}
-	@Override	
-	public List<Country> getContries(){
-		return userDAO.getContries();
-	}
-	@Override
-	public Map<Integer, Country> getContriesMap() {
-		return userDAO.getContriesMap();
-	}
+//	@Override	
+//	public List<Country> getContries(){
+//		return userDAO.getContries();
+//	}
+//	@Override
+//	public Map<Integer, Country> getContriesMap() {
+//		return userDAO.getContriesMap();
+//	}
 	public boolean hasRole(String role){
 		return userDAO.hasRole(role);
 	}
-	public Country getCountry(Integer countryId) {
-		return userDAO.getCountry(countryId);
-	}
+//	public Country getCountry(Integer countryId) {
+//		return userDAO.getCountry(countryId);
+//	}
 }

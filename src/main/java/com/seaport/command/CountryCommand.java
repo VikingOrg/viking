@@ -14,8 +14,26 @@ import com.seaport.domain.Country;
  * @version      1.0 12/05/13 <P>
  */
 
-public class CountrySearchCommand {
+public class CountryCommand {
 	private List<Country> countryList = new ArrayList<Country>();
+	private Country country = new Country();
+	private String successFlag = "false";
+	
+	public String getSuccessFlag() {
+		return successFlag;
+	}
+
+	public void setSuccessFlag(String successFlag) {
+		this.successFlag = successFlag;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 
 	public List<Country> getCountryList() {
 		return countryList;

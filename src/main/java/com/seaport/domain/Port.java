@@ -19,20 +19,21 @@ public class Port implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	@Column(name="port_id")
-	private int portId;
+	private Integer portId;
 
 	private String archived;
 
 	@Column(name="country_id")
-	private int countryId;
+	private Integer countryId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_date")
 	private Date createDate;
 
 	@Column(name="create_user_id")
-	private int createUserId;
+	private Integer createUserId;
 
 	@Column(name="full_name")
 	private String fullName;
@@ -48,7 +49,7 @@ public class Port implements Serializable {
 	private Date updateDate;
 
 	@Column(name="update_user_id")
-	private int updateUserId;
+	private Integer updateUserId;
 	
 //	@OneToOne(fetch = FetchType.LAZY)
 //	@PrimaryKeyJoinColumn
@@ -61,6 +62,38 @@ public class Port implements Serializable {
 	public Port() {
 	}
 
+	public Integer getPortId() {
+		return portId;
+	}
+
+	public void setPortId(Integer portId) {
+		this.portId = portId;
+	}
+
+	public Integer getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
+	}
+
+	public Integer getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(Integer createUserId) {
+		this.createUserId = createUserId;
+	}
+
+	public Integer getUpdateUserId() {
+		return updateUserId;
+	}
+
+	public void setUpdateUserId(Integer updateUserId) {
+		this.updateUserId = updateUserId;
+	}
+
 	public Country getCountry() {
 		return country;
 	}
@@ -69,13 +102,6 @@ public class Port implements Serializable {
 		this.country = country;
 	}
 
-	public int getPortId() {
-		return this.portId;
-	}
-
-	public void setPortId(int portId) {
-		this.portId = portId;
-	}
 
 	public String getArchived() {
 		return this.archived;
@@ -84,15 +110,6 @@ public class Port implements Serializable {
 	public void setArchived(String archived) {
 		this.archived = archived;
 	}
-
-	public int getCountryId() {
-		return this.countryId;
-	}
-
-	public void setCountryId(int countryId) {
-		this.countryId = countryId;
-	}
-
 	public Date getCreateDate() {
 		return this.createDate;
 	}
@@ -100,15 +117,6 @@ public class Port implements Serializable {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-	public int getCreateUserId() {
-		return this.createUserId;
-	}
-
-	public void setCreateUserId(int createUserId) {
-		this.createUserId = createUserId;
-	}
-
 	public String getFullName() {
 		return this.fullName;
 	}
@@ -139,23 +147,6 @@ public class Port implements Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public int getUpdateUserId() {
-		return this.updateUserId;
-	}
-
-	public void setUpdateUserId(int updateUserId) {
-		this.updateUserId = updateUserId;
-	}
-
-	@Override
-	public String toString() {
-		return "Port [portId=" + portId + ", archived=" + archived
-				+ ", countryId=" + countryId + ", createDate=" + createDate
-				+ ", createUserId=" + createUserId + ", fullName=" + fullName
-				+ ", name=" + name + ", portNote=" + portNote + ", updateDate="
-				+ updateDate + ", updateUserId=" + updateUserId + "]";
 	}
 
 }

@@ -17,7 +17,7 @@
             		"columnDefs": [
             		               {
             		                   "targets": [ 0 ],
-            		                   "visible": false
+            		                   "visible": true
             		               }
             		           ],
                 	tableTools: {
@@ -50,15 +50,48 @@
                 	oTable.fnFilter( $(this).val());
                 });   		 
                 $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
-                });
-                $('#portSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 2);
                 });
-                
-            } );
 
-    
+                /*Edit logic below.*/
+                $("a[rel^='tableRowEdit']").click(function(e){
+                	$('#success_alert').attr("class","alert alert-success hidden");
+                    $.ajax('${pageContext.request.contextPath}/port/edit/'+this.dataset['param1'], {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#editModalContent").html(response.responseText);
+                            $('#editModal').modal('show');
+                            
+                        }
+                    });
+                });
+
+                $('#addNew').click(function(e){
+                	$('#success_alert').attr("class","alert alert-success hidden");
+                    $.ajax('${pageContext.request.contextPath}/port/createNew/', {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#editModalContent").html(response.responseText);
+                            $('#editModal').modal('show');
+                        }
+                    });
+                });
+                
+            } ); //end of document.ready
+
+        	function closingModal(groupId, successMsg){
+        		$('#editModal').modal('hide');
+        		$('#'+groupId).addClass( "success" );
+        		$(this).attr("class","newclass");
+        		$('#success_alert').attr("class","alert alert-success");
+        		$("#success_alert_message").html(successMsg);
+            }   
         </script>
 	</head>
 	<body>
@@ -69,7 +102,7 @@
 	<div class="container-fluid">
 	
 		<form:form id="port_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="portSearch"
-			commandName="portSearchCommand" method="post" accept-charset="UTF-8">
+			commandName="portCommand" method="post" accept-charset="UTF-8">
 			<div class="row">
 	
 				<!--Sidebar content-->
@@ -82,8 +115,7 @@
 										<form:select id="countrySelect" path="countryId"
 											cssClass="form-control col-sm-12">
 											<form:option value="">Все Страны</form:option>
-											<c:forEach items="${portSearchCommand.userCountry}"
-												var="country">
+											<c:forEach items="${portCommand.countryMap}" var="country">
 												<form:option value="${country.value.nameRus}"
 													label="${country.value.nameRus}" />
 											</c:forEach>
@@ -106,7 +138,7 @@
 							<div class="row">	
 							<!--  Операции с данными в таблице -->
 								<div class="col-sm-12">
-										<a href="<c:url value="portEdit/new/"/> "class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
+										<a id="addNew" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
 										<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 								</div>
 							</div>
@@ -119,7 +151,7 @@
 	
 					<!--  Вывод сообщений и предупреждений  -->
 					<c:if test="${not empty message}">
-						<div class="alert alert-success show">
+						<div id="success" class="alert alert-success show">
 							<spring:message code="${message}" />
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
 						</div>
@@ -130,6 +162,11 @@
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
 						</div>
 					</c:if>
+					
+					<div id="success_alert" class="alert alert-success hidden">
+						<span id="success_alert_message"></span>
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					</div>
 	
 	
 					<!-- Таблица со списком портов -->
@@ -154,18 +191,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="port" varStatus="loop"
-								items="${portSearchCommand.portList}">
-								<c:if test="${port.archived != '1'}">
-									<tr>
-										<td class="column-check nowrap"><form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
-										</td>
-										<td class="nowrap">
-											<a href="<c:url value="portEdit/edit/${port.portId}"/>"><c:out value="${port.name}" /></a></td>
-										<td class="nowrap"><c:out value="${port.country.nameRus}" /></td>
-										<td class="nowrap"><c:out value="${port.portNote}" /></td>
-									</tr>
-								</c:if>
+							<c:forEach var="port" varStatus="loop" items="${portCommand.portList}">
+								<tr id="${port.portId}">
+									<td class="column-check nowrap">
+										<form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
+									</td>
+									<td class="nowrap">
+										<a href="#" rel="tableRowEdit" data-param1="${port.portId}"><c:out value="${port.name}" /></a>
+									</td>
+									<td class="nowrap">
+										<c:out value="${port.country.nameRus}" />
+									</td>
+									<td class="nowrap">
+										<c:out value="${port.portNote}" />
+									</td>
+								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
@@ -179,7 +219,13 @@
 <!-- Closing div tag for wrap -->
 <jsp:include page="common/footer.jsp" />
 
-
+<div id="editModal" class="modal modal-wide fade">
+  <div class="modal-dialog">
+    <div id="editModalContent" class="modal-content">
+    
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->			
 
 </body>
 </html>

@@ -1,8 +1,10 @@
 package com.seaport.domain;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,63 +21,65 @@ import javax.persistence.TemporalType;
 @Table(name = "countries")
 public class Country implements java.io.Serializable {
 	private static final long serialVersionUID = -4663358365744814774L;
-	private int countryId;
+	
+	@Id
+	@GeneratedValue
+	@Column(name="country_id")	
+	private Integer countryId;
+	
+	@Column(name = "name_rus", nullable = false, length = 45)
 	private String nameRus;
+	
+	@Column(name = "name_en", length = 45)
 	private String nameEn;
+	
+	@Column(name = "archived", length = 1)
 	private String archived;
+	
+	@Column(name = "country_note", length = 65535)
 	private String countryNote;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_date", nullable = false, length = 19)
 	private Date createDate;
-	private String createUserId;
+	
+	@Column(name = "create_user_id", nullable = false, length = 45)
+	private Integer createUserId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_date", nullable = false, length = 19)
 	private Date updateDate;
-	private String updateUserId;
+	
+	@Column(name = "update_user_id", nullable = false, length = 45)
+	private Integer updateUserId;
 
 	public Country() {
 	}
-
-	public Country(int countryId, String nameRus, Date createDate,
-			String createUserId, Date updateDate, String updateUserId) {
-		this.countryId = countryId;
-		this.nameRus = nameRus;
-		this.createDate = createDate;
+	
+	public Integer getCreateUserId() {
+		return createUserId;
+	}
+	public void setCreateUserId(Integer createUserId) {
 		this.createUserId = createUserId;
-		this.updateDate = updateDate;
+	}
+	public Integer getUpdateUserId() {
+		return updateUserId;
+	}
+	public void setUpdateUserId(Integer updateUserId) {
 		this.updateUserId = updateUserId;
 	}
-
-	public Country(int countryId, String nameRus, String nameEn,
-			String archived, String countryNote, Date createDate,
-			String createUserId, Date updateDate, String updateUserId) {
-		this.countryId = countryId;
-		this.nameRus = nameRus;
-		this.nameEn = nameEn;
-		this.archived = archived;
-		this.countryNote = countryNote;
-		this.createDate = createDate;
-		this.createUserId = createUserId;
-		this.updateDate = updateDate;
-		this.updateUserId = updateUserId;
+	public Integer getCountryId() {
+		return countryId;
 	}
-
-	@Id
-	@Column(name = "country_id", unique = true, nullable = false)
-	public int getCountryId() {
-		return this.countryId;
-	}
-
-	public void setCountryId(int countryId) {
+	public void setCountryId(Integer countryId) {
 		this.countryId = countryId;
 	}
-
-	@Column(name = "name_rus", nullable = false, length = 45)
 	public String getNameRus() {
 		return this.nameRus;
 	}
-
 	public void setNameRus(String nameRus) {
 		this.nameRus = nameRus;
 	}
-
-	@Column(name = "name_en", length = 45)
 	public String getNameEn() {
 		return this.nameEn;
 	}
@@ -83,8 +87,6 @@ public class Country implements java.io.Serializable {
 	public void setNameEn(String nameEn) {
 		this.nameEn = nameEn;
 	}
-
-	@Column(name = "archived", length = 1)
 	public String getArchived() {
 		return this.archived;
 	}
@@ -92,8 +94,7 @@ public class Country implements java.io.Serializable {
 	public void setArchived(String archived) {
 		this.archived = archived;
 	}
-
-	@Column(name = "country_note", length = 65535)
+	
 	public String getCountryNote() {
 		return this.countryNote;
 	}
@@ -102,8 +103,6 @@ public class Country implements java.io.Serializable {
 		this.countryNote = countryNote;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_date", nullable = false, length = 19)
 	public Date getCreateDate() {
 		return this.createDate;
 	}
@@ -112,17 +111,8 @@ public class Country implements java.io.Serializable {
 		this.createDate = createDate;
 	}
 
-	@Column(name = "create_user_id", nullable = false, length = 45)
-	public String getCreateUserId() {
-		return this.createUserId;
-	}
 
-	public void setCreateUserId(String createUserId) {
-		this.createUserId = createUserId;
-	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date", nullable = false, length = 19)
 	public Date getUpdateDate() {
 		return this.updateDate;
 	}
@@ -131,22 +121,7 @@ public class Country implements java.io.Serializable {
 		this.updateDate = updateDate;
 	}
 
-	@Column(name = "update_user_id", nullable = false, length = 45)
-	public String getUpdateUserId() {
-		return this.updateUserId;
-	}
 
-	public void setUpdateUserId(String updateUserId) {
-		this.updateUserId = updateUserId;
-	}
 
-	@Override
-	public String toString() {
-		return "Countries [countryId=" + countryId + ", nameRus=" + nameRus
-				+ ", nameEn=" + nameEn + ", archived=" + archived
-				+ ", countryNote=" + countryNote + ", createDate=" + createDate
-				+ ", createUserId=" + createUserId + ", updateDate="
-				+ updateDate + ", updateUserId=" + updateUserId + "]";
-	}
 
 }

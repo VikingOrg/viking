@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.UserSearchCommand;
 import com.seaport.domain.User;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
@@ -37,6 +38,8 @@ public class UserSearchController {
 	private IUserService userService;
 	@Autowired
 	private IPortService portService;
+	@Autowired
+	private ICountryService countryService;
 	
 	/**
 	 * Create new user search form. 
@@ -54,7 +57,7 @@ public class UserSearchController {
 		
 		userSearchCommand.setUserPort(portService.getPortsMap());
 		userSearchCommand.setUserStevidor(portService.getStevidorsMap());
-		userSearchCommand.setUserCountry(userService.getContriesMap());
+		userSearchCommand.setUserCountry(countryService.getContriesMap());
 		
 		model.put("userSearchCommand", userSearchCommand);
 		return "admin/userSearchAdmin";

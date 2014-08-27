@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.seaport.command.CountryEditCommand;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IUserService;
 
 /**
@@ -26,7 +27,9 @@ import com.seaport.service.IUserService;
 public class CountryEditController {
 	@Autowired
 	private IUserService userService;
-
+	@Autowired
+	private ICountryService countryService;
+	
 	/**
 	 * Setup for Country Editing form.
 	 * @param request
@@ -41,7 +44,7 @@ public class CountryEditController {
 							ModelMap model)  throws Exception{
 		CountryEditCommand CountryEditCommand = new CountryEditCommand();
 		if (countryId != null) {
-			CountryEditCommand.setCountry(userService.getCountry(Integer.parseInt(countryId)));
+			CountryEditCommand.setCountry(countryService.getCountry(Integer.parseInt(countryId)));
 		}
 		model.put("countryEditCommand", CountryEditCommand);
 		return "countryEdit";

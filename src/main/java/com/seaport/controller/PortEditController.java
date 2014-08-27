@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.seaport.command.PortEditCommand;
 import com.seaport.dao.ISystemDAO;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
@@ -32,6 +33,8 @@ public class PortEditController {
 	private ISystemDAO systemRepo;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private ICountryService countryService;
 	
 	/**
 	 * Setup for Port Editing form.
@@ -50,7 +53,7 @@ public class PortEditController {
 			portEditCommand.setPort(portService.getPort(Integer.parseInt(portId)));
 		}
 		
-		portEditCommand.setCountryMap(userService.getContriesMap());
+		portEditCommand.setCountryMap(countryService.getContriesMap());
 		model.put("portEditCommand", portEditCommand);
 		return "portEdit";
 	}
@@ -64,7 +67,7 @@ public class PortEditController {
 	public String newUser(ModelMap model) throws Exception {
 		PortEditCommand portEditCommand = new PortEditCommand();
 		
-		portEditCommand.setCountryMap(userService.getContriesMap());
+		portEditCommand.setCountryMap(countryService.getContriesMap());
 		model.put("portEditCommand", portEditCommand);
 		return "portEdit";
 	}

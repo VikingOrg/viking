@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.StevidorSearchCommand;
 import com.seaport.domain.Stevidor;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IUserService;
 
@@ -36,6 +37,8 @@ public class StevidorSearchController {
 	private IUserService userService;
 	@Autowired
 	private IPortService portService;
+	@Autowired
+	private ICountryService countryService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
@@ -43,7 +46,7 @@ public class StevidorSearchController {
 		StevidorSearchCommand stevidorSearchCommand = new StevidorSearchCommand();
 
 		stevidorSearchCommand.setUserPort(portService.getPortsMap());
-		stevidorSearchCommand.setUserCountry(userService.getContriesMap());
+		stevidorSearchCommand.setUserCountry(countryService.getContriesMap());
 		stevidorSearchCommand.setStevidorList(portService.getStevidors());
 		
 		model.put("stevidorSearchCommand", stevidorSearchCommand);

@@ -7,7 +7,7 @@
 
 <form:form id="ajaxSubmitForm" action="/groupEdit" commandName="groupCommand" method="post" accept-charset="UTF-8">
 
-	      <div class="modal-header">
+	      <div class="modal-header"> <!-- modal header start -->
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<c:if test="${not empty groupCommand.currentGroup.groupId}"> 
 		        	<h4 class="text-muted">РЕДАКТИРОВАНИЕ ГРУППЫ (№ ${groupCommand.currentGroup.groupId})</h4>
@@ -54,8 +54,7 @@
 	
 		  </div> <!-- end of modal body -->
 			
-			
-	      <div class="modal-footer">
+	      <div class="modal-footer"> <!-- Modal Footer Start -->
 	        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
 	        
 			<c:if test="${not empty groupCommand.currentGroup.groupId}"> 
@@ -65,7 +64,7 @@
 			<c:if test="${empty groupCommand.currentGroup.groupId}"> 
 		        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
 	        </c:if>				        
-	      </div>
+	      </div> <!-- Modal Footer End -->
       		
 	</form:form>
 

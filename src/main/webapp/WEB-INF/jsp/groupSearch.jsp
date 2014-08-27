@@ -84,7 +84,7 @@
                     });
                 });
                    		 
-            } );
+            } ); //end of document.ready
 
         	function closingModal(groupId, successMsg){
         		$('#groupEditModal').modal('hide');

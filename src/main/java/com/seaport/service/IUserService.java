@@ -19,8 +19,8 @@ public interface IUserService {
 	public void saveUser(User user);
 	public List<User> getUsers();
 	public User getUser(Integer userId);
-	public List<Country> getContries();
-	public Map<Integer, Country> getContriesMap();
+	//public List<Country> getContries();
+	//public Map<Integer, Country> getContriesMap();
 	public boolean hasRole(String role);
-	public Country getCountry(Integer countryId);
+	//public Country getCountry(Integer countryId);
 }

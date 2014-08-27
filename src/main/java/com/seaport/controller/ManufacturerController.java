@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.ManufacturerCommand;
+import com.seaport.service.ICountryService;
 import com.seaport.service.IManufacturerService;
 import com.seaport.service.IUserService;
 import com.seaport.utils.SystemConstants;
@@ -35,6 +36,8 @@ public class ManufacturerController {
 	private IManufacturerService manufacturerService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private ICountryService countryService;
 	
 	/**
 	 * Create new Machine Model search form. 
@@ -49,7 +52,7 @@ public class ManufacturerController {
 		
 		ManufacturerCommand manufacturerCommand = new ManufacturerCommand();
 		manufacturerCommand.setManufacturerList(manufacturerService.getManufacturers());
-		manufacturerCommand.setCountryMap(userService.getContriesMap());
+		manufacturerCommand.setCountryMap(countryService.getContriesMap());
 		model.put("manufacturerCommand", manufacturerCommand);
 		return "manufacturerSearch";
 	}
@@ -63,7 +66,7 @@ public class ManufacturerController {
 	public String createEditNewModel(ModelMap model, @PathVariable Integer manufacturerlId) throws Exception {
 		ManufacturerCommand manufacturerCommand = new ManufacturerCommand();
 		manufacturerCommand.setCurrentManufacturer(manufacturerService.getManufacturer(manufacturerlId));
-		manufacturerCommand.setCountryMap(userService.getContriesMap());
+		manufacturerCommand.setCountryMap(countryService.getContriesMap());
 		model.put("manufacturerCommand", manufacturerCommand);
 		return "manufacturerEdit";
 	}
@@ -77,7 +80,7 @@ public class ManufacturerController {
 	@RequestMapping(value="/createNew/", method = RequestMethod.GET)
 	public String createEditNewModel(ModelMap model) throws Exception {
 		ManufacturerCommand manufacturerCommand = new ManufacturerCommand();
-		manufacturerCommand.setCountryMap(userService.getContriesMap());
+		manufacturerCommand.setCountryMap(countryService.getContriesMap());
 		model.put("manufacturerCommand", manufacturerCommand);
 		return "manufacturerEdit";
 	}	
