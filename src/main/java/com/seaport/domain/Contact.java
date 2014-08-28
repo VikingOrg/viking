@@ -232,12 +232,6 @@ public class Contact implements java.io.Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((contactId == null) ? 0 : contactId.hashCode());
-		result = prime * result
-				+ ((createDate == null) ? 0 : createDate.hashCode());
-		result = prime * result
-				+ ((createUserId == null) ? 0 : createUserId.hashCode());
-		result = prime * result
-				+ ((stevidorId == null) ? 0 : stevidorId.hashCode());
 		return result;
 	}
 
@@ -255,22 +249,8 @@ public class Contact implements java.io.Serializable {
 				return false;
 		} else if (!contactId.equals(other.contactId))
 			return false;
-		if (createDate == null) {
-			if (other.createDate != null)
-				return false;
-		} else if (!createDate.equals(other.createDate))
-			return false;
-		if (createUserId == null) {
-			if (other.createUserId != null)
-				return false;
-		} else if (!createUserId.equals(other.createUserId))
-			return false;
-		if (stevidorId == null) {
-			if (other.stevidorId != null)
-				return false;
-		} else if (!stevidorId.equals(other.stevidorId))
-			return false;
 		return true;
 	}
+
 
 }

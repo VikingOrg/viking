@@ -1,5 +1,6 @@
 package com.seaport.dao;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.domain.Contact;
 import com.seaport.domain.Stevidor;
+import com.seaport.utils.VikingUtils;
 
 /**
  * The DAO class that serves any type of Stevidor requests 
@@ -32,7 +34,6 @@ public class StevidorDAOImpl implements IStevidorDAO {
 	
 	@Override
 	public Stevidor getStevidor(int stevidorId) {
-		//List<Contact> contactList = getCurrentSession().createCriteria(Contact.class).list(); 
 		Stevidor stevidor = (Stevidor)getCurrentSession().get(Stevidor.class, stevidorId);
 		return stevidor;
 	}
@@ -45,6 +46,13 @@ public class StevidorDAOImpl implements IStevidorDAO {
 
 	@Override
 	public void saveStevidor(Stevidor stevidor) {
+		/*Check for empty contacts and remove them from being saved.*/
+		for (Iterator<Contact> iter = stevidor.getContacts().listIterator(); iter.hasNext(); ) {
+			Contact contact = iter.next();
+		    if (VikingUtils.isEmpty(contact.getFns())) {
+		        iter.remove();
+		    }
+		}
 		getCurrentSession().saveOrUpdate(stevidor);
 	}
 

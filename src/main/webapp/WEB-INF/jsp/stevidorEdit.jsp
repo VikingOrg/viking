@@ -155,44 +155,52 @@
 					      <div class="tab-pane fade tab-bordered" id="contacts">
 					      	<div class="row">
 					      		<div class="col-sm-9 col-sm-offset-1">
-					      		<table class="table table-contacts table-responsive">
-									<thead>
-										<tr>
-											<th>Должность</th>
-											<th class="nowrap">Фамилия, Имя, Отчество</th>
-											<th>Телефон</th>
-											<th>Моб. телефон</th>
-											<th>Факс</th>
-											<th>Эл.почта</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="contact" varStatus="loop" items="${stevidorEditCommand.stevidor.contacts}" >
+						      		<table class="table table-contacts table-responsive">
+										<thead>
 											<tr>
-												<th>
-													<form:select path="stevidor.contacts[${loop.index}].npp">
-														<form:options items="${stevidorEditCommand.positionList}" itemValue="positionId" itemLabel="name"/>
-													</form:select>
-												</th>
-												<th>
-													<form:input path="stevidor.contacts[${loop.index}].fns" cssClass="form-control" title="Введите "/>
-												</th>
-												<th>
-													<form:input path="stevidor.contacts[${loop.index}].phone" cssClass="form-control" title="Введите "/>
-												</th>
-												<th>
-													<form:input path="stevidor.contacts[${loop.index}].mobPhone" cssClass="form-control" title="Введите "/>
-												</th>
-												<th>
-													<form:input path="stevidor.contacts[${loop.index}].fax" cssClass="form-control" title="Введите "/>
-												</th>
-												<th>
-													<form:input path="stevidor.contacts[${loop.index}].email" cssClass="form-control" title="Введите "/>
-												</th>
+												<th>Должность</th>
+												<th class="nowrap">Фамилия, Имя, Отчество</th>
+												<th>Телефон</th>
+												<th>Моб. телефон</th>
+												<th>Факс</th>
+												<th>Эл.почта</th>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+										</thead>
+										<tbody>
+											<c:forEach var="contact" varStatus="loop" items="${stevidorEditCommand.stevidor.contacts}" >
+												<tr>
+													<th>
+														<form:select path="stevidor.contacts[${loop.index}].npp">
+															<form:option value="0" label="Не выбрана"/>
+															<form:options items="${stevidorEditCommand.positionList}" itemValue="positionId" itemLabel="name"/>
+														</form:select>
+	
+													</th>
+													<th>
+														<form:input path="stevidor.contacts[${loop.index}].fns" cssClass="form-control" title="Введите "/>
+													</th>
+													<th>
+														<form:input path="stevidor.contacts[${loop.index}].phone" cssClass="form-control" title="Введите "/>
+													</th>
+													<th>
+														<form:input path="stevidor.contacts[${loop.index}].mobPhone" cssClass="form-control" title="Введите "/>
+													</th>
+													<th>
+														<form:input path="stevidor.contacts[${loop.index}].fax" cssClass="form-control" title="Введите "/>
+													</th>
+													<th>
+														<form:input path="stevidor.contacts[${loop.index}].email" cssClass="form-control" title="Введите "/>
+													</th>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+									<!-- 
+									<div class="form-group">
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Добавить Контакт</button>
+										<br/>
+									</div>
+									 -->
 								</div>
 					        	 </div>
 						    </div>

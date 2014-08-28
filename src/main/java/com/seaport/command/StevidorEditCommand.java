@@ -22,7 +22,7 @@ import com.seaport.domain.Stevidor;
 public class StevidorEditCommand {
 
 	@Valid
-	private Stevidor stevidor;
+	private Stevidor stevidor = new Stevidor();
 	private List<Position> positionList = new ArrayList<Position>();
 	
 	private Map<Integer, Port> userPort = new LinkedHashMap<Integer,Port>();

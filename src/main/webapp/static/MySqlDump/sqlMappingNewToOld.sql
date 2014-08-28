@@ -343,11 +343,9 @@ ALTER TABLE `countries` CHANGE `country_id` `country_id` INT( 11 ) NOT NULL AUTO
 
 
 --------////////// for Contact
-ALTER TABLE `viking`.`stcopers_1` 
-RENAME TO  `viking`.`contact` ;
+ALTER TABLE `viking`.`stcopers_1` RENAME TO  `viking`.`contact`;
 
-ALTER TABLE `viking`.`contact` 
-CHANGE COLUMN `idStCo` `stevidor_id` INT(11) NULL DEFAULT '1' ,
+ALTER TABLE `viking`.`contact` CHANGE COLUMN `idStCo` `stevidor_id` INT(11) NULL DEFAULT '1' ,
 CHANGE COLUMN `Del` `achived` INT(11) NULL DEFAULT '0' ,
 ADD PRIMARY KEY (`id`);
 ALTER TABLE `viking`.`contact` 

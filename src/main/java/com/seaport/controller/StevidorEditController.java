@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.StevidorEditCommand;
+import com.seaport.domain.Contact;
 import com.seaport.domain.Stevidor;
 import com.seaport.domain.User;
 import com.seaport.service.IPortService;
@@ -69,6 +70,11 @@ public class StevidorEditController {
 		
 		stevidorEditCommand.setUserPort(portService.getPortsMap());
 		stevidorEditCommand.setPositionList(positionService.getPositions());
+		if (stevidorEditCommand.getStevidor().getContacts().size() < 10) {
+			for (int i = stevidorEditCommand.getStevidor().getContacts().size(); i < 11; i++) {
+				stevidorEditCommand.getStevidor().getContacts().add(new Contact());
+			}
+		}
 		model.put("stevidorEditCommand", stevidorEditCommand);
 		return "stevidorEdit";
 	}

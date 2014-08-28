@@ -3,6 +3,7 @@ package com.seaport.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -103,9 +104,10 @@ public class Stevidor implements Serializable {
     @Fetch( FetchMode.SELECT)
     @JoinColumn(name="stevidor_id")
     //@IndexColumn(name="idx")
-    private List<Contact> contacts;
+    private List<Contact> contacts = new ArrayList<Contact>();
     
 	public Stevidor() {
+		
 	}
 
 	public List<Contact> getContacts() {
