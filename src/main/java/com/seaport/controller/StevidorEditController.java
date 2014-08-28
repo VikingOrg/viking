@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.StevidorEditCommand;
-import com.seaport.dao.ISystemDAO;
 import com.seaport.domain.Stevidor;
 import com.seaport.domain.User;
 import com.seaport.service.IPortService;
+import com.seaport.service.IPositionService;
 import com.seaport.service.IStevidorService;
 import com.seaport.utils.SystemConstants;
 
@@ -43,7 +43,7 @@ public class StevidorEditController {
 	@Autowired
 	private IPortService portService;
 	@Autowired
-	private ISystemDAO systemRepo;
+	private IPositionService positionService;
 	
 	/**
 	 * Setting up search page for Stevidors 
@@ -68,6 +68,7 @@ public class StevidorEditController {
 		}
 		
 		stevidorEditCommand.setUserPort(portService.getPortsMap());
+		stevidorEditCommand.setPositionList(positionService.getPositions());
 		model.put("stevidorEditCommand", stevidorEditCommand);
 		return "stevidorEdit";
 	}

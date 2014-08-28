@@ -170,7 +170,9 @@
 										<c:forEach var="contact" varStatus="loop" items="${stevidorEditCommand.stevidor.contacts}" >
 											<tr>
 												<th>
-													<form:input path="stevidor.contacts[${loop.index}].jobTitle" cssClass="form-control" title=""/>
+													<form:select path="stevidor.contacts[${loop.index}].npp">
+														<form:options items="${stevidorEditCommand.positionList}" itemValue="positionId" itemLabel="name"/>
+													</form:select>
 												</th>
 												<th>
 													<form:input path="stevidor.contacts[${loop.index}].fns" cssClass="form-control" title="Введите "/>

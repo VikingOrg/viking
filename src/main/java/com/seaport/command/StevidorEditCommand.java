@@ -1,11 +1,14 @@
 package com.seaport.command;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import com.seaport.domain.Port;
+import com.seaport.domain.Position;
 import com.seaport.domain.Stevidor;
 
 /**
@@ -20,10 +23,17 @@ public class StevidorEditCommand {
 
 	@Valid
 	private Stevidor stevidor;
+	private List<Position> positionList = new ArrayList<Position>();
 	
 	private Map<Integer, Port> userPort = new LinkedHashMap<Integer,Port>();
 	private String formType = "N";
 	
+	public List<Position> getPositionList() {
+		return positionList;
+	}
+	public void setPositionList(List<Position> positionList) {
+		this.positionList = positionList;
+	}
 	public Stevidor getStevidor() {
 		return stevidor;
 	}
