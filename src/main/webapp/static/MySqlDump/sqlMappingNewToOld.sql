@@ -334,6 +334,13 @@ select count(*) from machines where model_id <> 0;
 ------
 update machines set model_id = 0;
 
+------------------ minor db fixes----
+
+ALTER TABLE `viking`.`groups` 
+ADD COLUMN `group_order` INT NULL AFTER `archived`;
+
+ALTER TABLE `countries` CHANGE `country_id` `country_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
+
 
 --------////////// for Contact
 ALTER TABLE `viking`.`stcopers_1` 
@@ -358,7 +365,29 @@ ALTER TABLE `viking`.`contact`
 CHANGE COLUMN `id` `contact_id` INT(11) NOT NULL AUTO_INCREMENT ;
 
 
----------------/////////////////////
+---------------/////////new position table
+
+
+CREATE TABLE `viking`.`position` (
+  `position_id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `order` INT NULL,
+  `create_date` DATETIME NULL,
+  `create_user_id` INT NULL,
+  `update_date` DATETIME NULL,
+  `update_user_id` INT NULL,
+  PRIMARY KEY (`position_id`));
+
+  INSERT INTO `position` (`position_id`, `name`, `order`, `create_date`, `create_user_id`, `update_date`, `update_user_id`) VALUES
+(1, 'Генеральный директор', 1, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(2, 'Секретарь генерального директора', 2, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(3, 'Технический директор', 3, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(4, 'Секретарь технического директора', 4, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(5, 'Главный механик', 5, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(6, 'Секретарь главного механика', 6, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(7, 'Главный технолог', 7, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(8, 'Секретарь главного технолога', 8, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1),
+(9, ' Ответственный по учету ПТО', 9, '2014-07-29 10:32:47', 1, '2014-07-29 10:32:47', 1)
 
 
 
