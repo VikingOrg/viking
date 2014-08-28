@@ -199,13 +199,9 @@
 					  <!-- Tabs End -->
 			        <div class="container">
 			          <div class="form-actions" style= "padding: 20px">
-			            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
-							
-						<input type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#confirmSave" onclick="submitForm()" value="Скопировать" />
-							
-		           		<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="stevidorSearch"/>';" 
-		            	value="Klick">Отмена</a>
+				        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button>
+			            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
+		           		<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="stevidorSearch"/>';" >Отмена</a>
 			          </div>
 			        </div>		
 			    
@@ -228,6 +224,7 @@
 			</div> <!-- End of Main Container -->	
 	</div> <!-- Closing div tag for wrap -->
 		<jsp:include page="common/footer.jsp" />
+		
 		<script>
 	    $('#stevidorEditTab a').click(function (e) {
 	    	  e.preventDefault(),

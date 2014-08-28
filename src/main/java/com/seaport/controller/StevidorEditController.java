@@ -45,6 +45,13 @@ public class StevidorEditController {
 	@Autowired
 	private ISystemDAO systemRepo;
 	
+	/**
+	 * Setting up search page for Stevidors 
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) throws Exception {
@@ -72,6 +79,16 @@ public class StevidorEditController {
 		return stevidorService.getStevidor(Integer.parseInt(stevidorId));
 	}	
 	
+	/**
+	 * Saving changes for stevidor update.
+	 * @param request
+	 * @param model
+	 * @param stevidorEditCommand
+	 * @param result
+	 * @param redirectAttributes
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("stevidorEditCommand") StevidorEditCommand stevidorEditCommand,

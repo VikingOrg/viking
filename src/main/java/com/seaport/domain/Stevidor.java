@@ -22,6 +22,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 /**
  * The persistent class for the stevidors database table.
  * 
@@ -97,6 +100,7 @@ public class Stevidor implements Serializable {
 	private Port port;
 	
     @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @Fetch( FetchMode.SELECT)
     @JoinColumn(name="stevidor_id")
     //@IndexColumn(name="idx")
     private List<Contact> contacts;
