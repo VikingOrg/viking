@@ -33,6 +33,7 @@ import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
+import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
 import com.seaport.utils.SystemConstants;
 
@@ -59,6 +60,8 @@ public class ReportSelectionController {
 	private IMachineService machineService;
 	@Autowired
 	private ICountryService countryService;
+	@Autowired
+	private IStevidorService stevidorService;
 	
 	/**
 	 * Loads company report page
@@ -249,7 +252,7 @@ public class ReportSelectionController {
 	private void setFilterMaps(ReportSelectionCommand reportSelectionCommand){
 		reportSelectionCommand.setUserCountry(countryService.getContriesMap());
 		reportSelectionCommand.setUserPort(portService.getPortsMap());
-		reportSelectionCommand.setStevidorMap(portService.getStevidorsMap());
+		reportSelectionCommand.setStevidorMap(stevidorService.getStevidorsMap());
 		reportSelectionCommand.setGroupMap(groupService.getGroupMap());
 		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
 		reportSelectionCommand.setYearMap(machineService.getYearMap());

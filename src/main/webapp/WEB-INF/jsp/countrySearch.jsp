@@ -8,6 +8,7 @@
 	<head>
 	    <title>Таблица Стран</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#country_table').dataTable( {
@@ -183,7 +184,7 @@
 	                          <tbody>
 	                          	<c:forEach var="country" varStatus="loop" items="${countryCommand.countryList}" >
 		                            <tr id="${country.countryId}">
-		                                <td class="column-check">
+		                            	<td class="column-check">
 		                                	<form:checkbox path="countryList[${loop.index}].archived" value="Y"></form:checkbox>
 			                              	<%-- <c:if test="${system.localConfig}" >
 			                              		<span class="alert-danger">
@@ -192,10 +193,16 @@
 			                              	</c:if>	 --%>			                                	
 		                                </td>
 			                         	<td class="nowrap">
-			                         		<a href="#" rel="tableRowEdit" data-param1="${country.countryId}"><c:out value="${country.nameRus}"/></a>
+			                         		<a href="#" rel="tableRowEdit" data-param1="${country.countryId}">
+			                         			<span id="countryNameRus${country.countryId}"><c:out value="${country.nameRus}"/></span>
+			                         		</a>
 			                         	</td>
-		                              <td class="hidden-sm hidden-xs"><c:out value="${country.nameEn}"/></td>
-		                              <td class="hidden-sm hidden-xs"><c:out value="${country.countryNote}"/></td>
+		                              	<td class="hidden-sm hidden-xs">
+		                              		<span id="countryNameEn${country.countryId}"><c:out value="${country.nameEn}"/></span>
+		                              	</td>
+		                              	<td class="hidden-sm hidden-xs">
+		                              		<span id="countryNote${country.countryId}"><c:out value="${country.countryNote}"/></span>
+		                              	</td>
 		                            </tr>
 	                            </c:forEach>
 	                          </tbody>

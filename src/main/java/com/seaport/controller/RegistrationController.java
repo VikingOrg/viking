@@ -22,6 +22,7 @@ import com.seaport.command.RegistrationCommand;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
+import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
 import com.seaport.validator.RegistrationValidator;
 
@@ -44,13 +45,15 @@ public class RegistrationController {
 	private IPortService portService;
 	@Autowired
 	private ICountryService countryService;	
+	@Autowired
+	private IStevidorService stevidorService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) throws Exception {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setUserPort(portService.getPortsMap());
-		registrationCommand.setUserStevidor(portService.getStevidorsMap());
+		registrationCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		registrationCommand.setUserCountry(countryService.getContriesMap());
 		
     	model.put("registrationCommand", registrationCommand);

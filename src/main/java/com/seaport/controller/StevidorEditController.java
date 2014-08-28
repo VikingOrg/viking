@@ -24,6 +24,7 @@ import com.seaport.dao.ISystemDAO;
 import com.seaport.domain.Stevidor;
 import com.seaport.domain.User;
 import com.seaport.service.IPortService;
+import com.seaport.service.IStevidorService;
 import com.seaport.utils.SystemConstants;
 
 /**
@@ -38,6 +39,8 @@ import com.seaport.utils.SystemConstants;
 @SessionAttributes("stevidorEditCommand")
 public class StevidorEditController {
 	@Autowired
+	private IStevidorService stevidorService;
+	@Autowired
 	private IPortService portService;
 	@Autowired
 	private ISystemDAO systemRepo;
@@ -48,7 +51,7 @@ public class StevidorEditController {
 		String stevidorId = request.getParameter("stevidorId");
 		StevidorEditCommand stevidorEditCommand = new StevidorEditCommand();
 		if (stevidorId != null) {
-			stevidorEditCommand.setStevidor(portService.getStevidor(Integer.parseInt(stevidorId)));
+			stevidorEditCommand.setStevidor(stevidorService.getStevidor(Integer.parseInt(stevidorId)));
 			if (request.getParameter("copy")!= null) {
 				stevidorEditCommand.setFormType("C");
 				stevidorEditCommand.getStevidor().setStevidorId(null);
@@ -66,7 +69,7 @@ public class StevidorEditController {
 	@ResponseBody
 	public Stevidor getStevidor(@PathVariable String stevidorId,
 							ModelMap model) throws Exception {
-		return portService.getStevidor(Integer.parseInt(stevidorId));
+		return stevidorService.getStevidor(Integer.parseInt(stevidorId));
 	}	
 	
 	@RequestMapping(method = RequestMethod.POST) 
@@ -89,7 +92,7 @@ public class StevidorEditController {
 		stevidorEditCommand.getStevidor().setUpdateUserId(user.getUserId());
 		stevidorEditCommand.getStevidor().setUpdateDate(updateDate);
 		
-		portService.saveStevidor(stevidorEditCommand.getStevidor());
+		stevidorService.saveStevidor(stevidorEditCommand.getStevidor());
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
 		
 		return "redirect:stevidorSearch";

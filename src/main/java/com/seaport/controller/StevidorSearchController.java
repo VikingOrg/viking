@@ -20,6 +20,7 @@ import com.seaport.command.StevidorSearchCommand;
 import com.seaport.domain.Stevidor;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
+import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
 
 /**
@@ -36,7 +37,10 @@ public class StevidorSearchController {
 	@Autowired
 	private IUserService userService;
 	@Autowired
+	private IStevidorService stevidorService;
+	@Autowired
 	private IPortService portService;
+	
 	@Autowired
 	private ICountryService countryService;
 	
@@ -47,7 +51,7 @@ public class StevidorSearchController {
 
 		stevidorSearchCommand.setUserPort(portService.getPortsMap());
 		stevidorSearchCommand.setUserCountry(countryService.getContriesMap());
-		stevidorSearchCommand.setStevidorList(portService.getStevidors());
+		stevidorSearchCommand.setStevidorList(stevidorService.getStevidors());
 		
 		model.put("stevidorSearchCommand", stevidorSearchCommand);
 		return "stevidorSearch";
@@ -75,7 +79,7 @@ public class StevidorSearchController {
 		List<Stevidor> stevidorList = stevidorSearchCommand.getStevidorList();
 		for (Stevidor stevidor : stevidorList) {
 			if (stevidor.getArchived()!=null && stevidor.getArchived().equalsIgnoreCase("Y")) {
-				portService.saveStevidor(stevidor);	
+				stevidorService.saveStevidor(stevidor);	
 			}
 		}
 		return "redirect:stevidorSearch";		

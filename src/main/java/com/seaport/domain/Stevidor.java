@@ -4,13 +4,17 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -92,13 +96,23 @@ public class Stevidor implements Serializable {
 	@JoinColumn(name = "port_id", insertable = false, updatable = false)
 	private Port port;
 	
+    @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @JoinColumn(name="stevidor_id")
+    //@IndexColumn(name="idx")
+    private List<Contact> contacts;
+    
 	public Stevidor() {
 	}
 
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
 	public String getPostCode() {
 		return postCode;
 	}
-
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}

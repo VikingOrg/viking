@@ -335,7 +335,30 @@ select count(*) from machines where model_id <> 0;
 update machines set model_id = 0;
 
 
+--------////////// for Contact
+ALTER TABLE `viking`.`stcopers_1` 
+RENAME TO  `viking`.`contact` ;
 
+ALTER TABLE `viking`.`contact` 
+CHANGE COLUMN `idStCo` `stevidor_id` INT(11) NULL DEFAULT '1' ,
+CHANGE COLUMN `Del` `achived` INT(11) NULL DEFAULT '0' ,
+ADD PRIMARY KEY (`id`);
+ALTER TABLE `viking`.`contact` 
+CHANGE COLUMN `achived` `archived` INT(11) NULL DEFAULT '0' ;
+
+ALTER TABLE `viking`.`contact` 
+CHANGE COLUMN `archived` `archived` VARCHAR(1) NULL DEFAULT '0' ,
+ADD COLUMN `create_user_id` INT NULL AFTER `archived`,
+ADD COLUMN `create_date` DATETIME NULL AFTER `create_user_id`,
+ADD COLUMN `update_user_id` INT NULL AFTER `create_date`,
+ADD COLUMN `update_date` DATETIME NULL AFTER `update_user_id`;
+
+update contact set create_user_id =1, create_date = CURRENT_TIMESTAMP, update_user_id = 1, update_date = CURRENT_TIMESTAMP;
+ALTER TABLE `viking`.`contact` 
+CHANGE COLUMN `id` `contact_id` INT(11) NOT NULL AUTO_INCREMENT ;
+
+
+---------------/////////////////////
 
 
 

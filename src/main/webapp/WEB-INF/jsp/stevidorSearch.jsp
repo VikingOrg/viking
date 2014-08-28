@@ -23,7 +23,7 @@
         		               },
         		               {
         		                   "targets": [ 0,4 ],
-        		                   "visible": false
+        		                   "visible": true
         		               }
         		           ],
              	tableTools: {
@@ -171,10 +171,10 @@
 				                          </thead>
 				                          <tbody>
 				                          	<c:forEach var="stevidor" varStatus="loop" items="${stevidorSearchCommand.stevidorList}" >
-				                          	<c:if test="${stevidor.archived != '1'}" >
 					                            <tr>
-					                                <td class="column-check nowrap" width= "20px">
+					                            	<td class="column-check nowrap" width= "20px">
 					                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
+					                                	${stevidor.stevidorId}
 						                              <%-- 	<c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">
 						                              			<c:out value="(${stevidor.stevidorId})"/>
@@ -184,11 +184,10 @@
 						                         	<td class="nowrap">
 						                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>"><c:out value="${stevidor.fullName}"/></a>
 						                         	</td>
-						                          <td><c:out value="${stevidor.port.name}"/></td>
-					                              <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.port.country.nameRus}"/></td>
-					                              <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.stevidorNote}"/></td>
+						                            <td><c:out value="${stevidor.port.name}"/></td>
+					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.port.country.nameRus}"/></td>
+					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.stevidorNote}"/></td>
 					                            </tr>
-					                        </c:if>    
 				                            </c:forEach>
 				                          </tbody>
 				                    </table>

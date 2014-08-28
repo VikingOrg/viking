@@ -89,4 +89,83 @@
 				      </div>
 				      
 				 </form:form>
-				 
+				 <script type="text/javascript">
+
+	                /*Modal code.*/ 
+	                $('#machineModelModal').on('shown.bs.modal', function (e) {
+	              	  	var height = $(window).height() - 200;
+	            	  	$(this).find(".modal-body").css("max-height", height);
+	            	               	   
+	                    $("#submitUpdate").click(function(e) {
+	                 	   e.preventDefault();
+	          			   initiateAjaxCall("update");
+	                    });
+	                    $("#submitCopy").click(function(e) {
+	                 	   e.preventDefault();
+	          			   initiateAjaxCall("copy");
+	                    });
+	                    
+	                    $("#submitCreate").click(function(e) {
+	                 	   e.preventDefault();
+	          			   initiateAjaxCall("create");
+	                    });
+	                    
+	         	       function initiateAjaxCall(requestType){
+	         	            ajaxObjectId =  $("#ajaxObjectId").val();
+	         	            $.ajax({
+	         		               	type: "POST",
+	         		       		    url: "${pageContext.request.contextPath}/machineModel/save/" + requestType,
+	         		       		    data: $("#ajaxSubmitForm").serialize(),
+	         		                complete : function( response ) {
+	         		                          $("#machineModelModalContent").html(response.responseText);
+	         		                          check = $("#ajaxSuccessFlag").val();
+	         	
+	         		                          if(check=='true'){
+	         			                          var successMsg = $("#successMessage").html();
+	         			                          /*For any type of update we are assuming there is a record in DOM with provided id.*/
+	         			                          if(requestType == "update"){
+	         				                            /*For Ajax DataTable.*/
+	         			                        		//var rowData = [];
+	         			                        		//$('#'+machineModelId).children('td').each(function(i, data) {
+	         			                        			//console.log("Debugging:"+$(this).html()+":End");	
+	         			                        			//rowData.push($(this).html());
+	         			                       			//});
+	         			                        		//oTable.fnUpdate( rowData, document.getElementById(machineModelId) );
+	         			                        		//oTable.fnUpdate( $('#machineModelName').val(), document.getElementById(machineModelId), 2 );
+	         			                        		/*For DOM DataTable.*/
+	         			                        		$('#group'+ajaxObjectId).text($('#groupSelectModal option:selected').text());
+	         			                        		$('#name'+ajaxObjectId).text($('#machineModelName').val());
+	         			                        		$('#manafacturer'+ajaxObjectId).text($( "#manufacturerSelectModal option:selected" ).text() );
+	         			                        		$('#note'+ajaxObjectId).text($('#macnineModelNote').val());
+	             			                          
+	         				                      		/*Closing Modal.*/
+	         				                       	    closingModal(ajaxObjectId, successMsg);	
+	         				                      } else {
+	         					                        /*For newly added records we insert new one at the end of Datatable object and move coursor to that position.*/
+	         				                    	  	var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
+	         				                    	  	                                                                      $('#machineModelName').val(), 
+	         				                    	  	                                                                      $('#groupSelectModal option:selected').text(),
+	         				                    	  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
+	         						                    	                 			                    	              "Страна",
+	         						                    	                 			                    	              $('#macnineModelNote').val(),
+	         						                    	                 			                    	              $('#groupSelectModal').val()] 
+	         			 			                    	  													 );
+
+	         				                    	  	$(obj.nTr).addClass( "success" );
+	         			                       	    	closingModal($("#ajaxObjectId").val(), successMsg);	
+	         					                  }
+	         		                          } //if not true - modal is still up with error message on the top.
+	         		                          
+	         		                },	        	        
+	         		       	        error: function(){
+	             		       	        //something went wrong on server side...
+	         		       	        	alert("failure");
+	         		       	        }
+	         	            });           	
+	         	       }
+	             	   
+	                });				 
+				 </script>
+				 	 
+				 	 
+				 	 

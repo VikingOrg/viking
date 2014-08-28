@@ -149,4 +149,73 @@ public class Port implements Serializable {
 		this.updateDate = updateDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Port [portId=" + portId + ", archived=" + archived
+				+ ", countryId=" + countryId + ", createDate=" + createDate
+				+ ", createUserId=" + createUserId + ", fullName=" + fullName
+				+ ", name=" + name + ", portNote=" + portNote + ", updateDate="
+				+ updateDate + ", updateUserId=" + updateUserId + ", country="
+				+ country + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((countryId == null) ? 0 : countryId.hashCode());
+		result = prime * result
+				+ ((createDate == null) ? 0 : createDate.hashCode());
+		result = prime * result
+				+ ((createUserId == null) ? 0 : createUserId.hashCode());
+		result = prime * result
+				+ ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((portId == null) ? 0 : portId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Port other = (Port) obj;
+		if (countryId == null) {
+			if (other.countryId != null)
+				return false;
+		} else if (!countryId.equals(other.countryId))
+			return false;
+		if (createDate == null) {
+			if (other.createDate != null)
+				return false;
+		} else if (!createDate.equals(other.createDate))
+			return false;
+		if (createUserId == null) {
+			if (other.createUserId != null)
+				return false;
+		} else if (!createUserId.equals(other.createUserId))
+			return false;
+		if (fullName == null) {
+			if (other.fullName != null)
+				return false;
+		} else if (!fullName.equals(other.fullName))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (portId == null) {
+			if (other.portId != null)
+				return false;
+		} else if (!portId.equals(other.portId))
+			return false;
+		return true;
+	}
+
 }

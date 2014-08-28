@@ -27,6 +27,7 @@ import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
+import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingUtils;
 
@@ -44,13 +45,15 @@ public class MachineSearchController {
 	@Autowired
 	private IUserService userService;
 	@Autowired
-	private IPortService portService;
+	private IStevidorService stevidorService;
 	@Autowired
 	private IMachineService machineService;
 	@Autowired
 	private IGroupService groupService;
 	@Autowired
 	private ICountryService countryService;
+	@Autowired
+	private IPortService portService;
 	
 	private static String MACHINE_FIELD_FILLER = "XXX";
 	
@@ -61,7 +64,7 @@ public class MachineSearchController {
 		MachineSearchCommand machineSearchCommand = new MachineSearchCommand();
 		machineSearchCommand.setUserCountry(countryService.getContriesMap());
 		machineSearchCommand.setUserPort(portService.getPortsMap());
-		machineSearchCommand.setUserStevidor(portService.getStevidorsMap());
+		machineSearchCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		machineSearchCommand.setGroupMap(groupService.getGroupMap());
 		machineSearchCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineSearchCommand.setYearMap(machineService.getYearMap());		

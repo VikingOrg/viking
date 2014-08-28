@@ -31,8 +31,6 @@ import com.seaport.utils.SystemConstants;
 @RequestMapping("/country")
 @SessionAttributes("countryCommand")
 public class CountryController {
-//	@Autowired
-//	private IUserService userService;
 	@Autowired
 	private ICountryService countryService;
 	

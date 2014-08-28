@@ -24,6 +24,7 @@ import com.seaport.domain.User;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
+import com.seaport.service.IStevidorService;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -39,7 +40,7 @@ public class MachineEditController {
 	@Autowired
 	private IGroupService groupService;
 	@Autowired
-	private IPortService portService;
+	private IStevidorService stevidorService;
 	@Autowired
 	private IMachineService machineService;	
 	
@@ -70,7 +71,7 @@ public class MachineEditController {
 		}
 		
 		machineEditCommand.setGroupMap(groupService.getGroupMap());
-		machineEditCommand.setStevidorMap(portService.getStevidorsMap());
+		machineEditCommand.setStevidorMap(stevidorService.getStevidorsMap());
 		machineEditCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineEditCommand.setYearMap(machineService.getYearMap());
 		

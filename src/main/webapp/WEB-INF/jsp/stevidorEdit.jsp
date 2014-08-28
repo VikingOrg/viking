@@ -3,6 +3,7 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 
 <!doctype html>
 <html lang="ru">
@@ -46,184 +47,83 @@
 			        	<!-- Tabs -->
 					  <div class="container">
 					    <ul id="stevidorEditTab" class="nav nav-tabs responsive" role="tablist">
-					      <li class="active"><a href="#main" role="tab" data-toggle="tab">Основные данные</a></li>
+					      <li class="active"><a href="#main" role="tab" data-toggle="tab">Основные данные (N:${stevidorEditCommand.stevidor.stevidorId})</a></li>
 					      <li><a href="#address" role="tab" data-toggle="tab">Дополнительные сведения</a></li>
 					      <li><a href="#contacts" role="tab" data-toggle="tab">Контакты</a></li>
 					    </ul>
 					    <div id="myTabContent" class="tab-content responsive">
 					      <div class="tab-pane fade in active tab-bordered" id="main">
-					        <div class="row">
-						        <div class="col-sm-4 col-sm-offset-1">
-									<spring:bind path="stevidor.name">
-							        <div class="form-group ${status.error ? 'has-error' : ''}">
-							        	<div class="controls">
-								            <label class="form-label">Наименование</label>
-								            <form:input path="stevidor.name" cssClass="form-control" title="Введите наименование"/>
-								            <form:errors class="control-label" path="stevidor.name"/>
-							            </div>
-							        </div>
-							     </spring:bind>
-							     
-						         <spring:bind path="stevidor.fullName">
-							        <div class="form-group ${status.error ? 'has-error' : ''}">
-							        	<div class="controls">
-								            <label class="form-label">Полное наименование</label>
-								            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите полное наименование"/>
-								            <form:errors class="control-label" path="stevidor.fullName"/>
-							            </div>
-							        </div>
-							     </spring:bind>				     			        
-			
-						        </div>
-						        <div class="col-sm-4 col-sm-offset-1">
-									<label class="form-label">Порт</label>
-									<form:select path="stevidor.portId" cssClass="form-control">
-									      <c:forEach items="${stevidorEditCommand.userPort}" var="port">
-									          <form:option value="${port.key}" label="${port.value.name}" />
-									      </c:forEach>							
-									</form:select>		          
-									<p>&nbsp;</p>
-						           
-						            <div class="form-group">
-							            <label class="form-label">Примечания</label>
-							            <div class="controls">
-							            	<form:textarea path="stevidor.stevidorNote" rows="3" cssClass="form-control"/>
-							            </div>
-						            </div>
-						            
-						        </div>
-						      </div>
+					      	  <br/>
+					      	  <!-- First paragraph --><!-- First paragraph --><!-- First paragraph -->
 						      <div class="panel panel-default" style="margin-left:10px; margin-right:10px;">
-							      <div class="panel-heading">Адрес</div>
+							      <div class="panel-heading">Общие данные</div>
 							      <div class="panel-body">
 							        <div class="col-sm-4 col-sm-offset-1">
-										<spring:bind path="stevidor.name">
-								        <div class="form-group ${status.error ? 'has-error' : ''}">
-								        	<div class="controls">
-									            <label class="form-label">Индекс</label>
-									            <form:input path="stevidor.name" cssClass="form-control" title="Введите индекс"/>
-									            <form:errors class="control-label" path="stevidor.name"/>
+							            <v:input id = "stevidorName" path="stevidor.name" label="Наименование" required="true" title="Введите наименование"/>
+								     	<v:input id = "stevidorFullName" path="stevidor.fullName" label="Полное наименование" required="true" title="Введите полное наименование"/>
+										<v:input id = "stevidorNameEng" path="stevidor.nameEng" label="Name (In English)" required="true" title="Inter name in English"/>							        
+							        </div>
+							        
+							        <div class="col-sm-4 col-sm-offset-1">
+							        	<div class="form-group">
+											<label class="form-label">Порт</label>
+											<form:select path="stevidor.portId" cssClass="form-control">
+											      <c:forEach items="${stevidorEditCommand.userPort}" var="port">
+											          <form:option value="${port.key}" label="${port.value.name}" />
+											      </c:forEach>							
+											</form:select>		          
+							            </div>
+							            <div class="form-group">
+								            <label class="form-label">Примечания</label>
+								            <div class="controls">
+								            	<form:textarea path="stevidor.stevidorNote" rows="3" cssClass="form-control"/>
 								            </div>
-								        </div>
-								     </spring:bind>
-								     
-							         <spring:bind path="stevidor.fullName">
-								        <div class="form-group ${status.error ? 'has-error' : ''}">
-								        	<div class="controls">
-									            <label class="form-label">Область</label>
-									            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите регион"/>
-									            <form:errors class="control-label" path="stevidor.fullName"/>
-								            </div>
-								        </div>
-								     </spring:bind>	
-								     
-								     <spring:bind path="stevidor.fullName">
-								        <div class="form-group ${status.error ? 'has-error' : ''}">
-								        	<div class="controls">
-									            <label class="form-label">Улица</label>
-									            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите регион"/>
-									            <form:errors class="control-label" path="stevidor.fullName"/>
-								            </div>
-								        </div>
-								     </spring:bind>			     			        
-				
+							            </div>							        
+							        </div>							        
+							      </div>
+							  </div>
+							  
+							  <!-- Second paragraph --> <!-- Second paragraph --><!-- Second paragraph -->
+							  <div class="panel panel-default" style="margin-left:10px; margin-right:10px;">
+							      <div class="panel-heading">Почтовые (физические) адреса</div>
+							      <div class="panel-body">
+							        <div class="col-sm-4 col-sm-offset-1">
+								        <v:input id = "stevidorPostCode" path="stevidor.postCode" label="Индекс" title="Введите индекс"/>
+								        <v:input id = "stevidorArea" path="stevidor.area" label="Область" title="Введите область"/>
+								        <v:input id = "stevidorStreet" path="stevidor.street" label="Улица" title="Введите улицу"/>
 							        </div>
 							        <div class="col-sm-4 col-sm-offset-1">
-							        	<spring:bind path="stevidor.fullName">
-								        <div class="form-group ${status.error ? 'has-error' : ''}">
-								        	<div class="controls">
-									            <label class="form-label">Регион</label>
-									            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите регион"/>
-									            <form:errors class="control-label" path="stevidor.fullName"/>
-								            </div>
-								        </div>
-								     </spring:bind>
-										<spring:bind path="stevidor.fullName">
-								        <div class="form-group ${status.error ? 'has-error' : ''}">
-								        	<div class="controls">
-									            <label class="form-label">Город</label>
-									            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите регион"/>
-									            <form:errors class="control-label" path="stevidor.fullName"/>
-								            </div>
-								        </div>
-								     </spring:bind>
-							            <spring:bind path="stevidor.fullName">
-								        <div class="form-group ${status.error ? 'has-error' : ''}">
-								        	<div class="controls">
-									            <label class="form-label">Дом</label>
-									            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите регион"/>
-									            <form:errors class="control-label" path="stevidor.fullName"/>
-								            </div>
-								        </div>
-								     </spring:bind>
-							            
+								        <v:input id = "stevidorRegion" path="stevidor.region" label="Регион" title="Введите регион"/>
+								        <v:input id = "stevidorCity" path="stevidor.city" label="Город" title="Введите Город"/>
+								        <v:input id = "stevidorBuilding" path="stevidor.building" label="Дом" title="Введите Дом"/>
 							        </div>
 							      </div>
 						      </div>
-						      <div class="row">
-						        <div class="col-sm-4 col-sm-offset-1">
-									<spring:bind path="stevidor.name">
-							        <div class="form-group ${status.error ? 'has-error' : ''}">
-							        	<div class="controls">
-								            <label class="form-label">Телефон</label>
-								            <form:input path="stevidor.name" cssClass="form-control" title="Введите наименование"/>
-								            <form:errors class="control-label" path="stevidor.name"/>
-							            </div>
+						      
+						      <!-- Third paragraph --><!-- Third paragraph --><!-- Third paragraph -->
+							  <div class="panel panel-default" style="margin-left:10px; margin-right:10px;">
+							      <div class="panel-heading">Электронные адреса</div>
+							      <div class="panel-body">
+							        <div class="col-sm-4 col-sm-offset-1">
+								        <v:input id = "stevidorPhone" path="stevidor.phone" label="Телефон" title="Введите Телефон"/>
+								        <v:input id = "stevidorFax" path="stevidor.fax" label="Факс" title="Введите Факс"/>
 							        </div>
-							     </spring:bind>
-							     
-						         <spring:bind path="stevidor.fullName">
-							        <div class="form-group ${status.error ? 'has-error' : ''}">
-							        	<div class="controls">
-								            <label class="form-label">Факс</label>
-								            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите полное наименование"/>
-								            <form:errors class="control-label" path="stevidor.fullName"/>
-							            </div>
-							        </div>
-							     </spring:bind>				     			        
-			
-						        </div>
-						        <div class="col-sm-4 col-sm-offset-1">
-									<spring:bind path="stevidor.fullName">
-							        <div class="form-group ${status.error ? 'has-error' : ''}">
-							        	<div class="controls">
-								            <label class="form-label">E-mail</label>
-								            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите полное наименование"/>
-								            <form:errors class="control-label" path="stevidor.fullName"/>
-							            </div>
-							        </div>
-							     </spring:bind>
-							     
-							     <spring:bind path="stevidor.fullName">
-							        <div class="form-group ${status.error ? 'has-error' : ''}">
-							        	<div class="controls">
-								            <label class="form-label">WWW</label>
-								            <form:input path="stevidor.fullName" cssClass="form-control" title="Введите полное наименование"/>
-								            <form:errors class="control-label" path="stevidor.fullName"/>
-							            </div>
-							        </div>
-							     </spring:bind>
-						        </div>
-						      </div>
-						      <div class="row">
-						        <div class="col-sm-9 col-sm-offset-1">
-						        	<div class="">
-							            <label class="form-label">Примечания</label>
-							            <div class="controls">
-							            	<form:textarea path="stevidor.stevidorNote" rows="3" cssClass="form-control"/>
-							            </div>
-						            </div>
-						            
-						        </div>
-						      </div>
+							        
+							        <div class="col-sm-4 col-sm-offset-1">
+								        <v:input id = "stevidorEmail" path="stevidor.email" label="E-mail" title="Введите E-mail"/>
+								        <v:input id = "stevidorUrl" path="stevidor.url" label="WWW" title="Введите WWW"/>
+							        </div>							        
+							      </div>
+							  </div>  
 			      		  </div>
 					      <div class="tab-pane fade tab-bordered" id="address">
 					        <div class="row">
+					            <br/>
 						        <div class="col-sm-9 col-sm-offset-1">
-						        	<div class="">
+						        	<div class="form-group">
 							            <label class="form-label">Место производственной деятельности</label>
 							            <div class="controls">
-							            	<form:textarea path="stevidor.stevidorNote" rows="3" cssClass="form-control"/>
+							            	<form:textarea id="stevidorActivityPlace" path="stevidor.activityPlace" rows="3" cssClass="form-control"/>
 							            </div>
 						            </div>
 						            
@@ -231,10 +131,10 @@
 						      </div>
 						      <div class="row">
 						        <div class="col-sm-9 col-sm-offset-1">
-						        	<div class="">
+						        	<div class="form-group">
 							            <label class="form-label">Количество причалов</label>
 							            <div class="controls">
-							            	<form:textarea path="stevidor.stevidorNote" rows="3" cssClass="form-control"/>
+							            	<form:textarea id="stevidorMoorageCount" path="stevidor.moorageCount" rows="3" cssClass="form-control"/>
 							            </div>
 						            </div>
 						            
@@ -242,10 +142,10 @@
 						      </div>
 						      <div class="row">
 						        <div class="col-sm-9 col-sm-offset-1">
-						        	<div class="">
+						        	<div class="form-group">
 							            <label class="form-label">Специализация</label>
 							            <div class="controls">
-							            	<form:textarea path="stevidor.stevidorNote" rows="3" cssClass="form-control"/>
+							            	<form:textarea id="stevidorSpecialization" path="stevidor.specialization" rows="3" cssClass="form-control"/>
 							            </div>
 						            </div>
 						            
@@ -267,206 +167,28 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
-										<tr>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-											<th>
-												<form:input path="stevidor.name" cssClass="form-control" title="Введите полное наименование"/>
-											</th>
-										</tr>
+										<c:forEach var="contact" varStatus="loop" items="${stevidorEditCommand.stevidor.contacts}" >
+											<tr>
+												<th>
+													<form:input path="stevidor.contacts[${loop.index}].jobTitle" cssClass="form-control" title=""/>
+												</th>
+												<th>
+													<form:input path="stevidor.contacts[${loop.index}].fns" cssClass="form-control" title="Введите "/>
+												</th>
+												<th>
+													<form:input path="stevidor.contacts[${loop.index}].phone" cssClass="form-control" title="Введите "/>
+												</th>
+												<th>
+													<form:input path="stevidor.contacts[${loop.index}].mobPhone" cssClass="form-control" title="Введите "/>
+												</th>
+												<th>
+													<form:input path="stevidor.contacts[${loop.index}].fax" cssClass="form-control" title="Введите "/>
+												</th>
+												<th>
+													<form:input path="stevidor.contacts[${loop.index}].email" cssClass="form-control" title="Введите "/>
+												</th>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 								</div>

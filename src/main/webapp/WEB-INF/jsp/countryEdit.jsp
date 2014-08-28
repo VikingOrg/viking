@@ -36,35 +36,19 @@
 				</div>
 				
 				<div class="row">
+				
+					<!-- First column -->
 					<div class="col-sm-4 col-sm-offset-1">
-						<spring:bind path="country.nameRus">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<div class="controls">
-									<label class="form-label">Наименование по-русски</label>
-									<form:input path="country.nameRus" cssClass="form-control"
-										title="Введите наименование" />
-									<form:errors class="control-label" path="country.nameRus" />
-								</div>
-							</div>
-						</spring:bind>
-		
-						<spring:bind path="country.nameEn">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<div class="controls">
-									<label class="form-label">Наименование по-английски</label>
-									<form:input path="country.nameEn" cssClass="form-control"
-										title="Введите полное наименование" />
-									<form:errors class="control-label" path="country.nameEn" />
-								</div>
-							</div>
-						</spring:bind>					
+						<v:input id = "countryNameRus" path="country.nameRus" label="Наименование по-русски" required="true" title="Введите наименование"/>
+						<v:input id = "countryNameEn" path="country.nameEn" label="Наименование по-английски" required="true" title="Введите полное наименование"/>
 					</div>
+					
+					<!-- Second column -->
 					<div class="col-sm-4 col-sm-offset-1">
 						<div class="form-group">
 							<label class="form-label">Примечания</label>
 							<div class="controls">
-								<form:textarea path="country.countryNote" rows="3"
-									cssClass="form-control" />
+								<form:textarea id="countryNote" path="country.countryNote" rows="3"	cssClass="form-control" />
 							</div>
 						</div>
 					</div>
@@ -118,14 +102,16 @@
 			                          
 			                          if(requestType == "update"){
 				                      		/*For DOM DataTable.*/
-				                      		$('#name'+ajaxObjectId).text($('#groupName').val());
-				                      		$('#note'+ajaxObjectId).text($('#groupNote').val());
+				                      		$('#countryNameRus'+ajaxObjectId).text($('#countryNameRus').val());
+				                      		$('#countryNameEn'+ajaxObjectId).text($('#countryNameEn').val());
+				                      		$('#countryNote'+ajaxObjectId).text($('#countryNote').val());
 				                      		/*Closing Modal.*/
 				                       	    closingModal(ajaxObjectId, successMsg);	
 				                      } else {
-				                    	  	var obj = $('#country_table').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
-						                    	                 			                    	     $('#groupName').val(), 
-						                    	                 			                    	     $('#groupName').val()] 
+				                    	  	var obj = $('#country_table').dataTable().fnAddDataAndDisplay( [" ", 
+				                    	  	                  				                    	  	 $("#countryNameRus").val(), 
+						                    	                 			                    	     $('#countryNameEn').val(), 
+						                    	                 			                    	     $('#countryNote').val()] 
 			 			                    	  													 );
 				                    	  	$(obj.nTr).addClass( "success" );
 			                      			/*Closing Modal.*/

@@ -20,6 +20,7 @@ import com.seaport.command.UserSearchCommand;
 import com.seaport.domain.User;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
+import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
 
 /**
@@ -40,6 +41,8 @@ public class UserSearchController {
 	private IPortService portService;
 	@Autowired
 	private ICountryService countryService;
+	@Autowired
+	private IStevidorService stevidorService;
 	
 	/**
 	 * Create new user search form. 
@@ -56,7 +59,7 @@ public class UserSearchController {
 		userSearchCommand.setUserList(userService.getUsers());
 		
 		userSearchCommand.setUserPort(portService.getPortsMap());
-		userSearchCommand.setUserStevidor(portService.getStevidorsMap());
+		userSearchCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		userSearchCommand.setUserCountry(countryService.getContriesMap());
 		
 		model.put("userSearchCommand", userSearchCommand);

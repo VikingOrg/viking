@@ -8,7 +8,7 @@
 <head>
 <title>Таблица Портов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
-		
+		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#port_table').dataTable({
@@ -95,10 +95,10 @@
         </script>
 	</head>
 	<body>
-		<!-- Wrap all page content here -->  
-		<div id="wrap">	
-<jsp:include page="common/menu.jsp" />
-<!----- Begin page content ------>
+	<!-- Wrap all page content here -->  
+	<div id="wrap">	
+	<jsp:include page="common/menu.jsp" />
+	<!----- Begin page content ------>
 	<div class="container-fluid">
 	
 		<form:form id="port_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="portSearch"
@@ -112,14 +112,14 @@
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label>Страна</label>
-										<form:select id="countrySelect" path="countryId"
-											cssClass="form-control col-sm-12">
-											<form:option value="">Все Страны</form:option>
-											<c:forEach items="${portCommand.countryMap}" var="country">
-												<form:option value="${country.value.nameRus}"
-													label="${country.value.nameRus}" />
-											</c:forEach>
-										</form:select>
+									<form:select id="countrySelect" path="countryId"
+										cssClass="form-control col-sm-12">
+										<form:option value="">Все Страны</form:option>
+										<c:forEach items="${portCommand.countryMap}" var="country">
+											<form:option value="${country.value.nameRus}"
+												label="${country.value.nameRus}" />
+										</c:forEach>
+									</form:select>
 								</div>
 								<div class="form-group">
 									<label>Поиск</label>
@@ -135,19 +135,17 @@
 						</div>
 					</div>
 					<div class="col-sm-12 well lform">
-							<div class="row">	
-							<!--  Операции с данными в таблице -->
-								<div class="col-sm-12">
-										<a id="addNew" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
-										<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
-								</div>
+						<div class="row">	
+						<!--  Операции с данными в таблице -->
+							<div class="col-sm-12">
+									<a id="addNew" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
+									<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 							</div>
+						</div>
 					</div>
 				</div>
 				<!-- End of Sidebar content-->
 				<div class="col-sm-8 col-md-9 col-lg-9">
-	
-					<!-- Start table content -->
 	
 					<!--  Вывод сообщений и предупреждений  -->
 					<c:if test="${not empty message}">
@@ -167,20 +165,20 @@
 						<span id="success_alert_message"></span>
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 					</div>
-	
-	
-					<!-- Таблица со списком портов -->
+					
+					<!-- Table to format page header -->
 					<table id="company_header" class="table_report_header">
-								<tbody>
-									<tr>
-										<td class="nowrap">
-											<h3 class="page-header">Список портов</h3>
-										</td>
-										
-										<td class="nowrap" id="table_Actions"></td>
-									</tr>
-								</tbody>
-							</table>
+						<tbody>
+							<tr>
+								<td class="nowrap">
+									<h3 class="page-header">Список портов</h3>
+								</td>
+								<td class="nowrap" id="table_Actions"></td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<!-- Start table content -->					
 					<table id="port_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
@@ -197,13 +195,19 @@
 										<form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
 									</td>
 									<td class="nowrap">
-										<a href="#" rel="tableRowEdit" data-param1="${port.portId}"><c:out value="${port.name}" /></a>
+										<a href="#" rel="tableRowEdit" data-param1="${port.portId}">
+											<span id="portName${port.portId}"><c:out value="${port.name}"/></span>
+										</a>
 									</td>
 									<td class="nowrap">
-										<c:out value="${port.country.nameRus}" />
+										<span id="countryNameRus${port.portId}">
+											<c:out value="${port.country.nameRus}"/>
+										</span>
 									</td>
 									<td class="nowrap">
-										<c:out value="${port.portNote}" />
+										<span id="portNote${port.portId}">
+											<c:out value="${port.portNote}"/>
+										</span>
 									</td>
 								</tr>
 							</c:forEach>

@@ -20,6 +20,7 @@ import com.seaport.command.RegistrationCommand;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
+import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
 
 /**
@@ -40,6 +41,8 @@ public class UserEditController {
 	private IPortService portService;
 	@Autowired
 	private ICountryService countryService;
+	@Autowired
+	private IStevidorService stevidorService;
 	
 	@RequestMapping(value="/edit/{userId}", method = RequestMethod.GET)
 	public String editUser(@PathVariable String userId,
@@ -50,7 +53,7 @@ public class UserEditController {
 		registrationCommand.setUserRole(registrationCommand.getUser().getRole().getId());
 		registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
 		registrationCommand.setUserPort(portService.getPortsMap());
-		registrationCommand.setUserStevidor(portService.getStevidorsMap());
+		registrationCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		registrationCommand.setUserCountry(countryService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);
@@ -68,7 +71,7 @@ public class UserEditController {
 		registrationCommand.setPswordCheck(registrationCommand.getUser().getPassword());
 		registrationCommand.getUser().setUserId(null);
 		registrationCommand.setUserPort(portService.getPortsMap());
-		registrationCommand.setUserStevidor(portService.getStevidorsMap());
+		registrationCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		registrationCommand.setUserCountry(countryService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);
@@ -84,7 +87,7 @@ public class UserEditController {
 	public String newUser(ModelMap model) throws Exception {
 		RegistrationCommand registrationCommand = new RegistrationCommand();
 		registrationCommand.setUserPort(portService.getPortsMap());
-		registrationCommand.setUserStevidor(portService.getStevidorsMap());
+		registrationCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		registrationCommand.setUserCountry(countryService.getContriesMap());
     	
 		model.put("registrationCommand", registrationCommand);

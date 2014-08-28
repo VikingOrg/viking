@@ -37,20 +37,14 @@
 				</div>
 				
 				<div class="row">
+				
+					<!-- First Column -->
 					<div class="col-sm-4 col-sm-offset-1">
-						<spring:bind path="port.name">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<div class="controls">
-									<label class="form-label">Наименование</label>
-									<form:input path="port.name" cssClass="form-control"
-										title="Введите наименование" />
-									<form:errors class="control-label" path="port.name" />
-								</div>
-							</div>
-						</spring:bind>
+						<v:input id="portName" path="port.name" label="Наименование" required="true" title="Введите наименование"/>
+											
 						<div class="form-group">
 							<label class="form-label">Страна</label>
-							<form:select path="port.countryId" cssClass="form-control">
+							<form:select id="countryNameRus" path="port.countryId" cssClass="form-control">
 								<c:forEach items="${portCommand.countryMap}" var="country">
 									<form:option value="${country.key}" label="${country.value.nameRus}" />
 								</c:forEach>
@@ -58,11 +52,13 @@
 						</div>					
 
 					</div>
+					
+					<!-- Second Column -->
 					<div class="col-sm-4 col-sm-offset-1">
 						<div class="form-group">
 							<label class="form-label">Примечания</label>
 							<div class="controls">
-								<form:textarea path="port.portNote" rows="3" cssClass="form-control" />
+								<form:textarea id="portNote" path="port.portNote" rows="3" cssClass="form-control" />
 							</div>
 						</div>
 
@@ -116,16 +112,19 @@
 			                          var successMsg = $("#successMessage").html();
 			                          
 			                          if(requestType == "update"){
+			                        	  portName
 				                      		/*For DOM DataTable.*/
-				                      		$('#name'+ajaxObjectId).text($('#groupName').val());
-				                      		$('#note'+ajaxObjectId).text($('#groupNote').val());
+				                      		$('#portName'+ajaxObjectId).text($('#portName').val());
+				                      		$('#countryNameRus'+ajaxObjectId).text($('#countryNameRus option:selected').text());
+				                      		$('#portNote'+ajaxObjectId).text($('#portNote').val());
 				                      		/*Closing Modal.*/
 				                       	    closingModal(ajaxObjectId, successMsg);	
 				                      } else {
-				                    	  	var obj = $('#port_table').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
-						                    	                 			                    	     $('#groupName').val(), 
-						                    	                 			                    	     $('#groupName').val()] 
-			 			                    	  													 );
+				                    	  	var obj = $('#port_table').dataTable().fnAddDataAndDisplay( [" ", 
+				                    	  	               				                    	  		 $("#portName").val(), 
+				                    	  	               				                    	  		 $('#countryNameRus option:selected').text(), 
+						                    	                 			                    	     $('#portNote').val()] 
+			 			                    	  													  );
 				                    	  	$(obj.nTr).addClass( "success" );
 			                      			/*Closing Modal.*/
 			                       	    	closingModal($("#ajaxObjectId").val(), successMsg);	
@@ -136,7 +135,8 @@
 		       	        error: function(){
 		       	        	alert("failure");
 		       	        }
-	            });           	
+	            });
+	                       	
 	       }
 
         

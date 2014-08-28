@@ -1,7 +1,5 @@
 package com.seaport.dao;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +7,10 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.domain.Country;
-import com.seaport.domain.User;
-import com.seaport.service.IUserService;
 
 /**
  * The DAO class that serves any type of Group requests 
@@ -24,12 +20,11 @@ import com.seaport.service.IUserService;
  *          
  */
 @Repository
+@Transactional
 public class CountryDAOImpl implements ICountryDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	@Autowired
-	private IUserService userService;
-	
+
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -51,16 +46,6 @@ public class CountryDAOImpl implements ICountryDAO {
 	
 	@Override
 	public void saveCountry(Country country) {
-		Timestamp updateDate = new Timestamp(new Date().getTime());
-		User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-		
-		/*for insert.*/
-		if (country.getCountryId() == null) {
-			country.setCreateUserId(user.getUserId());
-			country.setCreateDate(updateDate);
-		}
-		country.setUpdateUserId(user.getUserId());
-		country.setUpdateDate(updateDate);
 		getCurrentSession().saveOrUpdate(country);
 	}
 	

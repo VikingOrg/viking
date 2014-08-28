@@ -98,82 +98,8 @@
                         }
                     });
                 });
-                
-                /*Modal code.*/ 
-                $('#machineModelModal').on('shown.bs.modal', function (e) {
-              	  	var height = $(window).height() - 200;
-            	  	$(this).find(".modal-body").css("max-height", height);
-            	               	   
-                    $("#submitUpdate").click(function(e) {
-                 	   e.preventDefault();
-          			   initiateAjaxCall("update");
-                    });
-                    $("#submitCopy").click(function(e) {
-                 	   e.preventDefault();
-          			   initiateAjaxCall("copy");
-                    });
-                    
-                    $("#submitCreate").click(function(e) {
-                 	   e.preventDefault();
-          			   initiateAjaxCall("create");
-                    });
-                    
-         	       function initiateAjaxCall(requestType){
-         	            ajaxObjectId =  $("#ajaxObjectId").val();
-         	            $.ajax({
-         		               	type: "POST",
-         		       		    url: "${pageContext.request.contextPath}/machineModel/save/" + requestType,
-         		       		    data: $("#ajaxSubmitForm").serialize(),
-         		                complete : function( response ) {
-         		                          $("#machineModelModalContent").html(response.responseText);
-         		                          check = $("#ajaxSuccessFlag").val();
-         	
-         		                          if(check=='true'){
-         			                          var successMsg = $("#successMessage").html();
-         			                          /*For any type of update we are assuming there is a record in DOM with provided id.*/
-         			                          if(requestType == "update"){
-         				                            /*For Ajax DataTable.*/
-         			                        		//var rowData = [];
-         			                        		//$('#'+machineModelId).children('td').each(function(i, data) {
-         			                        			//console.log("Debugging:"+$(this).html()+":End");	
-         			                        			//rowData.push($(this).html());
-         			                       			//});
-         			                        		//oTable.fnUpdate( rowData, document.getElementById(machineModelId) );
-         			                        		//oTable.fnUpdate( $('#machineModelName').val(), document.getElementById(machineModelId), 2 );
-         			                        		/*For DOM DataTable.*/
-         			                        		$('#group'+ajaxObjectId).text($('#groupSelectModal option:selected').text());
-         			                        		$('#name'+ajaxObjectId).text($('#machineModelName').val());
-         			                        		$('#manafacturer'+ajaxObjectId).text($( "#manufacturerSelectModal option:selected" ).text() );
-         			                        		$('#note'+ajaxObjectId).text($('#macnineModelNote').val());
-             			                          
-         				                      		/*Closing Modal.*/
-         				                       	    closingModal(ajaxObjectId, successMsg);	
-         				                      } else {
-         					                        /*For newly added records we insert new one at the end of Datatable object and move coursor to that position.*/
-         				                    	  	var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
-         				                    	  	                                                                      $('#machineModelName').val(), 
-         				                    	  	                                                                      $('#groupSelectModal option:selected').text(),
-         				                    	  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
-         						                    	                 			                    	              "Страна",
-         						                    	                 			                    	              $('#macnineModelNote').val(),
-         						                    	                 			                    	              $('#groupSelectModal').val()] 
-         			 			                    	  													 );
-
-         				                    	  	$(obj.nTr).addClass( "success" );
-         			                       	    	closingModal($("#ajaxObjectId").val(), successMsg);	
-         					                  }
-         		                          } //if not true - modal is still up with error message on the top.
-         		                          
-         		                },	        	        
-         		       	        error: function(){
-             		       	        //something went wrong on server side...
-         		       	        	alert("failure");
-         		       	        }
-         	            });           	
-         	       }
-             	   
-                });                    
-            } );
+                                    
+            } ); //end of document.ready 
                
             
         	function closingModal(modelId, successMsg){
@@ -192,8 +118,8 @@
 <jsp:include page="common/menu.jsp" />
 <!----- Begin page content ------>
 <div class="container-fluid">
-			    <form:form id="machine_search_form" action="modelSearch" class="form-horizontal mini" style="margin-bottom: 0px;" 
-			    commandName="modelSearchCommand" method="post" accept-charset="UTF-8">   
+    <form:form id="machine_search_form" action="modelSearch" class="form-horizontal mini" style="margin-bottom: 0px;" 
+    commandName="modelSearchCommand" method="post" accept-charset="UTF-8">   
 		<div class="row">
 
 			<!--Sidebar content-->
@@ -265,98 +191,100 @@
 			<!-- End of Sidebar content-->
 
 			<div class="col-sm-8 col-md-9 col-lg-9">
-						<!--  Вывод сообщений и предупреждений  -->
-						<c:if test="${not empty message}">
-							<div class="alert alert-success show">
-								<spring:message code="${message}" />
-								<button type="button" class="close" data-dismiss="alert">&times;</button>
-							</div>
-						</c:if>
-						<c:if test="${not empty error}">
-							<div class="alert alert-danger show">
-								<spring:message code="${error}" />
-								<button type="button" class="close" data-dismiss="alert">&times;</button>
-							</div>
-						</c:if>
-						<div id="success_alert" class="alert alert-success hidden">
-							<span id="success_alert_message"></span>
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-						</div>
-	                            
-<!-- 							Таблица со списком машин -->
-									<table id="company_header" class="table_report_header">
-										<tbody>
-											<tr>
-												<td class="nowrap">
-													<h3 class="page-header">Список Моделей</h3>
-												</td>
-												<td class="nowrap" id="table_Actions"></td>
-											</tr>
-										</tbody>
-									</table>
-                                    <table id="modelSearchTable" class="table table-striped table-bordered">
-			                          <thead>
-			                              <tr>
-                                            <th class="column-check">&nbsp;</th>
-                                            <th class="nowrap">Модель&nbsp;&nbsp;</th>
-                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
-                                            <th class="nowrap">Производитель&nbsp;&nbsp;</th>
-                                            <th class="hidden-sm hidden-xs hidden-md nowrap">Страна производства&nbsp;&nbsp;</th>
-                                            <th class="nowrap">Примечания</th>
-                                            <th  class="hide">group Id&nbsp;&nbsp;</th>
-                                          </tr>
-			                          </thead>
-        			                  <tbody>
-	        			                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
-		        			                  <c:if test="${machineModel.archived != '1'}" >
-		                                          <tr id="${machineModel.modelId}">
-						                             <td class="column-check">
-						                             	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
-						                              	<c:if test="${system.localConfig}" >
-						                              		<span class="badge">
-						                              			<c:out value="(${machineModel.modelId})"/>
-						                              		</span>
-						                              	</c:if>						                             	
-						                             </td>
-							                         <td class="nowrap">
-						                         	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
-							                         <span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
-						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
-						                             <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.nameRus}"/></span></td>
-						                             <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
-						                             <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
-						                             <td class="hide"><c:out value="${machineModel.group.groupId}"/></td>											   
-						                        </tr> 
-		        			                  </c:if>
-	        			                  </c:forEach>
-				                        </tbody>
-    			                    </table>
-    			                   </div>
-			                   </div>
-		        
-				    <!-- 		Модальное окно подтверждения удаления данных -->
-					<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-body" align="center">
-					        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
-					      </div>
-					      <div class="modal-footer">
-					        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
-							<button type="submit" class="btn btn-primary">Удалить</button>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
-					
-			</form:form>
-				<div id="machineModelModal" class="modal modal-wide fade">
-				  <div class="modal-dialog">
-				    <div id="machineModelModalContent" class="modal-content">
-				    
-				    </div><!-- /.modal-content -->
-				  </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
+				<!--  Вывод сообщений и предупреждений  -->
+				<c:if test="${not empty message}">
+					<div class="alert alert-success show">
+						<spring:message code="${message}" />
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					</div>
+				</c:if>
+				<c:if test="${not empty error}">
+					<div class="alert alert-danger show">
+						<spring:message code="${error}" />
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+					</div>
+				</c:if>
+				<div id="success_alert" class="alert alert-success hidden">
+					<span id="success_alert_message"></span>
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+
+				<table id="company_header" class="table_report_header">
+					<tbody>
+						<tr>
+							<td class="nowrap">
+								<h3 class="page-header">Список Моделей</h3>
+							</td>
+							<td class="nowrap" id="table_Actions"></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<!-- Таблица со списком машин -->									
+                 <table id="modelSearchTable" class="table table-striped table-bordered">
+                   <thead>
+                       <tr>
+                         <th class="column-check">&nbsp;</th>
+                         <th class="nowrap">Модель&nbsp;&nbsp;</th>
+                         <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
+                         <th class="nowrap">Производитель&nbsp;&nbsp;</th>
+                         <th class="hidden-sm hidden-xs hidden-md nowrap">Страна производства&nbsp;&nbsp;</th>
+                         <th class="nowrap">Примечания</th>
+                         <th class="nowrap">group Id</th>
+                       </tr>
+                   </thead>
+	                  <tbody>
+		                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
+			                  <c:if test="${machineModel.archived != '1'}" >
+                                  <tr id="${machineModel.modelId}">
+                         <td class="column-check">
+                         	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
+                          	<c:if test="${system.localConfig}" >
+                          		<span class="badge">
+                          			<c:out value="(${machineModel.modelId})"/>
+                          		</span>
+                          	</c:if>						                             	
+                         </td>
+                      	 <td class="nowrap">
+                     	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
+                      			<span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
+                         <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
+                         <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.nameRus}"/></span></td>
+                         <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
+                         <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
+                         <td class="nowrap"><c:out value="${machineModel.group.groupId}"/></td>											   
+                    </tr> 
+			                  </c:if>
+		                  </c:forEach>
+                  </tbody>
+          		</table>
+    		</div>
+        </div>
+	</form:form>
+			
+		<div id="machineModelModal" class="modal modal-wide fade">
+		  <div class="modal-dialog">
+		    <div id="machineModelModalContent" class="modal-content">
+		    
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+				
+				
+	    <!-- 		Модальное окно подтверждения удаления данных -->
+		<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-body" align="center">
+		        <h4>ПОДТВЕРДИТЕ УДАЛЕНИЕ ДАННЫХ</h4>
+		      </div>
+		      <div class="modal-footer">
+		        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
+				<button type="submit" class="btn btn-primary">Удалить</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->				
 </div>
 </div>
 <!-- Closing div tag for wrap -->
