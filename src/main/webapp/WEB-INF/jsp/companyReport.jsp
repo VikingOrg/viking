@@ -19,7 +19,7 @@
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  $(document).ready(function() {
-
+			  var jsonData={};
               oTable = $('#company_report_table').dataTable({
             	  "bJQueryUI": true,
             	  "sPaginationType": "full_numbers",
@@ -47,7 +47,6 @@
                 		   $("#company_pie").addClass("hidden");
                 		   $("#data_table_elements").addClass("hidden");
                 	   } */
-                	   $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
                 	   
 	              },
                   tableTools: {
@@ -100,8 +99,6 @@
                   }
               });	
 
-              //oTable.fnAdjustColumnSizing();
-
               $("#submit_report").click(function(e) {
               		e.preventDefault();
               		$('#divErrorMessage').attr("class","alert alert-danger hide");
@@ -110,7 +107,9 @@
               		var pageData =  $("#report_select_form").serialize();
             		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", pageData, function (data) {
             			if (data.length != 0 ) {
+            				jsonData = data; 
             				oTable.fnAddData(data);
+            				drawGoogleChart(data, 300, 300,  document.getElementById('companyReportChart'), false);
             			}
             			setReportTitle();
             			closeProgressModal('#wait_modal');
@@ -120,56 +119,79 @@
             	        $('#divErrorMessage').attr("class","alert alert-danger show");
             	    });
               });
+
+              /*Activate Chart Modal*/
+              $('#chartPie').click(function(e){
+            	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('chartModalContent'), false);
+            	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('barModalContent'), true);
+                  $('#chartModal').modal('show');                  
+              });    	
+              
                 	 	
 		  }); //end of document.ready
 
-		   function setReportTitle() {
-			   //$('#title_group').html($('#groupSelect').children(':selected'));manufacturerId
+		  function setReportTitle() {
 			   $('#title_group').html($("#groupSelect option:selected").text());
 			   $('#title_model').html($("#modelSelect option:selected").text());
 			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
 			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
-			}			
+		  }			
 
-		      // Load the Visualization API and the piechart package.
-		      google.load('visualization', '1.0', {'packages':['corechart']});
-
-		      // Set a callback to run when the Google Visualization API is loaded.
-		      google.setOnLoadCallback(drawChart);
-
-		      // Callback that creates and populates a data table,
-		      // instantiates the pie chart, passes in the data and
-		      // draws it.
-		      function drawChart() {
-
-		        // Create the data table.
-		        var data = new google.visualization.DataTable();
-		        data.addColumn('string', 'Topping');
-		        data.addColumn('number', 'Slices');
+		  /*google lib should be loaded along the page..*/	
+		  google.load('visualization', '1.0', {'packages':['corechart']});
+		  
+		  /*Get chart to draw.*/
+		  function drawGoogleChart(chartData, width, height, htmlElement, isBarChart) {
+			chartData = chartData.sort(function(obj1, obj2) {
+				return obj2.count - obj1.count;
+			});
+	       	var totalCount = 0;
+            $.each(chartData, function (i, e) {
+            	  totalCount = totalCount + e.count;
+            });			  
+			  
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Topping');
+	        data.addColumn('number', 'Slices');
+	        /*Getting max number of iterations*/
+	        var maxIteration = 7;
+	        if (chartData.length < 8) {
+	        	maxIteration = chartData.length; 
+		    }
+		    var usedCount = 0;
+	        for (var i = 0; i < maxIteration; i++) {
 		        data.addRows([
-		          ['Mushrooms', 3],
-		          ['Onions', 1],
-		          ['Olives', 1],
-		          ['Zucchini', 1],
-		          ['Pepperoni', 2]
-		        ]);
+		        	          [chartData[i].name, chartData[i].count],
+		        	        ]);
+		        usedCount = usedCount + chartData[i].count;	        
+    	    }
+	        /*Others*/
+	        var others = totalCount - usedCount;
+	        data.addRows([
+	        	          ['Остальные', others]
+	        	        ]);	  
 
-		        // Set chart options
-		        var options = {
-				  'legend':'bottom',
-				  'title':'Общее кол-во:',
-				  'is3D':true,
-				  'width':300,
-				  'height':300,
-				  'backgroundColor':'none',
-				};
+	        // Set chart options
+	        var options = {
+			  'legend':'right',
+			  'title':'Общее кол-во:'+totalCount,
+			  'is3D':true,
+			  'width':width,
+			  'height':height,
+			  'backgroundColor':'none',
+			};
 
+	        if(!isBarChart) {
 		        // Instantiate and draw our chart, passing in some options.
-		        var chart = new google.visualization.PieChart(document.getElementById('companyReportChart'));
+		        var chart = new google.visualization.PieChart(htmlElement);
 		        chart.draw(data, options);
+		    } else {
+		    	var chart = new google.visualization.ColumnChart(htmlElement);
+		    	chart.draw(data, options);
+			}
+	      }
 
-		        
-		      }  
+	        
 		  </script>
 		    
 </head>
@@ -279,13 +301,14 @@
 								<div class="col-sm-12">
 									<div class="btn-group pull-right">
 										<!--  Кнопочка сформировать отчет -->
-										<button id="" class="btn cancelbtn" title="Сброс"><i class="fa fa-refresh"></i></button>
+										<!-- <button id="" class="btn cancelbtn" title="Сброс"><i class="fa fa-refresh"></i></button> -->
 										<button id="submit_report" class="btn btn-primary">Сформировать</button>
 									</div>	
 								</div>
 							</div>	
 						</div>				 
-						
+
+						<!-- Pie Graphics div -->						
 						<div id="company_pie" class="col-sm-12 well lform" style="padding:0px;">
 							<div class="row" style="padding-left: 0px;margin:0px 0px 0 0">
 								<div class="button-group pull-left">
@@ -354,7 +377,11 @@
 									<td class="nowrap">Год выпуска: <span id="title_year" class="report_header">Все года</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Производитель: <span id="title_manufacturer" class="report_header">Все производители</span></td>
+									<td class="nowrap">Производитель: <span id="title_manufacturer" class="report_header nowrap">Все производители</span>
+	                     	 			<a href="#" id="chartPie">
+	                     	 				<i class="fa fa-bar-chart-o"></i>
+	                      			    </a>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -386,31 +413,36 @@
 				<!-- 		Модальное окно ожидания загрузки данных -->
 				<jsp:include page="common/progressModal.jsp" />
 				
-					<!--   Модальное окно  разворачивания диаграммы-->
-					<div class="modal fade" id="#unfoldChart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					        <h4 class="modal-title" id="myModalLabel">Кол-во Механизмов в Компаниях-операторах</h4>
-					      </div>
-					      <div class="modal-body">
-					        <div id="companyReportChart"></div>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="cancelbtn" data-dismiss="modal">Закрыть</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
+				
 			</form:form>
-	
 		</div>
 	</div>
 </div>
 <!-- Closing div tag for wrap -->
-
 		
+	<!--  Chart Modal -->
+	<div id="chartModal" class="modal modal-wide fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">График кол-во Механизмов в Компаниях-операторах</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="col-sm-6" >
+	            	<div id="chartModalContent"></div>
+	        </div>
+	        <div class="col-sm-5">
+					<div id="barModalContent"></div>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="cancelbtn" data-dismiss="modal">Закрыть</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+							
 <jsp:include page="common/footer.jsp" />
 </body>
 </html>
