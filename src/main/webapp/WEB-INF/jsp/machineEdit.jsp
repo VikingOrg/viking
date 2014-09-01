@@ -266,11 +266,6 @@
 									Редактирование механизма<br>
 								</h3>
 							</c:when>
-							<c:when test="${registrationCommand.formType=='C'}">
-								<h3 class="page-header">
-									Копирование механизма<br>
-								</h3>
-							</c:when>
 							<c:otherwise>
 								<h3 class="page-header">
 									Добавление механизма<br>
@@ -444,9 +439,13 @@
 			      <div class="form-actions" style= "padding: 20px">
 			          <br>
 			          <div class="form-actions">
-
-		            	<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_new" onclick="submitForm()" value="Сохранить" />
-			            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_copy" onclick="submitForm()" value="Скопировать" />
+						<c:if test="${machineEditCommand.formType=='E'}">
+								<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_edit" onclick="submitForm()" value="Сохранить Отред." />
+						</c:if>	
+						<c:if test="${machineEditCommand.formType != 'E'}">
+								<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_new" onclick="submitForm()" value="Сохранить Новую." />
+						</c:if>	
+			            <!--  <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_edit" onclick="submitForm()" value="Скопировать" /> -->
 			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';" value="Klick">Отмена</a>			            
 			            
 			          </div>
@@ -467,7 +466,7 @@
 				      </div>
 				      <script type="text/javascript">
 		      		    $("#modal_new_cancel").click(function(e) {
-		      		    	$('#confirm_copy').modal('hide');
+		      		    	$('#confirm_new').modal('hide');
 		                });
 		                
 		      		    $("#modal_new_submit").click(function(e) {
@@ -484,25 +483,25 @@
 				</div><!-- /.modal -->
 
 				<!-- Mодальное окно подтверждения сохранения копии текущего механизма -->
-				<div class="modal fade" id="confirm_copy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="confirm_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-body" align="center">
-				        <h4>ПОДТВЕРДИТЕ КОПИРОВИНИЕ МЕХАНИЗМА</h4>
+				        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ МЕХАНИЗМА</h4>
 				      </div>
 				      <div class="modal-footer">
 				        <a id = "modal_copy_cancel" class="cancelbtn" type="button" data-dismiss="modal">Отмена</a>
-				        <a id = "moda_copy_submit" class="btn btn-primary" type="button" data-dismiss="modal">Скопировать</a>
+				        <a id = "moda_copy_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
 				      </div>
 				     
    				      <script type="text/javascript">
 		      		    $("#modal_copy_cancel").click(function(e) {
-		      		    	$('#confirm_copy').modal('hide');
+		      		    	$('#confirm_edit').modal('hide');
 		                });
 		                
 		      		    $("#moda_copy_submit").click(function(e) {
-		      		    	$('#confirm_copy').modal('hide');
-			              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/copy");
+		      		    	$('#confirm_edit').modal('hide');
+			              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/edit");
 			              	$('#machine_edit_form').attr('method', "post");
 			              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
 			              	submittignForm = true;

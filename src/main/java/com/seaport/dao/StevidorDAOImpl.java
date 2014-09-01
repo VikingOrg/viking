@@ -41,7 +41,8 @@ public class StevidorDAOImpl implements IStevidorDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Stevidor> getStevidors() {
-		return getCurrentSession().createCriteria(Stevidor.class).list();
+		List<Stevidor> stevidorList = getCurrentSession().createCriteria(Stevidor.class).list(); 
+		return stevidorList;
 	}
 
 	@Override

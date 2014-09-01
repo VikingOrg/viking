@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -104,6 +105,7 @@ public class Stevidor implements Serializable {
     @Fetch( FetchMode.SELECT)
     @JoinColumn(name="stevidor_id")
     //@IndexColumn(name="idx")
+	@JsonBackReference
     private List<Contact> contacts = new ArrayList<Contact>();
     
 	public Stevidor() {

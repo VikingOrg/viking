@@ -23,7 +23,6 @@ import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
-import com.seaport.service.IPortService;
 import com.seaport.service.IStevidorService;
 
 /**

@@ -81,9 +81,9 @@ public class StevidorEditController {
 	
 	@RequestMapping(value="/getStevidor/{stevidorId}", method = RequestMethod.GET)
 	@ResponseBody
-	public Stevidor getStevidor(@PathVariable String stevidorId,
-							ModelMap model) throws Exception {
-		return stevidorService.getStevidor(Integer.parseInt(stevidorId));
+	public Stevidor getStevidor(@PathVariable String stevidorId, ModelMap model) throws Exception {
+		Stevidor stevidor = stevidorService.getStevidor(Integer.parseInt(stevidorId));
+		return stevidor;
 	}	
 	
 	/**
