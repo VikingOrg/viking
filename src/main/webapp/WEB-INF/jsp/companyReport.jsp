@@ -18,8 +18,8 @@
 		
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
+		  var jsonData={};
 		  $(document).ready(function() {
-			  var jsonData={};
               oTable = $('#company_report_table').dataTable({
             	  "bJQueryUI": true,
             	  "sPaginationType": "full_numbers",
@@ -37,17 +37,9 @@
                 	   $("#tableActions").appendTo("#table_Actions");
                 	   $('select[name="company_report_table_length"]').appendTo("#table_length");
                 	   $('select[name="company_report_table_length"]').removeClass( "form-control input-sm" ).addClass("form-control");
-                	  /*  var rowCount = $('#company_report_table tr').length;	    
-                	   if(rowCount > 2) { 
-                		   $("#table_length").addClass("col-sm-8");*/
-                		   $("#company_pie").removeClass("hidden");
-                		   $("#data_table_elements").removeClass("hidden");            		    
-                	  /*  } else {
-                		   $("#table_length").addClass("col-sm-8 hidden");
-                		   $("#company_pie").addClass("hidden");
-                		   $("#data_table_elements").addClass("hidden");
-                	   } */
-                	   
+                	   $("#company_pie").removeClass("hidden");
+                	   $("#data_table_elements").removeClass("hidden");            		    
+                	   getReport();	
 	              },
                   tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -100,24 +92,8 @@
               });	
 
               $("#submit_report").click(function(e) {
-              		e.preventDefault();
-              		$('#divErrorMessage').attr("class","alert alert-danger hide");
-              		showProgressModal('#wait_modal');
-              		oTable.fnClearTable();
-              		var pageData =  $("#report_select_form").serialize();
-            		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", pageData, function (data) {
-            			if (data.length != 0 ) {
-            				jsonData = data; 
-            				oTable.fnAddData(data);
-            				drawGoogleChart(data, 300, 300,  document.getElementById('companyReportChart'), false);
-            			}
-            			setReportTitle();
-            			closeProgressModal('#wait_modal');
-            		}).fail( function(d, textStatus, error) {
-            	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
-            	        closeProgressModal('#wait_modal');
-            	        $('#divErrorMessage').attr("class","alert alert-danger show");
-            	    });
+            	  e.preventDefault();
+            	  getReport();
               });
 
               /*Activate Chart Modal*/
@@ -130,6 +106,26 @@
                 	 	
 		  }); //end of document.ready
 
+		  function getReport(){
+          		$('#divErrorMessage').attr("class","alert alert-danger hide");
+          		showProgressModal('#wait_modal');
+          		oTable.fnClearTable();
+          		var pageData =  $("#report_select_form").serialize();
+        		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", pageData, function (data) {
+        			if (data.length != 0 ) {
+        				jsonData = data; 
+        				oTable.fnAddData(data);
+        				//drawGoogleChart(data, 300, 300,  document.getElementById('companyReportChart'), false);
+        			}
+        			setReportTitle();
+        			closeProgressModal('#wait_modal');
+        		}).fail( function(d, textStatus, error) {
+        	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+        	        closeProgressModal('#wait_modal');
+        	        $('#divErrorMessage').attr("class","alert alert-danger show");
+        	    });
+		  }
+		  
 		  function setReportTitle() {
 			   $('#title_group').html($("#groupSelect option:selected").text());
 			   $('#title_model').html($("#modelSelect option:selected").text());
@@ -307,8 +303,9 @@
 								</div>
 							</div>	
 						</div>				 
-
-						<!-- Pie Graphics div -->						
+ 
+						<!-- Pie Graphics div -->
+						<%-- 						
 						<div id="company_pie" class="col-sm-12 well lform" style="padding:0px;">
 							<div class="row" style="padding-left: 0px;margin:0px 0px 0 0">
 								<div class="button-group pull-left">
@@ -325,9 +322,10 @@
 										<button class="unfoldbtn" data-toggle="modal" data-target="#unfoldChart" title="Развернуть"><i class="fa fa-external-link"></i></button>
 								</div>
 							</div>
-							<%-- <span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>	 --%>
+							<span>Всего механизмов:</span><c:out value="${reportSelectionCommand.totalMachineCount}"/>
 							<div id="companyReportChart"></div>
-						</div>						
+						</div>
+						 --%>
 					</div>
 					<!-- End of Sidebar content-->
 	
