@@ -168,22 +168,33 @@
 	        	          ['Остальные', others]
 	        	        ]);	  
 
-	        // Set chart options
-	        var options = {
-			  'legend':'right',
-			  'title':'Общее кол-во:'+totalCount,
-			  'is3D':true,
-			  'width':width,
-			  'height':height,
-			  'backgroundColor':'none',
-			};
+	       
 
 	        if(!isBarChart) {
+	        	 // Set chart options
+		        var options = {
+				  'title':'Общее кол-во:'+totalCount,
+				  'is3D':true,
+				  'colors':['#3366cc','#dc3912', '#ff9900','#109618', '#990099','#0099c6', '#dd4477','#66aa00', ],
+				  'chartArea':{left:20,top:0,width:'100%',height:'80%'},
+				  'width':'700',
+				  'height':'500',
+				  'pieSliceTextStyle':{color: 'black'},
+				  'backgroundColor':'none',
+				};
 		        // Instantiate and draw our chart, passing in some options.
 		        var chart = new google.visualization.PieChart(htmlElement);
 		        chart.draw(data, options);
 		    } else {
-		    	var chart = new google.visualization.ColumnChart(htmlElement);
+		    	 // Set chart options
+		        var options = {
+				  'title':'Общее кол-во:'+totalCount,
+				  'colors':['#3366cc','#dc3912', '#ff9900','#109618', '#990099','#0099c6', '#dd4477','#66aa00', ],
+				  'chartArea':{left:300,top:0,width:'100%',height:'80%'},
+				  'width':'700',
+				  'height':'500',
+				};
+		    	var chart = new google.visualization.BarChart(htmlElement);
 		    	chart.draw(data, options);
 			}
 	      }
@@ -429,10 +440,10 @@
 	        <h4 class="modal-title" id="myModalLabel">График кол-во Механизмов в Компаниях-операторах</h4>
 	      </div>
 	      <div class="modal-body">
-	        <div class="col-sm-6" >
+	        <div class="col-sm-12">
 	            	<div id="chartModalContent"></div>
 	        </div>
-	        <div class="col-sm-5">
+	        <div class="col-sm-12">
 					<div id="barModalContent"></div>
 	        </div>
 	      </div>

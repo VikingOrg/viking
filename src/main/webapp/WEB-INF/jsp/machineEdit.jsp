@@ -414,7 +414,7 @@
 											   <form:options items="${machineEditCommand.yearMap}" />
 											</form:select>  				            
 							        	</div>			        		
-							            <v:input path="machine.location" label="МЕСТО УСТАНОВКИ" title="Укажите место установки"/>
+							            <v:input path="machine.location" label="Место эксплуатации (установки)" title="Укажите место установки или эксплуатации механизма"/>
 							            
 							            
 							            * - Поля обязательные к заполнению.
@@ -430,7 +430,7 @@
 										<v:input path="machine.transNumb" label="Транс №" required="true" title="Укажите номер Транса"/>
 							            <v:input path="machine.factoryNumb" label="Заводской №" required="true" title="Укажите заводской номер"/>
 							            <v:input path="machine.nomNo" label="Номенклатурный №" required="true" title="Укажите номенклатурный номер"/>
-							            <v:input path="machine.regNo" label="Регистрационный №" required="true" title="Укажите регистрационный номер"/>
+							            <v:input path="machine.regNo" label="Регистрационный №" required="true" title="Укажите регистрационный номер из реестра Ростехнадзора"/>
 				
 							            <div class="form-group">
 								            <label class="form-label">Примечания</label>

@@ -26,7 +26,7 @@
 				</a>
 			</div>		
 			<div class="col-sm-4 col-xs-6 customer_service pull-right text-right">
-				<h4 class="phone"><span class="hidden-xs">Служба поддержки:</span>(812) 275-32-27</h4>
+				<h4 class="phone"><span class="hidden-xs">Служба поддержки:</span>(812) 251-32-27</h4>
 			</div>
 		</div><!-- end header -->
 	

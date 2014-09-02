@@ -25,7 +25,7 @@
 					    <h3 class="page-header">Сессия завершена.</h3>
 			      </div>
 				  <div class="panel-body">
-				    <p><br>Списибо, что вы использовали нашу систему.<br><span style="color:lightgray"> Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!</span><br></p>
+				    <p><br>Спасибо, что вы использовали нашу систему.<br><span style="color:lightgray"> Для разработчика:Уровень снижен до "<span id="username"><%=SecurityContextHolder.getContext().getAuthentication().getName()%></span>"!</span><br></p>
 					
 				  </div>
 				  <div class="panel-footer"><p>Для продолжения работы <a class="cancelbtn" href="<c:url value="login" />" > ВОЙДИТЕ СНОВА</a></p></div>
