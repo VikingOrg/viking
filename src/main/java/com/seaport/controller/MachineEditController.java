@@ -87,9 +87,9 @@ public class MachineEditController {
 	 */
 	@RequestMapping(value="/model/{groupId}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<MachineModel> getModels(@PathVariable String groupId,
-							ModelMap model) throws Exception {
-		return machineService.getModels(Integer.parseInt(groupId));
+	public List<MachineModel> getModels(@PathVariable String groupId, ModelMap model) throws Exception {
+		List<MachineModel> modelList = machineService.getModels(Integer.parseInt(groupId)); 
+		return modelList;
 	}	
 
 	@RequestMapping(value="/getModel/{modelId}", method = RequestMethod.GET)

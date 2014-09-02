@@ -335,16 +335,16 @@
 				</c:if>
 
 				<!-- 	Таблица со списком машин -->
-							<table id="company_header" class="table_report_header">
-								<tbody>
-									<tr>
-										<td class="nowrap">
-											<h3 class="page-header">Машины и Механизмы</h3>
-										</td>
-										<td class="nowrap" id="table_Actions"></td>
-									</tr>
-								</tbody>
-							</table>
+				<table id="company_header" class="table_report_header">
+					<tbody>
+						<tr>
+							<td class="nowrap">
+								<h3 class="page-header">Машины и Механизмы</h3>
+							</td>
+							<td class="nowrap" id="table_Actions"></td>
+						</tr>
+					</tbody>
+				</table>
 				<table id="machine_table" class="table table-striped table-bordered">
 			        <thead>
 			            <tr>

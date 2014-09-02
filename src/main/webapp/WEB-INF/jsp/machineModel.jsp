@@ -53,21 +53,22 @@
 
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
-                });   		 
+                }); 
+                  		 
                 $('#groupSelect').change(function() {
                     group = $(this).val();
                     if(group==''){
-                    	oTable.fnFilter(group, 6);
+                    	oTable.fnFilter(group, 7);
                     } else {
-                    	oTable.fnFilter( "^"+group+"$", 6 , true);
+                    	oTable.fnFilter( "^"+group+"$", 7 , true);
                     }
                 });
                 $('#manufacturerSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 3);
+                	oTable.fnFilter( $(this).val(), 4);
                 });
                 
                 $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 4);
+                	oTable.fnFilter( $(this).val(), 5);
                 });
 
                 $("a[rel^='tableRowEdit']").click(function(e){
@@ -102,7 +103,7 @@
             } ); //end of document.ready 
                
             
-        	function closingModal(modelId, successMsg){
+        	function closingModal(modelId, successMsg, groupId){
         		$('#machineModelModal').modal('hide');
         		$('#'+modelId).addClass( "success" );
 
@@ -178,9 +179,10 @@
 			               </div>
 					</div>
 				</div>
-								<!--  Операции с данными в таблице -->
+				
+				<!--  Операции с данными в таблице КНОПОЧКИ -->
 				<div class="col-sm-12 well lform">
-					<div class="row"">
+					<div class="row">
 						<div class="col-sm-12">
 								<a id="addNewModel" href="#" class="btn btn-primary pull-right" title="Ввод нового"><span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить</a>
 								<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
@@ -225,38 +227,48 @@
                    <thead>
                        <tr>
                          <th class="column-check">&nbsp;</th>
-                         <th class="nowrap">Модель&nbsp;&nbsp;</th>
-                         <th class="hidden-sm hidden-xs hidden-md nowrap">Группа&nbsp;&nbsp;</th>
-                         <th class="nowrap">Производитель&nbsp;&nbsp;</th>
-                         <th class="hidden-sm hidden-xs hidden-md nowrap">Страна производства&nbsp;&nbsp;</th>
-                         <th class="nowrap">Примечания</th>
-                         <th class="nowrap">group Id</th>
+                         <th class="">Модель&nbsp;&nbsp;</th>
+                         <th class="">Характ. Модели</th>                         
+                         <th class="">Группа</th>
+                         <th class="">Производитель&nbsp;&nbsp;</th>
+                         <th class="hidden-sm hidden-xs hidden-md nowrap">Страна</th>
+                         <th class="">Примечания</th>
+                         <th class="">group Id</th>
                        </tr>
                    </thead>
-	                  <tbody>
-		                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
-			                  <c:if test="${machineModel.archived != '1'}" >
-                                  <tr id="${machineModel.modelId}">
-                         <td class="column-check">
-                         	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
-                          	<c:if test="${system.localConfig}" >
-                          		<span class="badge">
-                          			<c:out value="(${machineModel.modelId})"/>
-                          		</span>
-                          	</c:if>						                             	
-                         </td>
-                      	 <td class="nowrap">
-                     	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
-                      			<span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a></td>
-                         <td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${machineModel.group.name}"/></td>
-                         <td class="nowrap"><span id="manafacturer${machineModel.modelId}"><c:out value="${machineModel.manufacturer.nameRus}"/></span></td>
-                         <td class="hidden-sm hidden-xs hidden-md nowrap"><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
-                         <td class="nowrap"><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
-                         <td class="nowrap"><c:out value="${machineModel.group.groupId}"/></td>											   
-                    </tr> 
-			                  </c:if>
-		                  </c:forEach>
-                  </tbody>
+	               <tbody>
+	                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
+                         <tr id="${machineModel.modelId}">
+	                         <td class="column-check">
+	                         	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
+	                          	<c:if test="${system.localConfig}" >
+	                          		<span class="badge">
+	                          			<c:out value="(${machineModel.modelId})"/>
+	                          		</span>
+	                          	</c:if>						                             	
+	                         </td>
+	                      	 <td class="">
+	                     	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
+	                      			<span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a>
+	                      	 </td>
+	                      	 <td class=""><span id="details${machineModel.modelId}"><c:out value="${machineModel.details}"/></span></td>
+	                         <td class="hidden-sm hidden-xs hidden-md "><c:out value="${machineModel.group.name}"/></td>
+	                         <td class="">
+	                         	<span id="manafacturer${machineModel.modelId}">
+	                         		<c:if test="${machineModel.manufacturer.countryId == 4}" >
+	                         			<c:out value="${machineModel.manufacturer.nameRus}"/>
+	                         		</c:if>
+	                         		<c:if test="${machineModel.manufacturer.countryId != 4}" >
+	                         			<c:out value="${machineModel.manufacturer.nameRus}"/> (<c:out value="${machineModel.manufacturer.nameEn}"/>)
+	                         		</c:if>
+	                         	</span>
+	                         </td>
+	                         <td class="hidden-sm hidden-xs hidden-md "><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
+	                         <td class=""><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
+	                         <td class=""><c:out value="${machineModel.group.groupId}"/></td>											   
+                 	     </tr> 
+	          	        </c:forEach>
+                   </tbody>
           		</table>
     		</div>
         </div>

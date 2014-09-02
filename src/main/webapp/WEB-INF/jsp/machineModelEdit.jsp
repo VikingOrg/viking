@@ -40,6 +40,7 @@
 					      <div class="row">
 					        <div class="col-sm-4 col-sm-offset-1">
 					        	<v:input id="machineModelName" path="machineModel.name" label="Модель" required="true" title="Укажите модель"/>
+					        	<v:input id="machineModelDetail" path="machineModel.details" label="Характеристика" required="true" title="Укажите характеристики модели"/>
 					        	
 					            <div class="form-group">
 						            <label class="form-label">Примечания</label>
@@ -137,29 +138,36 @@
 	         			                        		$('#name'+ajaxObjectId).text($('#machineModelName').val());
 	         			                        		$('#manafacturer'+ajaxObjectId).text($( "#manufacturerSelectModal option:selected" ).text() );
 	         			                        		$('#note'+ajaxObjectId).text($('#macnineModelNote').val());
+	         			                        		$('#details'+ajaxObjectId).text($('#machineModelDetail').val());
 	             			                          
 	         				                      		/*Closing Modal.*/
-	         				                       	    closingModal(ajaxObjectId, successMsg);	
+	         				                       	    closingModal(ajaxObjectId, successMsg, $('#groupSelectModal').val());	
 	         				                      } else {
-	         					                        /*For newly added records we insert new one at the end of Datatable object and move coursor to that position.*/
-	         				                    	  	var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
-	         				                    	  	                                                                      $('#machineModelName').val(), 
-	         				                    	  	                                                                      $('#groupSelectModal option:selected').text(),
-	         				                    	  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
-	         						                    	                 			                    	              "Страна",
-	         						                    	                 			                    	              $('#macnineModelNote').val(),
-	         						                    	                 			                    	              $('#groupSelectModal').val()] 
-	         			 			                    	  													 );
+	         					                        /**For newly added records we insert new one at the end of Datatable object and move coursor to that position.
+	         					                         * Plus since below code specific for one page we check if model table exist  
+	         					                         */
+	         					                        if($('#modelSearchTable').length){
+		         				                    	    var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
+		         				                    	  	                                                                      $('#machineModelName').val(), 
+		         				                    	  	                                                                      $('#machineModelDetail').val(),
+		         				                    	  	                                                                      $('#groupSelectModal option:selected').text(),
+		         				                    	  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
+		         						                    	                 			                    	              "Страна",
+		         						                    	                 			                    	              $('#macnineModelNote').val(),
+		         						                    	                 			                    	              $('#groupSelectModal').val()] 
+		         			 			                    	  													 );
 
-	         				                    	  	$(obj.nTr).addClass( "success" );
-	         			                       	    	closingModal($("#ajaxObjectId").val(), successMsg);	
+		         				                    	  	$(obj.nTr).addClass( "success" );		         					                        
+		         					                    }
+
+	         			                       	    	closingModal($("#ajaxObjectId").val(), successMsg, $('#groupSelectModal').val());	
 	         					                  }
 	         		                          } //if not true - modal is still up with error message on the top.
 	         		                          
 	         		                },	        	        
 	         		       	        error: function(){
 	             		       	        //something went wrong on server side...
-	         		       	        	alert("failure");
+	         		       	        	alert("Ошибка сервера.");
 	         		       	        }
 	         	            });           	
 	         	       }

@@ -16,13 +16,14 @@
        	           "columnDefs": [
                 		               {
                 		                   "targets": [ 0 ],
-                		                   "visible": false
+                		                   "visible": true
                 		               },
                 	],
         	        "bJQueryUI": true,
         	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
         	        "sPaginationType": "full_numbers",
         	        "responsive": false,
+        	        "bSort": false,
                 	tableTools: {
              			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
              		 	"aButtons": [
@@ -38,7 +39,6 @@
                	                	}
                	            ]
              	   },
-                    "bJQueryUI": true,
                     "oLanguage": {
                         "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                      },

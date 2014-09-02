@@ -36,16 +36,7 @@
             	  if(groupId=='0'){
             		  $('#modelSelect').html("<option value='0'>Не выбрана</option>");
                   } else {
-	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-	                	  $('#model_details').html("Характеристика Модели:");
-	                	  $('#model_manuf_name_rus').html("Компания Произовдитель:");
-	                	  $('#model_manuf_country_name_rus').html("Место Производства:");
-	                      var options='<option value="0">Не выбрана</option>';
-	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
-	                      });
-	                      $('#modelSelect').html(options);
-	                  });
+                	  refreshModelElements(groupId, 0);
                   }
               });
 
@@ -101,11 +92,28 @@
               });
               
 
-		  });
+		  }); // end of document.ready
 		  
-            
-          //  $("#submitCopy").click(function(e) {
-          //  });
+      	function closingModal(modelId, successMsg, groupId){
+          	$('#groupSelect').val(groupId);
+          	refreshModelElements(groupId, modelId);
+    		$('#machineModelModal').modal('hide');
+    		$('#success_alert').attr("class","alert alert-success");
+    		$("#success_alert_message").html(successMsg);    		
+        }
+      	
+		/*Getting model list from DB.*/
+		function refreshModelElements(groupId, modelId){
+            $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
+                var options='<option value="0">Не выбрана</option>';
+                $.each(machineModel, function (i, e) {
+                    options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
+                });
+                $('#modelSelect').html(options);
+                $('#modelSelect').val(modelId);
+                refreshModel($('#modelSelect').val());
+            });			
+		}
 		  
       	function refreshModel(modelId){
           $.getJSON('${pageContext.request.contextPath}/machineEdit/getModel/' + modelId, function(machineModel) {
@@ -192,59 +200,59 @@
 			    opacity: 1;
 			}			
 			
-    html, body {
-      height: 100%;
-    }
-    #actions {
-      margin: 2em 0;
-    }
-
-
-    /* Mimic table appearance */
-    div.table {
-      display: table;
-    }
-    div.table .file-row {
-      display: table-row;
-    }
-    div.table .file-row > div {
-      display: table-cell;
-      vertical-align: top;
-      border-top: 1px solid #ddd;
-      padding: 8px;
-    }
-    div.table .file-row:nth-child(odd) {
-      background: #f9f9f9;
-    }
-
-
-
-    /* The total progress gets shown by event listeners */
-    #total-progress {
-      opacity: 0;
-      transition: opacity 0.3s linear;
-    }
-
-    /* Hide the progress bar when finished */
-    #previews .file-row.dz-success .progress {
-      opacity: 0;
-      transition: opacity 0.3s linear;
-    }
-
-    /* Hide the delete button initially */
-    #previews .file-row .delete {
-      display: none;
-    }
-
-    /* Hide the start and cancel buttons and show the delete button */
-
-    #previews .file-row.dz-success .start,
-    #previews .file-row.dz-success .cancel {
-      display: none;
-    }
-    #previews .file-row.dz-success .delete {
-      display: block;
-    }			
+		    html, body {
+		      height: 100%;
+		    }
+		    #actions {
+		      margin: 2em 0;
+		    }
+		
+		
+		    /* Mimic table appearance */
+		    div.table {
+		      display: table;
+		    }
+		    div.table .file-row {
+		      display: table-row;
+		    }
+		    div.table .file-row > div {
+		      display: table-cell;
+		      vertical-align: top;
+		      border-top: 1px solid #ddd;
+		      padding: 8px;
+		    }
+		    div.table .file-row:nth-child(odd) {
+		      background: #f9f9f9;
+		    }
+		
+		
+		
+		    /* The total progress gets shown by event listeners */
+		    #total-progress {
+		      opacity: 0;
+		      transition: opacity 0.3s linear;
+		    }
+		
+		    /* Hide the progress bar when finished */
+		    #previews .file-row.dz-success .progress {
+		      opacity: 0;
+		      transition: opacity 0.3s linear;
+		    }
+		
+		    /* Hide the delete button initially */
+		    #previews .file-row .delete {
+		      display: none;
+		    }
+		
+		    /* Hide the start and cancel buttons and show the delete button */
+		
+		    #previews .file-row.dz-success .start,
+		    #previews .file-row.dz-success .cancel {
+		      display: none;
+		    }
+		    #previews .file-row.dz-success .delete {
+		      display: block;
+		    }			
 			
 			
 		  </style>			  
@@ -279,6 +287,10 @@
 								<button type="button" class="close" data-dismiss="alert">&times;</button>
 							</div>
 						</c:if>
+						<div id="success_alert" class="alert alert-success hidden">
+							<span id="success_alert_message"></span>
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+						</div>						
 					</div>
 				</div>
 				<!-- Start of Tab Container -->	

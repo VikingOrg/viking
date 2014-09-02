@@ -72,7 +72,7 @@ public class MachineModelController {
 	 * @return
 	 */
 	@RequestMapping(value="/edit/{machineModelId}", method = RequestMethod.GET)
-	public String createEditNewModel(ModelMap model, @PathVariable Integer machineModelId) throws Exception {
+	public String editNewModel(ModelMap model, @PathVariable Integer machineModelId) throws Exception {
 		
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
 		machineModelEditCommand.setMachineModel(machineService.getModel(machineModelId));
@@ -91,7 +91,7 @@ public class MachineModelController {
 	 * @return
 	 */
 	@RequestMapping(value="/createNew/", method = RequestMethod.GET)
-	public String createEditNewModel(ModelMap model) throws Exception {
+	public String createNewModel(ModelMap model) throws Exception {
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
 		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
 		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
