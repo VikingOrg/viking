@@ -6,7 +6,14 @@ public class CompanyReportDTO {
 	Integer stevidorId;
 	String name;
 	BigInteger count;
+	String math;
 	
+	public String getMath() {
+		return math;
+	}
+	public void setMath(String math) {
+		this.math = math;
+	}
 	public Integer getStevidorId() {
 		return stevidorId;
 	}

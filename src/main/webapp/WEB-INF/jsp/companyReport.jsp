@@ -31,7 +31,8 @@
                    "aoColumns": [
                                  { "mDataProp": "stevidorId" },
                                  { "mDataProp": "name" },
-                                 { "mDataProp": "count" }
+                                 { "mDataProp": "count" },
+                                 { "mDataProp": "math" }
                                ],                   
                   "fnInitComplete": function(oSettings) {
                 	   $("#tableActions").appendTo("#table_Actions");
@@ -390,6 +391,7 @@
 									<th class="column-check">№</th>
 									<th class="nowrap">Компания&nbsp;&nbsp;</th>
 									<th class="nowrap" style="width:20%">Кол-во&nbsp;&nbsp;</th>
+									<th class="nowrap" style="width:20%">Проц.</th>
 								</tr>
 							</thead>
 							<tbody>

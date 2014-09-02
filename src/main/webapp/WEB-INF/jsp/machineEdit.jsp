@@ -9,7 +9,6 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 
 
-
 <!doctype html>
 <html lang="ru">
 	<head>

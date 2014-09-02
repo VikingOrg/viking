@@ -1,5 +1,7 @@
 package com.seaport.dao;
 
+import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +38,9 @@ public class ReportDAOImpl implements IReportDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CompanyReportDTO> getCompanyReportDTOs(Map<String, Object> filtersMap) {
+		double percentage;
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT b.stevidor_id AS stevidorId, b.full_name AS name, COUNT(a.stevidor_id) AS count ");
+		strBuilder.append("SELECT b.stevidor_id AS stevidorId, b.full_name AS name, COUNT(a.stevidor_id) AS count, '' AS math ");
 		strBuilder.append("FROM machines a RIGHT JOIN stevidors b ON a.stevidor_id = b.stevidor_id ");
 		strBuilder.append("LEFT JOIN models c ON a.model_id = c.model_id ");
 		
@@ -48,6 +51,19 @@ public class ReportDAOImpl implements IReportDAO {
 		strBuilder.append("GROUP BY b.stevidor_id ORDER BY b.stevidor_id");
 		Query query = openSession().createSQLQuery(strBuilder.toString()).setResultTransformer(Transformers.aliasToBean(CompanyReportDTO.class));
 		List<CompanyReportDTO> result = query.list();
+		
+		/*Calculating & populating percentage for each record*/
+		BigInteger countTotal = BigInteger.ZERO;
+		for (CompanyReportDTO companyReportDTO : result) {
+			countTotal = countTotal.add(companyReportDTO.getCount());
+		}
+		NumberFormat percentFormat = NumberFormat.getPercentInstance();
+		percentFormat.setMaximumFractionDigits(1);
+		for (CompanyReportDTO companyReportDTO : result) {
+			percentage = (companyReportDTO.getCount().doubleValue()/ countTotal.doubleValue());
+			companyReportDTO.setMath(percentFormat.format(percentage));
+		}
+		
 		return result;
 	}
 	
