@@ -174,10 +174,10 @@
 		        var options = {
 				  'title':'Общее кол-во:'+totalCount,
 				  'is3D':true,
-				  'colors':['#3366cc','#dc3912', '#ff9900','#109618', '#990099','#0099c6', '#dd4477','#66aa00', ],
-				  'chartArea':{left:20,top:0,width:'100%',height:'80%'},
-				  'width':'700',
-				  'height':'500',
+				  'colors':['#3366cc','#dc3912', '#ff9900','#109618', '#990099','#0099c6', '#dd4477','#66aa00'],
+				  'chartArea':{left:0,top:0,width:'70%',height:'100%'},
+				  'width':'500',
+				  'height':'400',
 				  'pieSliceTextStyle':{color: 'black'},
 				  'backgroundColor':'none',
 				};
@@ -188,10 +188,10 @@
 		    	 // Set chart options
 		        var options = {
 				  'title':'Общее кол-во:'+totalCount,
-				  'colors':['#3366cc','#dc3912', '#ff9900','#109618', '#990099','#0099c6', '#dd4477','#66aa00', ],
-				  'chartArea':{left:300,top:0,width:'100%',height:'80%'},
-				  'width':'700',
-				  'height':'500',
+				  'colors':['red','blue','red','blue','red','blue','red','blue'],
+				  'chartArea':{left:300,top:0,width:'100%',height:'90%'},
+				  'width':'500',
+				  'height':'400',
 				};
 		    	var chart = new google.visualization.BarChart(htmlElement);
 		    	chart.draw(data, options);
@@ -376,7 +376,10 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
-									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
+									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions">
+	                     	 			<a href="#" class="btn btn-warning pull-right" id="chartPie" style="height:25px; font-size:12px; text-decoration:none;">
+	                     	 				 Диаграмма<i class="fa fa-bar-chart-o" style="padding-left: 15px"></i>
+	                      			    </a></td>
 								</tr>
 								<tr>
 									<td class="nowrap">Группа: <span id="title_group" class="report_header">Все группы.</span></td>
@@ -389,10 +392,7 @@
 								</tr>
 								<tr>
 									<td class="nowrap">Производитель: <span id="title_manufacturer" class="report_header nowrap">Все производители</span>
-	                     	 			<a href="#" id="chartPie">
-	                     	 				<i class="fa fa-bar-chart-o"></i>
-	                      			    </a>
-									</td>
+	                     	 		</td>
 								</tr>
 							</tbody>
 						</table>
@@ -438,14 +438,14 @@
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title" id="myModalLabel">График кол-во Механизмов в Компаниях-операторах</h4>
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Закрыть</span></button>
+	        <h3 class="modal-title page-header" id="myModalLabel">Диаграмма <strong>"Кол-во Механизмов в Компаниях-операторах"</strong></h3>
 	      </div>
 	      <div class="modal-body">
-	        <div class="col-sm-12">
+	        <div class="col-sm-6">
 	            	<div id="chartModalContent"></div>
 	        </div>
-	        <div class="col-sm-12">
+	        <div class="col-sm-6">
 					<div id="barModalContent"></div>
 	        </div>
 	      </div>
