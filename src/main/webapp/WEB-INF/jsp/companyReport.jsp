@@ -49,18 +49,7 @@
                	             	{
                	                    "sExtends": "print",
                	                    
-               	                    "sMessage": "<div class=container-fluid style=margin-left:35px><h3 class=page-header>Кол-во Механизмов в Компаниях-операторах</h3>"+
-               	                    "</br>"+
-                   	                "Составитель отчета: "+
-               	                    "</br>"+
-               	                    "Группа:"+
-               	                    "</br>"+
-               	                    "Модель: "+
-            	                    "</br>"+
-            	                    "Год выпуска:"+
-            	                    "</br>"+
-            	                    "Производитель:"+
-            	                    "</br></div>",
+               	                    "sMessage": alert("Jad"),
             	                    
                	                    "sInfo": "</br>"+
 	               	                 "</br>"+
@@ -97,13 +86,22 @@
             	  getReport();
               });
 
+
+              $("#testTitle").click(function(e) {
+            	  e.preventDefault();
+            	  alert($('#printHeader').html());
+              });
+              
               /*Activate Chart Modal*/
               $('#chartPie').click(function(e){
             	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('chartModalContent'), false);
             	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('barModalContent'), true);
                   $('#chartModal').modal('show');                  
               });    	
-              
+
+             //$('#ToolTables_company_report_table_1').click(function(e){
+             	  
+             //});     
                 	 	
 		  }); //end of document.ready
 
@@ -113,12 +111,13 @@
           		oTable.fnClearTable();
           		var pageData =  $("#report_select_form").serialize();
         		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", pageData, function (data) {
+        			setReportTitle();
         			if (data.length != 0 ) {
         				jsonData = data; 
         				oTable.fnAddData(data);
+        				oTable.fnDraw(true);
         				//drawGoogleChart(data, 300, 300,  document.getElementById('companyReportChart'), false);
         			}
-        			setReportTitle();
         			closeProgressModal('#wait_modal');
         		}).fail( function(d, textStatus, error) {
         	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
@@ -311,6 +310,7 @@
 										<!--  Кнопочка сформировать отчет -->
 										<!-- <button id="" class="btn cancelbtn" title="Сброс"><i class="fa fa-refresh"></i></button> -->
 										<button id="submit_report" class="btn btn-primary">Сформировать</button>
+										<button id="testTitle" class="btn">Test</button>
 									</div>	
 								</div>
 							</div>	
@@ -359,7 +359,8 @@
 							<span id="errorMessage">Произошла ошибка во время формирования отчета!</span>
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
 						</div>
-							
+						
+						<div id="printHeader">	
 						<!-- Таблица отчета -->
 						<table id="company_header" class="table_report_header">
 							<tbody>
@@ -395,6 +396,7 @@
 								</tr>
 							</tbody>
 						</table>
+						</div>
 						<!-- <div class="mygrid-wrapper-div">  -->
 						<table id="company_report_table" class="table table-striped table-bordered">
 							<thead class="tablehead">
