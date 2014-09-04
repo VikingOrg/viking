@@ -42,27 +42,28 @@
                 	   $("#data_table_elements").removeClass("hidden");            		    
                 	   getReport();	
 	              },
-                  tableTools: {
-             			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
-             		 	"aButtons": [
-               	                "copy",
-               	             	{
-               	                    "sExtends": "print",
-               	                    
-               	                    "sMessage": alert("Jad"),
-            	                    
-               	                    "sInfo": "</br>"+
+                   tableTools: {
+            			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+            		 	"aButtons": [
+              	                "copy",
+              	             	{
+              	                    "sExtends": "print",
+        	       	                "fnClick": function (nButton, oConfig) {
+        	       	                	oConfig.sMessage = $('#printHeader').html();
+        	       	                	this.fnPrint( true, oConfig );
+        		       	            },
+              	                    "sInfo": "</br>"+
 	               	                 "</br>"+
 	               	                 "Нажмите ESC для выхода из режима ПЕЧАТИ.",
-               	                    
-               	                	},
-               	            	{
-               	                    "sExtends":     "csv",
-               	                    "sButtonText": "Save",
-               	                    "sCharSet": "utf8",
-               	                	}
-               	            ]
-             	   }            	                			
+              	                    
+              	                	},
+              	            	{
+              	                    "sExtends":     "csv",
+              	                    "sButtonText": "Save",
+              	                    "sCharSet": "utf8",
+              	                	}
+              	            ]
+            	   }  	              
               });
 
               $('#groupSelect').change(function() {
@@ -85,12 +86,6 @@
             	  e.preventDefault();
             	  getReport();
               });
-
-
-              $("#testTitle").click(function(e) {
-            	  e.preventDefault();
-            	  alert($('#printHeader').html());
-              });
               
               /*Activate Chart Modal*/
               $('#chartPie').click(function(e){
@@ -98,10 +93,6 @@
             	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('barModalContent'), true);
                   $('#chartModal').modal('show');                  
               });    	
-
-             //$('#ToolTables_company_report_table_1').click(function(e){
-             	  
-             //});     
                 	 	
 		  }); //end of document.ready
 
@@ -115,8 +106,6 @@
         			if (data.length != 0 ) {
         				jsonData = data; 
         				oTable.fnAddData(data);
-        				oTable.fnDraw(true);
-        				//drawGoogleChart(data, 300, 300,  document.getElementById('companyReportChart'), false);
         			}
         			closeProgressModal('#wait_modal');
         		}).fail( function(d, textStatus, error) {
@@ -310,7 +299,6 @@
 										<!--  Кнопочка сформировать отчет -->
 										<!-- <button id="" class="btn cancelbtn" title="Сброс"><i class="fa fa-refresh"></i></button> -->
 										<button id="submit_report" class="btn btn-primary">Сформировать</button>
-										<button id="testTitle" class="btn">Test</button>
 									</div>	
 								</div>
 							</div>	
@@ -379,7 +367,9 @@
 									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions">
 	                     	 			<a href="#" class="btn btn-warning pull-right" id="chartPie" style="height:25px; font-size:12px; text-decoration:none;">
 	                     	 				 Диаграмма<i class="fa fa-bar-chart-o" style="padding-left: 15px"></i>
-	                      			    </a></td>
+	                      			    </a>
+	                      			</td>
+	                      			
 								</tr>
 								<tr>
 									<td class="nowrap">Группа: <span id="title_group" class="report_header">Все группы.</span></td>
@@ -423,10 +413,6 @@
 					<!-- 	</div>  -->
 					</div>
 				</div> <!--End of Report 1-->
-				<!-- 		Модальное окно ожидания загрузки данных -->
-				<jsp:include page="common/progressModal.jsp" />
-				
-				
 			</form:form>
 		</div>
 	</div>
@@ -455,7 +441,9 @@
 	    </div>
 	  </div>
 	</div>
-							
+	
+<!-- 		Модальное окно ожидания загрузки данных -->
+<jsp:include page="common/progressModal.jsp" />
 <jsp:include page="common/footer.jsp" />
 </body>
 </html>

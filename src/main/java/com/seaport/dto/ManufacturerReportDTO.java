@@ -6,7 +6,14 @@ public class ManufacturerReportDTO {
 	Integer manufacturerId;
 	String name;
 	BigInteger count;
+	String math;
 	
+	public String getMath() {
+		return math;
+	}
+	public void setMath(String math) {
+		this.math = math;
+	}
 	public Integer getManufacturerId() {
 		return manufacturerId;
 	}

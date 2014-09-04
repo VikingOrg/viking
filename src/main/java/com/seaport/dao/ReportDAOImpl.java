@@ -70,8 +70,9 @@ public class ReportDAOImpl implements IReportDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<GroupReportDTO> getGroupReportDTOs(Map<String, Object> filtersMap) {
+		double percentage;
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT b.group_id AS groupId, b.name, COUNT(a.group_id) AS count ");
+		strBuilder.append("SELECT b.group_id AS groupId, b.name, COUNT(a.group_id) AS count, '' AS math ");
 		strBuilder.append("FROM machines a RIGHT JOIN groups b ON a.group_id = b.group_id ");
 		strBuilder.append("LEFT JOIN models c ON a.model_id = c.model_id ");
 		
@@ -82,16 +83,28 @@ public class ReportDAOImpl implements IReportDAO {
 		strBuilder.append("GROUP BY b.group_id ORDER BY b.group_id");
 		Query query = openSession().createSQLQuery(strBuilder.toString()).setResultTransformer(Transformers.aliasToBean(GroupReportDTO.class));
 		List<GroupReportDTO> result = query.list();
-		
-//		"select s.stock_code from stock s where s.stock_code = :stockCode")
+
+		/*Calculating & populating percentage for each record*/
+		BigInteger countTotal = BigInteger.ZERO;
+		for (GroupReportDTO groupReportDTO : result) {
+			countTotal = countTotal.add(groupReportDTO.getCount());
+		}
+		NumberFormat percentFormat = NumberFormat.getPercentInstance();
+		percentFormat.setMaximumFractionDigits(1);
+		for (GroupReportDTO groupReportDTO : result) {
+			percentage = (groupReportDTO.getCount().doubleValue()/ countTotal.doubleValue());
+			groupReportDTO.setMath(percentFormat.format(percentage));
+		}
+
 		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override	
 	public List<ManufacturerReportDTO> getManufacturerReportDTOs(Map<String, Object> filtersMap){
+		double percentage;
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT c.manufacturer_id AS manufacturerId, c.name_rus AS name, COUNT(*) AS count ");
+		strBuilder.append("SELECT c.manufacturer_id AS manufacturerId, c.name_rus AS name, COUNT(b.manufacturer_id) AS count, '' AS math ");
 		strBuilder.append("FROM machines a JOIN models b ON a.model_id = b.model_id ");
 		strBuilder.append("RIGHT JOIN manufacturers c ON b.manufacturer_id = c.manufacturer_id ");
 		/*Starting filter logic.*/
@@ -101,6 +114,18 @@ public class ReportDAOImpl implements IReportDAO {
 		strBuilder.append("GROUP BY c.manufacturer_id ORDER BY c.manufacturer_id");
 		Query query = openSession().createSQLQuery(strBuilder.toString()).setResultTransformer(Transformers.aliasToBean(ManufacturerReportDTO.class));
 		List<ManufacturerReportDTO> result = query.list();
+		
+		/*Calculating & populating percentage for each record*/
+		BigInteger countTotal = BigInteger.ZERO;
+		for (ManufacturerReportDTO manufacturerReportDTO : result) {
+			countTotal = countTotal.add(manufacturerReportDTO.getCount());
+		}
+		NumberFormat percentFormat = NumberFormat.getPercentInstance();
+		percentFormat.setMaximumFractionDigits(1);
+		for (ManufacturerReportDTO manufacturerReportDTO : result) {
+			percentage = (manufacturerReportDTO.getCount().doubleValue()/ countTotal.doubleValue());
+			manufacturerReportDTO.setMath(percentFormat.format(percentage));
+		}		
 		return result;
 	}
 	
