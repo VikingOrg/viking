@@ -3,10 +3,9 @@ package com.seaport.service;
 import java.util.List;
 import java.util.Map;
 
-import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
-import com.seaport.domain.Manufacturer;
 import com.seaport.domain.MachineModel;
+import com.seaport.domain.Manufacturer;
 import com.seaport.domain.User;
 
 /**
@@ -21,8 +20,7 @@ public interface IMachineService {
 	public List<Machine> getMachines();
 	public void saveMachine(Machine machine);
 	public Map<Integer, Integer> getYearMap();
-	public List<Machine> getMachines(User user);	
-//	public Map<Integer, Group> getGroupsMap();
+	public List<Machine> getMachines(User user, boolean getArchive);	
 	public Map<Integer, MachineModel> getModelsMap();
 	public Map<Integer, Manufacturer> getManufacturerMap();
 	public List<MachineModel> getModels();

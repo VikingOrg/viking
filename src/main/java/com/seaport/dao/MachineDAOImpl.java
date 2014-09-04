@@ -7,9 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,7 @@ import com.seaport.domain.Manufacturer;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingConstants;
 
 /**
  * The DAO class that serves any type of Port requests 
@@ -52,14 +55,21 @@ public class MachineDAOImpl implements IMachineDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Machine> getMachines(User user){
-		if (user.getRole().getId().intValue() > 1) {
-			Query query = getCurrentSession().createQuery("from Machine m where m.stevidorId = :stevidorId order by m.machineId");
-			query.setParameter("stevidorId", user.getStevidorId());
-			return query.list();
-		} else {
-			return getCurrentSession().createCriteria(Machine.class).list();	
+	public List<Machine> getMachines(User user, boolean getArchive){
+		Criteria criteria = getCurrentSession().createCriteria(Machine.class);
+		
+		/*Limits records for non-Admin accounts*/
+		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+			criteria.add(Restrictions.eq("stevidorId", user.getStevidorId()));
 		}
+		/*For test Only*/
+
+//		criteria.add(Restrictions.eq("machineId", 1));
+		
+//		if (!getArchive) {
+//			criteria.add(Restrictions.ne("archived", "Y"));
+//		}
+		return 	criteria.list();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -83,22 +93,6 @@ public class MachineDAOImpl implements IMachineDAO {
 		machine.setUpdateUserId(user.getUserId());
 		machine.setUpdateDate(updateDate);
 		getCurrentSession().saveOrUpdate(machine);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Group> getGroups() {
-		return getCurrentSession().createCriteria(Group.class).list();
-	}
-	
-	@Override
-	public Map<Integer, Group> getGroupsMap() {
-		Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
-		List<Group> portList = this.getGroups();
-		for (Group group : portList) {
-			groupMap.put(group.getGroupId(), group);
-		}
-		return groupMap;
 	}
 
 	@SuppressWarnings("unchecked")

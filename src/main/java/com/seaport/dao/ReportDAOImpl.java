@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
 import com.seaport.dto.ManufacturerReportDTO;
-import com.seaport.utils.SystemConstants;
+import com.seaport.utils.VikingConstants;
 
 /**
  * The DAO class that serves any type of User requests 
@@ -139,12 +139,12 @@ public class ReportDAOImpl implements IReportDAO {
 		strWhereClauseBuilder.append("WHERE ");
 		boolean andRequired = false;
 		/*Setting filters here*/
-		if (filtersMap.containsKey(SystemConstants.COMPANY_MULTI_FILTER)) {
+		if (filtersMap.containsKey(VikingConstants.COMPANY_MULTI_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
 			strWhereClauseBuilder.append("a.stevidor_id in (");
-			String[] companySelectionIds = (String[])filtersMap.get(SystemConstants.COMPANY_MULTI_FILTER);
+			String[] companySelectionIds = (String[])filtersMap.get(VikingConstants.COMPANY_MULTI_FILTER);
 			for (String strElement: companySelectionIds) {
 				strWhereClauseBuilder.append(strElement).append(",");
 		    }
@@ -152,59 +152,59 @@ public class ReportDAOImpl implements IReportDAO {
 			strWhereClauseBuilder.append(") ");
 			andRequired = true;
 		}
-		if (filtersMap.containsKey(SystemConstants.COMPANY_SINGLE_FILTER)) {
+		if (filtersMap.containsKey(VikingConstants.COMPANY_SINGLE_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
-			Integer filterValue = (Integer)filtersMap.get(SystemConstants.COMPANY_SINGLE_FILTER);
+			Integer filterValue = (Integer)filtersMap.get(VikingConstants.COMPANY_SINGLE_FILTER);
 			strWhereClauseBuilder.append("a.stevidor_id = ").append(filterValue).append(" ");
 			andRequired = true;
 		}		
-		if (filtersMap.containsKey(SystemConstants.GROUP_FILTER)) {
+		if (filtersMap.containsKey(VikingConstants.GROUP_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
-			Integer filterValue = (Integer)filtersMap.get(SystemConstants.GROUP_FILTER);
+			Integer filterValue = (Integer)filtersMap.get(VikingConstants.GROUP_FILTER);
 			strWhereClauseBuilder.append("a.group_id = ").append(filterValue).append(" ");
 			andRequired = true;
 		}
-		if (filtersMap.containsKey(SystemConstants.MODEL_FILTER)) {
+		if (filtersMap.containsKey(VikingConstants.MODEL_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
-			Integer filterValue = (Integer)filtersMap.get(SystemConstants.MODEL_FILTER);
+			Integer filterValue = (Integer)filtersMap.get(VikingConstants.MODEL_FILTER);
 			strWhereClauseBuilder.append("a.model_id = ").append(filterValue).append(" ");
 			andRequired = true;
 		}
-		if (filtersMap.containsKey(SystemConstants.MANUFACTOR_FILTER)) {
+		if (filtersMap.containsKey(VikingConstants.MANUFACTOR_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
-			Integer filterValue = (Integer)filtersMap.get(SystemConstants.MANUFACTOR_FILTER);
+			Integer filterValue = (Integer)filtersMap.get(VikingConstants.MANUFACTOR_FILTER);
 			strWhereClauseBuilder.append("c.manufacturer_id = ").append(filterValue).append(" ");
 			andRequired = true;
 		}
-		if (filtersMap.containsKey(SystemConstants.YEAR_START_FILTER) && filtersMap.containsKey(SystemConstants.YEAR_END_FILTER)) {
+		if (filtersMap.containsKey(VikingConstants.YEAR_START_FILTER) && filtersMap.containsKey(VikingConstants.YEAR_END_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
 			strWhereClauseBuilder.append("a.release_year BETWEEN ");
-			String filterValueOne = (String)filtersMap.get(SystemConstants.YEAR_START_FILTER);
-			String filterValueTwo = (String)filtersMap.get(SystemConstants.YEAR_END_FILTER);
+			String filterValueOne = (String)filtersMap.get(VikingConstants.YEAR_START_FILTER);
+			String filterValueTwo = (String)filtersMap.get(VikingConstants.YEAR_END_FILTER);
 			strWhereClauseBuilder.append(filterValueOne).append(" AND ").append(filterValueTwo).append(" ");
 			andRequired = true;
-		} else if (filtersMap.containsKey(SystemConstants.YEAR_START_FILTER)) {
+		} else if (filtersMap.containsKey(VikingConstants.YEAR_START_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
-			String filterValue = (String)filtersMap.get(SystemConstants.YEAR_START_FILTER);
+			String filterValue = (String)filtersMap.get(VikingConstants.YEAR_START_FILTER);
 			strWhereClauseBuilder.append("a.release_year >= ").append(filterValue).append(" ");
 			andRequired = true;				
-		} else if (filtersMap.containsKey(SystemConstants.YEAR_END_FILTER)) {
+		} else if (filtersMap.containsKey(VikingConstants.YEAR_END_FILTER)) {
 			if (andRequired) {
 				strWhereClauseBuilder.append("AND ");
 			}
-			String filterValue = (String)filtersMap.get(SystemConstants.YEAR_END_FILTER);
+			String filterValue = (String)filtersMap.get(VikingConstants.YEAR_END_FILTER);
 			strWhereClauseBuilder.append("a.release_year <= ").append(filterValue).append(" ");
 			andRequired = true;				
 		}

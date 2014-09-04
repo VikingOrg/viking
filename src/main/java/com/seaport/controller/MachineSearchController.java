@@ -2,6 +2,7 @@ package com.seaport.controller;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,7 +62,7 @@ public class MachineSearchController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, 
 							ModelMap model) throws Exception {
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.SystemConstants.USER_MODEL);
+		//User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
 		MachineSearchCommand machineSearchCommand = new MachineSearchCommand();
 		machineSearchCommand.setUserCountry(countryService.getContriesMap());
 		machineSearchCommand.setUserPort(portService.getPortsMap());
@@ -68,7 +70,7 @@ public class MachineSearchController {
 		machineSearchCommand.setGroupMap(groupService.getGroupMap());
 		machineSearchCommand.setManufacturerMap(machineService.getManufacturerMap());
 		machineSearchCommand.setYearMap(machineService.getYearMap());		
-		machineSearchCommand.setMachineList(machineService.getMachines(user));
+		//machineSearchCommand.setMachineList(machineService.getMachines(user, false));
 		model.put("machineSearchCommand", machineSearchCommand);
 		return "machineSearch";
 	}
@@ -81,14 +83,32 @@ public class MachineSearchController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/getMachines/", method = RequestMethod.GET)
+//	@RequestMapping(value="/getMachines/", method = RequestMethod.GET)
+//	@ResponseBody
+//	public Map<String, Object[]> getModels(HttpServletRequest request, ModelMap model) throws Exception {
+//		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+//		Collection<Machine> machineList = machineService.getMachines(user, false); 
+//		return Collections.singletonMap("aaData", getJSONForMachine(machineList));
+//	}	
+
+	
+	/**
+     * Fetch a the machine list from the service, and package up into a Map that is
+     * compatible with datatables.net
+	 * @param groupId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getMachines/{getArchive}", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object[]> getModels(HttpServletRequest request, ModelMap model) throws Exception {
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.SystemConstants.USER_MODEL);
-		Collection<Machine> machineList = machineService.getMachines(user); 
-		return Collections.singletonMap("aaData", getJSONForMachine(machineList));
-	}	
-     
+	public List<Machine> getMachines(@PathVariable boolean getArchive,
+			HttpServletRequest request) throws Exception {
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+		List<Machine> machineList = machineService.getMachines(user, getArchive); 
+		return machineList;
+	}
+	
 	/**
 	 * 
 	 * @param machineList

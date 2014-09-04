@@ -35,7 +35,7 @@ import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
-import com.seaport.utils.SystemConstants;
+import com.seaport.utils.VikingConstants;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -213,12 +213,12 @@ public class ReportSelectionController {
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);	
 		
 		/*Get machines by stevidor.*/
-		Integer stevidorId = (Integer)filtersMap.get(SystemConstants.COMPANY_SINGLE_FILTER);
+		Integer stevidorId = (Integer)filtersMap.get(VikingConstants.COMPANY_SINGLE_FILTER);
 		List<Machine> machineList =  machineService.getMachineByStevedorId(stevidorId);
 
 		Map<Integer, Group> groupMap = new HashMap<Integer, Group>();
-		if (filtersMap.containsKey(SystemConstants.GROUP_FILTER)) {
-			Integer groupId = (Integer)filtersMap.get(SystemConstants.GROUP_FILTER);
+		if (filtersMap.containsKey(VikingConstants.GROUP_FILTER)) {
+			Integer groupId = (Integer)filtersMap.get(VikingConstants.GROUP_FILTER);
 			groupMap.put(groupId, reportSelectionCommand.getGroupMap().get(groupId));
 		} else {
 			groupMap = reportSelectionCommand.getGroupMap();
@@ -269,28 +269,28 @@ public class ReportSelectionController {
 		Map<String, Object> filtersMap= new HashMap<String, Object>();
 		/*Company Filter (value) pair.*/ 
 		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
-			filtersMap.put(SystemConstants.COMPANY_MULTI_FILTER, reportSelectionCommand.getStevidorSelection());
+			filtersMap.put(VikingConstants.COMPANY_MULTI_FILTER, reportSelectionCommand.getStevidorSelection());
 		}
 		if (reportSelectionCommand.getStevidorId()!=null && reportSelectionCommand.getStevidorId().intValue()!=0) {
-			filtersMap.put(SystemConstants.COMPANY_SINGLE_FILTER, reportSelectionCommand.getStevidorId());
+			filtersMap.put(VikingConstants.COMPANY_SINGLE_FILTER, reportSelectionCommand.getStevidorId());
 		} 
 		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
-			filtersMap.put(SystemConstants.GROUP_FILTER, reportSelectionCommand.getGroupId());
+			filtersMap.put(VikingConstants.GROUP_FILTER, reportSelectionCommand.getGroupId());
 		} 
 		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
-			filtersMap.put(SystemConstants.MODEL_FILTER, reportSelectionCommand.getModelId());
+			filtersMap.put(VikingConstants.MODEL_FILTER, reportSelectionCommand.getModelId());
 		}
 		
 		if (reportSelectionCommand.getReleaseStartYear()!=null && !reportSelectionCommand.getReleaseStartYear().equalsIgnoreCase("")) {
-			filtersMap.put(SystemConstants.YEAR_START_FILTER, reportSelectionCommand.getReleaseStartYear());
+			filtersMap.put(VikingConstants.YEAR_START_FILTER, reportSelectionCommand.getReleaseStartYear());
 		}  
 
 		if (reportSelectionCommand.getReleaseEndYear()!=null && !reportSelectionCommand.getReleaseEndYear().equalsIgnoreCase("")) {
-			filtersMap.put(SystemConstants.YEAR_END_FILTER, reportSelectionCommand.getReleaseEndYear());
+			filtersMap.put(VikingConstants.YEAR_END_FILTER, reportSelectionCommand.getReleaseEndYear());
 		}  
 		
 		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
-			filtersMap.put(SystemConstants.MANUFACTOR_FILTER, reportSelectionCommand.getManufacturerId());
+			filtersMap.put(VikingConstants.MANUFACTOR_FILTER, reportSelectionCommand.getManufacturerId());
 		} 
 		
 		return filtersMap;

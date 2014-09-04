@@ -7,8 +7,8 @@ package com.seaport.utils;
  * @version      1.0 08/16/14 <P>
  */
 
-public class SystemConstants {
-	/*Application wide user object.*/
+public class VikingConstants {
+	/*Application wide user object name to get access from session.*/
 	public static final String USER_MODEL = "userModel";
 	
 	/*Ajax RESTfull request types.*/
@@ -26,6 +26,12 @@ public class SystemConstants {
 	public static String YEAR_END_FILTER = "6";
 	public static String MANUFACTOR_FILTER = "7";
 	
+	/*User Roles*/
+	public static int USER_ROLE_ADMIN = 1;
+	public static int USER_ROLE_MECH = 2;
+	public static int USER_ROLE_GUEST = 3;
+
+	/*Global properties settings.*/
 	public boolean localConfig;
 	public boolean responsiveDesign;
 	public boolean applPhaseII;

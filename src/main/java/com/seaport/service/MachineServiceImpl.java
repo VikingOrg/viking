@@ -60,8 +60,8 @@ public class MachineServiceImpl implements IMachineService {
 	public Map<Integer, Integer> getYearMap(){
 		return machineDAO.getYearMap();
 	}
-	public List<Machine> getMachines(User user){
-		return machineDAO.getMachines(user);
+	public List<Machine> getMachines(User user, boolean getArchive){
+		return machineDAO.getMachines(user, getArchive);
 	}
 
 	@Override

@@ -16,147 +16,180 @@
 
 		<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
 		<script type="text/javascript">
+		var jsonData={};
 		$(document).ready(function() {
-	        	var oTable = $('#machine_table')
-		        	    .on( 'processing.dt', function ( e, settings, processing ) {
-		        	    	showProgressModal('#wait_modal');
-    					} ).dataTable( {
-	        	        "bJQueryUI": true,
-	        	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
-	        	        "sPaginationType": "full_numbers",
-	        	        "bProcessing": true,
-	        	        "responsive": false,
-	        	        "fnPreDrawCallback": function() {
-	        	            // gather info to compose a message
-	        	            
-	        	            return true;
-	        	        },
-	        	        
-	                 	tableTools: {
-	             			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
-	             		 	"aButtons": [
-	               	                "copy",
-	               	             	{
-	               	                    "sExtends":     "print",
-	               	                    "bHeader": true
-	               	                	},
-	               	            	{
-	               	                    "sExtends":     "csv",
-	               	                    "sButtonText": "Save",
-	               	                    "bHeader": true
-	               	                	}
-	               	            ]
-	             	   },
-	                    "oLanguage": {
-	                        "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
-	                     },
-	        	        "aoColumnDefs": [
-	        	                         {
-		        	   	        		      "aTargets": [ 1 ],
-		        	   	        		      "mData": 1,
-		        	   	        		      "mRender": function ( data, type, full ) {
-		        	   	        		      	  var input;
-		        	   	        		      	  if(full[22]=='Y') {
-		        	   	        		      		  input = 'Удл.';	  
-			        	   	        		      } else {
-			        	   	        		    	  input = '<input id="machineSelection'+full[1]+'" class="newCheckbox" type="checkbox" value="'+full[1]+'" name="machineSelection">';
-				        	   	        		  }
-			        	   	        		       
-												  return input;
-		        	   	        		      }
-	        	   	        		     },	        	 	        	        
-	        	                         { "bVisible": false,  "aTargets": [0, 2, 3, 22] },
-	        	                         {
-		        	   	        		      "aTargets": [ 4 ],
-		        	   	        		      "mData": 4,
-		        	   	        		      "mRender": function ( data, type, full ) {
-		        	   	        		        return '<a href="${pageContext.request.contextPath}/machineEdit?machineId='+full[0]+'">'+data+'</a>';
-		        	   	        		      }
-	        	   	        		     }
-	        	                       ],    	                     
-	                    "sScrollX": "99%",
-	        	        "sAjaxSource": '${pageContext.request.contextPath}/machineSearch/getMachines/',
-	                    "fnInitComplete": function(oSettings) {
-	                	   $('select[name="machine_table_length"]').appendTo("#table_length");
-	                	   $('select[name="machine_table_length"]').addClass("form-control");
-                   	   	   $("#tableActions").appendTo("#table_Actions");
-	                	   this.fnSetFilteringDelay(500);
-	                	   $('#wait_modal').modal('hide');
-
-	 	              },
-	        	    } );
-	        	
-                // Event listener to the two range filtering inputs to redraw on input
-                $('#startRangeSelect, #endRangeSelect').change( function() {
-                	oTable.fnDraw();
-                } );
-	        	
-                $('#dataTableSearch').on('input', function() {
-                	oTable.fnFilter( $(this).val());
-                });
-                
-                $('#groupSelect').change(function() {
-                    group = $(this).val();
-                    if(group==''){
-                    	oTable.fnFilter(group, 2);
-                    } else {
-                    	oTable.fnFilter( "^"+group+"$", 2 , true);
-                    }         
-                });
-                
-                $('#modelSelect').change(function() {
-                    modelId = $(this).val();
-                    if(modelId==''){
-                    	oTable.fnFilter(modelId, 3);
-                    } else {
-                    	oTable.fnFilter( "^"+modelId+"$", 3 , true);
-                    } 
-                });
-                             
-                $('#stevidorSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 6);
-                });
-                                   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 7);
-                });
-                $('#portSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 8);
-                });
-
-                $('#manufacturerSelect').change(function() {
-                	oTable.fnFilter( $(this).val());
-                });                                                
-                //$('#releaseYearSelect').change(function() {
-                //	oTable.fnFilter( $(this).val(), 11);
-                //});
-                $('#recordTypeSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 22);
-                });
-                
-                $('#groupSelect').change(function() {
-              	  var groupId = $(this).val();
-              	  if(groupId=='0'){
-              		  $('#modelSelect').html("<option value=''>Все модели</option>");
-                    } else {
-  	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-  	                	  //$('#model_details').html("Характеристика Модели:");
-  	                	  //$('#model_manuf_name_rus').html("Компания Произовдитель:");
-  	                	  //$('#model_manuf_country_name_rus').html("Место Производства:");
-  	                      var options='<option value="">Все модели</option>';
-  	                      $.each(machineModel, function (i, e) {
-  	                          options += "<option value='" + e.modelId + "'>" + "(" + e.modelId + ")"+e.name + "</option>";
-  	                      });
-  	                      $('#modelSelect').html(options);
-  	                  });
-                    }
-                });                
+            oTable = $('#machine_table').dataTable({
+          	  "bJQueryUI": true,
+          	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
+  			  "scrollX" : true,
+          	  "responsive": false,
+                "oLanguage": {
+                    "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
+                 },
+              "aoColumns": [
+                               { "mDataProp": "machineId" },
+                               { "mDataProp": "machineId" },
+                               { "mDataProp": "groupId", "defaultContent": " " },
+                               { "mDataProp": "modelId", "defaultContent": " " },
+                               { "mDataProp": "group.name", "defaultContent": " "  },
+                               { "mDataProp": "machineModel.name", "defaultContent": "отсутствует"  },
+                               { "mDataProp": "stevidor.fullName", "defaultContent": " " },
+                               { "mDataProp": "stevidor.port.country.nameRus", "defaultContent": " " },
+                               { "mDataProp": "stevidor.port.name", "defaultContent": " " },
+                               { "mDataProp": "machineModel.details", "defaultContent": " "  },
+                               { "mDataProp": "machineModel.manufacturer.nameRus", "defaultContent": " "  },
+                               { "mDataProp": "releaseYear", "defaultContent": " " },
+                               { "mDataProp": "startDate", "defaultContent": " " },
+                               { "mDataProp": "doc", "defaultContent": " " },
+                               { "mDataProp": "inventoryNumb", "defaultContent": " " },
+                               { "mDataProp": "transNumb", "defaultContent": " " },
+                               { "mDataProp": "factoryNumb", "defaultContent": " " },
+                               { "mDataProp": "machineModel.manufacturer.country.nameRus", "defaultContent": " "  },
+                               { "mDataProp": "location", "defaultContent": " " },
+                               { "mDataProp": "nomNo", "defaultContent": " " },
+                               { "mDataProp": "regNo", "defaultContent": " " },
+                               { "mDataProp": "note", "defaultContent": " " },
+                               { "mDataProp": "archived", "defaultContent": " " }                          
+                             ],
+    	        "aoColumnDefs": [
+       	                         {
+        	   	        		      "aTargets": [ 1 ],
+        	   	        		      "mData": 1,
+        	   	        		      "mRender": function ( data, type, full ) {
+        	   	        		      	  var input;
+        	   	        		      	  if(full[22]=='Y') {
+        	   	        		      		  input = 'Удл.';	  
+	        	   	        		      } else {
+	        	   	        		    	  input = '<input id="machineSelection'+full[1]+'" class="newCheckbox" type="checkbox" value="'+full[1]+'" name="machineSelection">';
+		        	   	        		  }
+	        	   	        		       
+										  return input;
+        	   	        		      }
+       	   	        		     },	        	 	        	        
+       	                         { "bVisible": false,  "aTargets": [0, 2, 3, 22] },
+       	                         {
+        	   	        		      "aTargets": [ 4 ],
+        	   	        		      "mData": 4,
+        	   	        		      "mRender": function ( data, type, full ) {
+        	   	        		        return '<a href="${pageContext.request.contextPath}/machineEdit?machineId='+full[0]+'">'+data+'</a>';
+        	   	        		      }
+       	   	        		     }
+   	        	                   ], 	                                                
+                "fnInitComplete": function(oSettings) {
+             	   $('select[name="machine_table_length"]').appendTo("#table_length");
+            	   $('select[name="machine_table_length"]').addClass("form-control");
+           	   	   $("#tableActions").appendTo("#table_Actions");
+            	   this.fnSetFilteringDelay(500);
+              	   getReport();
+	              },
+               	tableTools: {
+         			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+         		 	"aButtons": [
+           	                "copy",
+           	             	{
+           	                    "sExtends":     "print",
+           	                    "bHeader": true
+           	                	},
+           	            	{
+           	                    "sExtends":     "csv",
+           	                    "sButtonText": "Save",
+           	                    "bHeader": true
+           	                	}
+           	            ]
+         	   },	              
+            });
 
 
-//                 $('#selectAll').click(function (e) {
-//                     $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
-//                 });
-        } );
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#startRangeSelect, #endRangeSelect').change( function() {
+            	oTable.fnDraw();
+            } );
+        	
+            $('#dataTableSearch').on('input', function() {
+            	oTable.fnFilter( $(this).val());
+            });
+            
+            $('#groupSelect').change(function() {
+                group = $(this).val();
+                if(group==''){
+                	oTable.fnFilter(group, 2);
+                } else {
+                	oTable.fnFilter( "^"+group+"$", 2 , true);
+                }         
+            });
+            
+            $('#modelSelect').change(function() {
+                modelId = $(this).val();
+                if(modelId==''){
+                	oTable.fnFilter(modelId, 3);
+                } else {
+                	oTable.fnFilter( "^"+modelId+"$", 3 , true);
+                } 
+            });
+                         
+            $('#stevidorSelect').change(function() {
+            	oTable.fnFilter( $(this).val(), 6);
+            });
+                               		 
+            $('#countrySelect').change(function() {
+            	oTable.fnFilter( $(this).val(), 7);
+            });
+            $('#portSelect').change(function() {
+            	oTable.fnFilter( $(this).val(), 8);
+            });
+
+            $('#manufacturerSelect').change(function() {
+            	oTable.fnFilter( $(this).val());
+            });                                                
+
+            $('#recordTypeSelect').change(function() {
+            	oTable.fnFilter( $(this).val(), 22);
+            });
+            
+            $('#groupSelect').change(function() {
+          	  var groupId = $(this).val();
+          	  if(groupId=='0'){
+          		  $('#modelSelect').html("<option value=''>Все модели</option>");
+                } else {
+	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
+	                      var options='<option value="">Все модели</option>';
+	                      $.each(machineModel, function (i, e) {
+	                          options += "<option value='" + e.modelId + "'>" + "(" + e.modelId + ")"+e.name + "</option>";
+	                      });
+	                      $('#modelSelect').html(options);
+	                  });
+                }
+            });                
+
+//             $('#selectAll').click(function (e) {
+//                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+//             });
+// for native datatable ajax call progress modal
+//    	    .on( 'processing.dt', function ( e, settings, processing ) {
+//	    	showProgressModal('#wait_modal');
+//		} ).dataTable( {                
+// to avoid aaData in JSON response 
+//                 "sAjaxDataProp": '',
+
+            			
+        } ); //end of document.ready
+
+		function getReport(){
+        	showProgressModal('#wait_modal');
+        	oTable.fnClearTable();
+        	var pageData =  $("#machine_search_form").serialize();
+      		$.getJSON("${pageContext.request.contextPath}/machineSearch/getMachines/false", pageData, function (data) {
+      			if (data.length != 0 ) {
+      				jsonData = data; 
+      				oTable.fnAddData(data);
+      			}
+      			closeProgressModal('#wait_modal');
+      		}).fail( function(d, textStatus, error) {
+      	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+      	        closeProgressModal('#wait_modal');
+      	    });
+		} 
+
         
     	/* Custom filtering function which will search data in column four between two values */
     	$.fn.dataTable.ext.search.push(
@@ -174,8 +207,11 @@
     	        }
     	        return false;
     	    }
-    	);    
+    	);
+    	
         </script>
+        
+        
 	</head>
 	<body>
 		<!-- Wrap all page content here -->  
@@ -371,7 +407,7 @@
 							<th>Регистрационный №</th>
 							<th>Примечания</th>
 							<th>Удалена</th>
-			            </tr>
+			            </tr>			            
 			        </thead>
 			        <tbody>
 			        </tbody>
