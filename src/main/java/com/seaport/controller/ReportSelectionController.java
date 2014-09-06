@@ -26,6 +26,7 @@ import com.seaport.command.ReportSelectionCommand;
 import com.seaport.dao.IReportDAO;
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
+import com.seaport.domain.Stevidor;
 import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
 import com.seaport.dto.ManufacturerReportDTO;
@@ -120,7 +121,6 @@ public class ReportSelectionController {
 	public String setupCounReport(HttpServletRequest request, ModelMap model) throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
 		setFilterMaps(reportSelectionCommand);
-		
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "accountReport";
 	}
@@ -189,7 +189,7 @@ public class ReportSelectionController {
 
 	
 	/**
-	 * Request to generate group type report.
+	 * Request to generate account type report.
 	 * @param request
 	 * @param model
 	 * @param reportSelectionCommand
@@ -211,6 +211,15 @@ public class ReportSelectionController {
 		
 		/*Populate map with filter flag - value pair.*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);	
+		
+		if (reportSelectionCommand.getStevidorId()!=null && reportSelectionCommand.getStevidorId().intValue()!=0) {
+			Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(reportSelectionCommand.getStevidorId());
+			reportSelectionCommand.setCompanyName(stevidor.getFullName());
+		} 
+		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
+			Group group = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId());
+			reportSelectionCommand.setGroupName(group.getName());
+		} 
 		
 		/*Get machines by stevidor.*/
 		Integer stevidorId = (Integer)filtersMap.get(VikingConstants.COMPANY_SINGLE_FILTER);
@@ -238,7 +247,9 @@ public class ReportSelectionController {
 					e.printStackTrace();
 				}
 			}
-			accountReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);
+			if(countModels > 0) {
+				accountReportMap.put(new String[]{group.getName(), countModels.toString()}, machineListByGroup);	
+			}
 		}
 		reportSelectionCommand.setAccountReportMap(accountReportMap);
 

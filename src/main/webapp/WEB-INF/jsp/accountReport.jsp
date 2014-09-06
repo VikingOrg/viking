@@ -5,59 +5,28 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!doctype html>
 <html lang="ru">
 <head>
+
 <title>Отчет по списочному составу Механизмов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
-		<spring:url var = "action" value='/reportSelection'/> 
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<script type="text/javascript" src="//www.google.com/jsapi"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/vikingGoogleChart.js"/>"></script>
+		
+		<spring:url var = "action" value='/reportSelection'/>
 		<script>
+		  var mapLength = "${fn:length(reportSelectionCommand.accountReportMap)}";
 		  $(document).ready(function() {
-			  $("#sumbit_report").click(function(e) {
-              	$('#report_select_form').attr('action', "${action}/accountReport/");
-            	$('#report_select_form').attr('method', "post");
-            	$('#report_select_form').attr('accept-charset', "UTF-8");
-            	showProgressModal('#wait_modal');
-            	$('#report_select_form').submit();
-				});
-
-              $('#groupSelect').change(function() {
-            	  var groupId = $(this).val();
-            	  if(groupId=='0'){
-            		  $('#modelSelect').html("<option value='0'>Все модели</option>");
-                  } else {
-	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-	                      var options='';
-                          options += "<option value='0'>Все модели</option>";
-	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
-	                      });
-	                      $('#modelSelect').html(options);
-	                  });
-                  }
-              });	
               $('#group_report_table').dataTable({
-            	  "bJQueryUI": true,  
-            	  "sPaginationType": "full_numbers",
-            	  "bSort": false,
             	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
-            	  tableTools: {
-           			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
-           		 	"aButtons": [
-             	                "copy",
-             	             	{
-             	                    "sExtends":     "print",
-             	                    "bHeader": true
-             	                	},
-             	            	{
-             	                    "sExtends":     "csv",
-             	                    "sButtonText": "Save",
-             	                    "bHeader": true
-             	                	}
-             	            ]
-           	      },
-
+            	  "bJQueryUI": true,  
+            	  "scrollX" : true,	
+            	  "bSort": false,
                   "oLanguage": {
                       "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                    },  
@@ -66,10 +35,60 @@
                 	   $('select[name="group_report_table_length"]').appendTo("#table_length");
                 	   $('select[name="group_report_table_length"]').addClass("form-control");
  	              },
+                  tableTools: {
+          			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+          		 	"aButtons": [
+            	                "copy",
+            	             	{
+            	                    "sExtends": "print",
+      	       	                "fnClick": function (nButton, oConfig) {
+      	       	                	oConfig.sMessage = $('#printHeader').html();
+      	       	                	this.fnPrint( true, oConfig );
+      		       	            },
+            	                    "sInfo": "</br>"+
+	               	                 "</br>"+
+	               	                 "Нажмите ESC для выхода из режима ПЕЧАТИ.",
+            	                    
+            	                	},
+            	            	{
+            	                    "sExtends":     "csv",
+            	                    "sButtonText": "Save",
+            	                    "sCharSet": "utf8",
+            	                	}
+            	            ]
+          	      } 
+ 	              
               });
-              			
-		  });
-		  </script>		  
+			  
+			  $("#sumbit_report").click(function(e) {
+              	 $('#report_select_form').attr('action', "${action}/accountReport/");
+            	 $('#report_select_form').attr('method', "post");
+            	 $('#report_select_form').attr('accept-charset', "UTF-8");
+            	 showProgressModal('#wait_modal');
+            	 $('#report_select_form').submit();
+			  });
+				
+              /*Activate Chart Modal*/
+              $('#chartPie').click(function(e){
+            	  var myObjArray = [];
+            	  var totalCount = 0;
+            	  var length = parseInt(mapLength);
+            	  
+            	  for (var i = 0; i < length; i++) {
+                	  var currentCount = $('#countRecord'+i).html();
+            		  totalCount = totalCount+ parseInt(currentCount);
+            		  myObjArray.push({ name: $('#groupName'+i).text(), count: $('#countRecord'+i).text() });
+            	  }
+            	  if(totalCount > 0) {
+                	  drawGoogleChart(myObjArray, 700, 500,  document.getElementById('chartModalContent'), false, totalCount);
+                	  drawGoogleChart(myObjArray, 700, 500,  document.getElementById('barModalContent'), true, totalCount);
+                      $('#chartModal').modal('show');                  
+                  }            	  
+              }); 
+                            			
+		  }); //end of document.ready
+		  
+	  </script>		  
 </head>
 <body>
 		<!-- Wrap all page content here -->  
@@ -113,40 +132,6 @@
 												</c:forEach>
 											</form:select>
 									</div>
-									<%--
-						        	<div class="form-group">
-					                    <label>Модель</label>
-											<form:select id="modelSelect" path="modelId" cssClass="form-control col-sm-12">
-												<form:option value="0">Все модели</form:option>
-								                <c:forEach items="${reportSelectionCommand.machineModelMap}" var="model">
-								                    <form:option value="${model.key}" label="${model.value.name}" />
-								                </c:forEach>									
-											</form:select>
-						        	</div>
-									<div class="form-group">
-										<label class="col-sm-4 control-label">Год выпуска</label>
-										<div class="col-sm-8" style="padding-right: 0px">
-											<form:select id="releaseYearSelect" path="releaseYear"
-												cssClass="form-control" title="Выборка по году выпуска">
-												<form:option value="" label="С" />
-												<form:options items="${reportSelectionCommand.yearMap}" />
-											</form:select>
-											<select Class="form-control" title="Выборка по году выпуска">
-												<option value="" label="По" />
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label>Производитель</label>
-											<form:select id="manufacturerId" path="manufacturerId"
-												cssClass="form-control" title="Выборка по производителю">
-												<form:option value="0">Все производители</form:option>
-												<c:forEach items="${reportSelectionCommand.manufacturerMap}" var="manufacturer">
-													<form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
-												</c:forEach>
-											</form:select>
-									</div>
-									 --%>
 									<div id="data_table_elements" class="form-group">
 										<label>Кол.строк:</label>
 										<div id="table_length"></div>					
@@ -158,8 +143,10 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="btn-group pull-right">
+								
 									<!--  Кнопочка сформировать отчет -->
-									<button id="" class="btn cancelbtn"><span class="glyphicon glyphicon-refresh"></span> </button>
+									<!--  Кнопочка сформировать отчет -->
+									<!--  Кнопочка сформировать отчет -->
 									<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
 								</div>	
 							</div>
@@ -183,6 +170,8 @@
 							</div>
 						</c:if>
 	
+	
+						<div id="printHeader">
 						<!-- Таблица отчета -->
 						<table id="company_header" class="table_report_header">
 							<tbody>
@@ -190,7 +179,6 @@
 									<td class="nowrap">
 											<h3 class="page-header">Отчет 04  "Список Механизмов"</h3>
 									</td>
-									<td class="nowrap hidden-xs" valign="bottom" id="table_Actions"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -198,17 +186,21 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
-									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions"></td>
+									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions">
+	                     	 			<a href="#" class="btn btn-warning pull-right" id="chartPie" style="height:25px; font-size:12px; text-decoration:none;">
+	                     	 				 Диаграмма<i class="fa fa-bar-chart-o" style="padding-left: 15px"></i>
+	                      			    </a>
+									</td>
 								</tr>
 								<tr>
-									<td class="nowrap">Компания: <span class="report_header">Все компании</span></td>
-								</tr>								
+									<td class="nowrap">Компания:<span id="title_company" class="report_header">${reportSelectionCommand.companyName}</span></td>
+								</tr>
 								<tr>
-									<td class="nowrap">Группа: <span class="report_header">Все группы</span></td>
+									<td class="nowrap">Группа:<span id="title_group" class="report_header">${reportSelectionCommand.groupName}</span></td>
 								</tr>
 							</tbody>
 						</table>
-
+						</div>
 						<table id="group_report_table" class="table table-bordered">
 							<thead class= "tablehead">
 								<tr>
@@ -222,9 +214,14 @@
 								</tr>
 							</thead>
 							<tbody>
-					            <c:forEach items="${reportSelectionCommand.accountReportMap}" var="accountReport">
+					            <c:forEach items="${reportSelectionCommand.accountReportMap}" var="accountReport" varStatus="loop">
 									<tr>
-										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;"><c:out value="${accountReport.key[0]}"/><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Всего по группе:&nbsp;&nbsp;<c:out value="${accountReport.key[1]}"/></span></td>
+										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">
+											<span id="groupName${loop.index}"><c:out value="${accountReport.key[0]}"/></span>
+											<span style="font-weight: normal; float:left;" >
+												Всего по группе:<span id="countRecord${loop.index}"><c:out value="${accountReport.key[1]}"/></span>
+											</span>
+										</td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>
@@ -255,6 +252,29 @@
 	</div>
 </div>
 <!-- Closing div tag for wrap -->
+
+	<!--  Chart Modal -->
+	<div id="chartModal" class="modal modal-wide fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Закрыть</span></button>
+	        <h3 class="modal-title page-header" id="myModalLabel">Диаграмма <strong></strong></h3>
+	      </div>
+	      <div class="modal-body">
+	        <div class="col-sm-6">
+	            	<div id="chartModalContent"></div>
+	        </div>
+	        <div class="col-sm-6">
+					<div id="barModalContent"></div>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="cancelbtn" data-dismiss="modal">Закрыть</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 
 <!-- 		Модальное окно ожидания загрузки данных -->

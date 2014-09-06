@@ -47,8 +47,10 @@ public class ReportSelectionCommand {
 	private Integer manufacturerId;
 	private Integer reportType;
 	private Integer modelId;
-
-	private Integer totalMachineCount = 0;
+	
+	/*Report Header*/
+	private String companyName = "";
+	private String groupName= "Все группы";
 	
 	/*reports*/
 	private List<CompanyReportDTO> companyReportList= new ArrayList<CompanyReportDTO>();
@@ -57,6 +59,18 @@ public class ReportSelectionCommand {
 	Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
 
 
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 	public String getReleaseStartYear() {
 		return releaseStartYear;
 	}
@@ -99,13 +113,6 @@ public class ReportSelectionCommand {
 	}
 	public void setStevidorId(Integer stevidorId) {
 		this.stevidorId = stevidorId;
-	}
-
-	public Integer getTotalMachineCount() {
-		return totalMachineCount;
-	}
-	public void setTotalMachineCount(Integer totalMachineCount) {
-		this.totalMachineCount = totalMachineCount;
 	}
 
 	public String[] getStevidorSelection() {

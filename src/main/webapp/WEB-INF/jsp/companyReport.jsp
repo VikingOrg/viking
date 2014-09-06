@@ -14,11 +14,12 @@
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 		<script type="text/javascript" src="//www.google.com/jsapi"></script>
-		
-		
+		<script type="text/javascript" src="<c:url value="/static/js/vikingGoogleChart.js"/>"></script>
+				
 		<spring:url var = "action" value='/reportSelection'/> 
 		<script>
 		  var jsonData={};
+		  var totalCount = 0;
 		  $(document).ready(function() {
               oTable = $('#company_report_table').dataTable({
             	  "bJQueryUI": true,
@@ -89,8 +90,8 @@
               
               /*Activate Chart Modal*/
               $('#chartPie').click(function(e){
-            	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('chartModalContent'), false);
-            	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('barModalContent'), true);
+            	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('chartModalContent'), false, totalCount);
+            	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('barModalContent'), true, totalCount);
                   $('#chartModal').modal('show');                  
               });    	
                 	 	
@@ -104,8 +105,13 @@
         		$.getJSON("${pageContext.request.contextPath}/reportSelection/getCompanyReport/", pageData, function (data) {
         			setReportTitle();
         			if (data.length != 0 ) {
-        				jsonData = data; 
+        				totalCount = 0;
+        				jsonData = data;
         				oTable.fnAddData(data);
+        	            $.each(data, function (i, e) {
+        	            	  totalCount = totalCount + e.count;
+        	            });
+        	            $('#totalRecords').text("(Общее:"+totalCount+")");
         			}
         			closeProgressModal('#wait_modal');
         		}).fail( function(d, textStatus, error) {
@@ -121,71 +127,6 @@
 			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
 			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
 		  }			
-
-		  /*google lib should be loaded along the page..*/	
-		  google.load('visualization', '1.0', {'packages':['corechart']});
-		  
-		  /*Get chart to draw.*/
-		  function drawGoogleChart(chartData, width, height, htmlElement, isBarChart) {
-			chartData = chartData.sort(function(obj1, obj2) {
-				return obj2.count - obj1.count;
-			});
-	       	var totalCount = 0;
-            $.each(chartData, function (i, e) {
-            	  totalCount = totalCount + e.count;
-            });			  
-			  
-	        var data = new google.visualization.DataTable();
-	        data.addColumn('string', 'Topping');
-	        data.addColumn('number', 'Slices');
-	        /*Getting max number of iterations*/
-	        var maxIteration = 7;
-	        if (chartData.length < 8) {
-	        	maxIteration = chartData.length; 
-		    }
-		    var usedCount = 0;
-	        for (var i = 0; i < maxIteration; i++) {
-		        data.addRows([
-		        	          [chartData[i].name, chartData[i].count],
-		        	        ]);
-		        usedCount = usedCount + chartData[i].count;	        
-    	    }
-	        /*Others*/
-	        var others = totalCount - usedCount;
-	        data.addRows([
-	        	          ['Остальные', others]
-	        	        ]);	  
-
-	       
-
-	        if(!isBarChart) {
-	        	 // Set chart options
-		        var options = {
-				  'title':'Общее кол-во:'+totalCount,
-				  'is3D':true,
-				  'colors':['#3366cc','#dc3912', '#ff9900','#109618', '#990099','#0099c6', '#dd4477','#66aa00'],
-				  'chartArea':{left:0,top:0,width:'70%',height:'100%'},
-				  'width':'500',
-				  'height':'400',
-				  'pieSliceTextStyle':{color: 'black'},
-				  'backgroundColor':'none',
-				};
-		        // Instantiate and draw our chart, passing in some options.
-		        var chart = new google.visualization.PieChart(htmlElement);
-		        chart.draw(data, options);
-		    } else {
-		    	 // Set chart options
-		        var options = {
-				  'title':'Общее кол-во:'+totalCount,
-				  'colors':['red','blue','red','blue','red','blue','red','blue'],
-				  'chartArea':{left:300,top:0,width:'100%',height:'90%'},
-				  'width':'500',
-				  'height':'400',
-				};
-		    	var chart = new google.visualization.BarChart(htmlElement);
-		    	chart.draw(data, options);
-			}
-	      }
 
 	        
 		  </script>
@@ -393,7 +334,7 @@
 								<tr>
 									<th class="column-check">№</th>
 									<th class="nowrap">Компания&nbsp;&nbsp;</th>
-									<th class="nowrap" style="width:20%">Кол-во&nbsp;&nbsp;</th>
+									<th class="nowrap" style="width:20%">Кол-во <span id="totalRecords"></span></th>
 									<th class="nowrap" style="width:20%">Проц.</th>
 								</tr>
 							</thead>
