@@ -10,6 +10,7 @@
 <%@attribute name="title" required="false" type="java.lang.String"%>
 <%@attribute name="id" required="false" type="java.lang.String"%>
 <%@attribute name="type" required="false" type="java.lang.String"%>
+<%@attribute name="tabindex" required="false" type="java.lang.String"%>
 
 
 <spring:bind path="${path}">
@@ -25,7 +26,9 @@
             	path="${path}" 
             	cssClass="${empty cssClass ? 'form-control' : cssClass}"
             	type="${empty type ? 'text' : type}"
-            	title="${empty title ? '' : title}"/>
+            	title="${empty title ? '' : title}"
+            	tabindex="${empty tabindex ? '' : tabindex}"/>
+            	
            	<form:errors path="${path}" cssClass="control-label"/>
         </div>
     </div>

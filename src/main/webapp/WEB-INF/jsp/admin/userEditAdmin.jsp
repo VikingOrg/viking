@@ -75,17 +75,17 @@
 			        <div class="col-sm-4 col-sm-offset-1">
 			        	<div class="form-group">
 			            	<label class="form-label">Роль в системе</label>
-							<form:select path="userRole" cssClass="form-control">
+							<form:select path="userRole" cssClass="form-control" tabindex="1">
 							   <form:option value="3" label="Не зарегистрирован"/>
 							   <form:option value="2" label="Пользователь"/>
 							   <form:option value="1" label="Администратор"/>
 							</form:select>			            	
 			          	</div>
 				     
-					     <v:input path="user.lastName" label="Фамилия" required="true" title="Введите свою фамилию"/>
-					     <v:input path="user.firstName" label="Имя" required="true" title="Введите своё имя"/>
-						 <v:input path="user.middleInitial" label="Отчество" title="Введите своё отчество"/>
-						 <v:input path="user.userEmail" type="email" label="E-Mail" title="Укажите свой e-mail в качестве логина"/>
+					     <v:input path="user.lastName" label="Фамилия" required="true" title="Введите свою фамилию" tabindex="2"/>
+					     <v:input path="user.firstName" label="Имя" required="true" title="Введите своё имя" tabindex="3"/>
+						 <v:input path="user.middleInitial" label="Отчество" title="Введите своё отчество" tabindex="4"/>
+						 <v:input path="user.userEmail" type="email" label="E-Mail" title="Укажите свой e-mail в качестве логина" tabindex="5"/>
 			          
 				          <div class="form-group">
 				            <div class="controls">
