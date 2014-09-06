@@ -9,6 +9,9 @@
 	    <title>Таблица Стран</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
+	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
+
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#country_table').dataTable( {
@@ -68,6 +71,7 @@
                         complete : function( response )
                         {
                             $("#editModalContent").html(response.responseText);
+
                             $('#editModal').modal('show');
                             
                         }
@@ -87,10 +91,17 @@
                         }
                     });
                 });
-                                
+
+                $('#editModal').on('shown.bs.modal', function() {
+                    //$('#loginForm').bootstrapValidator('resetForm', true);
+                    // Focus on the username field
+                    //$('#loginForm').find('[name="username"]').focus();
+                });
+
+                
             } ); //end of document.ready
 
-        	function closingModal(groupId, successMsg){
+            function closingModal(groupId, successMsg){
         		$('#editModal').modal('hide');
         		$('#'+groupId).addClass( "success" );
         		$(this).attr("class","newclass");
