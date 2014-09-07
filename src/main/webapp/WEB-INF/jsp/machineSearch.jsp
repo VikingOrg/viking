@@ -55,12 +55,12 @@
        	                         {
         	   	        		      "aTargets": [ 1 ],
         	   	        		      "mData": 1,
-        	   	        		      "mRender": function ( data, type, full ) {
+        	   	        		      "mRender": function ( data, type, machineObject ) {
         	   	        		      	  var input;
-        	   	        		      	  if(full[22]=='Y') {
+        	   	        		      	  if(machineObject.archived =='Y') {
         	   	        		      		  input = 'Удл.';	  
 	        	   	        		      } else {
-	        	   	        		    	  input = '<input id="machineSelection'+full[1]+'" class="newCheckbox" type="checkbox" value="'+full[1]+'" name="machineSelection">';
+	        	   	        		    	  input = '<input id="machineSelection'+  machineObject.machineId +'" class="newCheckbox" type="checkbox" value="'+machineObject.machineId+'" name="machineSelection">';
 		        	   	        		  }
 	        	   	        		       
 										  return input;
@@ -70,8 +70,8 @@
        	                         {
         	   	        		      "aTargets": [ 4 ],
         	   	        		      "mData": 4,
-        	   	        		      "mRender": function ( data, type, full ) {
-        	   	        		        return '<a href="${pageContext.request.contextPath}/machineEdit?machineId='+full[0]+'">'+data+'</a>';
+        	   	        		      "mRender": function ( data, type, machineObject ) {
+        	   	        		        return '<a href="${pageContext.request.contextPath}/machineEdit?machineId='+machineObject.machineId+'">'+data+'</a>';
         	   	        		      }
        	   	        		     }
    	        	                   ], 	                                                
