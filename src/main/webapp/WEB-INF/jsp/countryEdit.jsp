@@ -42,8 +42,8 @@
 				
 					<!-- First column -->
 					<div class="col-sm-4 col-sm-offset-1">
-						<v:input id = "countryNameRus" path="country.nameRus" label="Наименование по-русски" required="true" title="Введите наименование"/>
-						<v:input id = "countryNameEn" path="country.nameEn" label="Наименование по-английски" required="true" title="Введите полное наименование"/>
+						<v:input id = "countryNameRus" path="country.nameRus" label="Наименование по-русски" required="true" title="Введите наименование" maxlength="45"/>
+						<v:input id = "countryNameEn" path="country.nameEn" label="Наименование по-английски" required="true" title="Введите полное наименование" maxlength="45"/>
 					</div>
 					
 					<!-- Second column -->

@@ -11,7 +11,7 @@
 <%@attribute name="id" required="false" type="java.lang.String"%>
 <%@attribute name="type" required="false" type="java.lang.String"%>
 <%@attribute name="tabindex" required="false" type="java.lang.String"%>
-
+<%@attribute name="maxlength" required="false" type="java.lang.String"%>
 
 <spring:bind path="${path}">
     <div class="form-group ${status.error ? 'has-error' : '' }">
@@ -27,7 +27,8 @@
             	cssClass="${empty cssClass ? 'form-control' : cssClass}"
             	type="${empty type ? 'text' : type}"
             	title="${empty title ? '' : title}"
-            	tabindex="${empty tabindex ? '' : tabindex}"/>
+            	tabindex="${empty tabindex ? '' : tabindex}"
+            	maxlength="${empty maxlength ? '' : maxlength}"/>
             	
            	<form:errors path="${path}" cssClass="control-label"/>
         </div>
