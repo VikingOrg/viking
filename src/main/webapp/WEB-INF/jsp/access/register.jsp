@@ -23,10 +23,10 @@
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
 	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 
-	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/localization/messages_ru.js"></script>
+	    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+	    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
 
-	    <script type="text/javascript" src="static/js/jquery.complexify.js"></script>
+	    <script type="text/javascript" src="<c:url value="/static/js/jquery.complexify.js"/>"></script>
 	    
 		<script type="text/javascript">
 		$(document).ready(function() {
@@ -69,6 +69,7 @@
 		    $("#middleInitial").rules("add", {required:true});
 		    $("#email").rules("add", {required:true});
 		    $("#password").rules("add", {required:true});
+		    $("#agree").rules("add", {required:true});
 		    
         } );	    
 		</script>
@@ -198,10 +199,13 @@
 		            	<form:input path="pswordCheck" type="password" cssClass="form-control" title="Повторно укажите пароль"/>
 		            </div>
 		          </div>
-		          <div class="checkbox">
-		            <label>
-		              <input type="checkbox" value="true" name="agreeCheckBox">Я СОГЛАСЕН С УСЛОВИЯМИ ПОЛЬЗОВАНИЯ *</label>
-		          </div>
+		          <div class="form-group">
+			          <div class="checkbox">
+			            <label>
+			              <input type="checkbox" id="agree" value="true" name="agreeCheckBox" title="Необходимо ваше согласие."><span style="color: black"> Я СОГЛАСЕН С</span>
+			              <a href="<c:url value="static/html/rules.html"/>" style="text-decoration: underline">&nbsp;УСЛОВИЯМИ ПОЛЬЗОВАНИЯ</a></label>
+			          </div>
+			      </div>
 		        </div>
 		        <div class="col-md-4 col-md-offset-1 col-xs-6">
 		  			<div class="form-group">
@@ -228,7 +232,7 @@
 
 			        <div class="form-group">
 			        	<div class="controls">
-				        	<label class="form-label">КОМПАНИЯ</label>
+				        	<label class="form-label">КОМПАНИЯ*</label>
 							<form:select path="user.stevidorId" cssClass="form-control">
 				                <c:forEach items="${registrationCommand.userStevidor}" var="stevidor">
 				                    <form:option value="${stevidor.key}" label="${stevidor.value.name}" />
@@ -244,7 +248,6 @@
 		            </div>
 		          </div>
 		          <div class="form-group">
-		          
 		            <div class="controls">
 		                <label class="form-label">ДОЛЖНОСТЬ</label>
 		              <form:input path="user.occupation" type="text" cssClass="form-control" title="Должность"/>
@@ -325,17 +328,17 @@
 
 		    <div class="container">
 		      <div class="row">
-		        <div class="col-md-4 col-md-offset-1">
+		        <div class="col-md-4 col-md-offset-1 col-xs-6">
 		          <div class="form-actions">
 		          	<button type="submit" class="btn btn-primary">Отправить</button>
 		            <a type="button" class="cancelbtn" 
 		            	onclick="window.location.href = '<c:url value="login"/>';" 
 		            	value="Klick">Отменить</a>
 		          </div>
-		          	<div class="row text-left">
-		            	<p>&nbsp;</p>
-		            	<a href="<c:url value="static/html/rules.html"/>">* УСЛОВИЯ ПОЛЬЗОВАНИЯ</a>
-		            </div>
+		        </div>
+		        <div class="col-md-4 col-md-offset-1 col-xs-6">
+		          <h4>* Поля, обязательные к заполнению</h4>
+		          </div>
 		        </div>
 		      </div>
 		    </div>

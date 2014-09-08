@@ -11,6 +11,7 @@
 	    <title>Редактирование Компании-Оператора</title>
 	    <jsp:include page="common/headCoreElements.jsp" />
 	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/static/js/jquery.maskedinput.min.js"/>"></script>
 	    
 	</head>
 	<body>
@@ -243,6 +244,12 @@
 	    (function($) {
 	          fakewaffle.responsiveTabs(['xs', 'sm']);
 	      })(jQuery);
+
+
+        jQuery(function($){
+      	   $("#stevidorPhone").mask("(999) 999-9999");
+      	   $("#stevidorFax").mask("(999) 999-9999");
+      	});	
 
 	    </script>
 	</body>

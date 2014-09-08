@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
-
+<!DOCTYPE html>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
 
@@ -42,8 +42,8 @@
 				
 					<!-- First column -->
 					<div class="col-sm-4 col-sm-offset-1">
-						<v:input id = "countryNameRus" path="country.nameRus" label="Наименование по-русски" required="true" title="Введите наименование" maxlength="45"/>
-						<v:input id = "countryNameEn" path="country.nameEn" label="Наименование по-английски" required="true" title="Введите полное наименование" maxlength="45"/>
+						<v:input id = "countryNameRus" path="country.nameRus" label="Наименование по-русски" required="true" title="Введите наименование на русском" maxlength="45"/>
+						<v:input id = "countryNameEn" path="country.nameEn" label="Наименование по-английски" required="true" title="Введите наименование на английском" maxlength="45"/>
 					</div>
 					
 					<!-- Second column -->
@@ -66,7 +66,7 @@
 	        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
 	        
 			<c:if test="${not empty countryCommand.country.countryId}"> 
-		        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+		        <button id="submitUpdate" type="submit" class="btn btn-primary">Сохранить</button>
 		        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
 	        </c:if>
 			<c:if test="${empty countryCommand.country.countryId}"> 
@@ -151,5 +151,6 @@
 		                     
             $("#countryNameRus").rules("add", {required:true});
             $("#countryNameEn").rules("add", {required:true});
+
                
 	 </script>

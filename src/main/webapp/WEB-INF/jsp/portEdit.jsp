@@ -5,6 +5,9 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
+
 	<form:form id="ajaxSubmitForm" commandName="portCommand" method="post" accept-charset="UTF-8">
 		  <div class="modal-header"> <!-- modal header start -->
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -87,15 +90,21 @@
 
            $("#submitUpdate").click(function(e) {
         	   e.preventDefault();
- 			   initiateAjaxCall("update");
+        	   if ($("#ajaxSubmitForm").valid()) {
+              	 initiateAjaxCall("update");
+                 }
            });
            $("#submitCopy").click(function(e) {
         	   e.preventDefault();
+        	   if ($("#ajaxSubmitForm").valid()) {
  			   initiateAjaxCall("copy");
+ 			   }
            });
            $("#submitCreate").click(function(e) {
         	   e.preventDefault();
+        	   if ($("#ajaxSubmitForm").valid()) {
  			   initiateAjaxCall("create");
+        	   }
            });
            
 	       function initiateAjaxCall(requestType){
@@ -138,6 +147,27 @@
 	            });
 	                       	
 	       }
+
+
+		    $("#ajaxSubmitForm").validate({
+		        highlight: function(element) {
+		            $(element).closest('.form-group').addClass('has-error');
+		        },
+		        unhighlight: function(element) {
+		            $(element).closest('.form-group').removeClass('has-error');
+		        },
+		        errorElement: 'span',
+		        errorClass: 'help-block',
+		        errorPlacement: function(error, element) {
+		            if(element.parent('.input-group').length) {
+		                error.insertAfter(element.parent());
+		            } else {
+		                error.insertAfter(element);
+		            }
+		        }
+		    });
+		                     
+           $("#portName").rules("add", {required:true});
 
         
 	 </script>
