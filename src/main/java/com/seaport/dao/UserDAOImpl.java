@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import com.seaport.domain.Country;
 import com.seaport.domain.Role;
 import com.seaport.domain.User;
+import com.seaport.utils.VikingConstants;
 
 /**
  * The DAO class that serves any type of User requests 
@@ -81,7 +82,7 @@ public class UserDAOImpl implements IUserDAO {
 			user.setCreateDate(updateDate);
 		}
 		if (user.getRole() == null) {
-			Role role = (Role) roleDAO.getRole(1);
+			Role role = (Role) roleDAO.getRole(VikingConstants.USER_ROLE_GUEST);
 			user.setRole(role);
 		}
 		openSession().saveOrUpdate(user);

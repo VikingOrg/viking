@@ -9,9 +9,6 @@
 	    <title>Редактирование данных пользователя</title>
 
         <jsp:include page="../common/headCoreElements.jsp" />
-       
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-  
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 		<script>
@@ -99,9 +96,9 @@
 				            	<form:input path="pswordCheck" type="password" cssClass="form-control" title="Повторно укажите пароль"/>
 				            </div>
 				          </div>
+				        <%--  
 			          	<div class="form-group">
-	 				            
-	 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+ 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
 	                    		<div class="panel-heading">
 									<label class="form-label">Загрузить аватар.</label>
 								</div>
@@ -112,7 +109,7 @@
 				        		</div>
 			        		</div>
 			        	</div>			          
-			          	
+			          	 --%>
 			          
 			        </div>
 			        <div class="col-sm-4 col-sm-offset-1">
