@@ -13,8 +13,7 @@ public class RegistrationValidator implements Validator{
 	private IUserService userService;
 	
 	@Override
-	public boolean supports(Class clazz) {
-		//just validate the Customer instances
+	public boolean supports(@SuppressWarnings("rawtypes") Class clazz) {
 		return RegistrationCommand.class.isAssignableFrom(clazz);
 
 	}

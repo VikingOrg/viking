@@ -32,6 +32,30 @@ public class RegistrationCommand {
 	private String recaptcha_response_field;
 	private String recaptcha_challenge_field;
 	
+	/*for password re-set*/
+	private String newPassword;
+	private String newPasswordCheck; //to keep value on pswordCheck field
+	private String oldPassword;
+		
+	public String getNewPasswordCheck() {
+		return newPasswordCheck;
+	}
+	public void setNewPasswordCheck(String newPasswordCheck) {
+		this.newPasswordCheck = newPasswordCheck;
+	}
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	public String getOldPassword() {
+		return oldPassword;
+	}
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
 	public String getRecaptcha_challenge_field() {
 		return recaptcha_challenge_field;
 	}
