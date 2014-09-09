@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.RegistrationCommand;
+import com.seaport.domain.User;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingUtils;
+import com.seaport.validator.UserEditValidator;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -94,21 +98,45 @@ public class UserEditController {
 		return "admin/userEditAdmin";
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+		if (registrationCommand.getFormType().equals("E")) {
+			if (user.getUserId() == registrationCommand.getUser().getUserId()) {
+				if (!VikingUtils.isEmpty(registrationCommand.getOldPassword()) || 
+						!VikingUtils.isEmpty(registrationCommand.getNewPassword()) ||
+						!VikingUtils.isEmpty(registrationCommand.getNewPasswordCheck()) ) {
+					
+					/*Db validations.*/
+					new UserEditValidator(userService).validate(registrationCommand, result);
+				}
+			}
+		}
+		
 		if (result.hasErrors()) {
 			model.addAttribute("error", "message.user.error.generic");
 			return "/admin/userEditAdmin";
 		}
+		
+		if (registrationCommand.getFormType().equals("E")) {
+			if (user.getUserId() == registrationCommand.getUser().getUserId() && !VikingUtils.isEmpty(registrationCommand.getOldPassword())) {
+				BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+				String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getNewPassword());
+				registrationCommand.getUser().setPassword(encPassword);
+			}
+		} else {
+			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+			String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getUser().getPassword());
+			registrationCommand.getUser().setPassword(encPassword);
+		}
+		userService.saveUser(registrationCommand.getUser());
+		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
 		redirectAttributes.addFlashAttribute(registrationCommand);
-		
 		registrationCommand.getUser().setRole(userRole.getRole(registrationCommand.getUserRole()));
-		userService.saveUser(registrationCommand.getUser());
 		
 		//clear the command object from the session
 		status.setComplete();

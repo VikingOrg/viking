@@ -84,18 +84,34 @@
 						 <v:input path="user.middleInitial" label="Отчество" title="Введите своё отчество" tabindex="4"/>
 						 <v:input path="user.userEmail" type="email" label="E-Mail" title="Укажите свой e-mail в качестве логина" tabindex="5"/>
 			          
-				          <div class="form-group">
-				            <div class="controls">
-				                <label class="form-label">Пароль</label>
-				                <form:input path="user.password" type="password" cssClass="form-control" title="Укажите пароль для входа"/>
-				            </div>
-				          </div>
-				          <div class="form-group">
-				            <div class="controls">
-				            <label class="form-label">Повторите пароль</label>
-				            	<form:input path="pswordCheck" type="password" cssClass="form-control" title="Повторно укажите пароль"/>
-				            </div>
-				          </div>
+			          	 <c:if test="${registrationCommand.formType != 'E'}"> 
+					          <div class="form-group">
+					            <div class="controls">
+					                <label class="form-label">Пароль</label>
+					                <form:input path="user.password" type="password" cssClass="form-control" title="Укажите пароль для входа"/>
+					            </div>
+					          </div>
+					          <div class="form-group">
+					            <div class="controls">
+					            	<label class="form-label">Повторите пароль</label>
+					            	<form:input path="pswordCheck" type="password" cssClass="form-control" title="Повторно укажите пароль"/>
+					            </div>
+					          </div>
+						 </c:if>
+			          <c:if test="${registrationCommand.user.userId == userModel.userId}">
+				          	<div class="form-group">
+	 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+		                    		<div class="panel-heading">
+										<label class="form-label">Изменить пароль.</label>
+									</div>
+									<div  class="panel-body">
+										<v:input id="password" path="oldPassword" type="password" label="Старый Пароль" autocomplete="off"/>
+										<v:input id="password" path="newPassword" type="password" label="Новый Пароль" autocomplete="off"/>
+										<v:input id="password" path="newPasswordCheck" type="password" label="Повторите Новый Пароль" autocomplete="off"/>
+					        		</div>
+				        		</div>
+				        	</div>			          
+			          </c:if>
 				        <%--  
 			          	<div class="form-group">
  				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
@@ -160,7 +176,7 @@
 		      <div class="row">
 		        <div class="col-sm-10 col-sm-offset-1">
 		          <div class="form-actions">
-		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button>
+		            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button> -->
 		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
 		            <a type="button" class="cancelbtn" 
 		            	onclick="window.location.href = '<c:url value="/userSearchAdmin"/>';" 
