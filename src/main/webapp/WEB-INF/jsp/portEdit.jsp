@@ -43,7 +43,7 @@
 				
 					<!-- First Column -->
 					<div class="col-sm-4 col-sm-offset-1">
-						<v:input id="portName" path="port.name" label="Наименование" required="true" title="Введите наименование"/>
+						<v:input id="portName" path="port.name" label="Наименование" required="true" title="Введите наименование Порта" maxlength="45"/>
 											
 						<div class="form-group">
 							<label class="form-label">Страна</label>
@@ -73,15 +73,23 @@
 		  </div> <!-- end of modal body -->
 		  
 	      <div class="modal-footer"> <!-- Modal Footer Start -->
-	        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
-	        
-			<c:if test="${not empty portCommand.port.portId}"> 
-		        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
-		        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
-	        </c:if>
-			<c:if test="${empty portCommand.port.portId}"> 
-		        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
-	        </c:if>				        
+	      	<div class="container">
+	             <div class="row">
+			        <div class="col-md-4 col-md-offset-1">
+			          <h4>* Поля, обязательные к заполнению</h4>
+			        </div>
+        			<div class="col-md-4 col-md-offset-1">
+				        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
+						<c:if test="${not empty portCommand.port.portId}"> 
+					        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+					        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
+				        </c:if>
+						<c:if test="${empty portCommand.port.portId}"> 
+					        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
+				        </c:if>				        
+				    </div>
+				 </div>
+	        </div>
 	      </div> <!-- Modal Footer End -->
 
 		

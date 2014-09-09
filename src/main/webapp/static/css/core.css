@@ -155,6 +155,18 @@
 		  margin-top: 0px;
 		}
 		
+		.contacts-form-control {
+		  border-radius:0px;
+		  margin-top: 0px;
+		}
+		
+		.fns-contacts-form-control {
+		  border-radius:0px;
+		  margin-top: 0px;
+		  width: 300px;
+		}
+		
+		
 		.form-horizontal .form-group {
 		  margin-left: 0;
    		  margin-right: 0;
@@ -230,13 +242,6 @@
 		
 		td.column-check, th.column-check {
 			width: 20px;
-		}
-		
-		.table-contacts tbody > tr > th {
-		    border-top: 0px solid #ddd;
-		    line-height: 1.42857;
-		    padding: 0px;
-		    vertical-align: top;
 		}
 		
 		.table-contacts thead > tr > th {
