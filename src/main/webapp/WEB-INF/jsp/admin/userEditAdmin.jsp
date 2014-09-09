@@ -73,7 +73,7 @@
 			        	<div class="form-group">
 			            	<label class="form-label">Роль в системе</label>
 							<form:select path="userRole" cssClass="form-control" tabindex="1">
-							   <form:option value="3" label="Не авторизован"/>
+							   <form:option value="3" label="Не зарегистрирован"/>
 							   <form:option value="2" label="Пользователь"/>
 							   <form:option value="1" label="Администратор"/>
 							</form:select>			            	
