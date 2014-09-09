@@ -52,6 +52,7 @@
 	<%-- <script type="text/javascript" src="<c:url value="/static/js/jquery.js"/>"></script> --%>
 	<script type="text/javascript" src="<c:url value="/static/js/jquery.flot.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/static/js/jquery.flot.pie.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/static/js/jquery.maskedinput.min.js"/>"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#group_table').dataTable( {
@@ -94,103 +95,12 @@
                 $('#closeFilters').on('click', function(e) {
                     e.preventDefault();
 
-                    //$('#toggleOne').animate({
-                    //    "width": "0%"
-                    //}, "slow", function() {
-                        // Hide when width animation finishes
-                   //     $(this).hide();
-                   //     $('#toggleTwo').toggleClass('col-sm-12 col-sm-8')
-                   // });
-                    
-                    //$('#toggleOne').toggleClass('col-sm-0 col-sm-4');
-                    //$('#toggleTwo').toggleClass('col-sm-12 col-sm-8');
-
-                                        
-                    //var $lefty = $('#toggleOne');
-                    //$lefty.animate({
-                    //  left: parseInt($lefty.css('left'),10) == 0 ?
-                    //    -$lefty.outerWidth() :
-                    //    0
-                    //});
-                    //$('#toggleOne').animate({width: 'toggle'});                    
-                    //$('#toggleTwo').toggleClass('col-sm-12 col-sm-8')
-
                 });
-                var data = [
-                			{ label: "Series1",  data: 10},
-                			{ label: "Series2",  data: 30},
-                			{ label: "Series3",  data: 90},
-                			{ label: "Series4",  data: 70},
-                			{ label: "Series5",  data: 80},
-                			{ label: "Series6",  data: 110}
-                		];
-
-                		var placeholder = $("#placeholder");
-
-                		$("#example-1").click(function() {
-
-                			placeholder.unbind();
-
-                			$("#title").text("Default pie chart");
-                			$("#description").text("The default pie chart with no options set.");
-
-                			$.plot(placeholder, data, {
-                				series: {
-                					pie: { 
-                						show: true
-                					}
-                				}
-                			});
-
-                			setCode([
-                				"$.plot('#placeholder', data, {",
-                				"    series: {",
-                				"        pie: {",
-                				"            show: true",
-                				"        }",
-                				"    }",
-                				"});"
-                			]);
-                		});
-
-                		$("#example-2").click(function() {
-
-                			placeholder.unbind();
-
-                			$("#title").text("Default without legend");
-                			$("#description").text("The default pie chart when the legend is disabled. Since the labels would normally be outside the container, the chart is resized to fit.");
-
-                			$.plot(placeholder, data, {
-                				series: {
-                					pie: { 
-                						show: true
-                					}
-                				},
-                				legend: {
-                					show: false
-                				}
-                			});
-
-                			setCode([
-                				"$.plot('#placeholder', data, {",
-                				"    series: {",
-                				"        pie: {",
-                				"            show: true",
-                				"        }",
-                				"    },",
-                				"    legend: {",
-                				"        show: false",
-                				"    }",
-                				"});"
-                			]);
-                		});
-
-                		// Show the initial default chart
-
-                		$("#example-1").click();
-                   		 
+                
+                jQuery(function($){
+              	   $("#phone").mask("(999) 999-9999");
+              	});		
             } );
-
            
         </script>
         
@@ -217,6 +127,7 @@
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label>Поиск</label>
+									<p><input id="phone" type="text"></p>
 										<input id="dataTableSearch" class="form-control"
 											placeholder="Введите..."
 											title="Введите для поиска по всем полям" type="text" />

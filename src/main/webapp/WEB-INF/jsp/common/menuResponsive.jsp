@@ -51,21 +51,23 @@
 				  <div class="collapse navbar-collapse navbar-ex1-collapse">
 				    <ul class="nav navbar-nav">
 						<li><a href="<c:url value="/home"/>" class="first"><span class="glyphicon glyphicon-home" title="Главная"></span>&nbsp;&nbsp;Главная</a></li>
+			<sec:authorize access="hasRole('ROLE_USER')">	
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Справочники <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-							<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<li><a href="<c:url value="/stevidorSearch"/>">Компании-операторы</a></li>
 								<li><a href="<c:url value="/port"/>">Порты</a></li>
 								<li><a href="<c:url value="/country"/>">Страны</a></li>
 					            <li class="divider"></li>
-					        </sec:authorize>
+			</sec:authorize> 		            
 					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
 					            <li><a href="<c:url value="/group"/>">Группы Механизмов</a></li>
 					            <li><a href="<c:url value="/manufacturer"/>">Фирмы Производители</a></li>
 							</ul>
 						</li>
 			
+			</sec:authorize> 
 			<sec:authorize access="hasRole('ROLE_USER')">
 			          <li class="dropdown">
 			          	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Механизмы<b class="caret"></b></a>

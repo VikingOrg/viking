@@ -5,6 +5,9 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
+    
 <form:form id="ajaxSubmitForm" action="/groupEdit" commandName="groupCommand" method="post" accept-charset="UTF-8">
 
 	      <div class="modal-header"> <!-- modal header start -->
@@ -70,17 +73,23 @@
 
 	 <script type="text/javascript">
 
-           $("#submitUpdate").click(function(e) {
-        	   e.preventDefault();
- 			   initiateAjaxCall("update");
-           });
+	       $("#submitUpdate").click(function(e) {
+		       e.preventDefault();
+		       if ($("#ajaxSubmitForm").valid()) {
+		       initiateAjaxCall("update");
+		       }
+		   });
            $("#submitCopy").click(function(e) {
         	   e.preventDefault();
+        	   if ($("#ajaxSubmitForm").valid()) {
  			   initiateAjaxCall("copy");
+		       }
            });
            $("#submitCreate").click(function(e) {
         	   e.preventDefault();
+        	   if ($("#ajaxSubmitForm").valid()) {
  			   initiateAjaxCall("create");
+        	   }
            });
            
 	       function initiateAjaxCall(requestType){
@@ -120,6 +129,26 @@
 	            });           	
 	       }
 
+		    $("#ajaxSubmitForm").validate({
+		        highlight: function(element) {
+		            $(element).closest('.form-group').addClass('has-error');
+		        },
+		        unhighlight: function(element) {
+		            $(element).closest('.form-group').removeClass('has-error');
+		        },
+		        errorElement: 'span',
+		        errorClass: 'help-block',
+		        errorPlacement: function(error, element) {
+		            if(element.parent('.input-group').length) {
+		                error.insertAfter(element.parent());
+		            } else {
+		                error.insertAfter(element);
+		            }
+		        }
+		    });
+		                     
+           $("#groupName").rules("add", {required:true});
+              
         
 	 </script>
 
