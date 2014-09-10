@@ -18,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.RegistrationCommand;
+import com.seaport.domain.Role;
 import com.seaport.domain.User;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
@@ -102,7 +103,7 @@ public class UserEditController {
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
-		
+		/*Validation block.*/
 		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
 		if (registrationCommand.getFormType().equals("E")) {
 			if (user.getUserId() == registrationCommand.getUser().getUserId()) {
@@ -121,22 +122,22 @@ public class UserEditController {
 			return "/admin/userEditAdmin";
 		}
 		
+		/*For user edit.*/
 		if (registrationCommand.getFormType().equals("E")) {
 			if (user.getUserId() == registrationCommand.getUser().getUserId() && !VikingUtils.isEmpty(registrationCommand.getOldPassword())) {
 				BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 				String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getNewPassword());
 				registrationCommand.getUser().setPassword(encPassword);
 			}
+			registrationCommand.getUser().setRole(userRole.getRole(registrationCommand.getUserRole()));
 		} else {
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 			String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getUser().getPassword());
 			registrationCommand.getUser().setPassword(encPassword);
 		}
 		userService.saveUser(registrationCommand.getUser());
-		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
 		redirectAttributes.addFlashAttribute(registrationCommand);
-		registrationCommand.getUser().setRole(userRole.getRole(registrationCommand.getUserRole()));
 		
 		//clear the command object from the session
 		status.setComplete();

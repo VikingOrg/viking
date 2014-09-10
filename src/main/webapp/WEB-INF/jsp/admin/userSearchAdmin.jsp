@@ -204,9 +204,9 @@
 			                              <th class="column-check nowrap">&nbsp;</th>
 			                              <th class="nowrap">ФИО&nbsp;&nbsp;</th>
 			                              <th class="hide">Подразделение&nbsp;&nbsp;</th>
-			                              <th class="hide">Должность&nbsp;&nbsp;</th>
+			                              <th class="">Должность&nbsp;&nbsp;</th>
 			                              <th class="hidden-sm hidden-xs hidden-md nowrap">Роль&nbsp;&nbsp;</th>
-			                              <th class="hide">E-mail&nbsp;&nbsp;</th>
+			                              <th class="">E-mail&nbsp;&nbsp;</th>
 			                              <th class="nowrap">Компания&nbsp;&nbsp;</th>
 			                              <th class="hidden-sm hidden-xs hidden-md nowrap">Порт&nbsp;&nbsp;</th>
 			                              <th class="hide">Страна&nbsp;&nbsp;</th>
@@ -232,9 +232,9 @@
 						                         		
 						                         	</td>
 						                         	<td class="hide"><c:out value="${user.division}"/></td>
-						                         	<td class="hide"><c:out value="${user.occupation}"/></td>
+						                         	<td class=""><c:out value="${user.occupation}"/></td>
 						                         	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.role.role}"/></td>
-						                         	<td class="hide"><c:out value="${user.userEmail}"/></td>
+						                         	<td class=""><c:out value="${user.userEmail}"/></td>
 						                         	<td class="nowrap"><c:out value="${user.stevidor.fullName}"/></td>
 					                              	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.port.name}"/></td>
 					                              	<td class="hide"><c:out value="${user.country.nameRus}"/></td>
