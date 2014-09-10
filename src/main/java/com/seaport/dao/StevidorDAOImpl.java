@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.domain.Contact;
 import com.seaport.domain.Stevidor;
-import com.seaport.utils.VikingUtils;
+import com.seaport.utils.VikingUtil;
 
 /**
  * The DAO class that serves any type of Stevidor requests 
@@ -50,7 +50,7 @@ public class StevidorDAOImpl implements IStevidorDAO {
 		/*Check for empty contacts and remove them from being saved.*/
 		for (Iterator<Contact> iter = stevidor.getContacts().listIterator(); iter.hasNext(); ) {
 			Contact contact = iter.next();
-		    if (VikingUtils.isEmpty(contact.getFns())) {
+		    if (VikingUtil.isEmpty(contact.getFns())) {
 		        iter.remove();
 		    }
 		}

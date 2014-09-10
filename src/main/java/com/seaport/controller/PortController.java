@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.PortCommand;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -91,7 +91,7 @@ public class PortController {
 			model.addAttribute("error", "message.user.error.generic");
 			return "portEdit";
 		}
-		if (transType.equalsIgnoreCase(VikingConstants.TRANS_TYPE_COPY)) {
+		if (transType.equalsIgnoreCase(VikingConstant.TRANS_TYPE_COPY)) {
 			portCommand.getPort().setPortId(null);
 		}
 		portService.savePort(portCommand.getPort());

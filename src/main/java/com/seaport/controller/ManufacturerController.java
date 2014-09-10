@@ -19,7 +19,7 @@ import com.seaport.command.ManufacturerCommand;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IManufacturerService;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -101,7 +101,7 @@ public class ManufacturerController {
 			return "manufacturerEdit";
 		}
 		
-		if (transType.equalsIgnoreCase(VikingConstants.TRANS_TYPE_COPY)) {
+		if (transType.equalsIgnoreCase(VikingConstant.TRANS_TYPE_COPY)) {
 			manufacturerCommand.getCurrentManufacturer().setManufacturerId(null);
 		}
 		manufacturerService.saveManufacturer(manufacturerCommand.getCurrentManufacturer());

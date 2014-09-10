@@ -24,7 +24,7 @@ import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingUtils;
+import com.seaport.utils.VikingUtil;
 import com.seaport.validator.UserEditValidator;
 
 /**
@@ -103,12 +103,12 @@ public class UserEditController {
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		/*Validation block.*/
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
 		if (registrationCommand.getFormType().equals("E")) {
 			if (user.getUserId() == registrationCommand.getUser().getUserId()) {
-				if (!VikingUtils.isEmpty(registrationCommand.getOldPassword()) || 
-						!VikingUtils.isEmpty(registrationCommand.getNewPassword()) ||
-						!VikingUtils.isEmpty(registrationCommand.getNewPasswordCheck()) ) {
+				if (!VikingUtil.isEmpty(registrationCommand.getOldPassword()) || 
+						!VikingUtil.isEmpty(registrationCommand.getNewPassword()) ||
+						!VikingUtil.isEmpty(registrationCommand.getNewPasswordCheck()) ) {
 					
 					/*Db validations.*/
 					new UserEditValidator(userService).validate(registrationCommand, result);
@@ -123,7 +123,7 @@ public class UserEditController {
 		
 		/*For user edit.*/
 		if (registrationCommand.getFormType().equals("E")) {
-			if (user.getUserId() == registrationCommand.getUser().getUserId() && !VikingUtils.isEmpty(registrationCommand.getOldPassword())) {
+			if (user.getUserId() == registrationCommand.getUser().getUserId() && !VikingUtil.isEmpty(registrationCommand.getOldPassword())) {
 				BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 				String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getNewPassword());
 				registrationCommand.getUser().setPassword(encPassword);

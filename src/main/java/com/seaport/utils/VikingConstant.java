@@ -7,7 +7,7 @@ package com.seaport.utils;
  * @version      1.0 08/16/14 <P>
  */
 
-public class VikingConstants {
+public class VikingConstant {
 	/*Application wide user object name to get access from session.*/
 	public static final String USER_MODEL = "userModel";
 	
@@ -35,6 +35,9 @@ public class VikingConstants {
 	public boolean localConfig;
 	public boolean responsiveDesign;
 	public boolean applPhaseII;
+	
+	/*Semantic shortcuts*/
+	public static String VIKING_YES = "Y";
 	
 	public boolean isApplPhaseII() {
 		return applPhaseII;

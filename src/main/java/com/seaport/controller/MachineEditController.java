@@ -63,7 +63,7 @@ public class MachineEditController {
 				machineEditCommand.setFormType("E");
 			}
 		} else {
-			User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+			User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
 			if (user.getRole().getId().intValue() == 2) {
 				machineEditCommand.getMachine().setStevidorId(user.getStevidorId());
 			}

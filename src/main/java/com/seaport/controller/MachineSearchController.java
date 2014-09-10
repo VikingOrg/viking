@@ -31,7 +31,7 @@ import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingUtils;
+import com.seaport.utils.VikingUtil;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -104,7 +104,7 @@ public class MachineSearchController {
 	@ResponseBody
 	public List<Machine> getMachines(@PathVariable boolean getArchive,
 			HttpServletRequest request) throws Exception {
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
 		List<Machine> machineList = machineService.getMachines(user, getArchive); 
 		return machineList;
 	}
@@ -166,46 +166,46 @@ public class MachineSearchController {
 			} catch (Exception e) {
 			}
     		
-    		if (VikingUtils.isEmpty(groupName)) {
+    		if (VikingUtil.isEmpty(groupName)) {
     			groupName = new String(MACHINE_FIELD_FILLER);
-    		} else if (VikingUtils.isEmpty(modelName)){
+    		} else if (VikingUtil.isEmpty(modelName)){
     			modelName = new String(MACHINE_FIELD_FILLER);
-    		} else if (VikingUtils.isEmpty(stevidorFullName)){
+    		} else if (VikingUtil.isEmpty(stevidorFullName)){
     			stevidorFullName = new String(MACHINE_FIELD_FILLER);
-    		} else if (VikingUtils.isEmpty(modelDetail)){
+    		} else if (VikingUtil.isEmpty(modelDetail)){
     			modelDetail = new String(MACHINE_FIELD_FILLER);
-    		} else if (VikingUtils.isEmpty(manufactorName)){
+    		} else if (VikingUtil.isEmpty(manufactorName)){
     			manufactorName = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(releaseYear)){
+			} else if (VikingUtil.isEmpty(releaseYear)){
 				releaseYear = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(startDate)){
+			} else if (VikingUtil.isEmpty(startDate)){
 				startDate = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(contractNum)){
+			} else if (VikingUtil.isEmpty(contractNum)){
 				contractNum = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(inventoryNumb)){
+			} else if (VikingUtil.isEmpty(inventoryNumb)){
 				inventoryNumb = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(transNumb)){
+			} else if (VikingUtil.isEmpty(transNumb)){
 				transNumb = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(factoryNumb)){
+			} else if (VikingUtil.isEmpty(factoryNumb)){
 				factoryNumb = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(manufCountry)){
+			} else if (VikingUtil.isEmpty(manufCountry)){
 				manufCountry = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(location)){
+			} else if (VikingUtil.isEmpty(location)){
 				location = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(portName)){
+			} else if (VikingUtil.isEmpty(portName)){
 				portName = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(portCountry)){
+			} else if (VikingUtil.isEmpty(portCountry)){
 				portCountry = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(nomNum)){
+			} else if (VikingUtil.isEmpty(nomNum)){
 				nomNum = new String(MACHINE_FIELD_FILLER);
 			}
-			if (VikingUtils.isEmpty(regNum)){
+			if (VikingUtil.isEmpty(regNum)){
 				regNum = new String(MACHINE_FIELD_FILLER);
 			}
     		
-			if (VikingUtils.isEmpty(machineNote)){
+			if (VikingUtil.isEmpty(machineNote)){
 				machineNote = new String(MACHINE_FIELD_FILLER);
-			} else if (VikingUtils.isEmpty(groupId)){
+			} else if (VikingUtil.isEmpty(groupId)){
 				groupId = new String(MACHINE_FIELD_FILLER);
 			} 
     		

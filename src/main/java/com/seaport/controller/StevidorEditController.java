@@ -26,7 +26,7 @@ import com.seaport.domain.User;
 import com.seaport.service.IPortService;
 import com.seaport.service.IPositionService;
 import com.seaport.service.IStevidorService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -108,7 +108,7 @@ public class StevidorEditController {
 		
 		/*Setting up default not null values.*/
 		Timestamp updateDate = new Timestamp(new Date().getTime());
-		User user = (User)request.getSession().getAttribute(VikingConstants.USER_MODEL);
+		User user = (User)request.getSession().getAttribute(VikingConstant.USER_MODEL);
 		if (stevidorEditCommand.getStevidor().getStevidorId()== null) {
 			stevidorEditCommand.getStevidor().setCreateUserId(user.getUserId());
 			stevidorEditCommand.getStevidor().setCreateDate(updateDate);

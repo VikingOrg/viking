@@ -21,7 +21,7 @@ import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The DAO class that serves any type of Port requests 
@@ -58,7 +58,7 @@ public class MachineDAOImpl implements IMachineDAO {
 		Criteria criteria = getCurrentSession().createCriteria(Machine.class);
 		
 		/*Limits records for non-Admin accounts*/
-		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+		if (user.getRole().getId().intValue() != VikingConstant.USER_ROLE_ADMIN) {
 			criteria.add(Restrictions.eq("stevidorId", user.getStevidorId()));
 		}
 		/*For test Only*/

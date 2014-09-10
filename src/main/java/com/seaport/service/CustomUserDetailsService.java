@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.dao.IUserDAO;
+import com.seaport.utils.VikingUtil;
 
 @Service("customUserDetailsService")
 @Transactional(readOnly=true)
@@ -36,7 +37,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	    	throw new UsernameNotFoundException("No such user: ");
 	    } else if (domainUser.getRole()==null) { 
 	    	throw new UsernameNotFoundException("User " + domainUser.getLogin() + " has no authorities");
+	    } else if (VikingUtil.isArchived(domainUser.getArchived())) { 
+	    	throw new UsernameNotFoundException("User " + domainUser.getLogin() + " has no authorities");
 	    }		
+		
 		User user = new User(
 					domainUser.getLogin(), 
 					domainUser.getPassword(), 

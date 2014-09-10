@@ -7,7 +7,7 @@ import org.springframework.validation.Validator;
 
 import com.seaport.command.RegistrationCommand;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingUtils;
+import com.seaport.utils.VikingUtil;
 
 @Service
 public class UserEditValidator implements Validator{
@@ -31,15 +31,15 @@ public class UserEditValidator implements Validator{
 		RegistrationCommand registrationCommand = (RegistrationCommand)target;
 		
 		/*Check if empty*/
-		if (VikingUtils.isEmpty(registrationCommand.getOldPassword())) {
-			if (!VikingUtils.isEmpty(registrationCommand.getNewPassword()) || !VikingUtils.isEmpty(registrationCommand.getNewPasswordCheck())) {
+		if (VikingUtil.isEmpty(registrationCommand.getOldPassword())) {
+			if (!VikingUtil.isEmpty(registrationCommand.getNewPassword()) || !VikingUtil.isEmpty(registrationCommand.getNewPasswordCheck())) {
 				errors.rejectValue("oldPassword", "validation.size.login");
 			}
 		} else {
-			if (VikingUtils.isEmpty(registrationCommand.getNewPassword())) {
+			if (VikingUtil.isEmpty(registrationCommand.getNewPassword())) {
 				errors.rejectValue("newPassword", "validation.size.login");
 			}
-			if (VikingUtils.isEmpty(registrationCommand.getNewPasswordCheck())) {
+			if (VikingUtil.isEmpty(registrationCommand.getNewPasswordCheck())) {
 				errors.rejectValue("newPasswordCheck", "validation.size.login");
 			}
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();

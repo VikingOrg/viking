@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.CountryCommand;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -86,7 +86,7 @@ public class CountryController {
 			model.addAttribute("error", "message.user.error.generic");
 			return "countryEdit";
 		}
-		if (transType.equalsIgnoreCase(VikingConstants.TRANS_TYPE_COPY)) {
+		if (transType.equalsIgnoreCase(VikingConstant.TRANS_TYPE_COPY)) {
 			countryCommand.getCountry().setCountryId(null);
 		}
 		

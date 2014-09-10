@@ -16,7 +16,7 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 @Configuration
 @EnableTransactionManagement
@@ -76,8 +76,8 @@ public class RootConfig {
 	
 	@Bean
 //	@Scope("prototype")
-	public VikingConstants systemConstants(){
-		VikingConstants systemConstants = new VikingConstants();
+	public VikingConstant systemConstants(){
+		VikingConstant systemConstants = new VikingConstant();
 		if (System.getenv("OPENSHIFT_MYSQL_DB_HOST") == null) {
 			systemConstants.setLocalConfig(true);
 		}

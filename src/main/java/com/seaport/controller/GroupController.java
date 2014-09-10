@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.GroupCommand;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -92,7 +92,7 @@ public class GroupController {
 			model.addAttribute("error", "message.user.error.generic");
 			return "groupEdit";
 		}
-		if (transType.equalsIgnoreCase(VikingConstants.TRANS_TYPE_COPY)) {
+		if (transType.equalsIgnoreCase(VikingConstant.TRANS_TYPE_COPY)) {
 			groupCommand.getCurrentGroup().setGroupId(null);
 		}
 		groupService.saveGroup(groupCommand.getCurrentGroup());

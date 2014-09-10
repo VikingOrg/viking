@@ -24,7 +24,7 @@ import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -116,7 +116,7 @@ public class MachineModelController {
 			return "machineModelEdit";
 		}
 		
-		if (transType.equalsIgnoreCase(VikingConstants.TRANS_TYPE_COPY)) {
+		if (transType.equalsIgnoreCase(VikingConstant.TRANS_TYPE_COPY)) {
 			machineModelEditCommand.getMachineModel().setModelId(null);
 		}
 		

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +37,7 @@ import com.seaport.service.IMachineService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
-import com.seaport.utils.VikingConstants;
+import com.seaport.utils.VikingConstant;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -92,8 +91,8 @@ public class ReportSelectionController {
 	@RequestMapping(value="/group/", method = RequestMethod.GET)
 	public String setupDynamicReport(HttpServletRequest request, ModelMap model)  throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
-		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
+		if (user.getRole().getId().intValue() != VikingConstant.USER_ROLE_ADMIN) {
 			reportSelectionCommand.setStevidorId(user.getStevidorId());
 		}		
 		setFilterMaps(reportSelectionCommand);
@@ -110,9 +109,9 @@ public class ReportSelectionController {
 	 */
 	@RequestMapping(value="/manufacturer/", method = RequestMethod.GET)
 	public String setupManufacturerReport(HttpServletRequest request, ModelMap model)  throws Exception{
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
-		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+		if (user.getRole().getId().intValue() != VikingConstant.USER_ROLE_ADMIN) {
 			reportSelectionCommand.setStevidorId(user.getStevidorId());
 		}		
 		setFilterMaps(reportSelectionCommand);
@@ -130,8 +129,8 @@ public class ReportSelectionController {
 	@RequestMapping(value="/account/", method = RequestMethod.GET)
 	public String setupCounReport(HttpServletRequest request, ModelMap model) throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
-		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
+		if (user.getRole().getId().intValue() != VikingConstant.USER_ROLE_ADMIN) {
 			reportSelectionCommand.setStevidorId(user.getStevidorId());
 		}		
 		setFilterMaps(reportSelectionCommand);
@@ -236,12 +235,12 @@ public class ReportSelectionController {
 		} 
 		
 		/*Get machines by stevidor.*/
-		Integer stevidorId = (Integer)filtersMap.get(VikingConstants.COMPANY_SINGLE_FILTER);
+		Integer stevidorId = (Integer)filtersMap.get(VikingConstant.COMPANY_SINGLE_FILTER);
 		List<Machine> machineList =  machineService.getMachineByStevedorId(stevidorId);
 
 		Map<Integer, Group> groupMap = new HashMap<Integer, Group>();
-		if (filtersMap.containsKey(VikingConstants.GROUP_FILTER)) {
-			Integer groupId = (Integer)filtersMap.get(VikingConstants.GROUP_FILTER);
+		if (filtersMap.containsKey(VikingConstant.GROUP_FILTER)) {
+			Integer groupId = (Integer)filtersMap.get(VikingConstant.GROUP_FILTER);
 			groupMap.put(groupId, reportSelectionCommand.getGroupMap().get(groupId));
 		} else {
 			groupMap = reportSelectionCommand.getGroupMap();
@@ -294,28 +293,28 @@ public class ReportSelectionController {
 		Map<String, Object> filtersMap= new HashMap<String, Object>();
 		/*Company Filter (value) pair.*/ 
 		if (!reportSelectionCommand.getStevidorSelection()[0].equalsIgnoreCase("0")) {
-			filtersMap.put(VikingConstants.COMPANY_MULTI_FILTER, reportSelectionCommand.getStevidorSelection());
+			filtersMap.put(VikingConstant.COMPANY_MULTI_FILTER, reportSelectionCommand.getStevidorSelection());
 		}
 		if (reportSelectionCommand.getStevidorId()!=null && reportSelectionCommand.getStevidorId().intValue()!=0) {
-			filtersMap.put(VikingConstants.COMPANY_SINGLE_FILTER, reportSelectionCommand.getStevidorId());
+			filtersMap.put(VikingConstant.COMPANY_SINGLE_FILTER, reportSelectionCommand.getStevidorId());
 		} 
 		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
-			filtersMap.put(VikingConstants.GROUP_FILTER, reportSelectionCommand.getGroupId());
+			filtersMap.put(VikingConstant.GROUP_FILTER, reportSelectionCommand.getGroupId());
 		} 
 		if (reportSelectionCommand.getModelId()!=null && reportSelectionCommand.getModelId().intValue()!=0) {
-			filtersMap.put(VikingConstants.MODEL_FILTER, reportSelectionCommand.getModelId());
+			filtersMap.put(VikingConstant.MODEL_FILTER, reportSelectionCommand.getModelId());
 		}
 		
 		if (reportSelectionCommand.getReleaseStartYear()!=null && !reportSelectionCommand.getReleaseStartYear().equalsIgnoreCase("")) {
-			filtersMap.put(VikingConstants.YEAR_START_FILTER, reportSelectionCommand.getReleaseStartYear());
+			filtersMap.put(VikingConstant.YEAR_START_FILTER, reportSelectionCommand.getReleaseStartYear());
 		}  
 
 		if (reportSelectionCommand.getReleaseEndYear()!=null && !reportSelectionCommand.getReleaseEndYear().equalsIgnoreCase("")) {
-			filtersMap.put(VikingConstants.YEAR_END_FILTER, reportSelectionCommand.getReleaseEndYear());
+			filtersMap.put(VikingConstant.YEAR_END_FILTER, reportSelectionCommand.getReleaseEndYear());
 		}  
 		
 		if (reportSelectionCommand.getManufacturerId()!=null && reportSelectionCommand.getManufacturerId().intValue()!=0) {
-			filtersMap.put(VikingConstants.MANUFACTOR_FILTER, reportSelectionCommand.getManufacturerId());
+			filtersMap.put(VikingConstant.MANUFACTOR_FILTER, reportSelectionCommand.getManufacturerId());
 		} 
 		
 		return filtersMap;
