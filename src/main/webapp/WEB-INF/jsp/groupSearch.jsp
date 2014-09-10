@@ -9,6 +9,8 @@
 <title>Таблица Групп Механизмов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {

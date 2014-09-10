@@ -5,8 +5,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
 
 	<form:form id="ajaxSubmitForm" commandName="countryCommand" method="post" accept-charset="UTF-8">
 		  <div class="modal-header"> <!-- modal header start -->
@@ -73,7 +71,9 @@
 				        
 						<c:if test="${not empty countryCommand.country.countryId}"> 
 					        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+					        <%--
 					        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
+					         --%>
 				        </c:if>
 						<c:if test="${empty countryCommand.country.countryId}"> 
 					        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>

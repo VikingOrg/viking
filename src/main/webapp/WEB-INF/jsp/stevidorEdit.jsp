@@ -219,7 +219,9 @@
 					        </div>
 		        			<div class="col-md-4 col-md-offset-1">
 					          <div class="form-actions" style= "padding: 20px">
+					            <%--
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button>
+						         --%>
 					            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
 				           		<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="stevidorSearch"/>';" >Отмена</a>
 					          </div>

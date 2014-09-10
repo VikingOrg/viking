@@ -4,9 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
-
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
     
 <form:form id="ajaxSubmitForm" action="/groupEdit" commandName="groupCommand" method="post" accept-charset="UTF-8">
 
@@ -68,7 +65,9 @@
 				        
 						<c:if test="${not empty groupCommand.currentGroup.groupId}"> 
 					        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+					        <%--
 					        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
+					         --%>
 				        </c:if>
 						<c:if test="${empty groupCommand.currentGroup.groupId}"> 
 					        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
