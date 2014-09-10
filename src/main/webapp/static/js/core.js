@@ -14,3 +14,4 @@ function closeProgressModal(selector) {
     $(selector).modal('hide');
 }
 
+

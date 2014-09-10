@@ -222,34 +222,27 @@
 					            <%--
 						        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button>
 						         --%>
-					            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
+					            <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
 				           		<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="stevidorSearch"/>';" >Отмена</a>
 					          </div>
 					        </div>
 		        		  </div>
-					  </div>	
-			    
-			    <!-- 		Модальное окно подтверждения сохранения введенных данных -->
-				<div class="modal fade" id="confirmSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-body" align="center">
-				        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ ВВЕДЕННЫХ ДАННЫХ</h4>
-				      </div>
-				      <div class="modal-footer">
-				        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
-				        <button type="submit" class="btn btn-primary">Сохранить</button>
-				      </div>
-				    </div><!-- /.modal-content -->
-				  </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-		
+					  </div>
+					  <jsp:include page="common/confirmModal.jsp" />	
 			</form:form>    			
 		 </div> <!-- End of Main Container -->	
 	</div> <!-- Closing div tag for wrap -->
-		<jsp:include page="common/footer.jsp" />
+	
+	<jsp:include page="common/footer.jsp" />
+	
+	<script>
+        $("#submitUpdate").click(function(e) {
+     	   e.preventDefault();
+     	   if ($("#registration").valid()) {
+     		  $("#confirmSave").modal('show');
+           }
+        });
 		
-		<script>
 	    $('#stevidorEditTab a').click(function (e) {
 	    	  e.preventDefault(),
 	    	  $(this).tab('show');

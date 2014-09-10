@@ -77,7 +77,9 @@
 				        
 						<c:if test="${not empty manufacturerCommand.currentManufacturer.manufacturerId}"> 
 					        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+					        <%--
 					        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
+					         --%>
 				        </c:if>
 						<c:if test="${empty manufacturerCommand.currentManufacturer.manufacturerId}"> 
 					        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>

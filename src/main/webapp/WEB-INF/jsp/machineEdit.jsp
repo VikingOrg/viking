@@ -84,15 +84,74 @@
                         }
                     });
               });
-              
+
+              /*This is for dropzone to prevent it from submitting form when file is loaded.*/
               $( "#machine_edit_form" ).submit(function( event ) {
                   if (submittignForm) {
                   } else {
                 	  event.preventDefault();
                   }
               });
-              
 
+              /*Clicking to update button.*/
+              $("#submitUpdate").click(function(e) {
+            	   e.preventDefault();
+            	   if ($("#machine_edit_form").valid()) {
+            		  $("#confirm_edit").modal('show');
+                  }
+               });              
+
+              /*Cliking to save new machine button*/
+              $("#submitNew").click(function(e) {
+           	   e.preventDefault();
+           	   if ($("#machine_edit_form").valid()) {
+           		  $("#confirm_new").modal('show');
+                 }
+              });              
+              
+      		   $("#moda_copy_submit").click(function(e) {
+      		    	$('#confirm_edit').modal('hide');
+	              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/edit");
+	              	$('#machine_edit_form').attr('method', "post");
+	              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
+	              	submittignForm = true;
+	              	$('#machine_edit_form').submit();
+               });
+               
+      		   $("#modal_new_submit").click(function(e) {
+     		    	$('#confirm_new').modal('hide');
+	              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/new");
+	              	$('#machine_edit_form').attr('method', "post");
+	              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
+	              	submittignForm = true;
+	              	$('#machine_edit_form').submit();
+              });	
+                
+    		   $("#machine_edit_form").validate({
+    		        highlight: function(element) {
+    		            $(element).closest('.form-group').addClass('has-error');
+    		        },
+    		        unhighlight: function(element) {
+    		            $(element).closest('.form-group').removeClass('has-error');
+    		        },
+    		        errorElement: 'span',
+    		        errorClass: 'help-block',
+    		        errorPlacement: function(error, element) {
+    		            if(element.parent('.input-group').length) {
+    		                error.insertAfter(element.parent());
+    		            } else {
+    		                error.insertAfter(element);
+    		            }
+    		        }
+    		   });
+    		                     
+               $("#inventoryNumb").rules("add", {required:true});
+               $("#docNumb").rules("add", {required:true});
+               $("#transNumb").rules("add", {required:true});
+               $("#factoryNumb").rules("add", {required:true});
+               $("#nomNo").rules("add", {required:true});
+               $("#regNo").rules("add", {required:true});
+                                
 		  }); // end of document.ready
 		  
       	function closingModal(modelId, successMsg, groupId){
@@ -457,10 +516,10 @@
 			          <br>
 			          <div class="form-actions">
 						<c:if test="${machineEditCommand.formType=='E'}">
-								<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_edit" onclick="submitForm()" value="Сохранить Отред." />
+								<input id="submitUpdate" type="button" class="btn btn-primary"" value="Сохранить Отред." />
 						</c:if>	
 						<c:if test="${machineEditCommand.formType != 'E'}">
-								<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_new" onclick="submitForm()" value="Сохранить Новую." />
+								<input id="submitNew" type="button" class="btn btn-primary" value="Сохранить Новую." />
 						</c:if>	
 			            <!--  <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_edit" onclick="submitForm()" value="Скопировать" /> -->
 			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';" value="Klick">Отмена</a>			            
@@ -478,23 +537,9 @@
 				        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ НОВОГО МЕХАНИЗМА</h4>
 				      </div>
 				      <div class="modal-footer">
-				        <a id = "modal_new_cancel" class="cancelbtn" type="button" data-dismiss="modal">Отмена</a>
+				        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
 				        <a id = "modal_new_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
 				      </div>
-				      <script type="text/javascript">
-		      		    $("#modal_new_cancel").click(function(e) {
-		      		    	$('#confirm_new').modal('hide');
-		                });
-		                
-		      		    $("#modal_new_submit").click(function(e) {
-		      		    	$('#confirm_new').modal('hide');
-			              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/new");
-			              	$('#machine_edit_form').attr('method', "post");
-			              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
-			              	submittignForm = true;
-			              	$('#machine_edit_form').submit();
-		                });		      
-				      </script>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
@@ -507,58 +552,14 @@
 				        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ МЕХАНИЗМА</h4>
 				      </div>
 				      <div class="modal-footer">
-				        <a id = "modal_copy_cancel" class="cancelbtn" type="button" data-dismiss="modal">Отмена</a>
+				        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
 				        <a id = "moda_copy_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
 				      </div>
-				     
-   				      <script type="text/javascript">
-		      		    $("#modal_copy_cancel").click(function(e) {
-		      		    	$('#confirm_edit').modal('hide');
-		                });
-		                
-		      		    $("#moda_copy_submit").click(function(e) {
-		      		    	$('#confirm_edit').modal('hide');
-			              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/edit");
-			              	$('#machine_edit_form').attr('method', "post");
-			              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
-			              	submittignForm = true;
-			              	$('#machine_edit_form').submit();
-		                });
-
-		                
-		    		    $("#machine_edit_form").validate({
-		    		        highlight: function(element) {
-		    		            $(element).closest('.form-group').addClass('has-error');
-		    		        },
-		    		        unhighlight: function(element) {
-		    		            $(element).closest('.form-group').removeClass('has-error');
-		    		        },
-		    		        errorElement: 'span',
-		    		        errorClass: 'help-block',
-		    		        errorPlacement: function(error, element) {
-		    		            if(element.parent('.input-group').length) {
-		    		                error.insertAfter(element.parent());
-		    		            } else {
-		    		                error.insertAfter(element);
-		    		            }
-		    		        }
-		    		    });
-		    		                     
-		                $("#inventoryNumb").rules("add", {required:true});
-		                $("#docNumb").rules("add", {required:true});
-		                $("#transNumb").rules("add", {required:true});
-		                $("#factoryNumb").rules("add", {required:true});
-		                $("#nomNo").rules("add", {required:true});
-		                $("#regNo").rules("add", {required:true});
-		                				      
-				      </script>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 			    
 			</form:form>
-			
-
     
   		
 				<div id="machineModelModal" class="modal modal-wide fade">

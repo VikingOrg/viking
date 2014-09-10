@@ -45,6 +45,7 @@
 						<div class="form-group">
 							<label class="form-label">Страна</label>
 							<form:select id="countryNameRus" path="port.countryId" cssClass="form-control">
+								<form:option value="">Не выбрана</form:option>
 								<c:forEach items="${portCommand.countryMap}" var="country">
 									<form:option value="${country.key}" label="${country.value.nameRus}" />
 								</c:forEach>
@@ -175,6 +176,7 @@
 		    });
 		                     
            $("#portName").rules("add", {required:true});
+           $("#countryNameRus").rules("add", {required:true});
 
         
 	 </script>
