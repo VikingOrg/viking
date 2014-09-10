@@ -16,10 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
-import com.seaport.domain.Manufacturer;
 import com.seaport.domain.MachineModel;
+import com.seaport.domain.Manufacturer;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstants;

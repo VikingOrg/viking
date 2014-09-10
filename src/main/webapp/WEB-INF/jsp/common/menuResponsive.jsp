@@ -115,7 +115,8 @@
 									    </a>
 									</li> --%>									
 									<li class="dropdown" style="padding:4px;">
-										<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5; font-weight: bold;">${userModel.firstName} &nbsp;${userModel.lastName} <strong class="caret"></strong></a>
+										<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5; font-weight: bold;">
+											${userModel.firstName} &nbsp;${userModel.lastName} (${userModel.role.role})<strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
 												<li><a href="<c:url value="/userEditAdmin/edit/${userModel.userId}"/>">Личные данные</a></li>
 												<li>

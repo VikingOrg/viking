@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -70,15 +73,16 @@
 			          </div>
 			      <div class="row">
 			        <div class="col-sm-4 col-sm-offset-1">
+			<sec:authorize access="hasRole('ROLE_ADMIN')">         
 			        	<div class="form-group">
 			            	<label class="form-label">Роль в системе</label>
 							<form:select path="userRole" cssClass="form-control" tabindex="1">
-							   <form:option value="3" label="Не авторизован"/>
+							   <form:option value="3" label="Не зарегистрирован"/>
 							   <form:option value="2" label="Пользователь"/>
 							   <form:option value="1" label="Администратор"/>
 							</form:select>			            	
 			          	</div>
-				     
+			</sec:authorize>     
 					     <v:input path="user.lastName" label="Фамилия" required="true" title="Введите свою фамилию" tabindex="2"/>
 					     <v:input path="user.firstName" label="Имя" required="true" title="Введите своё имя" tabindex="3"/>
 						 <v:input path="user.middleInitial" label="Отчество" title="Введите своё отчество" tabindex="4"/>

@@ -4,6 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
 
 				<form:form id="ajaxSubmitForm" commandName="machineModalEditCommand" action="/machineModel" method="POST" accept-charset="UTF-8">
 				      <div class="modal-header">
@@ -39,8 +41,8 @@
 					      </div>
 					      <div class="row">
 					        <div class="col-sm-4 col-sm-offset-1">
-					        	<v:input id="machineModelName" path="machineModel.name" label="Модель" required="true" title="Укажите модель"/>
-					        	<v:input id="machineModelDetail" path="machineModel.details" label="Характеристика" required="true" title="Укажите характеристики модели"/>
+					        	<v:input id="machineModelName" path="machineModel.name" label="Модель" required="true" title="Укажите модель" maxlength="60"/>
+					        	<v:input id="machineModelDetail" path="machineModel.details" label="Характеристика" required="true" title="Укажите характеристики модели" maxlength="250"/>
 					        	
 					            <div class="form-group">
 						            <label class="form-label">Примечания</label>
@@ -78,15 +80,24 @@
 				      </div> <!-- /.modal-body -->
 
 				      <div id="editManufacture" class="modal-footer">
-				        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
-				        
-						<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
-					        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
-					        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
-				        </c:if>
-						<c:if test="${empty machineModalEditCommand.machineModel.modelId}"> 
-					        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
-				        </c:if>				        
+				      	<div class="container">
+				             <div class="row">
+						        <div class="col-md-4 col-md-offset-1">
+						          <h4>* Поля, обязательные к заполнению</h4>
+						        </div>
+			        			<div class="col-md-4 col-md-offset-1">
+							        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
+							        
+									<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
+								        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+								        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
+							        </c:if>
+									<c:if test="${empty machineModalEditCommand.machineModel.modelId}"> 
+								        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
+							        </c:if>	
+							    </div>
+							 </div>
+				        </div>			        
 				      </div>
 				      
 				 </form:form>
@@ -97,18 +108,23 @@
 	              	  	var height = $(window).height() - 200;
 	            	  	$(this).find(".modal-body").css("max-height", height);
 	            	               	   
-	                    $("#submitUpdate").click(function(e) {
+	            	  	$("#submitUpdate").click(function(e) {
 	                 	   e.preventDefault();
-	          			   initiateAjaxCall("update");
+	                        if ($("#ajaxSubmitForm").valid()) {
+	                     	 initiateAjaxCall("update");
+	                        }
 	                    });
 	                    $("#submitCopy").click(function(e) {
 	                 	   e.preventDefault();
-	          			   initiateAjaxCall("copy");
+	                        if ($("#ajaxSubmitForm").valid()) {
+	          			     initiateAjaxCall("copy");
+	                        }
 	                    });
-	                    
 	                    $("#submitCreate").click(function(e) {
 	                 	   e.preventDefault();
+	                          if ($("#ajaxSubmitForm").valid()) {
 	          			   initiateAjaxCall("create");
+	                        }
 	                    });
 	                    
 	         	       function initiateAjaxCall(requestType){
@@ -172,7 +188,28 @@
 	         	            });           	
 	         	       }
 	             	   
-	                });				 
+	                });				
+
+	                $("#ajaxSubmitForm").validate({
+	    		        highlight: function(element) {
+	    		            $(element).closest('.form-group').addClass('has-error');
+	    		        },
+	    		        unhighlight: function(element) {
+	    		            $(element).closest('.form-group').removeClass('has-error');
+	    		        },
+	    		        errorElement: 'span',
+	    		        errorClass: 'help-block',
+	    		        errorPlacement: function(error, element) {
+	    		            if(element.parent('.input-group').length) {
+	    		                error.insertAfter(element.parent());
+	    		            } else {
+	    		                error.insertAfter(element);
+	    		            }
+	    		        }
+	    		    });
+	    		                     
+	                $("#machineModelName").rules("add", {required:true});
+	                $("#machineModelDetail").rules("add", {required:true}); 
 				 </script>
 				 	 
 				 	 

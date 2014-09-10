@@ -63,15 +63,24 @@
 		  </div> <!-- end of modal body -->
 	
 	      <div class="modal-footer"> <!-- Modal Footer Start -->
-	        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
-	        
-			<c:if test="${not empty countryCommand.country.countryId}"> 
-		        <button id="submitUpdate" type="submit" class="btn btn-primary">Сохранить</button>
-		        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
-	        </c:if>
-			<c:if test="${empty countryCommand.country.countryId}"> 
-		        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
-	        </c:if>				        
+	      	<div class="container">
+	             <div class="row">
+			        <div class="col-md-4 col-md-offset-1">
+			          <h4>* Поля, обязательные к заполнению</h4>
+			        </div>
+        			<div class="col-md-4 col-md-offset-1">
+				        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
+				        
+						<c:if test="${not empty countryCommand.country.countryId}"> 
+					        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
+					        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
+				        </c:if>
+						<c:if test="${empty countryCommand.country.countryId}"> 
+					        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
+				        </c:if>	
+				    </div>
+				 </div>
+	        </div>			        
 	      </div> <!-- Modal Footer End -->
 
 	</form:form>
@@ -85,11 +94,15 @@
            });
            $("#submitCopy").click(function(e) {
         	   e.preventDefault();
- 			   initiateAjaxCall("copy");
+               if ($("#ajaxSubmitForm").valid()) {
+ 			     initiateAjaxCall("copy");
+               }
            });
            $("#submitCreate").click(function(e) {
         	   e.preventDefault();
+                 if ($("#ajaxSubmitForm").valid()) {
  			   initiateAjaxCall("create");
+               }
            });
            
 	       function initiateAjaxCall(requestType){

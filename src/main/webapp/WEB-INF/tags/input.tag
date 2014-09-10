@@ -13,6 +13,7 @@
 <%@attribute name="tabindex" required="false" type="java.lang.String"%>
 <%@attribute name="maxlength" required="false" type="java.lang.String"%>
 <%@attribute name="autocomplete" required="false" type="java.lang.String"%>
+<%@attribute name="placeholder" required="false" type="java.lang.String"%>
 
 <spring:bind path="${path}">
     <div class="form-group ${status.error ? 'has-error' : '' }">
@@ -30,6 +31,7 @@
             	title="${empty title ? '' : title}"
             	tabindex="${empty tabindex ? '' : tabindex}"
             	maxlength="${empty maxlength ? '' : maxlength}"
+            	placeholder="${empty placeholder ? '' : placeholder}"
             	autocomplete="${empty autocomplete ? '' : autocomplete}"/>
             	
            	<form:errors path="${path}" cssClass="control-label"/>

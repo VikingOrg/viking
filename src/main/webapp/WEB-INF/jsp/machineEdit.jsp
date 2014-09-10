@@ -23,6 +23,8 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
 	    <script type="text/javascript" src="<c:url value="/static/js/dropzone.js"/>"></script>
+	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
 		  
 		  
 		<script>
@@ -424,13 +426,13 @@
 								      	<%-- 
 										<v:input path="machine.details" label="Характеристики" required="true" title="Укажите характеристики модели"/>
 										--%>
-							            <v:input path="machine.inventoryNumb" label="Инвентарный №" required="true" title="Введите инвентарный номер"/>
+							            <v:input id="inventoryNumb" path="machine.inventoryNumb" label="Инвентарный №" required="true" title="Введите инвентарный номер" maxlength="50"/>
 							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="true" title="Укажите дату ввода в эксплуатацию" id="datepicker"/>
-										<v:input path="machine.doc" label="Контракт №" required="true" title="Укажите документ ввода в эксплуатацию"/>
-										<v:input path="machine.transNumb" label="Транс №" required="true" title="Укажите номер Транса"/>
-							            <v:input path="machine.factoryNumb" label="Заводской №" required="true" title="Укажите заводской номер"/>
-							            <v:input path="machine.nomNo" label="Номенклатурный №" required="true" title="Укажите номенклатурный номер"/>
-							            <v:input path="machine.regNo" label="Регистрационный №" required="true" title="Укажите регистрационный номер из реестра Ростехнадзора"/>
+										<v:input id="docNumb" path="machine.doc" label="Контракт №" required="true" title="Укажите документ ввода в эксплуатацию" maxlength="20"/>
+										<v:input id="transNumb" path="machine.transNumb" label="Транс №" required="true" title="Укажите номер Транса" maxlength="15"/>
+							            <v:input id="factoryNumb" path="machine.factoryNumb" label="Заводской №" required="true" title="Укажите заводской номер" maxlength="20"/>
+							            <v:input id="nomNo" path="machine.nomNo" label="Номенклатурный №" required="true" title="Укажите номенклатурный номер" maxlength="50"/>
+							            <v:input id="regNo" path="machine.regNo" label="Регистрационный №" required="true" title="Укажите регистрационный номер из реестра Ростехнадзора" maxlength="50"/>
 				
 							            <div class="form-group">
 								            <label class="form-label">Примечания</label>
@@ -518,6 +520,32 @@
 			              	submittignForm = true;
 			              	$('#machine_edit_form').submit();
 		                });
+
+		                
+		    		    $("#machine_edit_form").validate({
+		    		        highlight: function(element) {
+		    		            $(element).closest('.form-group').addClass('has-error');
+		    		        },
+		    		        unhighlight: function(element) {
+		    		            $(element).closest('.form-group').removeClass('has-error');
+		    		        },
+		    		        errorElement: 'span',
+		    		        errorClass: 'help-block',
+		    		        errorPlacement: function(error, element) {
+		    		            if(element.parent('.input-group').length) {
+		    		                error.insertAfter(element.parent());
+		    		            } else {
+		    		                error.insertAfter(element);
+		    		            }
+		    		        }
+		    		    });
+		    		                     
+		                $("#inventoryNumb").rules("add", {required:true});
+		                $("#docNumb").rules("add", {required:true});
+		                $("#transNumb").rules("add", {required:true});
+		                $("#factoryNumb").rules("add", {required:true});
+		                $("#nomNo").rules("add", {required:true});
+		                $("#regNo").rules("add", {required:true});
 		                				      
 				      </script>
 				    </div><!-- /.modal-content -->
