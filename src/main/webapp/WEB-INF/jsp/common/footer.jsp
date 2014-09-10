@@ -47,7 +47,7 @@
 					      </div>
 					      <div class="modal-footer">
 					        <a type="button" class="cancelbtn" data-dismiss="modal">ОТМЕНА</a>
-					        <a id="applLogout" href="#" class="btn btn-primary" class="btn btn-primary" onclick="applLogout()">ВЫЙТИ</a>
+					        <a id="applLogout" href="<c:url value="/j_spring_security_logout"/>" class="btn btn-primary" class="btn btn-primary" onclick="applLogout()">ВЫЙТИ</a>
 					      </div>
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
