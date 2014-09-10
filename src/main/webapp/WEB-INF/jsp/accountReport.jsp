@@ -113,24 +113,27 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
-									<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<c:set var="isdisabled" value="false" />
+									<c:if test="${userModel.role.id != 1}">
+										<c:set var="isdisabled" value="true" />
+									</c:if>									
+
 									<div class="form-group">
 										<label>Компания</label>
-											<form:select id="stevidorSelection" path="stevidorId" cssClass="form-control col-sm-12">
-												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
-												</c:forEach>
-											</form:select>
+										<form:select id="stevidorSelection" path="stevidorId" cssClass="form-control col-sm-12" disabled="${isdisabled}">
+											<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
+												<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
+											</c:forEach>
+										</form:select>
 									</div>		
-									</sec:authorize>					
 									<div class="form-group">
 										<label>Группа</label>
-											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
-												<form:option value="0" >Все группы</form:option>
-												<c:forEach items="${reportSelectionCommand.groupMap}" var="group">
-													<form:option value="${group.key}" label="${group.value.name}" />
-												</c:forEach>
-											</form:select>
+										<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
+											<form:option value="0" >Все группы</form:option>
+											<c:forEach items="${reportSelectionCommand.groupMap}" var="group">
+												<form:option value="${group.key}" label="${group.value.name}" />
+											</c:forEach>
+										</form:select>
 									</div>
 									<div id="data_table_elements" class="form-group">
 										<label>Кол.строк:</label>
@@ -187,9 +190,11 @@
 								<tr>
 									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
 									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions">
+									    <%--
 	                     	 			<a href="#" class="btn btn-warning pull-right" id="chartPie" style="height:25px; font-size:12px; text-decoration:none;">
 	                     	 				 Диаграмма<i class="fa fa-bar-chart-o" style="padding-left: 15px"></i>
 	                      			    </a>
+	                      			     --%>
 									</td>
 								</tr>
 								<tr>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import com.seaport.dao.IReportDAO;
 import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
 import com.seaport.domain.Stevidor;
+import com.seaport.domain.User;
 import com.seaport.dto.CompanyReportDTO;
 import com.seaport.dto.GroupReportDTO;
 import com.seaport.dto.ManufacturerReportDTO;
@@ -90,6 +92,10 @@ public class ReportSelectionController {
 	@RequestMapping(value="/group/", method = RequestMethod.GET)
 	public String setupDynamicReport(HttpServletRequest request, ModelMap model)  throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+			reportSelectionCommand.setStevidorId(user.getStevidorId());
+		}		
 		setFilterMaps(reportSelectionCommand);
 		
 		model.put("reportSelectionCommand", reportSelectionCommand);
@@ -104,7 +110,11 @@ public class ReportSelectionController {
 	 */
 	@RequestMapping(value="/manufacturer/", method = RequestMethod.GET)
 	public String setupManufacturerReport(HttpServletRequest request, ModelMap model)  throws Exception{
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
+		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+			reportSelectionCommand.setStevidorId(user.getStevidorId());
+		}		
 		setFilterMaps(reportSelectionCommand);
 		
 		model.put("reportSelectionCommand", reportSelectionCommand);
@@ -120,6 +130,10 @@ public class ReportSelectionController {
 	@RequestMapping(value="/account/", method = RequestMethod.GET)
 	public String setupCounReport(HttpServletRequest request, ModelMap model) throws Exception{
 		ReportSelectionCommand reportSelectionCommand = new ReportSelectionCommand();
+		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstants.USER_MODEL);
+		if (user.getRole().getId().intValue() != VikingConstants.USER_ROLE_ADMIN) {
+			reportSelectionCommand.setStevidorId(user.getStevidorId());
+		}		
 		setFilterMaps(reportSelectionCommand);
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "accountReport";

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -42,8 +43,9 @@ public class SecurityNavigation {
 	}
 	
 	@RequestMapping(value = "/logout")
- 	public String logout() throws Exception {
-		return "/access/logout";
+ 	public String logout(RedirectAttributes redirectAttributes) throws Exception {
+		redirectAttributes.addFlashAttribute("message", "message.user.logout");
+		return "redirect:/login";
 	}
 	
 	@RequestMapping(value="/404.html")

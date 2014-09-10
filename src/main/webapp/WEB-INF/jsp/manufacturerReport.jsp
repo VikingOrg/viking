@@ -150,17 +150,20 @@
 							<div class="row">
 	
 								<div class="col-sm-12">
-									<sec:authorize access="hasRole('ROLE_ADMIN')">
-										<div class="form-group">
-											<label>Компания</label>
-											<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control col-sm-12">
-												<form:option value="0">Все компании</form:option>
-												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
-												</c:forEach>
-											</form:select>
-										</div>													
-									</sec:authorize>			
+									<div class="form-group">
+										<c:set var="isdisabled" value="false" />
+										<c:if test="${userModel.role.id != 1}">
+											<c:set var="isdisabled" value="true" />
+										</c:if>									
+										<label>Компания</label>
+										<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control col-sm-12" disabled="${isdisabled}" >
+											<form:option value="0">Все компании</form:option>
+											<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
+												<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
+											</c:forEach>
+										</form:select>
+									</div>													
+			
 									<div class="form-group">
 										<label>Группа</label>
 										<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">

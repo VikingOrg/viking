@@ -18,15 +18,24 @@
 </div>
 
     	<script type="text/javascript">
+			
+      	  	//$("#applLogout").click(function(e) {
+           	//    e.preventDefault();
+           	//    $('form').attr('action', baseUrl()+"j_spring_security_logout").submit();
+            //});			
+			            
+            function applLogout() {
+               //var baseUrl = baseUrl();
+          	   var href = window.location.href.split('/');
+          	   var baseUrl = href[0]+'//'+href[2]+'/'+href[3]+'/'; 
+            	$('form').attr('action', baseUrl+"j_spring_security_logout").submit();
+            }
 
-            $(document).ready(function() {
-
-            });
-            
             function baseUrl() {
-            	   var href = window.location.href.split('/');
-            	   return href[0]+'//'+href[2]+'/';
-            }            
+         	   var href = window.location.href.split('/');
+         	   return href[0]+'//'+href[2]+'/';
+            }
+                          
         </script>        
     		        
 					    <!-- 		Модальное окно подтверждения выхода из системы -->
@@ -38,7 +47,7 @@
 					      </div>
 					      <div class="modal-footer">
 					        <a type="button" class="cancelbtn" data-dismiss="modal">ОТМЕНА</a>
-					        <a href="<c:url value="j_spring_security_logout" />" class="btn btn-primary" type="submit" class="btn btn-primary">ВЫЙТИ</a>
+					        <a id="applLogout" href="#" class="btn btn-primary" class="btn btn-primary" onclick="applLogout()">ВЫЙТИ</a>
 					      </div>
 					    </div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->

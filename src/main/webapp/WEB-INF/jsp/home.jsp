@@ -66,12 +66,13 @@
 		</script>
 	</head>
 	<body>
+		
 		<!-- Wrap all page content here -->  
 		<div id="wrap">		
 		<jsp:include page="common/menu.jsp" />
 
 		  <!-- Begin page content -->
-		 
+		  <form action=""></form>			 
 		  <div class="container">
 		      <h1  class="page-header">Главная</h1>
 		    <%-- <div class="alert alert-success show">
