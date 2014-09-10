@@ -15,8 +15,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.seaport.utils.CustomDateSerializer;
 
 
 /**
@@ -72,6 +74,7 @@ public class Machine implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="start_date")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date startDate;
 
 	@Column(name="stevidor_id")
