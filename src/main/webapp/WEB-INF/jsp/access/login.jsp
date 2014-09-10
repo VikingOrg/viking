@@ -86,6 +86,11 @@
 	    		<div class="form-message alert alert-success">
 	    			<h4><spring:message code="${message}" /></h4> 
 				</div>	
-			</c:if>		
+			</c:if>	
+			<c:if test="${not empty error}">
+				<div class="form-message alert-danger show">
+					<spring:message code="${error}" />
+				</div>
+			</c:if>				
 	</body>
 </html>

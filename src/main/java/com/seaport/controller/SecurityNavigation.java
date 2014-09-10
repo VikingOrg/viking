@@ -1,11 +1,7 @@
 package com.seaport.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -20,14 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class SecurityNavigation {
 	
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request,
-						Model model, 
-						@RequestParam(required=false) String message) throws Exception {
-		if (message!=null && message.equalsIgnoreCase("002399")) {
-			message = "Логин и/или пароль не найден.";
-		}
-		/*Check the Flash Scope message map.*/
-//		Map map = RequestContextUtils.getInputFlashMap(request);
+	public String login() throws Exception {
 		return "access/login";
 	}
 	
@@ -37,9 +26,9 @@ public class SecurityNavigation {
 	}
 	
 	@RequestMapping(value = "/login/failure")
- 	public String loginFailure() throws Exception {
-		String message = "002399";
-		return "redirect:/login?message="+message;
+ 	public String loginFailure(RedirectAttributes redirectAttributes) throws Exception {
+		redirectAttributes.addFlashAttribute("error", "message.login.failed");
+		return "redirect:/login";
 	}
 	
 	@RequestMapping(value = "/logout")

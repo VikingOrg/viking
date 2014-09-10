@@ -18,7 +18,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.RegistrationCommand;
-import com.seaport.domain.Role;
 import com.seaport.domain.User;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
