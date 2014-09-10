@@ -380,7 +380,11 @@
 				  				            <label class="form-label">Компания*</label>
 				  				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
 					                    		<div class="panel-heading">
-													<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control">
+													<c:set var="isdisabled" value="false" />
+													<c:if test="${userModel.role.id != 1}">
+														<c:set var="isdisabled" value="true" />
+													</c:if>					                    			
+													<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control" disabled="${isdisabled}" >
 													    <form:option value="">Не выбрана (отсутствует)</form:option>
 										                <c:forEach items="${machineEditCommand.stevidorMap}" var="stevidor">
 										                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
