@@ -3,18 +3,15 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 
-
 <c:url value="deviceListAdmin" var="deviceListAdminUrl"/>
 <c:url value="logout" var="logoutUrl"/>
 <c:url value="stevidorSearch" var="stevidorSearchUrl"/>
 <c:url value="userSearchAdmin" var="userSearchUrl"/>
-
-
          
     <div class="container-fluid">        
  		<div class="row"><!-- start header -->
 			<div class="col-sm-4 col-xs-6 logo">
-				<a href="index.html">
+				<a href="<c:url value="/home"/>">
 				<div class="row">
 					<div class="col-sm-3 hidden-xs logo-img">
 						<img src="" alt=""/>
