@@ -14,14 +14,12 @@
 	    <meta name="author" content="Viking Inc.">
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    
-	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
-	    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/real_estate.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/theme.css"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="static/css/core.css"/>
 	    
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
-	    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 	    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
 	    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
@@ -178,7 +176,7 @@
 		          </div>
 		        </div>
 		      <div class="row">
-		      	<div class="col-md-4 col-md-offset-1 col-xs-6">
+		      	<div class="col-sm-4 col-sm-offset-1">
 					<v:input id="lastName" path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
 					<v:input id="firstName" path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
 					<v:input id="middleInitial" path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
@@ -207,7 +205,7 @@
 			          </div>
 			      </div>
 		        </div>
-		        <div class="col-md-4 col-md-offset-1 col-xs-6">
+		        <div class="col-sm-4 col-sm-offset-1">
 		  			<div class="form-group">
 			            <div class="controls">
 				        	<label class="form-label">СТРАНА</label>

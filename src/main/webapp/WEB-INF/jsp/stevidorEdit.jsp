@@ -70,8 +70,9 @@
 							        
 							        <div class="col-sm-4 col-sm-offset-1">
 							        	<div class="form-group">
-											<label class="form-label">Порт</label>
-											<form:select path="stevidor.portId" cssClass="form-control">
+											<label class="form-label">Порт*</label>
+											<form:select id="portSelect" path="stevidor.portId" cssClass="form-control" title="Выберите Порт местонахождения">
+									    		 <%--  <form:option value="">Не установлен</form:option> --%>
 											      <c:forEach items="${stevidorEditCommand.userPort}" var="port">
 											          <form:option value="${port.key}" label="${port.value.name}" />
 											      </c:forEach>							
@@ -277,7 +278,8 @@
 	    });
 
 	    $("#stevidorName").rules("add", {required:true});                 
-        $("#stevidorFullName").rules("add", {required:true});
+        $("#stevidorFullName").rules("add", {required:true});             
+        $("#portSelect").rules("add", {required:true});
 
 	    </script>
 	</body>

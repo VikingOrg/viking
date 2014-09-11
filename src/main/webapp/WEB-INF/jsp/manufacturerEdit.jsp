@@ -45,7 +45,8 @@
 					<div class="col-sm-4 col-sm-offset-1">
 						<div class="form-group">
 							<label class="form-label">Страна производства</label>
-							<form:select id="currentManufacturerCountryId" path="currentManufacturer.countryId" cssClass="form-control">
+							<form:select id="currentManufacturerCountryId" path="currentManufacturer.countryId" cssClass="form-control" title="Выберите Страну размещения">
+								<form:option value="">Не выбрана</form:option>
 								<c:forEach items="${manufacturerCommand.countryMap}" var="country">
 									<form:option value="${country.key}" label="${country.value.nameRus}" />
 								</c:forEach>
@@ -132,6 +133,7 @@
 		                     
             $("#currentManufacturerNameRus").rules("add", {required:true});
             $("#currentManufacturerNameEn").rules("add", {required:true});
+            $("#currentManufacturerCountryId").rules("add", {required:true});
 
                
 	 </script>

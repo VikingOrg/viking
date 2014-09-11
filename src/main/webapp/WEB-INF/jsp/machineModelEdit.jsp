@@ -52,17 +52,17 @@
 					        <div class="col-sm-4 col-sm-offset-1">
 
 								<div class="form-group">
-				                    <label class="form-label">Группа</label>
-									<form:select id="groupSelectModal" path="machineModel.groupId" cssClass="form-control">
-									    <form:option value="">Не установлен</form:option>
+				                    <label class="form-label">Группа*</label>
+									<form:select id="groupSelectModal" path="machineModel.groupId" cssClass="form-control" title="Выберите Группу Механизмов">
+									    <form:option value="">Не выбрана</form:option>
 						                <c:forEach items="${machineModalEditCommand.groupMap}" var="group">
 						                    <form:option value="${group.key}" label="${group.value.name}" />
 						                </c:forEach>								
 									</form:select>
 			                    </div>
 						        <div class="form-group">
-		  				            <label class="form-label">Производитель</label>
-									<form:select id="manufacturerSelectModal" path="machineModel.manufacturerId" cssClass="form-control" title="Выборка по производителю">
+		  				            <label class="form-label">Производитель*</label>
+									<form:select id="manufacturerSelectModal" path="machineModel.manufacturerId" cssClass="form-control" title="Выберите Производителя">
 									    <form:option value="">Не выбран</form:option>
 						                <c:forEach items="${machineModalEditCommand.manufacturerMap}" var="manufacturer">
 						                    <form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
@@ -208,6 +208,8 @@
 	    		                     
 	                $("#machineModelName").rules("add", {required:true});
 	                $("#machineModelDetail").rules("add", {required:true}); 
+	                $("#groupSelectModal").rules("add", {required:true});
+	                $("#manufacturerSelectModal").rules("add", {required:true}); 
 				 </script>
 				 	 
 				 	 

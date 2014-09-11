@@ -44,7 +44,7 @@
 											
 						<div class="form-group">
 							<label class="form-label">Страна</label>
-							<form:select id="countryNameRus" path="port.countryId" cssClass="form-control">
+							<form:select id="countryNameRus" path="port.countryId" cssClass="form-control" title="Выберите Страну размещения">
 								<form:option value="">Не выбрана</form:option>
 								<c:forEach items="${portCommand.countryMap}" var="country">
 									<form:option value="${country.key}" label="${country.value.nameRus}" />
