@@ -98,7 +98,7 @@ public class MachineModelDAOImpl implements IMachineModelDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<MachineModel> getMachineModels(boolean getArchive){
-		Criteria criteria = getCurrentSession().createCriteria(Machine.class);
+		Criteria criteria = getCurrentSession().createCriteria(MachineModel.class);
 //		if (!getArchive) {
 //			criteria.add(Restrictions.ne("archived", "Y"));
 //		}

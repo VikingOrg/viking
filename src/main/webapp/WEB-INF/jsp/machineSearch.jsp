@@ -13,8 +13,8 @@
 
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
-
 		<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
+		
 		<script type="text/javascript">
 		var jsonData={};
 		$(document).ready(function() {
@@ -23,7 +23,7 @@
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
   			  "scrollX" : true,
           	  "responsive": false,
-                "oLanguage": {
+              "oLanguage": {
                     "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                  },
               "aoColumns": [
@@ -80,7 +80,7 @@
             	   $('select[name="machine_table_length"]').addClass("form-control");
            	   	   $("#tableActions").appendTo("#table_Actions");
             	   this.fnSetFilteringDelay(500);
-              	   getReport();
+            	   getData();
 	              },
                	tableTools: {
          			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -164,6 +164,8 @@
 //             $('#selectAll').click(function (e) {
 //                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
 //             });
+
+
 // for native datatable ajax call progress modal
 //    	    .on( 'processing.dt', function ( e, settings, processing ) {
 //	    	showProgressModal('#wait_modal');
@@ -174,7 +176,7 @@
             			
         } ); //end of document.ready
 
-		function getReport(){
+		function getData(){
         	showProgressModal('#wait_modal');
         	oTable.fnClearTable();
         	var pageData =  $("#machine_search_form").serialize();
@@ -432,21 +434,7 @@
 		</div>
 		<!-- /.modal -->
 
-		<!-- 		Модальное окно ожидания загрузки данных -->
-		<div class="modal fade" id="wait_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body" align="center">
-						<h3 style="color:#448800">Подождите, идет загрузка данных</h3>
-						<img src="<c:url value="/static/images/32.gif"/>">
-					</div> 
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-
+		<jsp:include page="common/progressModal.jsp" />
 	</form:form>
 
 </div>

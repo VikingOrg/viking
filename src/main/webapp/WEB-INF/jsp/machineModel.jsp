@@ -14,19 +14,36 @@
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
     	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
+    	<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
 		
 		<script type="text/javascript">
+			var jsonData={};
 	        $(document).ready(function() {
 	        	oTable = $('#modelSearchTable').dataTable( {
 	        		"sDom": '<"#tableActions"T>t<"#source"l>ip',
 	                "bJQueryUI": true,
 	    			"scrollX" : true,
-	    			"columnDefs": [
-	          		               {
-	          		                   "targets": [ 0 ],
-	          		                   "visible": true
-	          		               },
-	          		           ],
+	    			"sPaginationType": "full_numbers",
+	                "aoColumns": [
+	                               { "mDataProp": "modelId" },
+	                               { "mDataProp": "name" },
+	                               { "mDataProp": "details", "defaultContent": "отсутствует" },
+	                               { "mDataProp": "group.name", "defaultContent": "отсутствует" },
+	                               { "mDataProp": "manufacturer.nameRus", "defaultContent": "отсутствует"  },
+	                               { "mDataProp": "manufacturer.country.nameRus", "defaultContent": " " },
+	                               { "mDataProp": "note", "defaultContent": "отсутствует" },
+	                               { "mDataProp": "group.groupId", "defaultContent": "отсутствует" },
+	                             ],
+               	     "aoColumnDefs": [
+       	                         { "aTargets": [ 1 ],
+        	   	        		   "mData": 1,
+        	   	        		   "mRender": function ( data, type, machineModelObject ) {
+        	   	        			var html = '<a href="#" rel="tableRowEdit" data-param1="'+machineModelObject.modelId+'">' +
+	                      			'<span id="name'+machineModelObject.modelId+'">'+ data + '</span></a>';
+        	   	        		    return html;
+        	   	        		    }
+       	   	        		     }
+    	        	      	   ], 		                             
 	             	tableTools: {
 	         			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
 	         		 	"aButtons": [
@@ -34,7 +51,7 @@
 	           	             	{
 	           	                    "sExtends":     "print",
 	           	                    "bHeader": true
-	           	                	},
+	           	                	},	
 	           	            	{
 	           	                    "sExtends":     "csv",
 	           	                    "sButtonText": "Save",
@@ -42,16 +59,19 @@
 	           	                	}
 	           	            ]
 	         	   },
-	    			"oLanguage": {
+	    		   "oLanguage": {
 	                      "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
 	                   },
-	                   "fnInitComplete": function(oSettings) {
-	                	   $('select[name="modelSearchTable_length"]').appendTo("#table_length");
-	                	   $('select[name="modelSearchTable_length"]').addClass("form-control");
-                   	   	   $("#tableActions").appendTo("#table_Actions");
-	 	              },
-	            } );
-
+                   "fnInitComplete": function(oSettings) {
+                	   $('select[name="modelSearchTable_length"]').appendTo("#table_length");
+                	   $('select[name="modelSearchTable_length"]').addClass("form-control");
+                  	   $("#tableActions").appendTo("#table_Actions");
+                  	   this.fnSetFilteringDelay(500);
+                  	   getData();
+ 	               },
+ 	               
+	            });
+	        	
 
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
@@ -65,27 +85,13 @@
                     	oTable.fnFilter( "^"+group+"$", 7 , true);
                     }
                 });
+                
                 $('#manufacturerSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 4);
                 });
                 
                 $('#countrySelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 5);
-                });
-
-                $("a[rel^='tableRowEdit']").click(function(e){
-
-                    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
-                        beforeSend: function(req) {
-                            req.setRequestHeader("Accept", "text/html;type=ajax");
-                        },  
-                        complete : function( response )
-                        {
-                            $("#machineModelModalContent").html(response.responseText);
-                            $('#machineModelModal').modal('show');
-                            
-                        }
-                    });
                 });
 
                 $('#addNewModel').click(function(e){
@@ -101,10 +107,55 @@
                         }
                     });
                 });
-                                    
+
+
+
+  	          //$("a[rel^='tableRowEdit']").on("click","tbody", function(e){
+              //    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
+              //        beforeSend: function(req) {
+              //            req.setRequestHeader("Accept", "text/html;type=ajax");
+              //        },  
+              //        complete : function( response )
+              //        {
+              //            $("#machineModelModalContent").html(response.responseText);
+              //            $('#machineModelModal').modal('show');
+              //        }
+              //    });  	  	          
+              //});
+                $("a[rel^='tableRowEdit']").click(function(e){
+                    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
+                        beforeSend: function(req) {
+                            req.setRequestHeader("Accept", "text/html;type=ajax");
+                        },  
+                        complete : function( response )
+                        {
+                            $("#machineModelModalContent").html(response.responseText);
+                            $('#machineModelModal').modal('show');
+                            
+                        }
+                    });
+                });
+                
+                               
             } ); //end of document.ready 
-               
+
             
+    		function getData(){
+            	showProgressModal('#wait_modal');
+            	oTable.fnClearTable();
+            	var pageData =  $("#machine_search_form").serialize();
+          		$.getJSON("${pageContext.request.contextPath}/machineModel/getModels/false", pageData, function (data) {
+          			if (data.length != 0 ) {
+          				jsonData = data; 
+          				oTable.fnAddData(data);
+          			}
+          			closeProgressModal('#wait_modal');
+          		}).fail( function(d, textStatus, error) {
+          	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+          	        closeProgressModal('#wait_modal');
+          	    });
+    		} 
+    		         
         	function closingModal(modelId, successMsg, groupId){
         		$('#machineModelModal').modal('hide');
         		$('#'+modelId).addClass( "success" );
@@ -177,7 +228,7 @@
 										<option value="0">Активные</option>
 										<option value="1">Удаленные</option>
 									</select>	                    
-                    </div>
+                    			</div>
 			               </div>
 					</div>
 				</div>
@@ -228,48 +279,18 @@
                  <table id="modelSearchTable" class="table table-striped table-bordered">
                    <thead>
                        <tr>
-                         <th class="column-check">&nbsp;</th>
-                         <th class="">Модель&nbsp;&nbsp;</th>
+                         <th class="column-check">№</th>
+                         <th class="">Модель</th>
                          <th class="">Характ. Модели</th>                         
                          <th class="">Группа</th>
-                         <th class="">Производитель&nbsp;&nbsp;</th>
-                         <th class="hidden-sm hidden-xs hidden-md nowrap">Страна</th>
+                         <th class="">Производитель</th>
+                         <th class="">Страна</th>
                          <th class="">Примечания</th>
                          <th class="">group Id</th>
                        </tr>
                    </thead>
 	               <tbody>
-	                  <c:forEach var="machineModel" varStatus="loop" items="${modelSearchCommand.machineModelList}" >
-                         <tr id="${machineModel.modelId}">
-	                         <td class="column-check">
-	                         	<form:checkbox path="machineModelList[${loop.index}].archived" value="Y"></form:checkbox>
-	                          	<c:if test="${system.localConfig}" >
-	                          		<span class="badge">
-	                          			<c:out value="(${machineModel.modelId})"/>
-	                          		</span>
-	                          	</c:if>						                             	
-	                         </td>
-	                      	 <td class="">
-	                     	 	<a href="#" rel="tableRowEdit" data-param1="${machineModel.modelId}">
-	                      			<span id="name${machineModel.modelId}"><c:out value="${machineModel.name}"/></span></a>
-	                      	 </td>
-	                      	 <td class=""><span id="details${machineModel.modelId}"><c:out value="${machineModel.details}"/></span></td>
-	                         <td class="hidden-sm hidden-xs hidden-md "><c:out value="${machineModel.group.name}"/></td>
-	                         <td class="">
-	                         	<span id="manafacturer${machineModel.modelId}">
-	                         		<c:if test="${machineModel.manufacturer.countryId == 4}" >
-	                         			<c:out value="${machineModel.manufacturer.nameRus}"/>
-	                         		</c:if>
-	                         		<c:if test="${machineModel.manufacturer.countryId != 4}" >
-	                         			<c:out value="${machineModel.manufacturer.nameRus}"/> (<c:out value="${machineModel.manufacturer.nameEn}"/>)
-	                         		</c:if>
-	                         	</span>
-	                         </td>
-	                         <td class="hidden-sm hidden-xs hidden-md "><span id="country${machineModel.modelId}"><c:out value="${machineModel.manufacturer.country.nameRus}"/></span></td>
-	                         <td class=""><span id="note${machineModel.modelId}"><c:out value="${machineModel.note}"/></span></td>
-	                         <td class=""><c:out value="${machineModel.group.groupId}"/></td>											   
-                 	     </tr> 
-	          	        </c:forEach>
+
                    </tbody>
           		</table>
     		</div>
@@ -302,6 +323,7 @@
 </div>
 </div>
 <!-- Closing div tag for wrap -->
+<jsp:include page="common/progressModal.jsp" />
 <jsp:include page="common/footer.jsp" />	
 </body>
     
