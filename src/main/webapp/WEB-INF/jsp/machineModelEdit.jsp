@@ -88,7 +88,7 @@
 							        
 									<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
 								        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
-								        <button id="submitCopy" type="button" class="btn btn-primary">Скопировать</button>
+								        <button id="submitCopy" type="button" class="btn btn-primary">Сохранить как новую</button>
 							        </c:if>
 									<c:if test="${empty machineModalEditCommand.machineModel.modelId}"> 
 								        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>

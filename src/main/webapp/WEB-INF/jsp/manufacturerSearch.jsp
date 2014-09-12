@@ -21,7 +21,6 @@
 	          		                   "visible": true
 	          		               },
   		           ],          
-    	            "scrollX": true,
         	        "bJQueryUI": true,
         	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
         	        "sPaginationType": "full_numbers",
@@ -228,11 +227,11 @@
 					<table id="manufacturer_table" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th class="column-check">&nbsp;</th>
+								<th class="column-check">№</th>
 								<th class="nowrap">Рус. наименование&nbsp;&nbsp;</th>
 								<th class="nowrap">Страна&nbsp;&nbsp;</th>
 								<th class="nowrap">Англ. наименование&nbsp;&nbsp;</th>
-								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
+								<th class="">Примечания&nbsp;&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -240,7 +239,7 @@
 								<tr id="${manufacturer.manufacturerId}">
 									<td class="column-check">
 										<c:out value="${manufacturer.manufacturerId}"/>
-										<form:checkbox path="manufacturerList[${loop.index}].archived" value="Y"></form:checkbox>
+										<%--<form:checkbox path="manufacturerList[${loop.index}].archived" value="Y"></form:checkbox> --%>
 									</td>
 									<td class="nowrap">
 										<a href="#" rel="tableRowEdit" data-param1="${manufacturer.manufacturerId}">
@@ -282,7 +281,7 @@
 									<td class="nowrap">
 										<span id="manufacturerNameEn${manufacturer.manufacturerId}"><c:out value="${manufacturer.nameEn}"/></span>
 									</td>
-									<td class="nowrap">
+									<td class="">
 										<span id="manufacturerNote${manufacturer.manufacturerId}"><c:out value="${manufacturer.note}"/></span>
 									</td>
 								</tr>

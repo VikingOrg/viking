@@ -176,8 +176,8 @@
 						<thead>
 							<tr>
 								<th class="column-check">№&nbsp;</th>
-								<th class="nowrap">Группа&nbsp;&nbsp;</th>
-								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
+								<th class="">Группа&nbsp;&nbsp;</th>
+								<th class="">Примечания&nbsp;&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -187,12 +187,12 @@
 										<c:out value="${group.groupId}"/>
 										<%--<form:checkbox path="groupList[${loop.index}].archived" value="Y"></form:checkbox> --%>
 									</td>
-									<td class="nowrap">
+									<td class="">
 										<a href="#" rel="tableRowEdit" data-param1="${group.groupId}">
 							            	<span id="name${group.groupId}"><c:out value="${group.name}"/></span>
 							            </a>
 									</td>
-									<td class="nowrap">
+									<td class="">
 										<span id="note${group.groupId}"><c:out value="${group.groupNote}"/></span>
 									</td>
 								</tr>

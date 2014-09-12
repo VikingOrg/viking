@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.seaport.domain.Machine;
-import com.seaport.domain.MachineModel;
-import com.seaport.domain.Manufacturer;
 import com.seaport.domain.User;
 
 /**
@@ -20,13 +18,6 @@ public interface IMachineService {
 	public List<Machine> getMachines();
 	public void saveMachine(Machine machine);
 	public Map<Integer, Integer> getYearMap();
-	public List<Machine> getMachines(User user, boolean getArchive);	
-	public Map<Integer, MachineModel> getModelsMap();
-	public Map<Integer, Manufacturer> getManufacturerMap();
-	public List<MachineModel> getModels();
-	public List<MachineModel> getModels(Integer groupId);
-	public Map<Integer, MachineModel> getModelsMap(Integer groupId);
-	public MachineModel getModel(Integer modelId);
-	public void saveMachineModel(MachineModel machineModel);
+	public List<Machine> getMachines(User user, boolean getArchive);
 	public List<Machine> getMachineByStevedorId(Integer stevedorId);
 }

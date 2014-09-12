@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,7 +23,9 @@ import com.seaport.command.MachineModelEditCommand;
 import com.seaport.domain.MachineModel;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
+import com.seaport.service.IMachineModelService;
 import com.seaport.service.IMachineService;
+import com.seaport.service.IManufacturerService;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstant;
 
@@ -44,7 +47,13 @@ public class MachineModelController {
 	@Autowired
 	private IGroupService groupService;
 	@Autowired
-	private ICountryService countryService;	
+	private ICountryService countryService;
+	@Autowired
+	private IManufacturerService manufacturerService;	
+	@Autowired
+	private IMachineModelService machineModelService;	
+	
+	
 	/**
 	 * Create new Machine Model search form. 
 	 *  
@@ -57,15 +66,31 @@ public class MachineModelController {
 							ModelMap model) throws Exception {
 		
 		MachineModelCommand machineModelCommand = new MachineModelCommand();
-		machineModelCommand.setMachineModelList(machineService.getModels());
+		machineModelCommand.setMachineModelList(machineModelService.getModels());
 		machineModelCommand.setGroupMap(groupService.getGroupMap());
-		machineModelCommand.setManufacturerMap(machineService.getManufacturerMap());
+		machineModelCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		machineModelCommand.setCountryMap(countryService.getContriesMap());
 		
 		model.put("modelSearchCommand", machineModelCommand);
 		return "machineModel";
 	}
 
+	/**
+     * Fetch a model list from the service and format it as JSON response to the client.
+     * 
+	 * @param groupId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getModels/{getArchive}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MachineModel> getMachineModels(@PathVariable boolean getArchive,
+			HttpServletRequest request) throws Exception {
+		List<MachineModel> machineList = machineModelService.getMachineModels(getArchive); 
+		return machineList;
+	}
+	
 	/**
 	 * Set forms for edit Machine Model.
 	 * @param model
@@ -75,9 +100,9 @@ public class MachineModelController {
 	public String editNewModel(ModelMap model, @PathVariable Integer machineModelId) throws Exception {
 		
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
-		machineModelEditCommand.setMachineModel(machineService.getModel(machineModelId));
+		machineModelEditCommand.setMachineModel(machineModelService.getModel(machineModelId));
 		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
-		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
+		machineModelEditCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		machineModelEditCommand.setCountryMap(countryService.getContriesMap());	
 		model.put("machineModalEditCommand", machineModelEditCommand);
 		
@@ -94,7 +119,7 @@ public class MachineModelController {
 	public String createNewModel(ModelMap model) throws Exception {
 		MachineModelEditCommand machineModelEditCommand = new MachineModelEditCommand();
 		machineModelEditCommand.setGroupMap(groupService.getGroupMap());
-		machineModelEditCommand.setManufacturerMap(machineService.getManufacturerMap());
+		machineModelEditCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		machineModelEditCommand.setCountryMap(countryService.getContriesMap());	
 		model.put("machineModalEditCommand", machineModelEditCommand);
 		
@@ -120,7 +145,7 @@ public class MachineModelController {
 			machineModelEditCommand.getMachineModel().setModelId(null);
 		}
 		
-		machineService.saveMachineModel(machineModelEditCommand.getMachineModel());
+		machineModelService.saveMachineModel(machineModelEditCommand.getMachineModel());
 		machineModelEditCommand.setSuccessFlag("true");
 		model.addAttribute("message", "message.user.success.generic");
 		return "machineModelEdit";

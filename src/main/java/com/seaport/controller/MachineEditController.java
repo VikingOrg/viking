@@ -22,7 +22,9 @@ import com.seaport.command.MachineEditCommand;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 import com.seaport.service.IGroupService;
+import com.seaport.service.IMachineModelService;
 import com.seaport.service.IMachineService;
+import com.seaport.service.IManufacturerService;
 import com.seaport.service.IStevidorService;
 
 /**
@@ -42,6 +44,10 @@ public class MachineEditController {
 	private IStevidorService stevidorService;
 	@Autowired
 	private IMachineService machineService;	
+	@Autowired
+	private IManufacturerService manufacturerService;	
+	@Autowired
+	private IMachineModelService machineModelService;		
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, ModelMap model) throws Exception {
@@ -52,9 +58,9 @@ public class MachineEditController {
 			machineEditCommand.setMachine(machineService.getMachine(Integer.parseInt(machineId)));
 			/*Patch to handle null model.*/
 			if(machineEditCommand.getMachine().getMachineModel() != null){
-				machineEditCommand.setMachineModelMap(machineService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));	
+				machineEditCommand.setMachineModelMap(machineModelService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));	
 			} else {
-				machineEditCommand.setMachineModelMap(machineService.getModelsMap(machineEditCommand.getMachine().getGroupId()));
+				machineEditCommand.setMachineModelMap(machineModelService.getModelsMap(machineEditCommand.getMachine().getGroupId()));
 			}
 			if (request.getParameter("copy")!= null) {
 				machineEditCommand.setFormType("C");
@@ -71,7 +77,7 @@ public class MachineEditController {
 		
 		machineEditCommand.setGroupMap(groupService.getGroupMap());
 		machineEditCommand.setStevidorMap(stevidorService.getStevidorsMap());
-		machineEditCommand.setManufacturerMap(machineService.getManufacturerMap());
+		machineEditCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		machineEditCommand.setYearMap(machineService.getYearMap());
 		
 		model.put("machineEditCommand", machineEditCommand);
@@ -88,7 +94,7 @@ public class MachineEditController {
 	@RequestMapping(value="/model/{groupId}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MachineModel> getModels(@PathVariable String groupId, ModelMap model) throws Exception {
-		List<MachineModel> modelList = machineService.getModels(Integer.parseInt(groupId)); 
+		List<MachineModel> modelList = machineModelService.getModels(Integer.parseInt(groupId)); 
 		return modelList;
 	}	
 
@@ -96,7 +102,7 @@ public class MachineEditController {
 	@ResponseBody
 	public MachineModel getModel(@PathVariable String modelId,
 							ModelMap model) throws Exception {
-		return machineService.getModel(Integer.parseInt(modelId));
+		return machineModelService.getModel(Integer.parseInt(modelId));
 	}	
 
 	
@@ -126,7 +132,7 @@ public class MachineEditController {
 		} 
 		
 		if (machineEditCommand.getMachine().getMachineModel() == null) {
-			MachineModel machineModel = machineService.getModel(machineEditCommand.getMachine().getModelId());
+			MachineModel machineModel = machineModelService.getModel(machineEditCommand.getMachine().getModelId());
 			machineEditCommand.getMachine().setMachineModel(machineModel);
 		}
 		machineService.saveMachine(machineEditCommand.getMachine());

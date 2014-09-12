@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.dao.IMachineDAO;
-import com.seaport.domain.Group;
 import com.seaport.domain.Machine;
-import com.seaport.domain.Manufacturer;
-import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 
 /**
@@ -43,20 +40,6 @@ public class MachineServiceImpl implements IMachineService {
 		machineDAO.saveMachine(machine);
 	}
 
-//	@Override
-//	public Map<Integer, Group> getGroupsMap() {
-//		return machineDAO.getGroupsMap();
-//	}
-
-	@Override
-	public Map<Integer, MachineModel> getModelsMap() {
-		return machineDAO.getModelsMap();
-	}
-
-	@Override
-	public Map<Integer, Manufacturer> getManufacturerMap() {
-		return machineDAO.getManufacturerMap();
-	}
 	public Map<Integer, Integer> getYearMap(){
 		return machineDAO.getYearMap();
 	}
@@ -64,28 +47,6 @@ public class MachineServiceImpl implements IMachineService {
 		return machineDAO.getMachines(user, getArchive);
 	}
 
-	@Override
-	public List<MachineModel> getModels() {
-		return machineDAO.getModels();
-	}
-
-	@Override
-	public List<MachineModel> getModels(Integer groupId) {
-		return machineDAO.getModels(groupId);
-	}
-
-	@Override
-	public Map<Integer, MachineModel> getModelsMap(Integer groupId) {
-		return machineDAO.getModelsMap(groupId);
-	}
-	public MachineModel getModel(Integer modelId){
-		return machineDAO.getModel(modelId);
-	}
-
-	@Override
-	public void saveMachineModel(MachineModel machineModel) {
-		machineDAO.saveMachineModel(machineModel);
-	}
 	public List<Machine> getMachineByStevedorId(Integer stevedorId) {
 		return machineDAO.getMachineByStevedorId(stevedorId);
 	}

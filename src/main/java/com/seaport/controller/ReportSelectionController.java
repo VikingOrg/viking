@@ -34,6 +34,7 @@ import com.seaport.dto.ManufacturerReportDTO;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
+import com.seaport.service.IManufacturerService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
@@ -64,6 +65,8 @@ public class ReportSelectionController {
 	private ICountryService countryService;
 	@Autowired
 	private IStevidorService stevidorService;
+	@Autowired
+	private IManufacturerService manufacturerService;		
 	
 	/**
 	 * Loads company report page
@@ -278,7 +281,7 @@ public class ReportSelectionController {
 		reportSelectionCommand.setUserPort(portService.getPortsMap());
 		reportSelectionCommand.setStevidorMap(stevidorService.getStevidorsMap());
 		reportSelectionCommand.setGroupMap(groupService.getGroupMap());
-		reportSelectionCommand.setManufacturerMap(machineService.getManufacturerMap());
+		reportSelectionCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		reportSelectionCommand.setYearMap(machineService.getYearMap());
 		reportSelectionCommand.setStevidorSelection(new String[]{"0"});
 	}

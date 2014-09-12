@@ -1,9 +1,7 @@
 package com.seaport.controller;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,6 +26,7 @@ import com.seaport.domain.User;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineService;
+import com.seaport.service.IManufacturerService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
@@ -56,6 +55,9 @@ public class MachineSearchController {
 	private ICountryService countryService;
 	@Autowired
 	private IPortService portService;
+	@Autowired
+	private IManufacturerService manufacturerService;	
+	
 	
 	private static String MACHINE_FIELD_FILLER = "XXX";
 	
@@ -68,7 +70,7 @@ public class MachineSearchController {
 		machineSearchCommand.setUserPort(portService.getPortsMap());
 		machineSearchCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		machineSearchCommand.setGroupMap(groupService.getGroupMap());
-		machineSearchCommand.setManufacturerMap(machineService.getManufacturerMap());
+		machineSearchCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		machineSearchCommand.setYearMap(machineService.getYearMap());		
 		//machineSearchCommand.setMachineList(machineService.getMachines(user, false));
 		model.put("machineSearchCommand", machineSearchCommand);
