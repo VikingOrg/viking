@@ -197,6 +197,7 @@
 								<tr id="${port.portId}">
 									<td class="column-check nowrap">
 										<form:checkbox path="portList[${loop.index}].archived" value="Y"></form:checkbox>
+										${port.portId}
 									</td>
 									<td class="nowrap">
 										<a href="#" rel="tableRowEdit" data-param1="${port.portId}">
