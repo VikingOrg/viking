@@ -31,7 +31,7 @@
 	                               { "mDataProp": "group.name", "defaultContent": "отсутствует" },
 	                               { "mDataProp": "manufacturer.nameRus", "defaultContent": "отсутствует"  },
 	                               { "mDataProp": "manufacturer.country.nameRus", "defaultContent": " " },
-	                               { "mDataProp": "note", "defaultContent": "отсутствует" },
+	                               { "mDataProp": "note", "defaultContent": " " },
 	                               { "mDataProp": "group.groupId", "defaultContent": "отсутствует" },
 	                             ],
                	     "aoColumnDefs": [
@@ -107,22 +107,8 @@
                         }
                     });
                 });
-
-
-
-  	          //$("a[rel^='tableRowEdit']").on("click","tbody", function(e){
-              //    $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
-              //        beforeSend: function(req) {
-              //            req.setRequestHeader("Accept", "text/html;type=ajax");
-              //        },  
-              //        complete : function( response )
-              //        {
-              //            $("#machineModelModalContent").html(response.responseText);
-              //            $('#machineModelModal').modal('show');
-              //        }
-              //    });  	  	          
-              //});
-                $("a[rel^='tableRowEdit']").click(function(e){
+                
+                $(document).on('click', "a[rel^='tableRowEdit']", function(){
                     $.ajax('${pageContext.request.contextPath}/machineModel/edit/'+this.dataset['param1'], {
                         beforeSend: function(req) {
                             req.setRequestHeader("Accept", "text/html;type=ajax");
@@ -135,7 +121,6 @@
                         }
                     });
                 });
-                
                                
             } ); //end of document.ready 
 
