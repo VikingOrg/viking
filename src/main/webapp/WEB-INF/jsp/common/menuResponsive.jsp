@@ -115,9 +115,9 @@
 										<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5; font-weight: bold;">
 											${userModel.firstName} &nbsp;${userModel.lastName} (${userModel.role.role})<strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
-												<li><a href="<c:url value="/userEditAdmin/edit/${userModel.userId}"/>">Личные данные</a></li>
+												<li><a href="<c:url value="/userEditAdmin/edit/${userModel.userId}"/>"><i class="fa fa-user" style="padding-right: 15px"></i>Личные данные</a></li>
 												<li>
-													<a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer">Выход&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-log-out" title="Копировать"></span></a>
+													<a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer"><i class="fa fa-power-off" style="padding-right: 15px"></i>Выход</span></a>
 												</li>
 										</ul>
 									</li>
