@@ -108,7 +108,7 @@
     	            $.each(data, function (i, e) {
     	            	  totalCount = totalCount + e.count;
     	            });
-    	            $('#totalRecords').text("(Общее:"+totalCount+")");
+    	            $('#totalRecords').text(": "+totalCount);
 	  			}
 	  			setReportTitle();
 	  			closeProgressModal('#wait_modal');
@@ -281,7 +281,7 @@
 								<tr>
 									<th class="column-check">&nbsp;№</th>
 									<th class="nowrap">Производитель&nbsp;&nbsp;</th>
-									<th class="nowrap">Кол-во <span id="totalRecords"></span></th>
+									<th class="nowrap" style="width:20%">Кол-во <span id="totalRecords"></span></th>
 									<th class="nowrap" style="width:20%">Проц.</th>
 								</tr>
 							</thead>

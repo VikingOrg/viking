@@ -111,7 +111,7 @@
         	            $.each(data, function (i, e) {
         	            	  totalCount = totalCount + e.count;
         	            });
-        	            $('#totalRecords').text("(Общее:"+totalCount+")");
+        	            $('#totalRecords').text(": "+totalCount);
         			}
         			closeProgressModal('#wait_modal');
         		}).fail( function(d, textStatus, error) {
