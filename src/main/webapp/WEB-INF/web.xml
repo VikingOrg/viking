@@ -48,6 +48,10 @@
 	      <param-value>com.seaport.init.RootConfig</param-value>
 	  </context-param>
 	
+	  <listener>
+    	  <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	  </listener>
+	  
 	  <!-- Bootstrap the root application context as usual using ContextLoaderListener -->
 	  <listener>
 	      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

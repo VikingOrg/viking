@@ -14,11 +14,11 @@
 
 	<bean id="customizableTraceInterceptor" class="com.seaport.aop.TraceInterceptor"
 		p:enterMessage="Entering $[targetClassShortName].$[methodName]($[arguments])"
-		p:exitMessage="Leaving $[targetClassShortName].$[methodName](): $[returnValue]"/>
-
+		p:exitMessage="Leaving $[targetClassShortName].$[methodName](): Not displied"/>
+		
 	<aop:config>
 	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * com.seaport.service..*(..))"/>
-	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * com.seaport.controller..*(..))"/>
+	  <!-- <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * com.seaport.controller..*(..))"/>-->
 	</aop:config>
 
 </beans>

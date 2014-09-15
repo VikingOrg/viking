@@ -228,7 +228,7 @@
 <!-- Closing div tag for wrap -->
 <jsp:include page="common/footer.jsp" />
 
-<div id="editModal" class="modal modal-wide fade">
+<div id="editModal" class="modal modal-wide fade" tabindex="-1">
   <div class="modal-dialog">
     <div id="editModalContent" class="modal-content">
     

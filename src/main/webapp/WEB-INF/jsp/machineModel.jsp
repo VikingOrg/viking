@@ -282,7 +282,7 @@
         </div>
 	</form:form>
 			
-		<div id="machineModelModal" class="modal modal-wide fade">
+		<div id="machineModelModal" class="modal modal-wide fade" tabindex="-1">
 		  <div class="modal-dialog">
 		    <div id="machineModelModalContent" class="modal-content">
 		    
