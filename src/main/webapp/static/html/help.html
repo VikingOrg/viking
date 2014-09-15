@@ -34,20 +34,21 @@
                                     $("#footer").html(response.responseText);
                                 },	        	        
                     	        error: function(){
-                    	        	alert("failure");
+                    	        	alert("failure to load footer");
                     	        }
                             });
                         }
                     },	        	        
         	        error: function(){
-        	        	alert("failure");
+        	        	alert("failure to load header");
         	        }
                 });
             });
             
             function baseUrl() {
             	   var href = window.location.href.split('/');
-            	   return href[0]+'//'+href[2]+'/';
+            	   return baseUrl = href[0]+'//'+href[2]+'/'+href[3]+'/'; 
+            	   //return href[0]+'//'+href[2]+'/';
             }            
         </script>        
     </head>

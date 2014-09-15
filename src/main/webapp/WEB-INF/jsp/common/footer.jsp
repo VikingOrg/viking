@@ -18,18 +18,11 @@
 </div>
 
    	<script type="text/javascript">
-		            
            function applLogout() {
-         	   var href = window.location.href.split('/');
-         	   var baseUrl = href[0]+'//'+href[2]+'/'+href[3]+'/'; 
-           	$('form').attr('action', baseUrl+"j_spring_security_logout").submit();
+         	  var href = window.location.href.split('/');
+         	  var baseUrl = href[0]+'//'+href[2]+'/'+href[3]+'/'; 
+           	  $('form').attr('action', baseUrl+"j_spring_security_logout").submit();
            }
-
-           function baseUrl() {
-        	   var href = window.location.href.split('/');
-        	   return href[0]+'//'+href[2]+'/';
-           }
-                         
     </script>        
    		        
 	<!-- Модальное окно подтверждения выхода из системы -->
