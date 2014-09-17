@@ -16,40 +16,14 @@
 		
 	    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/core.js"></script>
     
+		<script type="text/javascript" src="../js/core.js"></script>
+		    
     	<script type="text/javascript">
             $(document).ready(function() {
-                $.ajax({
-                	type: "GET",
-        		    url: baseUrl()+"viking/menu",
-                    complete : function( response ) {
-                    	if(response.responseText.indexOf('Регистрация') >= 0) {
-                    		window.location.href = baseUrl()+"viking";
-                    	} else {
-                    		$("#mainMenu").html(response.responseText);
-                    		$('#mainContext').attr('class','container');
-                            $.ajax({
-                            	type: "GET",
-                    		    url: baseUrl()+"viking/footer",
-                                complete : function( response ) {
-                                    $("#footer").html(response.responseText);
-                                },	        	        
-                    	        error: function(){
-                    	        	alert("failure");
-                    	        }
-                            });
-                        }
-                    },	        	        
-        	        error: function(){
-        	        	alert("failure");
-        	        }
-                });
+            	loadStaticHtmlElements();
             });
-            
-            function baseUrl() {
-            	   var href = window.location.href.split('/');
-            	   return href[0]+'//'+href[2]+'/';
-            }            
         </script>  
     </head>
     

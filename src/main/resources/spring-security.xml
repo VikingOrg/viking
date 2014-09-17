@@ -22,6 +22,8 @@
 		<intercept-url pattern="/passRecover" access="permitAll"/>
     	<intercept-url pattern="/core.css" access="permitAll"/>		
     	<intercept-url pattern="/home" access="hasRole('ROLE_GUEST')"/>
+    	<intercept-url pattern="/menu" access="hasRole('ROLE_GUEST')"/>
+    	<intercept-url pattern="/footer" access="hasRole('ROLE_GUEST')"/>
 		<intercept-url pattern="/denied" access="hasRole('ROLE_GUEST')"/>
 		<intercept-url pattern="/*admin" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
