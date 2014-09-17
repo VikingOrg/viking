@@ -66,7 +66,7 @@ public class User implements Serializable {
 	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 	
-	@Size(min = 1, max = 45, message = "{validation.size.middleInitial}")
+	//@Size(min = 1, max = 45, message = "{validation.size.middleInitial}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")	
 	@Column(name = "MIDDLE_INITIAL")
 	private String middleInitial;
