@@ -54,6 +54,7 @@ public class RootConfig {
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
 		if (env.getRequiredProperty(PROPERTY_NAME_DATABASE_JELASTIC).equalsIgnoreCase("true")) {
 			String URL =  "jdbc:mysql://mysql-viking.jelastic.regruhosting.ru/viking?characterEncoding=utf8&useUnicode=true";
+			//String URL =  "jdbc:mysql://mysql-viking.jelastic.elastx.net/viking?characterEncoding=utf8&useUnicode=true";
 			dataSource.setUrl(URL);
 		} else {
 			dbHost = envVarWithDefault("OPENSHIFT_MYSQL_DB_HOST", "localhost");
