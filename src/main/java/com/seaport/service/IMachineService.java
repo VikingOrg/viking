@@ -18,6 +18,6 @@ public interface IMachineService {
 	public List<Machine> getMachines();
 	public void saveMachine(Machine machine);
 	public Map<Integer, Integer> getYearMap();
-	public List<Machine> getMachines(User user, boolean getArchive);
+	public List<Machine> getMachines(User user, String recordType);
 	public List<Machine> getMachineByStevedorId(Integer stevedorId);
 }

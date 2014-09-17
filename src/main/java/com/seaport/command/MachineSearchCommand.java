@@ -39,7 +39,14 @@ public class MachineSearchCommand {
 	private Integer releaseYear;
 	private Integer manufacturerId;
 	private Integer modelId;
+	private String archived;
 	
+	public String getArchived() {
+		return archived;
+	}
+	public void setArchived(String archived) {
+		this.archived = archived;
+	}
 	private String[] machineSelection;
 	
 	public String[] getMachineSelection() {

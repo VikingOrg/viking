@@ -80,7 +80,7 @@
             	   $('select[name="machine_table_length"]').addClass("form-control");
            	   	   $("#tableActions").appendTo("#table_Actions");
             	   this.fnSetFilteringDelay(500);
-            	   getData();
+            	   getData("A");
 	              },
                	tableTools: {
          			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -142,9 +142,9 @@
             	oTable.fnFilter( $(this).val());
             });                                                
 
-            $('#recordTypeSelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 22);
-            });
+//            $('#recordTypeSelect').change(function() {
+//            	oTable.fnFilter( $(this).val(), 22);
+//            });
             
             $('#groupSelect').change(function() {
           	  var groupId = $(this).val();
@@ -159,7 +159,13 @@
 	                      $('#modelSelect').html(options);
 	                  });
                 }
-            });                
+            }); 
+
+            $('#recordTypeSelect').change(function() {
+            	var recordType = $(this).val();
+            	getData(recordType);
+            });
+                           
 
 //             $('#selectAll').click(function (e) {
 //                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
@@ -176,11 +182,11 @@
             			
         } ); //end of document.ready
 
-		function getData(){
+		function getData(recordType){
         	showProgressModal('#wait_modal');
         	oTable.fnClearTable();
         	var pageData =  $("#machine_search_form").serialize();
-      		$.getJSON("${pageContext.request.contextPath}/machineSearch/getMachines/false", pageData, function (data) {
+      		$.getJSON("${pageContext.request.contextPath}/machineSearch/getMachines/"+recordType, pageData, function (data) {
       			if (data.length != 0 ) {
       				jsonData = data; 
       				oTable.fnAddData(data);
@@ -334,11 +340,11 @@
 					</div>
 					<div class="form-group">
 	                    <label>Тип записей</label>
-						<select id="recordTypeSelect" class="form-control" title="Выборка по типу записи">
-							<option value="">Все типы</option>
-							<option value="0">Активные</option>
-							<option value="Y">Удаленные</option>
-						</select>	                    
+						<form:select id="recordTypeSelect" path="archived" cssClass="form-control" title="Выборка по типу записи">
+							<form:option value="ALL" label="Все типы" />
+							<form:option value="A" label="Активные" />
+							<form:option value="Y" label="Удаленные" />							
+						</form:select>	                    
                     </div>					
 				</div>
 			

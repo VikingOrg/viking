@@ -43,8 +43,8 @@ public class MachineServiceImpl implements IMachineService {
 	public Map<Integer, Integer> getYearMap(){
 		return machineDAO.getYearMap();
 	}
-	public List<Machine> getMachines(User user, boolean getArchive){
-		return machineDAO.getMachines(user, getArchive);
+	public List<Machine> getMachines(User user, String recordType){
+		return machineDAO.getMachines(user, recordType);
 	}
 
 	public List<Machine> getMachineByStevedorId(Integer stevedorId) {

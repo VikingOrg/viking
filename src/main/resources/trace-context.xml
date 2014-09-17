@@ -13,8 +13,8 @@
 	<aop:aspectj-autoproxy/>
 
 	<bean id="customizableTraceInterceptor" class="com.seaport.aop.TraceInterceptor"
-		p:enterMessage="Entering $[targetClassShortName].$[methodName]($[arguments])"
-		p:exitMessage="Leaving $[targetClassShortName].$[methodName](): Not displied"/>
+		p:enterMessage="Entering $[targetClassShortName].$[methodName]()"
+		p:exitMessage="Leaving $[targetClassShortName].$[methodName]()"/>
 		
 	<aop:config>
 	  <aop:advisor advice-ref="customizableTraceInterceptor" pointcut="execution(public * com.seaport.service..*(..))"/>

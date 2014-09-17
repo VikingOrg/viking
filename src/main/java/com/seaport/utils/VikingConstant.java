@@ -35,6 +35,11 @@ public class VikingConstant {
 	public boolean localConfig;
 	public boolean responsiveDesign;
 	public boolean applPhaseII;
+
+	/*Record types (for now)*/
+	public static String RECORD_TYPE_ALL = "ALL";
+	public static String RECORD_TYPE_ACTIVE = "A";
+	public static String RECORD_TYPE_ARCHIVED = "Y";
 	
 	/*Semantic shortcuts*/
 	public static String VIKING_YES = "Y";

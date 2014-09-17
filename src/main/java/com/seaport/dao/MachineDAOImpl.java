@@ -52,20 +52,19 @@ public class MachineDAOImpl implements IMachineDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Machine> getMachines(User user, boolean getArchive){
+	public List<Machine> getMachines(User user, String recordType){
 		Criteria criteria = getCurrentSession().createCriteria(Machine.class);
 		
 		/*Limits records for non-Admin accounts*/
 		if (user.getRole().getId().intValue() != VikingConstant.USER_ROLE_ADMIN) {
 			criteria.add(Restrictions.eq("stevidorId", user.getStevidorId()));
 		}
-		/*For test Only*/
-
-//		criteria.add(Restrictions.eq("machineId", 1));
-		
-//		if (!getArchive) {
-//			criteria.add(Restrictions.ne("archived", "Y"));
-//		}
+		/*if request has record type parameter - add criteria below.*/
+		if (recordType.equalsIgnoreCase(VikingConstant.RECORD_TYPE_ACTIVE)) {
+			criteria.add(Restrictions.ne("archived", "Y"));
+		} else if (recordType.equalsIgnoreCase(VikingConstant.RECORD_TYPE_ARCHIVED)) {
+			criteria.add(Restrictions.eq("archived", "Y"));
+		}
 		return 	criteria.list();
 	}
 	
