@@ -64,7 +64,6 @@
 
 		    $("#lastName").rules("add", {required:true});
 		    $("#firstName").rules("add", {required:true});
-		    $("#middleInitial").rules("add", {required:true});
 		    $("#email").rules("add", {required:true});
 		    $("#password").rules("add", {required:true});
 		    $("#agree").rules("add", {required:true});
@@ -179,7 +178,7 @@
 		      	<div class="col-sm-4 col-sm-offset-1">
 					<v:input id="lastName" path="user.lastName" label="ФАМИЛИЯ" required="true" title="Введите свою фамилию"/>
 					<v:input id="firstName" path="user.firstName" label="ИМЯ" required="true" title="Введите своё имя"/>
-					<v:input id="middleInitial" path="user.middleInitial" label="ОТЧЕСТВО" title="Введите своё отчество"/>
+					<v:input id="middleInitial" path="user.middleInitial" label="ОТЧЕСТВО" required="false" title="Введите своё отчество"/>
 					<v:input id="email" path="user.userEmail" type="email" label="E-MAIL" title="Укажите свой e-mail в качестве логина"/>		
 					<v:input id="password" path="user.password" type="password" label="ПАРОЛЬ" title="Укажите пароль для входа"/>
 				    <div id="progressbar"><div id="progress"></div></div>
