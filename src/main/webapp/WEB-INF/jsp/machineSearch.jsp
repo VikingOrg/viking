@@ -337,7 +337,7 @@
 						<select id="recordTypeSelect" class="form-control" title="Выборка по типу записи">
 							<option value="">Все типы</option>
 							<option value="0">Активные</option>
-							<option value="1">Удаленные</option>
+							<option value="Y">Удаленные</option>
 						</select>	                    
                     </div>					
 				</div>
