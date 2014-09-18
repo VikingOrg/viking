@@ -23,8 +23,6 @@
 		    		<p><h4>Приветствуем вас, <span id="username">${userModel.firstName}&nbsp;</span>!</h4></p>
 		    		<p>Перед началом работы пожалуйста ознакомьтесь с Правилами пользования Системой.</p>
 					<p>&nbsp;</p>
-		    		
-
 				</div> 
 		  </div>	
 	</div> <!-- Closing div tag for wrap -->

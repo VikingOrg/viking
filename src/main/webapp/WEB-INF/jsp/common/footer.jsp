@@ -10,7 +10,7 @@
 			<a href="<c:url value="/static/html/about.html"/>">О системе</a> |
 			<a href="<c:url value="/static/html/participants.html"/>">Участники</a> |
 			<a href="<c:url value="/static/html/rules.html"/>">Правила</a> |
-			<a href="<c:url value="/static/html/support.html"/>">Поддержка</a> |
+			<a href="<c:url value="/support"/>">Поддержка</a> |
 			<a href="<c:url value="/static/html/help.html"/>">Помощь</a><br />
 			&copy; 2013 | <a href="<c:url value="/home"/>">ИТТ24</a>.
 		</p>
