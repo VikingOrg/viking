@@ -11,6 +11,9 @@ public class VikingConstant {
 	/*Application wide user object name to get access from session.*/
 	public static final String USER_MODEL = "userModel";
 	
+	/*E-mail related constants*/
+	public static String ADMIN_EMAIL = "viking.openshift@gmail.com";
+	
 	/*Ajax RESTfull request types.*/
 	public static String TRANS_TYPE_DELETE = "delete";
 	public static String TRANS_TYPE_CREATE = "create";

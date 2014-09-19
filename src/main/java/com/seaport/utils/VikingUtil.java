@@ -2,6 +2,8 @@ package com.seaport.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -14,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class VikingUtil {
+	private static final int THREADS_NUM = 2;
 	
 	/**
 	 * Checking if String object is empty meaning Viking empty business logic definition.
@@ -53,8 +56,30 @@ public class VikingUtil {
 	 * @throws UnsupportedEncodingException
 	 * @throws SendFailedException
 	 */
-	public static void sendEmail(String nameFrom, String fromEmail, String subject, String message, String toEmail) throws AddressException, MessagingException, 
-		UnsupportedEncodingException, SendFailedException {
+	public static void sendEmail(final String nameFrom, final String fromEmail, final String subject, final String message, final String toEmail) {
+		ExecutorService executor = Executors.newFixedThreadPool( THREADS_NUM );
+        executor.submit( new Runnable() {
+            @Override
+            public void run()  {
+                try {
+					sendMailTo(nameFrom, fromEmail, subject, message, toEmail);
+				} catch (AddressException e) {
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (SendFailedException e) {
+					e.printStackTrace();
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+            }
+        } );
+
+	}
+	
+	/*sending email in multiple threads*/
+	public static void sendMailTo(String nameFrom, String fromEmail, String subject, String message, String toEmail) throws AddressException, MessagingException, 
+					UnsupportedEncodingException, SendFailedException {
 		//Set Mail properties
 		Properties props = System.getProperties();
 		props.setProperty("mail.smtp.starttls.enable", "true");
@@ -79,6 +104,9 @@ public class VikingUtil {
 		mimeMessage.setContent(message, "text/plain; charset=UTF-8");
 		
 		//Send the email
-		Transport.send(mimeMessage);
-	}	
+		Transport.send(mimeMessage);		
+	}
 }
+
+
+

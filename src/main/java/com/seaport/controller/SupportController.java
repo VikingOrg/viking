@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.SupportCommand;
@@ -20,6 +18,7 @@ import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingConstant;
 import com.seaport.utils.VikingUtil;
 
 /**
@@ -68,7 +67,7 @@ public class SupportController {
 		String messageText = supportCommand.getSupportMessage();
 		VikingUtil.sendEmail(user.getUserEmail(), user.getUserEmail(), 
 				"Запрос в службу потдержки от" + user.getFirstName() +" "+ user.getLastName(), 
-				messageText, "viking.openshift@gmail.com");
+				messageText, VikingConstant.ADMIN_EMAIL);
         
 		redirectAttributes.addFlashAttribute("message", "message.support.success");
 		return "redirect:/support";

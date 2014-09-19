@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.RegistrationCommand;
+import com.seaport.domain.User;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingConstant;
+import com.seaport.utils.VikingUtil;
 import com.seaport.validator.RegistrationValidator;
 
 /**
@@ -93,7 +96,27 @@ public class RegistrationController {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getUser().getPassword());
 		registrationCommand.getUser().setPassword(encPassword);
-		userService.saveUser(registrationCommand.getUser());
+		User user = registrationCommand.getUser();
+		userService.saveUser(user);
+		
+		/*Sending required email to user and administrator*/
+		String messageText = "Уважаемая(ый) " + user.getFirstName() + " " + user.getLastName() + "," +
+				  "\n\n Вы успешно зарегистрировались на сайте ИTT24!."+
+                  "\n\n В ближайщее время администратор системы рассмотрит вашу учетную запись и даст доступ к сайту." + 
+                  "\n\n С уважением Администрация.";
+		
+		VikingUtil.sendEmail("vetalik@gotmilk.com","", "Регистрация на сайте ИТТ24.", messageText, user.getUserEmail());
+		
+		messageText = "Произошла регистация нового пользователя, требует авторизация учетной записи. " +
+				"\n\n Пользователь зарегистрировался под именем:"+ user.getFirstName() + " " + user.getLastName() + "," +
+                "\n\n Необходимо рассмотреть правильность регистрации и назначить права доступа к нужным разделам сайта." + 
+                "\n\n С уважением Авто-администратор.";
+		
+		VikingUtil.sendEmail(user.getUserEmail(), user.getUserEmail(), 
+				"Запрос в службу потдержки от" + user.getFirstName() +" "+ user.getLastName(), 
+				messageText, VikingConstant.ADMIN_EMAIL);
+
+		
 		return "redirect:/login";
 	}
 }
