@@ -24,6 +24,7 @@ import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingConstant;
 import com.seaport.utils.VikingUtil;
 import com.seaport.validator.UserEditValidator;
 
@@ -98,6 +99,17 @@ public class UserEditController {
 		return "admin/userEditAdmin";
 	}
 	
+	/**
+	 * User form submit logic. 
+	 * @param request
+	 * @param model
+	 * @param registrationCommand
+	 * @param result
+	 * @param redirectAttributes
+	 * @param status
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = RequestMethod.POST) 
 	public String onSubmit(HttpServletRequest request, Model model, 
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
@@ -140,6 +152,11 @@ public class UserEditController {
 		
 		//clear the command object from the session
 		status.setComplete();
-		return "redirect:/userSearchAdmin";
+		if (user.getRole().getId().intValue() == VikingConstant.USER_ROLE_ADMIN) {
+			return "redirect:/userSearchAdmin";
+		} else {
+			return "redirect:/home";
+		}
+		
 	}
 }
