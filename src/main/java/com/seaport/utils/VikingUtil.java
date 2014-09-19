@@ -56,13 +56,13 @@ public class VikingUtil {
 	 * @throws UnsupportedEncodingException
 	 * @throws SendFailedException
 	 */
-	public static void sendEmail(final String nameFrom, final String fromEmail, final String subject, final String message, final String toEmail) {
+	public static void sendEmail(final String subject, final String message, final String toEmail) {
 		ExecutorService executor = Executors.newFixedThreadPool( THREADS_NUM );
         executor.submit( new Runnable() {
             @Override
             public void run()  {
                 try {
-					sendMailTo(nameFrom, fromEmail, subject, message, toEmail);
+					sendMailTo(subject, message, toEmail);
 				} catch (AddressException e) {
 					e.printStackTrace();
 				} catch (UnsupportedEncodingException e) {
@@ -78,7 +78,7 @@ public class VikingUtil {
 	}
 	
 	/*sending email in multiple threads*/
-	public static void sendMailTo(String nameFrom, String fromEmail, String subject, String message, String toEmail) throws AddressException, MessagingException, 
+	public static void sendMailTo(String subject, String message, String toEmail) throws AddressException, MessagingException, 
 					UnsupportedEncodingException, SendFailedException {
 		//Set Mail properties
 		Properties props = System.getProperties();
@@ -98,7 +98,7 @@ public class VikingUtil {
 		//Create the email with variable input
 		MimeMessage mimeMessage = new MimeMessage(session);
 		mimeMessage.setHeader("Content-Type", "text/plain; charset=UTF-8");
-		mimeMessage.setFrom(new InternetAddress(fromEmail, nameFrom));
+		mimeMessage.setFrom(new InternetAddress(VikingConstant.MAIL_FROM_EMAIL, " ITT24 "));
 		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 		mimeMessage.setSubject(subject, "utf-8");
 		mimeMessage.setContent(message, "text/plain; charset=UTF-8");

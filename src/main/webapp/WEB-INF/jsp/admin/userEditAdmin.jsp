@@ -182,12 +182,13 @@
 		          <div class="form-actions">
 		            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button> -->
 		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
-		            <sec:authorize access="hasRole('ROLE_ADMIN')">
-		            	<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="/userSearchAdmin"/>';">Вернуться</a>
-		            </sec:authorize>
-		            <sec:authorize access="hasRole('ROLE_USER')">
-		            	<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="/home"/>';">Вернуться</a>
-		            </sec:authorize>	
+		            
+					<c:if test="${userModel.role.id != 1}">
+						<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="/home"/>';">Вернуться</a>
+					</c:if>				            
+					<c:if test="${userModel.role.id == 1}">
+						<a type="button" class="cancelbtn" onclick="window.location.href = '<c:url value="/userSearchAdmin"/>';">Вернуться</a>
+					</c:if>				            
 		            	
 		          </div>
 		        </div>

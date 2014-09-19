@@ -115,9 +115,10 @@ public class UserEditController {
 								@Valid @ModelAttribute("registrationCommand") RegistrationCommand registrationCommand,
 								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 		/*Validation block.*/
-		User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
+		User loggedInUser = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
 		if (registrationCommand.getFormType().equals("E")) {
-			if (user.getUserId() == registrationCommand.getUser().getUserId()) {
+			/*Checking If logged user edits it's own record.*/
+			if (loggedInUser.getUserId() == registrationCommand.getUser().getUserId()) {
 				if (!VikingUtil.isEmpty(registrationCommand.getOldPassword()) || 
 						!VikingUtil.isEmpty(registrationCommand.getNewPassword()) ||
 						!VikingUtil.isEmpty(registrationCommand.getNewPasswordCheck()) ) {
@@ -135,7 +136,7 @@ public class UserEditController {
 		
 		/*For user edit.*/
 		if (registrationCommand.getFormType().equals("E")) {
-			if (user.getUserId() == registrationCommand.getUser().getUserId() && !VikingUtil.isEmpty(registrationCommand.getOldPassword())) {
+			if (loggedInUser.getUserId() == registrationCommand.getUser().getUserId() && !VikingUtil.isEmpty(registrationCommand.getOldPassword())) {
 				BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 				String encPassword = bCryptPasswordEncoder.encode(registrationCommand.getNewPassword());
 				registrationCommand.getUser().setPassword(encPassword);
@@ -147,12 +148,21 @@ public class UserEditController {
 			registrationCommand.getUser().setPassword(encPassword);
 		}
 		userService.saveUser(registrationCommand.getUser());
+		
+		/*Sending required email to user.*/
+		String messageText = "Уважаемая(ый) " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + "," +
+				  "\n\n Ваша учетная запись была изменена."+
+                  "\n\n Просим Вас войти в систему и проверить правильность заполнения данных." + 
+                  "\n\n С уважением Администрация.";
+		
+		VikingUtil.sendEmail("Регистрация на сайте ИТТ24.", messageText, loggedInUser.getUserEmail());
+		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
 		redirectAttributes.addFlashAttribute(registrationCommand);
 		
 		//clear the command object from the session
 		status.setComplete();
-		if (user.getRole().getId().intValue() == VikingConstant.USER_ROLE_ADMIN) {
+		if (loggedInUser.getRole().getId().intValue() == VikingConstant.USER_ROLE_ADMIN) {
 			return "redirect:/userSearchAdmin";
 		} else {
 			return "redirect:/home";

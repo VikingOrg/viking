@@ -12,7 +12,8 @@ public class VikingConstant {
 	public static final String USER_MODEL = "userModel";
 	
 	/*E-mail related constants*/
-	public static String ADMIN_EMAIL = "viking.openshift@gmail.com";
+	public static String MAIL_ADMIN_EMAIL = "viking.openshift@gmail.com";
+	public static String MAIL_FROM_EMAIL = "vetalik@gotmilk.com";
 	
 	/*Ajax RESTfull request types.*/
 	public static String TRANS_TYPE_DELETE = "delete";

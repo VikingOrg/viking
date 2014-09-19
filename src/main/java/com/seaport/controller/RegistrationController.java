@@ -105,16 +105,15 @@ public class RegistrationController {
                   "\n\n В ближайщее время администратор системы рассмотрит вашу учетную запись и даст доступ к сайту." + 
                   "\n\n С уважением Администрация.";
 		
-		VikingUtil.sendEmail("vetalik@gotmilk.com","", "Регистрация на сайте ИТТ24.", messageText, user.getUserEmail());
+		VikingUtil.sendEmail("Регистрация на сайте ИТТ24.", messageText, user.getUserEmail());
 		
 		messageText = "Произошла регистация нового пользователя, требует авторизация учетной записи. " +
-				"\n\n Пользователь зарегистрировался под именем:"+ user.getFirstName() + " " + user.getLastName() + "," +
+				"\n\n Пользователь зарегистрировался под именем: "+ user.getFirstName() + " " + user.getLastName() + "," +
                 "\n\n Необходимо рассмотреть правильность регистрации и назначить права доступа к нужным разделам сайта." + 
                 "\n\n С уважением Авто-администратор.";
 		
-		VikingUtil.sendEmail(user.getUserEmail(), user.getUserEmail(), 
-				"Запрос в службу потдержки от" + user.getFirstName() +" "+ user.getLastName(), 
-				messageText, VikingConstant.ADMIN_EMAIL);
+		VikingUtil.sendEmail("Регистрация нового пользователя " + user.getFirstName() +" "+ user.getLastName(), 
+				messageText, VikingConstant.MAIL_ADMIN_EMAIL);
 
 		
 		return "redirect:/login";

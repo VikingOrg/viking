@@ -65,9 +65,8 @@ public class SupportController {
 			return "support";
 		}
 		String messageText = supportCommand.getSupportMessage();
-		VikingUtil.sendEmail(user.getUserEmail(), user.getUserEmail(), 
-				"Запрос в службу потдержки от" + user.getFirstName() +" "+ user.getLastName(), 
-				messageText, VikingConstant.ADMIN_EMAIL);
+		VikingUtil.sendEmail("Запрос в службу потдержки от " + user.getFirstName() +" "+ user.getLastName(), 
+				messageText, VikingConstant.MAIL_ADMIN_EMAIL);
         
 		redirectAttributes.addFlashAttribute("message", "message.support.success");
 		return "redirect:/support";

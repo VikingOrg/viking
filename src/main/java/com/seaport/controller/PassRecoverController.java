@@ -37,6 +37,7 @@ import com.seaport.service.IPortService;
 import com.seaport.service.IRoleService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingConstant;
 import com.seaport.utils.VikingUtil;
 
 /**
@@ -105,7 +106,7 @@ public class PassRecoverController {
                   "\n\n После входа в систему - измените его на более безопасный." + 
                   "\n\n С уважением Администрация.";
 		
-		VikingUtil.sendEmail("vetalik@gotmilk.com","vetalik@gotmilk.com", "ИТТ24 Запрос на восстановление пароля.", messageText, user.getUserEmail());
+		VikingUtil.sendEmail("ИТТ24 Запрос на восстановление пароля.", messageText, user.getUserEmail());
         
         /*saving new password after successfully sent email.*/
         userService.saveUser(user);
