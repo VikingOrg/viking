@@ -17,4 +17,5 @@ public interface IStevidorService {
 	public List<Stevidor> getStevidors();
 	public void saveStevidor(Stevidor stevidor);
 	public Map<Integer, Stevidor> getStevidorsMap();	
+	public boolean checkIfStevidorExist(Stevidor stevidorToCheck);
 }

@@ -85,6 +85,7 @@ public class MachineDAOImpl implements IMachineDAO {
 		if (machine.getMachineId()==null) {
 			machine.setCreateUserId(user.getUserId());
 			machine.setCreateDate(updateDate);
+			machine.setArchived(VikingConstant.RECORD_TYPE_ACTIVE);
 		}
 		machine.setUpdateUserId(user.getUserId());
 		machine.setUpdateDate(updateDate);

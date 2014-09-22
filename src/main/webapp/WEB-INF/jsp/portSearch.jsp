@@ -86,6 +86,16 @@
                         }
                     });
                 });
+
+                $("#dataTableSearch").focus();
+                $('#dataTableSearch').keypress(function (ev) {
+                    var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                    if (keycode == '13') {
+                    	ev.preventDefault();
+                    	return false;
+                        //fnc.call(this, ev);
+                    }
+                });           
                 
             } ); //end of document.ready
 

@@ -42,7 +42,18 @@
 	                      			'<span id="name'+machineModelObject.modelId+'">'+ data + '</span></a>';
         	   	        		    return html;
         	   	        		    }
-       	   	        		     }
+       	   	        		     },
+       	                         {
+       	   	        		      "aTargets": [ 4 ],
+       	   	        		      "mData": 4,
+       	   	        		      "mRender": function ( data, type, machineModelObject ) {
+           	   	        		      var machineName = data;
+           	   	        		      if(machineModelObject.manufacturer.country.countryId != 1) {
+           	   	        		    	 machineName = machineName + " (" + machineModelObject.manufacturer.nameEn + ")";
+               	   	        		  }
+       	   	        		        return machineName;
+       	   	        		      }
+      	   	        		     }       	   	        		     
     	        	      	   ], 		                             
 	             	tableTools: {
 	         			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
@@ -121,7 +132,17 @@
                         }
                     });
                 });
-                               
+
+                $("#dataTableSearch").focus();
+                $('#dataTableSearch').keypress(function (ev) {
+                    var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                    if (keycode == '13') {
+                    	ev.preventDefault();
+                    	return false;
+                        //fnc.call(this, ev);
+                    }
+                });  
+                                            
             } ); //end of document.ready 
 
             
@@ -135,6 +156,7 @@
           				oTable.fnAddData(data);
           			}
           			closeProgressModal('#wait_modal');
+          			$("#dataTableSearch").focus();
           		}).fail( function(d, textStatus, error) {
           	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
           	        closeProgressModal('#wait_modal');

@@ -25,6 +25,7 @@
     	<intercept-url pattern="/menu" access="hasRole('ROLE_GUEST')"/>
     	<intercept-url pattern="/footer" access="hasRole('ROLE_GUEST')"/>
 		<intercept-url pattern="/denied" access="hasRole('ROLE_GUEST')"/>
+		<intercept-url pattern="/support" access="hasRole('ROLE_GUEST')"/>
 		<intercept-url pattern="/userEditAdmin/**" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/*admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>

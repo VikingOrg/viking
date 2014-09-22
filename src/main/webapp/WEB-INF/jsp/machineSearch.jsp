@@ -23,6 +23,7 @@
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
   			  "scrollX" : true,
           	  "responsive": false,
+          	  "sPaginationType": "full_numbers",
               "oLanguage": {
                     "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                  },
@@ -179,6 +180,15 @@
 // to avoid aaData in JSON response 
 //                 "sAjaxDataProp": '',
 
+            $("#countrySelect").focus();
+            $('#dataTableSearch').keypress(function (ev) {
+                var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                if (keycode == '13') {
+                	ev.preventDefault();
+                	return false;
+                    //fnc.call(this, ev);
+                }
+            });            
             			
         } ); //end of document.ready
 

@@ -52,9 +52,11 @@
             } );
 
 
-            $('#dataTableSearch').on('input', function() {
+            $('#dataTableSearch').on('input', function(event) {
+            	
             	oTable.fnFilter( $(this).val());
-            });   		 
+            });
+               		 
             $('#countrySelect').change(function() {
             	oTable.fnFilter( $(this).val(), 3);
             });
@@ -65,7 +67,15 @@
 //             $('#selectAll').click(function (e) {
 //                 $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
 //             });
-            
+            $("#dataTableSearch").focus();
+            $('#dataTableSearch').keypress(function (ev) {
+                var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                if (keycode == '13') {
+                	ev.preventDefault();
+                	return false;
+                    //fnc.call(this, ev);
+                }
+            });
         } );
    
         </script>
@@ -77,7 +87,8 @@
 		   <!----- Begin page content ------>
 		 <div class="container-fluid"> 
 		 
-			<form:form id="stevidor_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="stevidorSearch" commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
+			<form:form id="stevidor_search_form" class="form-horizontal mini" style="margin-bottom: 0px;" 
+				 						commandName="stevidorSearchCommand" method="post" accept-charset="UTF-8">
 		   <div class="row">
 		   		
 				<!--Sidebar content-->
@@ -162,18 +173,18 @@
 				                    <table id="stevidor_table" class="table table-bordered table-striped">
 				                          <thead>
 				                              <tr>
-					                              <th class="column-check nowrap"></th>
+					                              <th class="column-check nowrap">№</th>
 					                              <th class="nowrap">Компания-оператор&nbsp;&nbsp;</th>
 			                              		  <th class="nowrap">Порт&nbsp;&nbsp;</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Страна&nbsp;&nbsp;</th>
-					                              <th class="hidden-sm hidden-xs nowrap">Примечания</th>
+					                              <th class="">Примечания</th>
 				                              </tr>
 				                          </thead>
 				                          <tbody>
 				                          	<c:forEach var="stevidor" varStatus="loop" items="${stevidorSearchCommand.stevidorList}" >
 					                            <tr>
 					                            	<td class="column-check nowrap" width= "20px">
-					                                	<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox>
+					                                	<%--<form:checkbox path="stevidorList[${loop.index}].archived" value="Y"></form:checkbox> --%>
 					                                	${stevidor.stevidorId}
 						                              <%-- 	<c:if test="${system.localConfig}" >
 						                              		<span class="alert-danger">
@@ -186,7 +197,7 @@
 						                         	</td>
 						                            <td><c:out value="${stevidor.port.name}"/></td>
 					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.port.country.nameRus}"/></td>
-					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.stevidorNote}"/></td>
+					                                <td class=""><c:out value="${stevidor.stevidorNote}"/></td>
 					                            </tr>
 				                            </c:forEach>
 				                          </tbody>
