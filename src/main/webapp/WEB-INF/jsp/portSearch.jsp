@@ -8,20 +8,25 @@
 <head>
 <title>Таблица Портов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
     	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
 		
 		
 		<script type="text/javascript">
             $(document).ready(function() {
+    			$('#changesFrom').datepicker();
+    			$('#changesTo').datepicker();
+    			
             	var oTable = $('#port_table').dataTable({
                     "sDom": '<"#tableActions"T>t<"#source"l>ip',
-     	            "scrollX": true,
+     	            "scrollX": false,
             		"columnDefs": [
             		               {
             		                   "targets": [ 0 ],
-            		                   "visible": true
+            		                   "visible": false
             		               }
             		           ],
                 	tableTools: {
@@ -29,7 +34,10 @@
              		 	"aButtons": [
                	                "copy",
                	             	{
-               	                    "sExtends":     "print"
+               	                    "sExtends":     "print",
+                	                 "sInfo": "</br>"+
+  	               	                 "</br>"+
+  	               	                 "Нажмите ESC для выхода из режима ПЕЧАТИ.",
                	                	},
                	            	{
                	                    "sExtends":     "csv",
@@ -144,6 +152,19 @@
 								<div class="form-group">
 										<label>Кол.строк:</label>
 										<div id="table_length"></div>					
+								</div>	
+							
+								<div class="form-group">
+									<label>Внесенные изменения</label>
+										<div class="input-group pull-right">
+											<span class="date-range-label">С</span>
+											<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+										</div>
+										<div class="input-group pull-right">
+											<span class="date-range-label">По</span>
+											<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+											<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
+										</div>
 								</div>
 							</div>
 						</div>
@@ -219,7 +240,7 @@
 											<c:out value="${port.country.nameRus}"/>
 										</span>
 									</td>
-									<td class="nowrap">
+									<td class="">
 										<span id="portNote${port.portId}">
 											<c:out value="${port.portNote}"/>
 										</span>

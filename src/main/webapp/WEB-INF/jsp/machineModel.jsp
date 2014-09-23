@@ -4,6 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -11,14 +13,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <title>Таблица Моделей Машин</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
     	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
     	<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
 		
 		<script type="text/javascript">
 			var jsonData={};
 	        $(document).ready(function() {
+				$('#changesFrom').datepicker();
+				$('#changesTo').datepicker();
+					  
 	        	oTable = $('#modelSearchTable').dataTable( {
 	        		"sDom": '<"#tableActions"T>t<"#source"l>ip',
 	                "bJQueryUI": true,
@@ -61,6 +68,9 @@
 	           	                "copy",
 	           	             	{
 	           	                    "sExtends":     "print",
+		           	                 "sInfo": "</br>"+
+	               	                 "</br>"+
+	               	                 "Нажмите ESC для выхода из режима ПЕЧАТИ.",
 	           	                    "bHeader": true
 	           	                	},	
 	           	            	{
@@ -228,6 +238,7 @@
 										<label>Кол.строк:</label>
 										<div id="table_length"></div>					
 								</div>
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<div class="form-group">
 				                    <label>Тип записей</label>
 									<select id="" class="form-control" title="Выборка по типу записи">
@@ -236,6 +247,20 @@
 										<option value="1">Удаленные</option>
 									</select>	                    
                     			</div>
+							
+							<div class="form-group">
+								<label>Внесенные изменения</label>
+									<div class="input-group pull-right">
+										<span class="date-range-label">С</span>
+										<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+									</div>
+									<div class="input-group pull-right">
+										<span class="date-range-label">По</span>
+										<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+										<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
+									</div>
+							</div>	
+							</sec:authorize>
 			               </div>
 					</div>
 				</div>

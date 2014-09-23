@@ -34,7 +34,7 @@
 				<nav class="navbar navbar-inverse" role="navigation" >
 					<div class="navbar-inner">
 				  <!-- Brand and toggle get grouped for better mobile display -->
-				  <div class="navbar-header">
+				  <!-- <div class="navbar-header">
 				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 				      <span class="sr-only">Toggle navigation</span>
 				      <span class="icon-bar"></span>
@@ -42,10 +42,11 @@
 				      <span class="icon-bar"></span>
 				    </button>
 				    <a class="navbar-brand visible-xs" href="#">Меню</a>
-				  </div>
+				  </div> -->
 
-				  <!-- Collect the nav links, forms, and other content for toggling -->
-				  <div class="collapse navbar-collapse navbar-ex1-collapse">
+				  <!-- Collect the nav links, forms, and other content for toggling 
+				  <div class="collapse navbar-collapse navbar-ex1-collapse">-->
+				  <div class="navbar">
 				    <ul class="nav navbar-nav">
 						<li><a href="<c:url value="/home"/>" class="first"><span class="glyphicon glyphicon-home" title="Главная"></span>&nbsp;&nbsp;Главная</a></li>
 			<sec:authorize access="hasRole('ROLE_USER')">	

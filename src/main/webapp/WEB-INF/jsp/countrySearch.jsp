@@ -8,20 +8,25 @@
 	<head>
 	    <title>Таблица Стран</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
 	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
 
 		<script type="text/javascript">
             $(document).ready(function() {
+    			$('#changesFrom').datepicker();
+    			$('#changesTo').datepicker();
+    			
             	var oTable = $('#country_table').dataTable( {
 			   	           "columnDefs": [
 			          		               {
 			          		                   "targets": [ 0 ],
-			          		                   "visible": true
+			          		                   "visible": false
 			          		               },
           		           ],          
-            	            "scrollX": true,
+            	            "scrollX": false,
                 	        "sDom": '<"#tableActions"T>t<"#source"l>ip',
                    	        "sPaginationType": "full_numbers",
                            	tableTools: {
@@ -30,6 +35,9 @@
                           	                "copy",
                           	             	{
                           	                    "sExtends":     "print",
+	                          	                  "sInfo": "</br>"+
+	         	               	                 "</br>"+
+	         	               	                 "Нажмите ESC для выхода из режима ПЕЧАТИ.",
                           	                    "bHeader": true
                           	                	},
                           	            	{
@@ -145,7 +153,20 @@
 							<div class="form-group">
 									<label>Кол.строк:</label>
 									<div id="table_length"></div>					
-							</div>
+							</div>	
+							
+							<div class="form-group">
+								<label>Внесенные изменения</label>
+									<div class="input-group pull-right">
+										<span class="date-range-label">С</span>
+										<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+									</div>
+									<div class="input-group pull-right">
+										<span class="date-range-label">По</span>
+										<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+										<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
+									</div>
+							</div>	
 						</div>
 						<div class="col-sm-12 well lform">
 							<div class="row">	
@@ -197,8 +218,8 @@
 	                              <tr>
 		                              <th class="column-check">&nbsp;</th>
 		                              <th class="nowrap">Страна (RUS)</th>
-		                              <th class="hidden-sm hidden-xs nowrap">Страна (ENG)</th>
-		                              <th class="hidden-sm hidden-xs nowrap">Примечания</th>
+		                              <th class="nowrap">Страна (ENG)</th>
+		                              <th class="">Примечания</th>
 	                              </tr>
 	                          </thead>
 	                          <tbody>
@@ -217,10 +238,10 @@
 			                         			<span id="countryNameRus${country.countryId}"><c:out value="${country.nameRus}"/></span>
 			                         		</a>
 			                         	</td>
-		                              	<td class="hidden-sm hidden-xs">
+		                              	<td class="nowrap">
 		                              		<span id="countryNameEn${country.countryId}"><c:out value="${country.nameEn}"/></span>
 		                              	</td>
-		                              	<td class="hidden-sm hidden-xs">
+		                              	<td class="">
 		                              		<span id="countryNote${country.countryId}"><c:out value="${country.countryNote}"/></span>
 		                              	</td>
 		                            </tr>

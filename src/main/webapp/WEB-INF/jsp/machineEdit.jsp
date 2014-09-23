@@ -145,12 +145,12 @@
     		        }
     		   });
     		                     
-               $("#inventoryNumb").rules("add", {required:true});
+/*                $("#inventoryNumb").rules("add", {required:true});
                $("#docNumb").rules("add", {required:true});
                $("#transNumb").rules("add", {required:true});
                $("#factoryNumb").rules("add", {required:true});
                $("#nomNo").rules("add", {required:true});
-               $("#regNo").rules("add", {required:true});
+               $("#regNo").rules("add", {required:true}); */
                                 
 		  }); // end of document.ready
 		  
@@ -355,7 +355,9 @@
 				</div>
 				<!-- Start of Tab Container -->	
 				<div class="container">	
-				    <ul id="machineEditTab" class="nav nav-tabs responsive" role="tablist">
+				    <!-- Изменено на обычные вкладки (не респонсив)
+				    <ul id="machineEditTab" class="nav nav-tabs responsive" role="tablist"> -->
+				    <ul id="machineEditTab" class="nav nav-tabs" role="tablist">
 				      <li class="active <c:if test="${machineEditCommand.machine.archived == '1'}">active-red</c:if>">
 				      	  <a href="#main" role="tab" data-toggle="tab">
 						   	  Основные характеристики 
@@ -365,11 +367,12 @@
 						   	  </c:if>
 				      	  </a>
 				      </li>
-				      <li><a id="click_to_init" href="#tab_image" role="tab" data-toggle="tab">Изображения</a></li>
+				      <!-- <li><a id="click_to_init" href="#tab_image" role="tab" data-toggle="tab">Изображения</a></li> -->
 				    </ul>
 				    
 					<div id="myTabContent" class="tab-content responsive">
-							<div class="tab-pane fade tab-bordered" id="tab_image">
+<!--					Удалена вкладка с загрузкой изображения -->
+							<%-- <div class="tab-pane fade tab-bordered" id="tab_image">
 							      <div class="row">
 							        <div class="col-sm-9 col-sm-offset-1">
 							        	<!-- Dropzone here -->
@@ -377,7 +380,7 @@
 							            <!-- End of Dropzone here -->
 							        </div>							      
 								  </div>	
-							</div>		
+							</div>	 --%>	
 							
 							<div class="tab-pane fade in active tab-bordered <c:if test="${machineEditCommand.machine.archived == '1'}">tab-pane-red</c:if>" id="main">
 							      <div class="row">
@@ -489,13 +492,13 @@
 								      	<%-- 
 										<v:input path="machine.details" label="Характеристики" required="true" title="Укажите характеристики модели"/>
 										--%>
-							            <v:input id="inventoryNumb" path="machine.inventoryNumb" label="Инвентарный №" required="true" title="Введите инвентарный номер" maxlength="50"/>
-							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="true" title="Укажите дату ввода в эксплуатацию" id="datepicker"/>
-										<v:input id="docNumb" path="machine.doc" label="Контракт №" required="true" title="Укажите документ ввода в эксплуатацию" maxlength="20"/>
-										<v:input id="transNumb" path="machine.transNumb" label="Транс №" required="true" title="Укажите номер Транса" maxlength="15"/>
-							            <v:input id="factoryNumb" path="machine.factoryNumb" label="Заводской №" required="true" title="Укажите заводской номер" maxlength="20"/>
-							            <v:input id="nomNo" path="machine.nomNo" label="Номенклатурный №" required="true" title="Укажите номенклатурный номер" maxlength="50"/>
-							            <v:input id="regNo" path="machine.regNo" label="Регистрационный №" required="true" title="Укажите регистрационный номер из реестра Ростехнадзора" maxlength="50"/>
+							            <v:input id="inventoryNumb" path="machine.inventoryNumb" label="Инвентарный №" required="false" title="Введите инвентарный номер" maxlength="50"/>
+							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="false" title="Укажите дату ввода в эксплуатацию" id="datepicker" placeholder="01/01/1980"/>
+										<v:input id="docNumb" path="machine.doc" label="Контракт №" required="false" title="Укажите документ ввода в эксплуатацию" maxlength="20"/>
+										<v:input id="transNumb" path="machine.transNumb" label="Транс №" required="false" title="Укажите номер Транса" maxlength="15"/>
+							            <v:input id="factoryNumb" path="machine.factoryNumb" label="Заводской №" required="false" title="Укажите заводской номер" maxlength="20"/>
+							            <v:input id="nomNo" path="machine.nomNo" label="Номенклатурный №" required="false" title="Укажите номенклатурный номер" maxlength="50"/>
+							            <v:input id="regNo" path="machine.regNo" label="Регистрационный №" required="false" title="Укажите регистрационный номер из реестра Ростехнадзора (Регистра)" maxlength="50"/>
 				
 							            <div class="form-group">
 								            <label class="form-label">Примечания</label>

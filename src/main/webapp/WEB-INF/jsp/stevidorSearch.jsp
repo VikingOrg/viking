@@ -8,9 +8,14 @@
 	<head>
 	    <title>Таблица Компаний-операторов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
+        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
 		
 		<script type="text/javascript">
         $(document).ready(function() {
+			$('#changesFrom').datepicker();
+			$('#changesTo').datepicker();
+			
         	var oTable = $('#stevidor_table').dataTable( {
         		"sDom": '<"#tableActions"T>t<"#source"l>ip',
         		"bJQueryUI": true,
@@ -126,6 +131,19 @@
 												<label>Кол.строк:</label>
 												<div id="table_length"></div>					
 										</div>
+							
+										<div class="form-group">
+											<label>Внесенные изменения</label>
+												<div class="input-group pull-right">
+													<span class="date-range-label">С</span>
+													<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+												</div>
+												<div class="input-group pull-right">
+													<span class="date-range-label">По</span>
+													<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+													<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
+												</div>
+										</div>	
 								    </div>				
 							</div> 
 						</div>

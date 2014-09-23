@@ -13,11 +13,18 @@
 
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
 		<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
+		
 		
 		<script type="text/javascript">
 		var jsonData={};
+		
 		$(document).ready(function() {
+			$('#changesFrom').datepicker();
+			$('#changesTo').datepicker();
+				  
             oTable = $('#machine_table').dataTable({
           	  "bJQueryUI": true,
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
@@ -89,6 +96,9 @@
            	                "copy",
            	             	{
            	                    "sExtends":     "print",
+           	                 "sInfo": "</br>"+
+           	                 "</br>"+
+           	                 "Нажмите ESC для выхода из режима ПЕЧАТИ.",
            	                    "bHeader": true
            	                	},
            	            	{
@@ -97,7 +107,8 @@
            	                    "bHeader": true
            	                	}
            	            ]
-         	   },	              
+         	   },	
+  
             });
 
 
@@ -348,6 +359,7 @@
 						<label>Кол.строк:</label>
 						<div id="table_length"></div>					
 					</div>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<div class="form-group">
 	                    <label>Тип записей</label>
 						<form:select id="recordTypeSelect" path="archived" cssClass="form-control" title="Выборка по типу записи">
@@ -355,7 +367,21 @@
 							<form:option value="A" label="Активные" />
 							<form:option value="Y" label="Удаленные" />							
 						</form:select>	                    
-                    </div>					
+                    </div>	
+ 
+					<div class="form-group">
+						<label>Внесенные изменения</label>
+							<div class="input-group pull-right">
+								<span class="date-range-label">С</span>
+								<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+							</div>
+							<div class="input-group pull-right">
+								<span class="date-range-label">По</span>
+								<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+								<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
+							</div>
+					</div>	
+				</sec:authorize>			
 				</div>
 			
 			<!--  Операции с данными в таблице -->
