@@ -67,7 +67,13 @@
 	  <listener>
 	      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	  </listener>
-  
+	  
+      <listener>
+	    <listener-class>
+	      org.springframework.security.web.session.HttpSessionEventPublisher
+	    </listener-class>
+  	  </listener>
+  	  
    <servlet>
       <servlet-name>spring</servlet-name>
       <servlet-class>
@@ -93,7 +99,7 @@
    </servlet-mapping>
 	
 	<session-config>
-		<session-timeout>60</session-timeout>
+		<session-timeout>15</session-timeout>
 	</session-config>	   
 	<error-page>
 	    <error-code>404</error-code>
