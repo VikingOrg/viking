@@ -304,7 +304,7 @@
 										<form:option value="">Все Группы</form:option>
 										<c:forEach items="${machineSearchCommand.groupMap}"
 											var="group">
-											<form:option value="${group.key}" label="(${group.key})${group.value.name}" />
+											<form:option value="${group.key}" label="${group.value.name}" />
 										</c:forEach>
 									</form:select>
 							</div>
@@ -429,7 +429,7 @@
 			        <thead>
 			            <tr>
 			                <th>Id</th>
-			                <th>Статус</th>
+			                <th>Тип</th>
 			                <th>group Id</th>
 			                <th>model Id</th>
 			                <th>Группа</th>

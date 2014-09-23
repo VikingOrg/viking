@@ -124,7 +124,7 @@
 		  function setReportTitle() {
 			   $('#title_group').html($("#groupSelect option:selected").text());
 			   $('#title_model').html($("#modelSelect option:selected").text());
-			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
+			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+" - "+$("#releaseEndYearSelect option:selected").text());
 			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
 		  }			
 
@@ -165,7 +165,7 @@
 										
 											<c:forEach var="stevidor" items="${reportSelectionCommand.stevidorMap}">
 											    <span class="checkbox nowrap">
-											    	<form:checkbox path="stevidorSelection" value="${stevidor.key}" cssClass="newCheckbox"/>(${stevidor.value.stevidorId}) ${stevidor.value.fullName}<br/>
+											    	<form:checkbox path="stevidorSelection" value="${stevidor.key}" cssClass="newCheckbox"/><%-- (${stevidor.value.stevidorId})  --%>${stevidor.value.fullName}<br/>
 											    </span>
 											</c:forEach>
 										</div>
@@ -295,7 +295,7 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">
-										<h3 class="page-header">Отчет 01 "Кол-во Механизмов в Компаниях-операторах"</h3>
+										<h3 class="page-header">Отчет "Кол-во Механизмов в Компаниях-операторах"</h3>
 									</td>
 									
 								</tr>
