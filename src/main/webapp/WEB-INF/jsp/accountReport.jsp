@@ -122,7 +122,7 @@
 										<label>Компания</label>
 										<form:select id="stevidorSelection" path="stevidorId" cssClass="form-control col-sm-12" disabled="${isdisabled}">
 											<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-												<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
+												<form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
 											</c:forEach>
 										</form:select>
 									</div>		
@@ -147,8 +147,6 @@
 							<div class="col-sm-12">
 								<div class="btn-group pull-right">
 								
-									<!--  Кнопочка сформировать отчет -->
-									<!--  Кнопочка сформировать отчет -->
 									<!--  Кнопочка сформировать отчет -->
 									<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
 								</div>	
@@ -180,7 +178,7 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">
-											<h3 class="page-header">Отчет 04  "Список Механизмов"</h3>
+											<h3 class="page-header">Отчет "Список Механизмов"</h3>
 									</td>
 								</tr>
 							</tbody>
@@ -198,10 +196,10 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="nowrap">Компания:<span id="title_company" class="report_header">${reportSelectionCommand.companyName}</span></td>
+									<td class="nowrap">Компания: <span id="title_company" class="report_header">${reportSelectionCommand.companyName}</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Группа:<span id="title_group" class="report_header">${reportSelectionCommand.groupName}</span></td>
+									<td class="nowrap">Группа: <span id="title_group" class="report_header">${reportSelectionCommand.groupName}</span></td>
 								</tr>
 							</tbody>
 						</table>
@@ -223,8 +221,9 @@
 									<tr>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">
 											<span id="groupName${loop.index}"><c:out value="${accountReport.key[0]}"/></span>
+											<br>
 											<span style="font-weight: normal; float:left;" >
-												Всего по группе:<span id="countRecord${loop.index}"><c:out value="${accountReport.key[1]}"/></span>
+												Всего по группе: <span id="countRecord${loop.index}"><c:out value="${accountReport.key[1]}"/></span>
 											</span>
 										</td>
 										<td class="nowrap" style="background-color:#DDEDCC; font-weight: bold;">&nbsp;</td>

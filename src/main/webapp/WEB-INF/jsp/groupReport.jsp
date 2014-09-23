@@ -9,7 +9,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<title>Отчет по количеству ПТО</title>
+<title>Отчет по количеству ПТО в Группах</title>
 	<jsp:include page="common/headCoreElements.jsp" />
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -187,8 +187,6 @@
 								<div class="btn-group pull-right">
 								
 									<!--  Кнопочка сформировать отчет -->
-									<!--  Кнопочка сформировать отчет -->
-									<!--  Кнопочка сформировать отчет -->
 									<!--  <button id="" class="btn cancelbtn"><span class="glyphicon glyphicon-refresh"></span> </button> -->
 									<button id="sumbit_report" class="btn btn-primary">Сформировать</button>
 								</div>	
@@ -224,7 +222,7 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">
-											<h3 class="page-header">Отчет 02  "Кол-во Механизмов в Группах"</h3>
+											<h3 class="page-header">Отчет "Кол-во Механизмов в Группах"</h3>
 									</td>
 									
 								</tr>
@@ -241,7 +239,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="nowrap">Компания:<span id="title_company" class="report_header">Все компании</span><br></td>
+									<td class="nowrap">Компания: <span id="title_company" class="report_header">Все компании</span><br></td>
 								</tr>
 								<tr>
 									<td class="nowrap">Год выпуска: <span id="title_year" class="report_header">Все года</span></td>

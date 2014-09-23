@@ -123,7 +123,7 @@
 			   $('#title_company').html($("#stevidorSelect option:selected").text());
 			   $('#title_group').html($("#groupSelect option:selected").text());
 			   $('#title_model').html($("#modelSelect option:selected").text());
-			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+"-"+$("#releaseEndYearSelect option:selected").text());
+			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+" - "+$("#releaseEndYearSelect option:selected").text());
 		  }
 
 	</script>
@@ -159,7 +159,7 @@
 										<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control col-sm-12" disabled="${isdisabled}" >
 											<form:option value="0">Все компании</form:option>
 											<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-												<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
+												<form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
 											</c:forEach>
 										</form:select>
 									</div>													
@@ -245,7 +245,7 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">
-										<h3 class="page-header">Отчет 03 "Кол-во Механизмов разных Производителей"</h3>
+										<h3 class="page-header">Отчет "Кол-во Механизмов разных Производителей"</h3>
 									</td>
 								</tr>
 							</tbody>
@@ -261,16 +261,16 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="nowrap">Компания:<span id="title_company" class="report_header">Все компании</span></td>
+									<td class="nowrap">Компания: <span id="title_company" class="report_header">Все компании</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Группа:<span id="title_group" class="report_header">Все группы</span></td>
+									<td class="nowrap">Группа: <span id="title_group" class="report_header">Все группы</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Модель:<span id="title_model" class="report_header">Все модели</span></td>
+									<td class="nowrap">Модель: <span id="title_model" class="report_header">Все модели</span></td>
 								</tr>
 								<tr>
-									<td class="nowrap">Год выпуска:<span id="title_year" class="report_header">Все года</span></td>
+									<td class="nowrap">Год выпуска: <span id="title_year" class="report_header">Все года</span></td>
 								</tr>
 							</tbody>
 						</table>
