@@ -1,11 +1,16 @@
 package com.seaport.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,6 +27,7 @@ import com.seaport.service.ICountryService;
 import com.seaport.service.IPortService;
 import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
+
 
 /**
  * The Controller class that invoke business logic and create a MachineModel&View object. 
@@ -43,6 +49,9 @@ public class UserSearchController {
 	private ICountryService countryService;
 	@Autowired
 	private IStevidorService stevidorService;
+	@Autowired
+	@Qualifier("sessionRegistry")
+	private SessionRegistry sessionRegistry;
 	
 	/**
 	 * Create new user search form. 
@@ -56,8 +65,21 @@ public class UserSearchController {
 							ModelMap model) throws Exception {
 		
 		UserSearchCommand userSearchCommand = new UserSearchCommand();
-		userSearchCommand.setUserList(userService.getUsers());
+		List<User> userList = userService.getUsers();
+		List<Object> principals = sessionRegistry.getAllPrincipals();
+
+		for (Object principal: principals) {
+		    if (principal instanceof org.springframework.security.core.userdetails.User) {
+		    	String userLogin = ((org.springframework.security.core.userdetails.User)principal).getUsername();
+				for (User user : userList) {
+					if (userLogin.equalsIgnoreCase(user.getLogin())) {
+						user.setIsLoggedIn("Y");
+					}
+				}
+		    }
+		}
 		
+		userSearchCommand.setUserList(userList);		
 		userSearchCommand.setUserPort(portService.getPortsMap());
 		userSearchCommand.setUserStevidor(stevidorService.getStevidorsMap());
 		userSearchCommand.setUserCountry(countryService.getContriesMap());

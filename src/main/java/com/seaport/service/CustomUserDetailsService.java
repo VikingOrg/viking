@@ -1,7 +1,9 @@
 package com.seaport.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 					accountNonLocked,
 					getAuthorities(domainUser.getRole().getId())
 					);
-		
 		return user;
 	}
 	

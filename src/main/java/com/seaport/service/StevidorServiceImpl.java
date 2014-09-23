@@ -43,5 +43,11 @@ public class StevidorServiceImpl implements IStevidorService {
 	public Map<Integer, Stevidor> getStevidorsMap() {
 		return stevidorDAO.getStevidorsMap();
 	}
+
+	@Override
+	public boolean checkIfStevidorExist(Stevidor stevidorToCheck) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

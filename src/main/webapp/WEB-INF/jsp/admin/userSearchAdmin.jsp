@@ -12,44 +12,33 @@
         <script type="text/javascript">
             $(document).ready(function() {
             	var oTable = $('#user_table').dataTable( {
-            	"aoColumns": [
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	               null,
-                	               null,
-                	               null,
-                	               { "bSortable": false },
-                	           ],          
-                	           "scrollX": true,
-                               "sDom": '<"#tableActions"T>t<"#source"l>ip',
-                            	tableTools: {
-                        			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
-                        		 	"aButtons": [
-                          	                "copy",
-                          	             	{
-                          	                    "sExtends":     "print",
-                          	                    "bHeader": true
-                          	                	},
-                          	            	{
-                          	                    "sExtends":     "csv",
-                          	                    "sButtonText": "Save",
-                          	                    "bHeader": true
-                          	                	}
-                          	            ]
-                        	   },
-                               "bJQueryUI": true,
-                               "oLanguage": {
-                                   "sUrl": "static/js/dataTable_ru_RU.txt"
-                                },
-                                "fnInitComplete": function(oSettings) {
-                                   $('select[name="user_table_length"]').appendTo("#table_length");
-          	                	   $('select[name="user_table_length"]').addClass("form-control");
-                           	   	   $("#tableActions").appendTo("#table_Actions");
-               	              },                     
+    
+           	           "scrollX": true,
+                          "sDom": '<"#tableActions"T>t<"#source"l>ip',
+                       	tableTools: {
+                   			"sSwfPath": "${pageContext.request.contextPath}/static/swf/copy_csv_xls_pdf.swf",
+                   		 	"aButtons": [
+                     	                "copy",
+                     	             	{
+                     	                    "sExtends":     "print",
+                     	                    "bHeader": true
+                     	                	},
+                     	            	{
+                     	                    "sExtends":     "csv",
+                     	                    "sButtonText": "Save",
+                     	                    "bHeader": true
+                     	                	}
+                     	            ]
+                   	   },
+                          "bJQueryUI": true,
+                          "oLanguage": {
+                              "sUrl": "static/js/dataTable_ru_RU.txt"
+                           },
+                           "fnInitComplete": function(oSettings) {
+                              $('select[name="user_table_length"]').appendTo("#table_length");
+     	                	   $('select[name="user_table_length"]').addClass("form-control");
+                      	   	   $("#tableActions").appendTo("#table_Actions");
+          	              },                     
                 } );
 
             	// Highlight every second row
@@ -58,14 +47,14 @@
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 });   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 8);
-                });
-                $('#portSelect').change(function() {
+                $('#stevidorSelect').change(function() {
                 	oTable.fnFilter( $(this).val(), 7);
                 });
-                $('#stevidorSelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 6);
+                $('#portSelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 8);
+                });
+                $('#countrySelect').change(function() {
+                	oTable.fnFilter( $(this).val(), 9);
                 });
 
                 $("a[rel^='userTableRowEdit_']").click(function(e){
@@ -207,10 +196,12 @@
 			                              <th class="">Должность&nbsp;&nbsp;</th>
 			                              <th class="hidden-sm hidden-xs hidden-md nowrap">Роль&nbsp;&nbsp;</th>
 			                              <th class="">E-mail&nbsp;&nbsp;</th>
+			                              <th class="">В системе?</th>
+			                              <th class="">Посл. посещение</th>
 			                              <th class="nowrap">Компания&nbsp;&nbsp;</th>
 			                              <th class="hidden-sm hidden-xs hidden-md nowrap">Порт&nbsp;&nbsp;</th>
-			                              <th class="hide">Страна&nbsp;&nbsp;</th>
-			                              <th class="hidden-sm hidden-xs hidden-md nowrap">Примечания&nbsp;&nbsp;</th>
+			                              <th class="">Страна&nbsp;&nbsp;</th>
+			                              <th class="">Примечания&nbsp;&nbsp;</th>
 			                            </tr>
 			                          </thead>
 			                          <tbody>
@@ -235,10 +226,12 @@
 						                         	<td class=""><c:out value="${user.occupation}"/></td>
 						                         	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.role.role}"/></td>
 						                         	<td class=""><c:out value="${user.userEmail}"/></td>
+						                         	<td class=""><c:out value="${user.isLoggedIn}"/></td>
+						                         	<td class=""><c:out value="${user.lastLoginDate}"/></td>
 						                         	<td class="nowrap"><c:out value="${user.stevidor.fullName}"/></td>
 					                              	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.port.name}"/></td>
-					                              	<td class="hide"><c:out value="${user.country.nameRus}"/></td>
-					                              	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.userNote}"/></td>
+					                              	<td class=""><c:out value="${user.country.nameRus}"/></td>
+					                              	<td class=""><c:out value="${user.userNote}"/></td>
 						                       </tr>
 						                    </c:if>   
 											</c:forEach>                              

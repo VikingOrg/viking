@@ -2,6 +2,7 @@ package com.seaport.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,10 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * The persistent class for the users database table. 
@@ -95,7 +100,12 @@ public class User implements Serializable {
 	
 	private String img;
 	private String dev;
-	
+ 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_LOGIN_DATE", nullable = false)
+	@DateTimeFormat(pattern = "yyyy.dd.MM HH:mm:ss")
+	private Date lastLoginDate;
+
 	@Column(name = "CREATE_DATE", nullable = false)
 	private Timestamp createDate;
 	
@@ -110,8 +120,23 @@ public class User implements Serializable {
 		joinColumns = {@JoinColumn(name="user_id", referencedColumnName="id")},
 		inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName="id")}
 	)
-	
 	private Role role;
+
+	@Transient
+	private String isLoggedIn="";
+
+	public Date getLastLoginDate() {
+		return lastLoginDate;
+	}
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
+	public String getIsLoggedIn() {
+		return isLoggedIn;
+	}
+	public void setIsLoggedIn(String isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
+	}
 
 	public String getImg() {
 		return img;
@@ -308,6 +333,68 @@ public class User implements Serializable {
 				+ ", createDate=" + createDate + ", updateUserId="
 				+ updateUserId + ", updateDate=" + updateDate + ", role="
 				+ role + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((countryId == null) ? 0 : countryId.hashCode());
+		result = prime * result
+				+ ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + stevidorId;
+		result = prime * result
+				+ ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (countryId == null) {
+			if (other.countryId != null)
+				return false;
+		} else if (!countryId.equals(other.countryId))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (stevidorId != other.stevidorId)
+			return false;
+		if (userEmail == null) {
+			if (other.userEmail != null)
+				return false;
+		} else if (!userEmail.equals(other.userEmail))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
 	}
 
 
