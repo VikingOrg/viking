@@ -7,7 +7,6 @@
 	    <!-- Bootstrap -->
 	    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
 	    <!-- Data Table Related -->
-	    <link rel="stylesheet" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.css"/>
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css">
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/dataTables.tableTools.css"/>"/>

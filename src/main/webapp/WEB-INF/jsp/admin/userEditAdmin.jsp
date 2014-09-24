@@ -147,6 +147,7 @@
 				                </c:forEach>							
 							</form:select>		          
 				          <p>&nbsp;</p>
+	    <sec:authorize access="hasRole('ROLE_ADMIN')">  
 				          <label class="form-label">Компания</label>
 							<form:select path="user.stevidorId" cssClass="form-control">
 				                <c:forEach items="${registrationCommand.userStevidor}" var="stevidor">
@@ -154,7 +155,7 @@
 				                </c:forEach>								
 							</form:select>
 				          <p>&nbsp;</p>
-
+		</sec:authorize>
 			           <div class="form-group">
 			            <div class="controls">
 			              <label class="form-label">Подразделение</label>

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 
 <!doctype html>
 <html lang="ru">
@@ -13,20 +14,16 @@
 
 	    <meta name="viewport" content="width=device-width">
         <jsp:include page="common/headCoreElements.jsp" />
-        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
+        
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
-        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
-		
 		
 		<script type="text/javascript">
 		var jsonData={};
 		
 		$(document).ready(function() {
-			$('#changesFrom').datepicker();
-			$('#changesTo').datepicker();
-				  
             oTable = $('#machine_table').dataTable({
-          	  "bJQueryUI": true,
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
   			  "scrollX" : true,
           	  "responsive": false,
@@ -57,7 +54,8 @@
                                { "mDataProp": "nomNo", "defaultContent": " " },
                                { "mDataProp": "regNo", "defaultContent": " " },
                                { "mDataProp": "note", "defaultContent": " " },
-                               { "mDataProp": "archived", "defaultContent": " " }                          
+                               { "mDataProp": "archived", "defaultContent": " " },                          
+                               { "mDataProp": "updateDate", "defaultContent": " " }
                              ],
     	        "aoColumnDefs": [
        	                         {
@@ -197,10 +195,31 @@
                 if (keycode == '13') {
                 	ev.preventDefault();
                 	return false;
-                    //fnc.call(this, ev);
                 }
-            });            
-            			
+            });
+
+			$("#changesFrom").datepicker({
+					dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
+				 	monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],		
+				  	onSelect: function(dataPickerDate) {
+				  	    $.fn.dataTableExt.afnFiltering.push(
+				  	        function(oSettings, aData, iDataIndex) {
+				  	           var tableDate = aData[23].substring(6,10) + aData[23].substring(3,5)+ aData[23].substring(0,2);
+				  	           dataPickerDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+				  	           if (tableDate >= dataPickerDate) {
+				  	        	 return true;
+					  	       }
+				  	           return false;
+				  	        }
+
+				  	    );
+				  	    //Update table
+				  	     oTable.fnDraw();
+				  	     //Deleting the filtering function if we need the original table later.
+				  	    $.fn.dataTableExt.afnFiltering.pop();
+				  }
+			});
+			          			
         } ); //end of document.ready
 
 		function getData(recordType){
@@ -370,17 +389,9 @@
                     </div>	
  
 					<div class="form-group">
-						<label>Внесенные изменения</label>
-							<div class="input-group pull-right">
-								<span class="date-range-label">С</span>
-								<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
-							</div>
-							<div class="input-group pull-right">
-								<span class="date-range-label">По</span>
-								<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
-								<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
-							</div>
-					</div>	
+	                    <label>Список Изменений:</label>
+	                    <input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+                    </div>	
 				</sec:authorize>			
 				</div>
 			
@@ -451,6 +462,7 @@
 							<th>Регистрационный №</th>
 							<th>Примечания</th>
 							<th>Удалена</th>
+							<th>Посл. Изм.</th>
 			            </tr>			            
 			        </thead>
 			        <tbody>

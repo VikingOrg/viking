@@ -46,7 +46,7 @@
                	            ]
              	   },
              	    "sPaginationType": "full_numbers",
-                    "bJQueryUI": true,
+                    "bJQueryUI": false,
                     "oLanguage": {
                         "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                      },

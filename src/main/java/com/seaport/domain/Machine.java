@@ -92,6 +92,7 @@ public class Machine implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
+	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date updateDate;
 
 	@Column(name="update_user_id")
