@@ -25,6 +25,7 @@
 		$(document).ready(function() {
             oTable = $('#machine_table').dataTable({
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
+          	  "scrollX": true,
           	  "responsive": false,
           	  "sPaginationType": "full_numbers",
               "oLanguage": {
@@ -71,8 +72,11 @@
 	        	   	        		       
 										  return input;
         	   	        		      }
-       	   	        		     },	        	 	        	        
-       	                         { "bVisible": false,  "aTargets": [0, 2, 3, 22] },
+       	   	        		     },
+       	   	        			<c:if test="${userModel.role.id == 2}">
+             	                 { "bVisible": false,  "aTargets": [6] },
+             	                 </c:if>        	 	        	        
+       	                         { "bVisible": false,  "aTargets": [0, 2, 3, 7, 8, 22] },
        	                         {
         	   	        		      "aTargets": [ 4 ],
         	   	        		      "mData": 4,
@@ -457,50 +461,22 @@
 							<th class="nowrap">Характеристики</th>									                
 							<th class="nowrap">Производитель</th>
 							<th class="nowrap">Год выпуска</th>
-							<th class="nowrap">Дата ввода в эксплуатацию</th>
+							<th class="nowrap">Дата ввода</th>
 							<th class="nowrap">Контракт №</th>
-							<th class="nowrap">Инвентарный №</th>
+							<th class="nowrap">Инв. №</th>
 							<th class="nowrap">Транс №</th>
 							<th class="nowrap">Заводской №</th>
 							<th class="nowrap">Страна призводства</th>
 							<th class="nowrap">Место установки</th>
-							<th class="nowrap">Номенклатурный №</th>
-							<th class="nowrap">Регистрационный №</th>
+							<th class="nowrap">Номенкл. №</th>
+							<th class="nowrap">Рег. №</th>
 							<th class="nowrap">Примечания</th>
 							<th class="nowrap">Удалена</th>
 							<th class="nowrap">Посл. изм.</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>
-			        <tfoot>
-			            <tr>
-			                <th>Id</th>
-			                <th>Тип</th>
-			                <th>group Id</th>
-			                <th>model Id</th>
-			                <th>Группа</th>
-			                <th>Модель</th>
-			                <th>Компания</th>
-			                <th>Страна</th>
-			                <th>Порт</th>
-							<th>Характеристики</th>									                
-							<th>Производитель</th>
-							<th>Год выпуска</th>
-							<th>Дата ввода в эксплуатацию</th>
-							<th>Контракт №</th>
-							<th>Инвентарный №</th>
-							<th>Транс №</th>
-							<th>Заводской №</th>
-							<th>Страна призводства</th>
-							<th>Место установки</th>
-							<th>Номенклатурный №</th>
-							<th>Регистрационный №</th>
-							<th>Примечания</th>
-							<th>Удалена</th>
-							<th>Посл. изм.</th>
-							<!-- <th>Дата списания</th> -->
-			            </tr>			            
-			        </tfoot>
+			        
 			        <tbody>
 			        </tbody>
 				</table>
