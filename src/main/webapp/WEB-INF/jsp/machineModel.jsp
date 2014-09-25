@@ -42,6 +42,7 @@
 	                               { "mDataProp": "updateDate", "defaultContent": " " }
 	                             ],
                	     "aoColumnDefs": [
+								 { "bVisible": false,  "aTargets": [7,8] },
        	                         { "aTargets": [ 1 ],
         	   	        		   "mData": 1,
         	   	        		   "mRender": function ( data, type, machineModelObject ) {
@@ -205,6 +206,11 @@
             }
             
         </script>	
+        <style type="text/css">
+        	th, td { white-space: nowrap; }
+        </style>
+        
+	</head>
 	<body>
 		<!-- Wrap all page content here -->  
 		<div id="wrap"> 
