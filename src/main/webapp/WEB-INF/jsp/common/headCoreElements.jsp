@@ -31,5 +31,6 @@
         <!--<script type="text/javascript" src="<c:url value="/static/js/js.response.min.js"/>"></script>-->
         <!--<script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>"></script>-->
         <script type="text/javascript" src="<c:url value="/static/js/core.js"/>"></script>
+        
 
 		

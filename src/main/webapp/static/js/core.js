@@ -51,3 +51,13 @@ function baseHeaderUrl(element) {
        }
 	   //return baseUrl = href[0]+'//'+href[2]+'/'+href[3]+'/'+href[4]+'/';
 } 
+
+jQuery.browser = {};
+(function () {
+    jQuery.browser.msie = false;
+    jQuery.browser.version = 0;
+    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+        jQuery.browser.msie = true;
+        jQuery.browser.version = RegExp.$1;
+    }
+})();

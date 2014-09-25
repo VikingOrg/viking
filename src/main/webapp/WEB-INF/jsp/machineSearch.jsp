@@ -25,17 +25,11 @@
 		$(document).ready(function() {
             oTable = $('#machine_table').dataTable({
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
-  			  "scrollX" : true,
           	  "responsive": false,
           	  "sPaginationType": "full_numbers",
               "oLanguage": {
                     "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                  },
-              "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-                  $(nRow).children("td").css("overflow", "hidden");
-                  $(nRow).children("td").css("white-space", "nowrap");
-                  //$(nRow).children("td").css("text-overflow", "ellipsis");
-              },                 
               "aoColumns": [
                                { "mDataProp": "machineId" },
                                { "mDataProp": "machineId" },
@@ -264,7 +258,9 @@
     	);
     	
         </script>
-        
+        <style type="text/css">
+        	th, td { white-space: nowrap; }
+        </style>
         
 	</head>
 	<body>
