@@ -10,16 +10,15 @@
 <head>
 <title>Таблица Групп Механизмов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
-        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
+        
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
-        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
 		
 		<script type="text/javascript">
             $(document).ready(function() {
-    			$('#changesFrom').datepicker();
-    			$('#changesTo').datepicker();
     				  
             	var oTable = $('#group_table').dataTable( {
        	           "columnDefs": [
@@ -28,7 +27,7 @@
                 		                   "visible": false
                 		               },
                 	],
-        	        "bJQueryUI": true,
+        	        "bJQueryUI": false,
         	        "sDom": '<"#tableActions"T><r>t<"#source"l><"F"ip>',
         	        "sPaginationType": "full_numbers",
         	        "responsive": false,
@@ -104,7 +103,29 @@
                     	return false;
                         //fnc.call(this, ev);
                     }
-                });                     		 
+                });        
+
+    			$("#changesFrom").datepicker({
+    					dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
+    				 	monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],		
+    				  	onSelect: function(dataPickerDate) {
+    				  	    $.fn.dataTableExt.afnFiltering.push(
+    				  	        function(oSettings, aData, iDataIndex) {
+    				  	           var tableDate = aData[3].substring(6,10) + aData[3].substring(3,5)+ aData[3].substring(0,2);
+    				  	           dataPickerDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+    				  	           if (tableDate >= dataPickerDate) {
+    				  	        	 return true;
+    					  	       }
+    				  	           return false;
+    				  	        }
+
+    				  	    );
+    				  	    //Update table
+    				  	     oTable.fnDraw();
+    				  	     //Deleting the filtering function if we need the original table later.
+    				  	    $.fn.dataTableExt.afnFiltering.pop();
+    				  }
+    			});                         		 
             } ); //end of document.ready
 
         	function closingModal(groupId, successMsg){
@@ -145,18 +166,14 @@
 								</div>
 			 
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
+							
 								<div class="form-group">
-									<label>Внесенные изменения</label>
-										<div class="input-group pull-right">
-											<span class="date-range-label">С</span>
-											<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
-										</div>
-										<div class="input-group pull-right">
-											<span class="date-range-label">По</span>
-											<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
-											<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
-										</div>
-								</div>	
+				                    <label>Внесенные изменения</label>
+				                    <div class="input-group pull-right">
+										<span class="date-range-label">С</span>
+										<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+									</div>
+	                    		</div>	
 							</sec:authorize>
 							</div>
 						</div>
@@ -212,6 +229,7 @@
 								<th class="column-check">№&nbsp;</th>
 								<th class="">Группа&nbsp;&nbsp;</th>
 								<th class="">Примечания&nbsp;&nbsp;</th>
+								<th class="hidden">Посл. изм.</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -229,6 +247,9 @@
 									<td class="">
 										<span id="note${group.groupId}"><c:out value="${group.groupNote}"/></span>
 									</td>
+	                              	<td class="hidden">
+	                              		<span></span>
+	                              	</td>
 								</tr>
 							</c:forEach>
 						</tbody>

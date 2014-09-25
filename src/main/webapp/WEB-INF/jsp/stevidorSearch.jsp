@@ -8,17 +8,16 @@
 	<head>
 	    <title>Таблица Компаний-операторов</title>
 		<jsp:include page="common/headCoreElements.jsp" />
-        <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/datepicker.css"/>"/>
-        <script type="text/javascript" src="<c:url value="/static/js/bootstrap-datepicker.js"/>"></script>
+        
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		
 		<script type="text/javascript">
         $(document).ready(function() {
-			$('#changesFrom').datepicker();
-			$('#changesTo').datepicker();
 			
         	var oTable = $('#stevidor_table').dataTable( {
         		"sDom": '<"#tableActions"T>t<"#source"l>ip',
-        		"bJQueryUI": true,
+        		"bJQueryUI": false,
         		"sPaginationType": "full_numbers",          
  	            "scrollX": true,
         		"columnDefs": [
@@ -37,6 +36,9 @@
            	                "copy",
            	             	{
            	                    "sExtends":     "print",
+            	                "sInfo": "</br>"+
+	               	            "</br>"+
+	               	            "Нажмите ESC для выхода из режима ПЕЧАТИ.",
            	                    "bHeader": true
            	                	},
            	            	{
@@ -80,7 +82,29 @@
                 	return false;
                     //fnc.call(this, ev);
                 }
-            });
+            });  
+
+			$("#changesFrom").datepicker({
+					dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
+				 	monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],		
+				  	onSelect: function(dataPickerDate) {
+				  	    $.fn.dataTableExt.afnFiltering.push(
+				  	        function(oSettings, aData, iDataIndex) {
+				  	           var tableDate = aData[5].substring(6,10) + aData[5].substring(3,5)+ aData[5].substring(0,2);
+				  	           dataPickerDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+				  	           if (tableDate >= dataPickerDate) {
+				  	        	 return true;
+					  	       }
+				  	           return false;
+				  	        }
+
+				  	    );
+				  	    //Update table
+				  	     oTable.fnDraw();
+				  	     //Deleting the filtering function if we need the original table later.
+				  	    $.fn.dataTableExt.afnFiltering.pop();
+				  }
+			}); 
         } );
    
         </script>
@@ -133,17 +157,12 @@
 										</div>
 							
 										<div class="form-group">
-											<label>Внесенные изменения</label>
-												<div class="input-group pull-right">
-													<span class="date-range-label">С</span>
-													<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
-												</div>
-												<div class="input-group pull-right">
-													<span class="date-range-label">По</span>
-													<input class="date-range" type="text" id="changesTo" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
-													<!-- <input id="changesTo" style="border-radius: 4px; box-shadow: none;" title="Конец выборки" placeholder="01/01/2014"/> -->
-												</div>
-										</div>	
+						                    <label>Внесенные изменения</label>
+						                    <div class="input-group pull-right">
+												<span class="date-range-label">С</span>
+												<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+											</div>
+			                    		</div>	
 								    </div>				
 							</div> 
 						</div>
@@ -196,6 +215,7 @@
 			                              		  <th class="nowrap">Порт&nbsp;&nbsp;</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Страна&nbsp;&nbsp;</th>
 					                              <th class="">Примечания</th>
+									  			  <th class="hidden">Посл. изм.</th>
 				                              </tr>
 				                          </thead>
 				                          <tbody>
@@ -216,6 +236,7 @@
 						                            <td><c:out value="${stevidor.port.name}"/></td>
 					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.port.country.nameRus}"/></td>
 					                                <td class=""><c:out value="${stevidor.stevidorNote}"/></td>
+		                              				<td class="hidden"><span></span></td>
 					                            </tr>
 				                            </c:forEach>
 				                          </tbody>

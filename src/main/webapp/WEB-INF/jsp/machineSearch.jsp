@@ -389,8 +389,11 @@
                     </div>	
  
 					<div class="form-group">
-	                    <label>Список Изменений:</label>
-	                    <input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+	                    <label>Внесенные изменения</label>
+	                    <div class="input-group pull-right">
+							<span class="date-range-label">С</span>
+							<input class="date-range" type="text" id="changesFrom" data-date-format="dd.mm.yyyy" placeholder="01.01.2014">
+						</div>
                     </div>	
 				</sec:authorize>			
 				</div>
@@ -462,7 +465,7 @@
 							<th>Регистрационный №</th>
 							<th>Примечания</th>
 							<th>Удалена</th>
-							<th>Посл. Изм.</th>
+							<th>Посл. изм.</th>
 			            </tr>			            
 			        </thead>
 			        <tbody>
