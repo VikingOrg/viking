@@ -55,7 +55,8 @@
                                { "mDataProp": "regNo", "defaultContent": " " },
                                { "mDataProp": "note", "defaultContent": " " },
                                { "mDataProp": "archived", "defaultContent": " " },                          
-                               { "mDataProp": "updateDate", "defaultContent": " " }
+                               { "mDataProp": "updateDate", "defaultContent": " " },
+                               /* { "mDataProp": "endDate", "defaultContent": " " }, */
                              ],
     	        "aoColumnDefs": [
        	                         {
@@ -380,10 +381,11 @@
 					</div>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<div class="form-group">
-	                    <label>Тип записей</label>
+	                    <label>Тип Машин</label>
 						<form:select id="recordTypeSelect" path="archived" cssClass="form-control" title="Выборка по типу записи">
 							<form:option value="ALL" label="Все типы" />
-							<form:option value="A" label="Активные" />
+							<form:option value="A" label="Эксплуатируемые" />
+							<form:option value="F" label="Списанные" />
 							<form:option value="Y" label="Удаленные" />							
 						</form:select>	                    
                     </div>	
@@ -466,8 +468,38 @@
 							<th>Примечания</th>
 							<th>Удалена</th>
 							<th>Посл. изм.</th>
+							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>
+			        <tfoot>
+			            <tr>
+			                <th>Id</th>
+			                <th>Тип</th>
+			                <th>group Id</th>
+			                <th>model Id</th>
+			                <th>Группа</th>
+			                <th>Модель</th>
+			                <th>Компания</th>
+			                <th>Страна</th>
+			                <th>Порт</th>
+							<th>Характеристики</th>									                
+							<th>Производитель</th>
+							<th>Год выпуска</th>
+							<th>Дата ввода в эксплуатацию</th>
+							<th>Контракт №</th>
+							<th>Инвентарный №</th>
+							<th>Транс №</th>
+							<th>Заводской №</th>
+							<th>Страна призводства</th>
+							<th>Место установки</th>
+							<th>Номенклатурный №</th>
+							<th>Регистрационный №</th>
+							<th>Примечания</th>
+							<th>Удалена</th>
+							<th>Посл. изм.</th>
+							<!-- <th>Дата списания</th> -->
+			            </tr>			            
+			        </tfoot>
 			        <tbody>
 			        </tbody>
 				</table>
