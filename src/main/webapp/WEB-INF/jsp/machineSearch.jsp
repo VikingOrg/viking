@@ -31,6 +31,11 @@
               "oLanguage": {
                     "sUrl": "${pageContext.request.contextPath}/static/js/dataTable_ru_RU.txt"
                  },
+              "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                  $(nRow).children("td").css("overflow", "hidden");
+                  $(nRow).children("td").css("white-space", "nowrap");
+                  //$(nRow).children("td").css("text-overflow", "ellipsis");
+              },                 
               "aoColumns": [
                                { "mDataProp": "machineId" },
                                { "mDataProp": "machineId" },
@@ -444,30 +449,30 @@
 				<table id="machine_table" class="table table-striped table-bordered">
 			        <thead>
 			            <tr>
-			                <th>Id</th>
-			                <th>Тип</th>
-			                <th>group Id</th>
-			                <th>model Id</th>
-			                <th>Группа</th>
-			                <th>Модель</th>
-			                <th>Компания</th>
-			                <th>Страна</th>
-			                <th>Порт</th>
-							<th>Характеристики</th>									                
-							<th>Производитель</th>
-							<th>Год выпуска</th>
-							<th>Дата ввода в эксплуатацию</th>
-							<th>Контракт №</th>
-							<th>Инвентарный №</th>
-							<th>Транс №</th>
-							<th>Заводской №</th>
-							<th>Страна призводства</th>
-							<th>Место установки</th>
-							<th>Номенклатурный №</th>
-							<th>Регистрационный №</th>
-							<th>Примечания</th>
-							<th>Удалена</th>
-							<th>Посл. изм.</th>
+			                <th class="nowrap">Id</th>
+			                <th class="nowrap">Тип</th>
+			                <th class="nowrap">group Id</th>
+			                <th class="nowrap">model Id</th>
+			                <th class="nowrap">Группа</th>
+			                <th class="nowrap">Модель</th>
+			                <th class="nowrap">Компания</th>
+			                <th class="nowrap">Страна</th>
+			                <th class="nowrap">Порт</th>
+							<th class="nowrap">Характеристики</th>									                
+							<th class="nowrap">Производитель</th>
+							<th class="nowrap">Год выпуска</th>
+							<th class="nowrap">Дата ввода в эксплуатацию</th>
+							<th class="nowrap">Контракт №</th>
+							<th class="nowrap">Инвентарный №</th>
+							<th class="nowrap">Транс №</th>
+							<th class="nowrap">Заводской №</th>
+							<th class="nowrap">Страна призводства</th>
+							<th class="nowrap">Место установки</th>
+							<th class="nowrap">Номенклатурный №</th>
+							<th class="nowrap">Регистрационный №</th>
+							<th class="nowrap">Примечания</th>
+							<th class="nowrap">Удалена</th>
+							<th class="nowrap">Посл. изм.</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>
