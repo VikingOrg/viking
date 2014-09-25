@@ -25,6 +25,7 @@
 		$(document).ready(function() {
             oTable = $('#machine_table').dataTable({
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
+  			  "scrollX" : true,
           	  "responsive": false,
           	  "sPaginationType": "full_numbers",
               "oLanguage": {
