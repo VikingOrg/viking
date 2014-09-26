@@ -96,7 +96,7 @@ public class MachineDAOImpl implements IMachineDAO {
 		Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
 		Calendar now = Calendar.getInstance();
 		int year = now.get(Calendar.YEAR);		
-		for (int i = 1944; i <= year; i++) {
+		for (int i = year ; i >= 1944; i--) {
 			yearMap.put(i, i);
 		}
 		return yearMap;

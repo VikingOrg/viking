@@ -93,6 +93,19 @@
             	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('chartModalContent'), false, totalCount);
             	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('barModalContent'), true, totalCount);
                   $('#chartModal').modal('show');                  
+              });
+
+              $("[id^=stevidorSelection]").click(function(e) {
+                  var checkBoxValue = $(this).val();
+                  if (checkBoxValue!=0) {
+                	  $("#stevidorSelection1").attr('checked', false);
+				  } else {
+					  $("[id^=stevidorSelection]").each(function () {
+						   if (this.checked && $(this).val()!=0) {
+							   $(this).attr('checked', false);
+						   }
+					  });
+				  }
               });    	
                 	 	
 		  }); //end of document.ready
@@ -126,9 +139,22 @@
 			   $('#title_model').html($("#modelSelect option:selected").text());
 			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+" - "+$("#releaseEndYearSelect option:selected").text());
 			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
-		  }			
+			   var html = "";
+			   $("[id^=stevidorSelection]").each(function () {
+				   if (this.checked) {
+					   var checkVal = $(this).val();
+					   $("#stevidorNameSelect option").each(function(i){
+						   var selectValue = $(this).val();
+						   if(checkVal == selectValue){
+							   html = html + $(this).text()+ ", ";
+						   }	   						   
+					   });					   
+					   
+				   }
+			   });
+			   $('#title_company').html(html);
+		  }	
 
-	        
 		  </script>
 		    
 </head>
@@ -143,7 +169,14 @@
 			
 			<form:form id="report_select_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="${action}" 
 								commandName="reportSelectionCommand" method="post" accept-charset="UTF-8">
-							
+
+				<form:select id="stevidorNameSelect" path="stevidorSelection" style='display:none;'>
+					<form:option value="0">Все компании</form:option>
+					<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
+						<form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
+					</c:forEach>
+				</form:select>
+								
 				<!--Report 1 part 1-->
 				<div class="row" style="margin:-15px">
 	
@@ -170,19 +203,6 @@
 											</c:forEach>
 										</div>
 									</div>							
-<%--
-									<div class="form-group">
-										<label class="col-sm-4 control-label">Компания</label>
-										<div class="col-sm-8">
-											<form:select id="stevidorSelection" path="stevidorSelection" cssClass="form-control col-sm-12" multiple="true">
-												<form:option value="0">Все компании</form:option>
-												<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-													<form:option value="${stevidor.key}" label="(${stevidor.value.stevidorId}) ${stevidor.value.fullName}" />
-												</c:forEach>
-											</form:select>
-										</div>
-									</div>
---%>																
 									<div class="form-group">
 										<label>Группа</label>
 											<form:select id="groupSelect" path="groupId" cssClass="form-control col-sm-12">
@@ -305,13 +325,16 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">Составитель отчета: <span class="report_header">${userModel.firstName} ${userModel.lastName}</span></td>
-									<td class="nowrap" rowspan="5" valign="bottom" id="table_Actions">
+									<td class="nowrap" rowspan="6" valign="bottom" id="table_Actions">
 	                     	 			<a href="#" class="btn btn-warning pull-right" id="chartPie" style="height:25px; font-size:12px; text-decoration:none;">
 	                     	 				 Диаграмма<i class="fa fa-bar-chart-o" style="padding-left: 15px"></i>
 	                      			    </a>
 	                      			</td>
 	                      			
 								</tr>
+								<tr>
+									<td class="nowrap">Компания(и): <span id="title_company" class="report_header">Все компании.</span></td>
+								</tr>								
 								<tr>
 									<td class="nowrap">Группа: <span id="title_group" class="report_header">Все группы.</span></td>
 								</tr>
