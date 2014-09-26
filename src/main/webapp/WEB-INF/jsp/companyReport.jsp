@@ -140,13 +140,20 @@
 			   $('#title_year').html($("#releaseStartYearSelect option:selected").text()+" - "+$("#releaseEndYearSelect option:selected").text());
 			   $('#title_manufacturer').html($("#manufacturerSelect option:selected").text());
 			   var html = "";
+			   var first = true;
 			   $("[id^=stevidorSelection]").each(function () {
 				   if (this.checked) {
 					   var checkVal = $(this).val();
 					   $("#stevidorNameSelect option").each(function(i){
 						   var selectValue = $(this).val();
 						   if(checkVal == selectValue){
-							   html = html + $(this).text()+ ",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+							   if (first) {
+								   html = $(this).text();
+								   first = false;
+							   } else {
+								   html = html + '<p class="spacing">'+$(this).text()+ '</p>';
+							   }
+							   
 						   }	   						   
 					   });					   
 					   
@@ -156,7 +163,13 @@
 		  }	
 
 		  </script>
-		    
+		 <style type="text/css">
+			p.spacing {
+			   text-indent: 85px;
+			   margin-top: 0.1em;
+			   margin-bottom: 0.1em;
+			}
+        </style>
 </head>
 <body>
 		<!-- Wrap all page content here -->  
@@ -170,12 +183,12 @@
 			<form:form id="report_select_form" class="form-horizontal mini" style="margin-bottom: 0px;" action="${action}" 
 								commandName="reportSelectionCommand" method="post" accept-charset="UTF-8">
 
-				<form:select id="stevidorNameSelect" path="stevidorSelection" style='display:none;'>
-					<form:option value="0">Все компании</form:option>
+				<select id="stevidorNameSelect" style="display:none;">
+					<option value="0">Все компании
 					<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-						<form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
+						<option value="${stevidor.key}">${stevidor.value.fullName}</option>
 					</c:forEach>
-				</form:select>
+				</select>
 								
 				<!--Report 1 part 1-->
 				<div class="row" style="margin:-15px">

@@ -168,9 +168,9 @@
 		         				                    	  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
 		         						                    	                 			                    	              "Страна",
 		         						                    	                 			                    	              $('#macnineModelNote').val(),
-		         						                    	                 			                    	              $('#groupSelectModal').val()] 
+		         						                    	                 			                    	              $('#groupSelectModal').val(),
+		         						                    	                 			                    	              "Now"] 
 		         			 			                    	  													 );
-
 		         				                    	  	$(obj.nTr).addClass( "success" );		         					                        
 		         					                    }
 

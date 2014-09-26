@@ -24,7 +24,7 @@
 		<script type="text/javascript">
 			var jsonData={};
 	        $(document).ready(function() {
-					  
+	        	var selected = [];	  
 	        	oTable = $('#modelSearchTable').dataTable( {
 	        		"sDom": '<"#tableActions"T>t<"#source"l>ip',
 	                "bJQueryUI": false,
@@ -93,7 +93,22 @@
  	               },
  	               
 	            });
-	        	
+
+
+	            $('#modelSearchTable tbody').on('click', 'tr', function () {
+	                var id = this.id;
+	                var index = $.inArray(id, selected);
+	         
+	                if ( index === -1 ) {
+	                    selected.push( id );
+	                } else {
+	                    selected.splice( index, 1 );
+	                }
+	         
+	                $(this).toggleClass('selected');
+	            } );
+	            
+	            
 
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
