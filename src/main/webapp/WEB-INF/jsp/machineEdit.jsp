@@ -365,7 +365,7 @@
 				      	  <a href="#main" role="tab" data-toggle="tab">
 						   	  Основные характеристики 
 						   	  <c:if test="${not empty machineEditCommand.machine.machineId}">
-						   	  	 (Машина № <c:out value="${machineEditCommand.machine.machineId} "/>
+						   	  	 (Механизм № <c:out value="${machineEditCommand.machine.machineId} "/>
 						   	  	 <c:if test="${machineEditCommand.machine.archived == '1'}">Удалено!</c:if>)	
 						   	  </c:if>
 				      	  </a>
@@ -405,6 +405,7 @@
 									                </c:forEach>								
 												</form:select>
 												<form:errors path="machine.groupId" cssClass="control-label"/>
+												<span id="model_details" class="report_header"><b>Описание:</b><c:out value=" ${machineEditCommand.machine.name}"/></span><br/>
 								        	</div>
 							        	</spring:bind>
 							        	<spring:bind path="machine.modelId">
