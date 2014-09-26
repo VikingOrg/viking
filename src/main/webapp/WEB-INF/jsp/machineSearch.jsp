@@ -23,6 +23,7 @@
 		var jsonData={};
 		
 		$(document).ready(function() {
+			var selected = [];
             oTable = $('#machine_table').dataTable({
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
   			  "scrollX" : true,
@@ -220,6 +221,19 @@
 				  	    $.fn.dataTableExt.afnFiltering.pop();
 				  }
 			});
+
+            $('#machine_table tbody').on('click', 'tr', function () {
+                var id = this.id;
+                var index = $.inArray(id, selected);
+         
+                if ( index === -1 ) {
+                    selected.push( id );
+                } else {
+                    selected.splice( index, 1 );
+                }
+         
+                $(this).toggleClass('success');
+            } );			
 			          			
         } ); //end of document.ready
 

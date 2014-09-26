@@ -13,8 +13,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -112,9 +114,19 @@ public class Machine implements Serializable {
 	@JoinColumn(name = "group_id", insertable = false, updatable = false)
 	private Group group;
 
+	@Transient
+	private Integer DT_RowId;
+	
+	/**
+	 * Public constructor
+	 */
 	public Machine() {
 	}
-
+	
+	@JsonProperty("DT_RowId")
+	public Integer getDT_RowId() {
+		return machineId;
+	}
 	public String getRegNo() {
 		return regNo;
 	}

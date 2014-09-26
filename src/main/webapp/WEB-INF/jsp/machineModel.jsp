@@ -94,7 +94,6 @@
  	               
 	            });
 
-
 	            $('#modelSearchTable tbody').on('click', 'tr', function () {
 	                var id = this.id;
 	                var index = $.inArray(id, selected);
@@ -105,9 +104,8 @@
 	                    selected.splice( index, 1 );
 	                }
 	         
-	                $(this).toggleClass('selected');
+	                $(this).toggleClass('success');
 	            } );
-	            
 	            
 
                 $('#dataTableSearch').on('input', function() {

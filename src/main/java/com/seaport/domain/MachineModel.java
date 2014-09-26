@@ -7,6 +7,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.Date;
 
 
@@ -70,7 +72,15 @@ public class MachineModel implements Serializable {
 	@JoinColumn(name = "manufacturer_id", insertable = false, updatable = false)
 	private Manufacturer manufacturer;	
 	
+	@Transient
+	private Integer DT_RowId;
+	
 	public MachineModel() {
+	}
+
+	@JsonProperty("DT_RowId")
+	public Integer getDT_RowId() {
+		return modelId;
 	}
 
 	public Integer getModelId() {
