@@ -133,20 +133,7 @@
 			          
 			        </div>
 			        <div class="col-sm-4 col-sm-offset-1">
-			        	<label class="form-label">Страна</label>
-						<form:select path="user.countryId" cssClass="form-control"> 
-			                <c:forEach items="${registrationCommand.userCountry}" var="country">
-			                    <form:option value="${country.key}" label="${country.value.nameRus}" />
-			                </c:forEach>
-						</form:select>
-			          	<p>&nbsp;</p>
-				          <label class="form-label">Порт</label>
-							<form:select path="user.portId" cssClass="form-control">
-				                <c:forEach items="${registrationCommand.userPort}" var="port">
-				                    <form:option value="${port.key}" label="${port.value.name}" />
-				                </c:forEach>							
-							</form:select>		          
-				          <p>&nbsp;</p>
+				          
 	    <sec:authorize access="hasRole('ROLE_ADMIN')">  
 				          <label class="form-label">Компания</label>
 							<form:select path="user.stevidorId" cssClass="form-control">

@@ -39,27 +39,13 @@ public class User implements Serializable {
 	@GeneratedValue
 	@Column(name = "ID")
 	private Integer userId;
-
-	@OneToOne()
-	@JoinColumn(name = "COUNTRY_ID", insertable = false, updatable = false)
-	private Country country;
 	
 	@OneToOne()
 	@JoinColumn(name = "STEVIDOR_ID", insertable = false, updatable = false)
 	private Stevidor stevidor;
 	
-	@OneToOne()
-	@JoinColumn(name = "PORT_ID", insertable = false, updatable = false)
-	private Port port;
-	
-	@Column(name = "COUNTRY_ID")
-	private Integer countryId;
-	
 	@Column(name="STEVIDOR_ID")
 	private int stevidorId;
-	
-	@Column(name="PORT_ID")
-	private int portId;	
 	
 	@Size(min = 2, max = 45, message = "{validation.size.firstName}")
 	@Pattern(regexp = "[\\p{L}]*", message = "{validation.context.letters.only}")
@@ -103,7 +89,7 @@ public class User implements Serializable {
  
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "LAST_LOGIN_DATE", nullable = false)
-	@DateTimeFormat(pattern = "yyyy.dd.MM HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy.dd.MM HH:mm")
 	private Date lastLoginDate;
 
 	@Column(name = "CREATE_DATE", nullable = false)
@@ -162,13 +148,6 @@ public class User implements Serializable {
 		this.archived = archived;
 	}
 
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
 
 	public Stevidor getStevidor() {
 		return stevidor;
@@ -176,14 +155,6 @@ public class User implements Serializable {
 
 	public void setStevidor(Stevidor stevidor) {
 		this.stevidor = stevidor;
-	}
-
-	public Port getPort() {
-		return port;
-	}
-
-	public void setPort(Port port) {
-		this.port = port;
 	}
 
 	public Integer getUserId() {
@@ -298,14 +269,6 @@ public class User implements Serializable {
 		this.division = division;
 	}
 
-	public Integer getCountryId() {
-		return countryId;
-	}
-
-	public void setCountryId(Integer countryId) {
-		this.countryId = countryId;
-	}
-
 	public int getStevidorId() {
 		return stevidorId;
 	}
@@ -313,34 +276,24 @@ public class User implements Serializable {
 	public void setStevidorId(int stevidorId) {
 		this.stevidorId = stevidorId;
 	}
-
-	public int getPortId() {
-		return portId;
-	}
-
-	public void setPortId(int portId) {
-		this.portId = portId;
-	}
-
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", country=" + country
-				+ ", stevidor=" + stevidor + ", port=" + port + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", middleInitial="
-				+ middleInitial + ", userEmail=" + userEmail + ", login="
-				+ login + ", password=" + password + ", division=" + division
+		return "User [userId=" + userId + ", stevidor=" + stevidor
+				+ ", stevidorId=" + stevidorId + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", middleInitial=" + middleInitial
+				+ ", userEmail=" + userEmail + ", login=" + login
+				+ ", password=" + password + ", division=" + division
 				+ ", occupation=" + occupation + ", userNote=" + userNote
-				+ ", createDate=" + createDate + ", updateUserId="
-				+ updateUserId + ", updateDate=" + updateDate + ", role="
-				+ role + "]";
+				+ ", archived=" + archived + ", img=" + img + ", dev=" + dev
+				+ ", lastLoginDate=" + lastLoginDate + ", createDate="
+				+ createDate + ", updateUserId=" + updateUserId
+				+ ", updateDate=" + updateDate + ", role=" + role
+				+ ", isLoggedIn=" + isLoggedIn + "]";
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((countryId == null) ? 0 : countryId.hashCode());
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result
@@ -352,7 +305,6 @@ public class User implements Serializable {
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -362,11 +314,6 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (countryId == null) {
-			if (other.countryId != null)
-				return false;
-		} else if (!countryId.equals(other.countryId))
-			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
@@ -396,6 +343,5 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-
 
 }

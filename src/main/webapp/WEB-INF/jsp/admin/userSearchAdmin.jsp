@@ -229,8 +229,8 @@
 						                         	<td class=""><c:out value="${user.isLoggedIn}"/></td>
 						                         	<td class=""><c:out value="${user.lastLoginDate}"/></td>
 						                         	<td class="nowrap"><c:out value="${user.stevidor.fullName}"/></td>
-					                              	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.port.name}"/></td>
-					                              	<td class=""><c:out value="${user.country.nameRus}"/></td>
+					                              	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.stevidor.port.name}"/></td>
+					                              	<td class=""><c:out value="${user.stevidor.port.country.nameRus}"/></td>
 					                              	<td class=""><c:out value="${user.userNote}"/></td>
 						                       </tr>
 						                    </c:if>   

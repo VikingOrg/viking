@@ -205,28 +205,6 @@
 			      </div>
 		        </div>
 		        <div class="col-sm-4 col-sm-offset-1">
-		  			<div class="form-group">
-			            <div class="controls">
-				        	<label class="form-label">СТРАНА</label>
-							<form:select path="user.countryId" cssClass="form-control"> 
-				                <c:forEach items="${registrationCommand.userCountry}" var="country">
-				                    <form:option value="${country.key}" label="${country.value.nameRus}" />
-				                </c:forEach>
-							</form:select>
-			            </div>
-		          	</div>      
-					
-			        <div class="form-group">
-			        	<div class="controls">
-				        	<label class="form-label">ПОРТ</label>
-							<form:select path="user.portId" cssClass="form-control">
-				                <c:forEach items="${registrationCommand.userPort}" var="port">
-				                    <form:option value="${port.key}" label="${port.value.name}" />
-				                </c:forEach>							
-							</form:select>	
-			            </div>
-			        </div>
-
 			        <div class="form-group">
 			        	<div class="controls">
 				        	<label class="form-label">КОМПАНИЯ*</label>
