@@ -146,7 +146,7 @@
 					   $("#stevidorNameSelect option").each(function(i){
 						   var selectValue = $(this).val();
 						   if(checkVal == selectValue){
-							   html = html + $(this).text()+ ", ";
+							   html = html + $(this).text()+ ",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 						   }	   						   
 					   });					   
 					   
