@@ -73,8 +73,11 @@
 	        	   	        		       
 										  return input;
         	   	        		      }
-       	   	        		     },	        	 	        	        
-       	                         { "bVisible": false,  "aTargets": [0, 2, 3, 22] },
+       	   	        		     },
+       	   	        			<c:if test="${userModel.role.id == 2}">
+             	                 { "bVisible": false,  "aTargets": [6] },
+             	                 </c:if>        	 	        	        
+       	                         { "bVisible": false,  "aTargets": [0, 2, 3, 7, 8, 22] },
        	                         {
         	   	        		      "aTargets": [ 4 ],
         	   	        		      "mData": 4,
@@ -472,15 +475,15 @@
 							<th class="nowrap">Характеристики</th>									                
 							<th class="nowrap">Производитель</th>
 							<th class="nowrap">Год выпуска</th>
-							<th class="nowrap">Дата ввода в эксплуатацию</th>
+							<th class="nowrap">Дата ввода</th>
 							<th class="nowrap">Контракт №</th>
-							<th class="nowrap">Инвентарный №</th>
+							<th class="nowrap">Инв. №</th>
 							<th class="nowrap">Транс №</th>
 							<th class="nowrap">Заводской №</th>
 							<th class="nowrap">Страна призводства</th>
 							<th class="nowrap">Место установки</th>
-							<th class="nowrap">Номенклатурный №</th>
-							<th class="nowrap">Регистрационный №</th>
+							<th class="nowrap">Номенкл. №</th>
+							<th class="nowrap">Рег. №</th>
 							<th class="nowrap">Примечания</th>
 							<th class="nowrap">Удалена</th>
 							<th class="nowrap">Посл. изм.</th>
