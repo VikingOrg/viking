@@ -73,11 +73,13 @@
 	        	   	        		       
 										  return input;
         	   	        		      }
-       	   	        		     },
-       	   	        			<c:if test="${userModel.role.id == 2}">
-             	                 { "bVisible": false,  "aTargets": [6] },
-             	                 </c:if>        	 	        	        
-       	                         { "bVisible": false,  "aTargets": [0, 2, 3, 7, 8, 22] },
+       	   	        		     },       	 	        	        
+
+        	   	        			<c:if test="${userModel.role.id == 2}">
+              	                 { "bVisible": false,  "aTargets": [6] },
+              	                 </c:if>        	 	        	        
+        	                         { "bVisible": false,  "aTargets": [ 2, 3, 7, 8, 22] },
+        	                         
        	                         {
         	   	        		      "aTargets": [ 4 ],
         	   	        		      "mData": 4,
@@ -463,7 +465,7 @@
 				<table id="machine_table" class="table table-striped table-bordered">
 			        <thead>
 			            <tr>
-			                <th class="nowrap">Id</th>
+			                <th class="nowrap">№</th>
 			                <th class="nowrap">Тип</th>
 			                <th class="nowrap">group Id</th>
 			                <th class="nowrap">model Id</th>
