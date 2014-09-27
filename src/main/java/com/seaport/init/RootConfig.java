@@ -88,6 +88,9 @@ public class RootConfig {
 		if (env.getRequiredProperty(PROPERTY_APPL_PHASEII).equalsIgnoreCase("true")) {
 			systemConstants.setApplPhaseII(true);
 		}
+		if (env.getRequiredProperty(PROPERTY_NAME_DATABASE_JELASTIC).equalsIgnoreCase("true")) {
+			systemConstants.setDbJelastic(true);
+		}
 		return systemConstants;
 	}
 	

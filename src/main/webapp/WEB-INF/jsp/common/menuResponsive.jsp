@@ -32,7 +32,15 @@
 			<div class="col-sm-12">
 
 				<nav class="navbar navbar-inverse" role="navigation" >
-					<div class="navbar-inner">
+					<c:choose>
+					     <c:when test="${system.dbJelastic}">
+					     	<div class="navbar-inner">
+					     </c:when>
+					     <c:otherwise>
+							<div class="navbar-inner" style="background:darkblue;">
+					     </c:otherwise>
+					</c:choose>
+					<!-- <div class="navbar-inner"> -->
 				  <!-- Brand and toggle get grouped for better mobile display -->
 				  <!-- <div class="navbar-header">
 				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">

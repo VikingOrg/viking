@@ -405,8 +405,7 @@
 									                </c:forEach>								
 												</form:select>
 												<form:errors path="machine.groupId" cssClass="control-label"/>
-												<span id="model_details" class="report_header"><b>Описание:</b><c:out value=" ${machineEditCommand.machine.name}"/></span><br/>
-								        	</div>
+											</div>
 							        	</spring:bind>
 							        	<spring:bind path="machine.modelId">
 								        	<div class="form-group ${status.error ? 'has-error' : '' }">
@@ -508,7 +507,7 @@
 							            <div class="form-group">
 								            <label class="form-label">Примечания</label>
 								            <div class="controls">
-								            	<form:textarea path="machine.note" rows="3" cssClass="form-control"/>
+								            	<form:textarea path="machine.note" rows="3" cssClass="form-control" placeholder=" ${machineEditCommand.machine.name}"/>
 								            </div>				            
 							        	</div>
 							        </div>

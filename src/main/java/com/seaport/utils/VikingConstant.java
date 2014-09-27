@@ -39,6 +39,7 @@ public class VikingConstant {
 	public boolean localConfig;
 	public boolean responsiveDesign;
 	public boolean applPhaseII;
+	public boolean dbJelastic;
 
 	/*Record types (for now)*/
 	public static String RECORD_TYPE_ALL = "ALL";
@@ -65,6 +66,12 @@ public class VikingConstant {
 	}
 	public void setResponsiveDesign(boolean responsiveDesign) {
 		this.responsiveDesign = responsiveDesign;
+	}
+	public boolean isDbJelastic() {
+		return dbJelastic;
+	}
+	public void setDbJelastic(boolean dbJelastic) {
+		this.dbJelastic = dbJelastic;
 	}
 	
 }
