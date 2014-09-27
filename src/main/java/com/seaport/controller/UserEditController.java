@@ -152,10 +152,12 @@ public class UserEditController {
 		/*Sending required email to user.*/
 		String messageText = "Уважаемая(ый) " + loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + "," +
 				  "\n\n Ваша учетная запись была изменена."+
-                  "\n\n Просим Вас войти в систему и проверить правильность заполнения данных." + 
-                  "\n\n С уважением Администрация.";
+                  "\n\n Просим Вас войти в Систему по адресу ITT24.RU и проверить правильность заполнения данных." + 
+                  "\n\n С уважением Администрация." +
+                  "\n\n\n\n Сообщение сгенерировано автоматически."+
+                  "\n\n Пожалуйста не отвечайте на него.";
 		
-		VikingUtil.sendEmail("Регистрация на сайте ИТТ24.", messageText, loggedInUser.getUserEmail());
+		VikingUtil.sendEmail("Регистрация в Системе ИТТ24", messageText, loggedInUser.getUserEmail());
 		
 		redirectAttributes.addFlashAttribute("message", "message.user.success.generic");
 		redirectAttributes.addFlashAttribute(registrationCommand);

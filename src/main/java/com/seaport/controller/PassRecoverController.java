@@ -100,13 +100,13 @@ public class PassRecoverController {
 		String encPassword = bCryptPasswordEncoder.encode(uuid);
 		user.setPassword(encPassword);    
 		
-		String messageText = "Уважаемая(ый) " + user.getFirstName() + " " + user.getLastName() + "," +
-				  "\n\n Ваш пароль был изменен через систему восстановления авторизации."+
-                  "\n\n Ваш новый пароль:"+ uuid + 
-                  "\n\n После входа в систему - измените его на более безопасный." + 
-                  "\n\n С уважением Администрация.";
+		String messageText = "Уважаемый(ая) " + user.getFirstName() + " " + user.getLastName() + "," +
+				  "\n\n Ваш пароль для входа в Систему ИТТ24 был изменен."+
+                  "\n\n Новый пароль:"+ uuid + 
+                  "\n\n После входа в Систему - измените его на более безопасный." + 
+                  "\n\n С уважением, Администрация.";
 		
-		VikingUtil.sendEmail("ИТТ24 Запрос на восстановление пароля.", messageText, user.getUserEmail());
+		VikingUtil.sendEmail("ИТТ24: Восстановление пароля", messageText, user.getUserEmail());
         
         /*saving new password after successfully sent email.*/
         userService.saveUser(user);
