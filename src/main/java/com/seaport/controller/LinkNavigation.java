@@ -34,6 +34,7 @@ public class LinkNavigation {
 	@RequestMapping(value="/home")
 	public String getHomePage(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
+		/*Setting session variables & environment settings for user.*/
 		session.setAttribute(com.seaport.utils.VikingConstant.USER_MODEL, 
 				userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
 		session.setAttribute("system", systemConstants);

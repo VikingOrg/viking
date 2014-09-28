@@ -38,9 +38,11 @@ public class RootConfig {
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_RESPONSIVE_SETTING = "responsive.design";
     private static final String PROPERTY_APPL_PHASEII = "application.phaseII";
-    private static final String PROPERTY_NAME_DATABASE_JELASTIC = "db.jelastic";
+//    private static final String PROPERTY_NAME_DATABASE_JELASTIC = "db.jelastic";
     
-    	
+    /*Environment -Denv=prod*/
+    private static final String PROPERTY_ENV = "env";
+    
 	@Resource
 	private Environment env;
 	
@@ -52,9 +54,11 @@ public class RootConfig {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-		if (env.getRequiredProperty(PROPERTY_NAME_DATABASE_JELASTIC).equalsIgnoreCase("true")) {
+		String applEnvironment = System.getProperty(PROPERTY_ENV); 
+				
+		//if (env.getRequiredProperty(PROPERTY_NAME_DATABASE_JELASTIC).equalsIgnoreCase("true")) {
+		if(applEnvironment != null && applEnvironment.equals("prod")){	
 			String URL =  "jdbc:mysql://mysql-viking.jelastic.regruhosting.ru/viking?characterEncoding=utf8&useUnicode=true";
-			//String URL =  "jdbc:mysql://mysql-viking.jelastic.elastx.net/viking?characterEncoding=utf8&useUnicode=true";
 			dataSource.setUrl(URL);
 		} else {
 			dbHost = envVarWithDefault("OPENSHIFT_MYSQL_DB_HOST", "localhost");
@@ -76,10 +80,9 @@ public class RootConfig {
 	}
 	
 	@Bean
-//	@Scope("prototype")
 	public VikingConstant systemConstants(){
 		VikingConstant systemConstants = new VikingConstant();
-		if (System.getenv("OPENSHIFT_MYSQL_DB_HOST") == null) {
+		if (System.getProperty(PROPERTY_ENV) == null) {
 			systemConstants.setLocalConfig(true);
 		}
 		if (env.getRequiredProperty(PROPERTY_RESPONSIVE_SETTING).equalsIgnoreCase("true")) {
@@ -87,9 +90,6 @@ public class RootConfig {
 		}
 		if (env.getRequiredProperty(PROPERTY_APPL_PHASEII).equalsIgnoreCase("true")) {
 			systemConstants.setApplPhaseII(true);
-		}
-		if (env.getRequiredProperty(PROPERTY_NAME_DATABASE_JELASTIC).equalsIgnoreCase("true")) {
-			systemConstants.setDbJelastic(true);
 		}
 		return systemConstants;
 	}

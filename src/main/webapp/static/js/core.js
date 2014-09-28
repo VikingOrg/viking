@@ -44,7 +44,7 @@ function loadStaticHtmlElements(){
 
 function baseHeaderUrl(element) {
 	   var href = window.location.href.split('/');
-	   if(href[2]=='localhost'){
+	   if(href[2].indexOf("localhost") > -1){
 		   return baseUrl = href[0]+'//'+href[2]+'/'+"viking/" + element; 
        } else {
     	   return baseUrl = href[0]+'//'+href[2]+'/'+ element;

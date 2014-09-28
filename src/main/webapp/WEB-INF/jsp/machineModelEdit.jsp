@@ -148,32 +148,35 @@
 	         			                        		//oTable.fnUpdate( rowData, document.getElementById(machineModelId) );
 	         			                        		//oTable.fnUpdate( $('#machineModelName').val(), document.getElementById(machineModelId), 2 );
 	         			                        		/*For DOM DataTable.*/
-	         			                        		$('#group'+ajaxObjectId).text($('#groupSelectModal option:selected').text());
-	         			                        		$('#name'+ajaxObjectId).text($('#machineModelName').val());
-	         			                        		$('#manafacturer'+ajaxObjectId).text($( "#manufacturerSelectModal option:selected" ).text() );
-	         			                        		$('#note'+ajaxObjectId).text($('#macnineModelNote').val());
-	         			                        		$('#details'+ajaxObjectId).text($('#machineModelDetail').val());
+	         			                        		
+	         			                        		//$('#group'+ajaxObjectId).text($('#groupSelectModal option:selected').text());
+	         			                        		//$('#name'+ajaxObjectId).text($('#machineModelName').val());
+	         			                        		//$('#manafacturer'+ajaxObjectId).text($( "#manufacturerSelectModal option:selected" ).text() );
+	         			                        		//$('#note'+ajaxObjectId).text($('#macnineModelNote').val());
+	         			                        		//$('#details'+ajaxObjectId).text($('#machineModelDetail').val());
 	             			                          
-	         				                      		/*Closing Modal.*/
+	             			                          	/*Closing Modal.*/
+	             			                          	$('#machineModelModal').data( "id", ajaxObjectId );
 	         				                       	    closingModal(ajaxObjectId, successMsg, $('#groupSelectModal').val());	
 	         				                      } else {
 	         					                        /**For newly added records we insert new one at the end of Datatable object and move coursor to that position.
 	         					                         * Plus since below code specific for one page we check if model table exist  
 	         					                         */
-	         					                        if($('#modelSearchTable').length){
-		         				                    	    var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
-		         				                    	  	                                                                      $('#machineModelName').val(), 
-		         				                    	  	                                                                      $('#machineModelDetail').val(),
-		         				                    	  	                                                                      $('#groupSelectModal option:selected').text(),
-		         				                    	  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
-		         						                    	                 			                    	              "Страна",
-		         						                    	                 			                    	              $('#macnineModelNote').val(),
-		         						                    	                 			                    	              $('#groupSelectModal').val(),
-		         						                    	                 			                    	              "Now"] 
-		         			 			                    	  													 );
-		         				                    	  	$(obj.nTr).addClass( "success" );		         					                        
-		         					                    }
-
+	         					                         
+	         					                        //if($('#modelSearchTable').length){
+		         				                    	//    var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
+		         				                    	//  	                                                                      $('#machineModelName').val(), 
+		         				                    	//  	                                                                      $('#machineModelDetail').val(),
+		         				                    	//  	                                                                      $('#groupSelectModal option:selected').text(),
+		         				                    	//  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
+		         						                //    	                 			                    	              "Страна",
+		         						                //   	                 			                    	              $('#macnineModelNote').val(),
+		         						                //    	                 			                    	              $('#groupSelectModal').val(),
+		         						                //    	                 			                    	              "Now"] 
+		         			 			                //    	  													 );
+		         				                    	//  	$(obj.nTr).addClass( "success" );		         					                        
+		         					                    //}
+		         					                    $('#machineModelModal').data( "id", $("#ajaxObjectId").val() );
 	         			                       	    	closingModal($("#ajaxObjectId").val(), successMsg, $('#groupSelectModal').val());	
 	         					                  }
 	         		                          } //if not true - modal is still up with error message on the top.

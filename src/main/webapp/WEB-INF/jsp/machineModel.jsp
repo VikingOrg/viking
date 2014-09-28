@@ -20,6 +20,9 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
     	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
     	<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
+
+    	
+    	
 		
 		<script type="text/javascript">
 			var jsonData={};
@@ -93,21 +96,7 @@
  	               },
  	               
 	            });
-
-	            $('#modelSearchTable tbody').on('click', 'tr', function () {
-	                var id = this.id;
-	                var index = $.inArray(id, selected);
-	         
-	                if ( index === -1 ) {
-	                    selected.push( id );
-	                } else {
-	                    selected.splice( index, 1 );
-	                }
-	         
-	                $(this).toggleClass('success');
-	            } );
-	            
-
+	        	
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 }); 
@@ -187,12 +176,31 @@
     				  	     //Deleting the filtering function if we need the original table later.
     				  	    $.fn.dataTableExt.afnFiltering.pop();
     				  }
-    			});   
-                                            
+    			});
+
+	            $('#modelSearchTable tbody').on('click', 'tr', function () {
+	                var id = this.id;
+	                var index = $.inArray(id, selected);
+	         
+	                if ( index === -1 ) {
+	                    selected.push( id );
+	                } else {
+	                    selected.splice( index, 1 );
+	                }
+	         
+	                $(this).toggleClass('success');
+	            } );    			   
+
+	        	$('#machineModelModal').on('hidden.bs.modal', function (e) {
+	        		var modelId = $(this).data('id');
+	        		getData(modelId);
+	        		$('#success_alert').attr("class","alert alert-success");
+	        		$("#success_alert_message").html(successMsg);
+	        	})
             } ); //end of document.ready 
 
             
-    		function getData(){
+    		function getData(rowId){
             	showProgressModal('#wait_modal');
             	oTable.fnClearTable();
             	var pageData =  $("#machine_search_form").serialize();
@@ -202,6 +210,9 @@
           				oTable.fnAddData(data);
           			}
           			closeProgressModal('#wait_modal');
+          			//oTable.fnDisplayRow( oTable.fnGetNodes()[rowId] );
+          			oTable.fnJumpToRowId(rowId);
+          			$('#'+rowId).addClass( "success" );
           			$("#dataTableSearch").focus();
           		}).fail( function(d, textStatus, error) {
           	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
@@ -211,13 +222,39 @@
     		         
         	function closingModal(modelId, successMsg, groupId){
         		$('#machineModelModal').modal('hide');
-        		$('#'+modelId).addClass( "success" );
-
-        		$('#success_alert').attr("class","alert alert-success");
-        		$("#success_alert_message").html(successMsg);
-        		
             }
-            
+
+        	
+        	jQuery.fn.dataTableExt.oApi.fnJumpToRowId = function ( oSettings, nRowId )	{
+        	    /* Find the node's position in the aoData store */
+        	    //var iCurrent = oSettings.oApi._fnNodeToDataIndex( oSettings, nRow );
+        	    
+        	    /*Check if rowId defined*/ 
+        	    if ( typeof nRowId === 'undefined' )  {
+        	        return;
+        	    }	
+        	 
+        	    
+        	    var iPos = -1;
+        	    for( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ ) {
+            	    var rowId = oSettings.aoData[ oSettings.aiDisplay[i] ].nTr.id;
+        	        if( rowId == nRowId )  {
+        	            iPos = i;
+        	            break;
+        	        }
+        	    }
+
+        	    var myPage = Math.floor(iPos / oSettings._iDisplayLength); 
+        	    // Set new page
+        	    var iPage = (myPage) * oSettings._iDisplayLength;
+        	    oSettings._iDisplayStart = iPage;
+        	 
+        	    // Redraw table
+        	    oSettings.oApi._fnCalculateEnd( oSettings );
+        	    oSettings.oApi._fnDraw( oSettings );
+        	    
+        	};
+        	
         </script>	
         <style type="text/css">
         	th, td { white-space: nowrap; }
@@ -366,7 +403,7 @@
         </div>
 	</form:form>
 			
-		<div id="machineModelModal" class="modal modal-wide fade" tabindex="-1">
+		<div id="machineModelModal" class="modal modal-wide fade" tabindex="-1" data-id="1">
 		  <div class="modal-dialog">
 		    <div id="machineModelModalContent" class="modal-content">
 		    
