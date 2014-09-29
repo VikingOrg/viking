@@ -20,9 +20,6 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
     	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
     	<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
-
-    	
-    	
 		
 		<script type="text/javascript">
 			var jsonData={};
@@ -45,7 +42,7 @@
 	                               { "mDataProp": "updateDate", "defaultContent": " " }
 	                             ],
                	     "aoColumnDefs": [
-								 { "bVisible": false,  "aTargets": [7,8] },
+								 { "bVisible": true,  "aTargets": [7] },
        	                         { "aTargets": [ 1 ],
         	   	        		   "mData": 1,
         	   	        		   "mRender": function ( data, type, machineModelObject ) {
@@ -197,6 +194,29 @@
 	        		$('#success_alert').attr("class","alert alert-success");
 	        		$("#success_alert_message").html(successMsg);
 	        	})
+
+	        	$("#changesFrom").datepicker({
+	        		dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
+	        	 	monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],		
+	        	  	onSelect: function(dataPickerDate) {
+	        	  	    $.fn.dataTableExt.afnFiltering.push(
+	        	  	        function(oSettings, aData, iDataIndex) {
+	        	  	           var tableDate = aData[8].substring(6,10) + aData[8].substring(3,5)+ aData[8].substring(0,2);
+	        	  	           var fromDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+	        	  	           if (tableDate >= fromDate) {
+	        	  	        	 return true;
+	        		  	       }
+	        	  	           return false;
+	        	  	        }
+
+	        	  	    );
+	        	  	    //Update table
+	        	  	     oTable.fnDraw();
+	        	  	     //Deleting the filtering function if we need the original table later.
+	        	  	    $.fn.dataTableExt.afnFiltering.pop();
+	        	  }
+	        	});
+	        	
             } ); //end of document.ready 
 
             

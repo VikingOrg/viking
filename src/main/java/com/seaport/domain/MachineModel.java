@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.seaport.utils.CustomDateSerializer;
 
 import java.util.Date;
 
@@ -59,6 +62,7 @@ public class MachineModel implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
+	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date updateDate;
 
 	@Column(name="update_user_id")

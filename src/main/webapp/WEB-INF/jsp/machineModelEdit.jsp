@@ -87,9 +87,8 @@
 							        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
 							        
 									<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
-								        <button id="submitUpdate" type="button" class="btn btn-primary">Сохранить</button>
-								        <!-- <button id="submitCopy" type="button" class="btn btn-primary">Сохранить как новую</button> -->
-							        </c:if>
+								        <button id="saveExisting" type="button" class="btn btn-primary">Сохранить</button>
+							        </c:if>	
 									<c:if test="${empty machineModalEditCommand.machineModel.modelId}"> 
 								        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
 							        </c:if>	
@@ -100,29 +99,39 @@
 				      
 				 </form:form>
 				 <script type="text/javascript">
-
 	                /*Modal code.*/ 
 	                $('#machineModelModal').on('shown.bs.modal', function (e) {
 	              	  	var height = $(window).height() - 200;
 	            	  	$(this).find(".modal-body").css("max-height", height);
 	            	               	   
-	            	  	$("#submitUpdate").click(function(e) {
-	                 	   e.preventDefault();
-	                        if ($("#ajaxSubmitForm").valid()) {
-	                     	 initiateAjaxCall("update");
-	                        }
-	                    });
 	                    $("#submitCopy").click(function(e) {
-	                 	   e.preventDefault();
+	                 	    e.preventDefault();
 	                        if ($("#ajaxSubmitForm").valid()) {
-	          			     initiateAjaxCall("copy");
+	          			       initiateAjaxCall("copy");
 	                        }
 	                    });
+
+//	                    $("#saveExisting").on("click", "#machineModelModalContent", function(e) {
+//	                    	   alert("Here!");	
+//		                 	   e.preventDefault();
+//		                       if ($("#ajaxSubmitForm").valid()) {
+//		          			      initiateAjaxCall("update");
+//		                       }
+//	                    });
+	                    
+	                    $("#saveExisting").on("click", function(e) {
+		                 	   e.preventDefault();
+		                       if ($("#ajaxSubmitForm").valid()) {
+		          			      initiateAjaxCall("update");
+		                       }
+		                });
+
+	                    
 	                    $("#submitCreate").click(function(e) {
 	                 	   e.preventDefault();
-	                          if ($("#ajaxSubmitForm").valid()) {
-	          			   initiateAjaxCall("create");
-	                        }
+	                       if ($("#ajaxSubmitForm").valid()) {
+	          			      initiateAjaxCall("create");
+	                       }
 	                    });
 	                    
 	         	       function initiateAjaxCall(requestType){
@@ -139,43 +148,12 @@
 	         			                          var successMsg = $("#successMessage").html();
 	         			                          /*For any type of update we are assuming there is a record in DOM with provided id.*/
 	         			                          if(requestType == "update"){
-	         				                            /*For Ajax DataTable.*/
-	         			                        		//var rowData = [];
-	         			                        		//$('#'+machineModelId).children('td').each(function(i, data) {
-	         			                        			//console.log("Debugging:"+$(this).html()+":End");	
-	         			                        			//rowData.push($(this).html());
-	         			                       			//});
-	         			                        		//oTable.fnUpdate( rowData, document.getElementById(machineModelId) );
-	         			                        		//oTable.fnUpdate( $('#machineModelName').val(), document.getElementById(machineModelId), 2 );
-	         			                        		/*For DOM DataTable.*/
-	         			                        		
-	         			                        		//$('#group'+ajaxObjectId).text($('#groupSelectModal option:selected').text());
-	         			                        		//$('#name'+ajaxObjectId).text($('#machineModelName').val());
-	         			                        		//$('#manafacturer'+ajaxObjectId).text($( "#manufacturerSelectModal option:selected" ).text() );
-	         			                        		//$('#note'+ajaxObjectId).text($('#macnineModelNote').val());
-	         			                        		//$('#details'+ajaxObjectId).text($('#machineModelDetail').val());
-	             			                          
 	             			                          	/*Closing Modal.*/
 	             			                          	$('#machineModelModal').data( "id", ajaxObjectId );
+	             			                          	//$( "#saveExisting" ).unbind();
+		             			   	                    //$("#saveExisting").off("click");
 	         				                       	    closingModal(ajaxObjectId, successMsg, $('#groupSelectModal').val());	
 	         				                      } else {
-	         					                        /**For newly added records we insert new one at the end of Datatable object and move coursor to that position.
-	         					                         * Plus since below code specific for one page we check if model table exist  
-	         					                         */
-	         					                         
-	         					                        //if($('#modelSearchTable').length){
-		         				                    	//    var obj = $('#modelSearchTable').dataTable().fnAddDataAndDisplay( [ $("#ajaxObjectId").val(), 
-		         				                    	//  	                                                                      $('#machineModelName').val(), 
-		         				                    	//  	                                                                      $('#machineModelDetail').val(),
-		         				                    	//  	                                                                      $('#groupSelectModal option:selected').text(),
-		         				                    	//  	                                                                      $("#manufacturerSelectModal option:selected" ).text(),
-		         						                //    	                 			                    	              "Страна",
-		         						                //   	                 			                    	              $('#macnineModelNote').val(),
-		         						                //    	                 			                    	              $('#groupSelectModal').val(),
-		         						                //    	                 			                    	              "Now"] 
-		         			 			                //    	  													 );
-		         				                    	//  	$(obj.nTr).addClass( "success" );		         					                        
-		         					                    //}
 		         					                    $('#machineModelModal').data( "id", $("#ajaxObjectId").val() );
 	         			                       	    	closingModal($("#ajaxObjectId").val(), successMsg, $('#groupSelectModal').val());	
 	         					                  }
@@ -213,7 +191,9 @@
 	                $("#machineModelDetail").rules("add", {required:true}); 
 	                $("#groupSelectModal").rules("add", {required:true});
 	                $("#manufacturerSelectModal").rules("add", {required:true}); 
+
 				 </script>
+
 				 	 
 				 	 
 				 	 

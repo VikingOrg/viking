@@ -18,14 +18,12 @@
         <jsp:include page="common/headCoreElements.jsp" />
        
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/dropzone.css">
   
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
-	    <script type="text/javascript" src="<c:url value="/static/js/dropzone.js"/>"></script>
 	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
 	    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
-		  
+		<!-- <script type="text/javascript" src="<c:url value="/static/js/machineModelEdit.js"/>"></script> -->		  
 		  
 		<script>
 		  $(document).ready(function() {
@@ -71,6 +69,7 @@
                         {
                             $("#machineModelModalContent").html(response.responseText);
                             $('#machineModelModal').modal('show');
+                            
                         }
                     });
               });
@@ -90,6 +89,7 @@
 
               /*This is for dropzone to prevent it from submitting form when file is loaded.*/
               $( "#machine_edit_form" ).submit(function( event ) {
+                  alert("Preventing!");
                   if (submittignForm) {
                   } else {
                 	  event.preventDefault();
@@ -147,13 +147,6 @@
     		            }
     		        }
     		   });
-    		                     
-/*                $("#inventoryNumb").rules("add", {required:true});
-               $("#docNumb").rules("add", {required:true});
-               $("#transNumb").rules("add", {required:true});
-               $("#factoryNumb").rules("add", {required:true});
-               $("#nomNo").rules("add", {required:true});
-               $("#regNo").rules("add", {required:true}); */
                                 
 		  }); // end of document.ready
 		  
@@ -205,7 +198,7 @@
         	  if (!$.trim(machineModel.modelId)) {
         		  $('#edit_machine_model').html("текущую");
               } else {
-            	  $('#edit_machine_model').html("<a href='#' id='editExistingModel' data-param1='"+machineModel.modelId+"'>текущую</a>");
+            	  $('#edit_machine_model').html("<a href='#' id='editExistingModel' data-param1='"+machineModel.modelId+"'><span class='glyphicon glyphicon-edit'></span>Редактировать</a>");   
               }
           });
         }
@@ -567,15 +560,16 @@
 				</div><!-- /.modal -->
 			    
 			</form:form>
-    
-  		
-				<div id="machineModelModal" class="modal modal-wide fade">
+				   		
+				<div id="machineModelModal" class="modal modal-wide fade" tabindex="-1" data-id="1">
 				  <div class="modal-dialog">
 				    <div id="machineModelModalContent" class="modal-content">
 				    
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->			
+					
+					
 					
 		    </div> <!-- End of Main Container -->
 	

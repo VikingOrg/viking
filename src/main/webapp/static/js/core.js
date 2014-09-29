@@ -52,6 +52,10 @@ function baseHeaderUrl(element) {
 	   //return baseUrl = href[0]+'//'+href[2]+'/'+href[3]+'/'+href[4]+'/';
 } 
 
+jQuery(function(){
+ //place holder
+});
+
 jQuery.browser = {};
 (function () {
     jQuery.browser.msie = false;

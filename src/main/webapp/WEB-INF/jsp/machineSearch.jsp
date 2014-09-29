@@ -56,7 +56,7 @@
                                { "mDataProp": "regNo", "defaultContent": " " },
                                { "mDataProp": "note", "defaultContent": " " },
                                { "mDataProp": "archived", "defaultContent": " " },                          
-                               { "mDataProp": "updateDate", "defaultContent": " " },
+                               { "mDataProp": "updateDate", "defaultContent": " " }
                                /* { "mDataProp": "endDate", "defaultContent": " " }, */
                              ],
     	        "aoColumnDefs": [
@@ -75,8 +75,8 @@
         	   	        		      }
        	   	        		     },       	 	        	        
 
-        	   	        			<c:if test="${userModel.role.id == 2}">
-              	                 { "bVisible": false,  "aTargets": [6] },
+        	   	        		 <c:if test="${userModel.role.id == 2}">
+              	                 	 { "bVisible": false,  "aTargets": [6] },
               	                 </c:if>        	 	        	        
         	                         { "bVisible": false,  "aTargets": [ 2, 3, 7, 8, 22] },
         	                         
@@ -205,28 +205,6 @@
                 }
             });
 
-			$("#changesFrom").datepicker({
-					dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
-				 	monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],		
-				  	onSelect: function(dataPickerDate) {
-				  	    $.fn.dataTableExt.afnFiltering.push(
-				  	        function(oSettings, aData, iDataIndex) {
-				  	           var tableDate = aData[23].substring(6,10) + aData[23].substring(3,5)+ aData[23].substring(0,2);
-				  	           dataPickerDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
-				  	           if (tableDate >= dataPickerDate) {
-				  	        	 return true;
-					  	       }
-				  	           return false;
-				  	        }
-
-				  	    );
-				  	    //Update table
-				  	     oTable.fnDraw();
-				  	     //Deleting the filtering function if we need the original table later.
-				  	    $.fn.dataTableExt.afnFiltering.pop();
-				  }
-			});
-
             $('#machine_table tbody').on('click', 'tr', function () {
                 var id = this.id;
                 var index = $.inArray(id, selected);
@@ -239,7 +217,29 @@
          
                 $(this).toggleClass('success');
             } );			
-			          			
+
+        	$("#changesFrom").datepicker({
+        		dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
+        	 	monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],		
+        	  	onSelect: function(dataPickerDate) {
+        	  	    $.fn.dataTableExt.afnFiltering.push(
+        	  	        function(oSettings, aData, iDataIndex) {
+        	  	           var tableDate = aData[23].substring(6,10) + aData[23].substring(3,5)+ aData[23].substring(0,2);
+        	  	           var fromDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+        	  	           if (tableDate >= fromDate) {
+        	  	        	 return true;
+        		  	       }
+        	  	           return false;
+        	  	        }
+
+        	  	    );
+        	  	    //Update table
+        	  	     oTable.fnDraw();
+        	  	     //Deleting the filtering function if we need the original table later.
+        	  	    $.fn.dataTableExt.afnFiltering.pop();
+        	  }
+        	});
+        	            
         } ); //end of document.ready
 
 		function getData(recordType){
