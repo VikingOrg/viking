@@ -89,7 +89,6 @@
 
               /*This is for dropzone to prevent it from submitting form when file is loaded.*/
               $( "#machine_edit_form" ).submit(function( event ) {
-                  alert("Preventing!");
                   if (submittignForm) {
                   } else {
                 	  event.preventDefault();
