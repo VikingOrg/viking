@@ -520,7 +520,7 @@
 						<c:if test="${machineEditCommand.formType != 'E'}">
 								<input id="submitNew" type="button" class="btn btn-primary" value="Сохранить Новую." />
 						</c:if>	
-			            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_edit" onclick="submitForm()" value="Сохранить как Новую" /> 
+			            <!-- <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_edit" onclick="submitForm()" value="Сохранить как Новую" />  -->
 			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';" value="Klick">Отмена</a>			            
 			            
 			          </div>
