@@ -1,7 +1,10 @@
 package com.seaport.service;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
@@ -34,7 +37,17 @@ public class ApplicationSecurityListener implements ApplicationListener<Applicat
 	      AuthenticationSuccessEvent authenticationSuccessEvent = ( AuthenticationSuccessEvent ) event;
 	      UserDetails userDetails = (UserDetails)authenticationSuccessEvent.getAuthentication().getPrincipal();
 	      User loggedUser = userDAO.getUser(userDetails.getUsername());
-	      loggedUser.setLastLoginDate(new Timestamp(new Date().getTime()));
+	      
+	      SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	      isoFormat.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
+	      Date date = new Date();
+		  try {
+			date = isoFormat.parse("2010-05-23T09:01:02");
+		  } catch (ParseException e) {
+			 e.printStackTrace();
+		  }	
+	      
+	      loggedUser.setLastLoginDate(new Timestamp(date.getTime()));
 	      userDAO.saveUser(loggedUser);
 	  }	else {
 	      //System.out.println ( "undefined: " + event.getClass ().getName () );
