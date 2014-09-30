@@ -44,6 +44,7 @@ public class VikingConstant {
 	public static String RECORD_TYPE_ALL = "ALL";
 	public static String RECORD_TYPE_ACTIVE = "A";
 	public static String RECORD_TYPE_ARCHIVED = "Y";
+	public static String RECORD_TYPE_RETIRED = "R";
 	
 	/*Semantic shortcuts*/
 	public static String VIKING_YES = "Y";

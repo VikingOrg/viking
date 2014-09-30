@@ -11,6 +11,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.seaport.utils.CustomDateSerializer;
+
 /**
  * The persistent class for the ports database table. 
  * 
@@ -50,6 +55,8 @@ public class Country implements java.io.Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", nullable = false, length = 19)
+	@JsonSerialize(using = CustomDateSerializer.class)
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date updateDate;
 	
 	@Column(name = "update_user_id", nullable = false, length = 45)

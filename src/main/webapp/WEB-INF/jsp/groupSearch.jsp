@@ -229,7 +229,7 @@
 								<th class="column-check">№&nbsp;</th>
 								<th class="">Группа&nbsp;&nbsp;</th>
 								<th class="">Примечания&nbsp;&nbsp;</th>
-								<th class="hidden">Посл. изм.</th>
+								<th class="">Посл. изм.</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -247,8 +247,8 @@
 									<td class="">
 										<span id="note${group.groupId}"><c:out value="${group.groupNote}"/></span>
 									</td>
-	                              	<td class="hidden">
-	                              		<span></span>
+	                              	<td class="">
+	                              		<c:out value="${group.updateDate}"/>
 	                              	</td>
 								</tr>
 							</c:forEach>

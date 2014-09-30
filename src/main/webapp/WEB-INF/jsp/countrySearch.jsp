@@ -236,7 +236,7 @@
 		                              <th class="nowrap">Страна (RUS)</th>
 		                              <th class="nowrap">Страна (ENG)</th>
 		                              <th class="">Примечания</th>
-									  <th class="hidden">Посл. изм.</th>
+									  <th class="">Посл. изм.</th>
 	                              </tr>
 	                          </thead>
 	                          <tbody>
@@ -261,8 +261,8 @@
 		                              	<td class="">
 		                              		<span id="countryNote${country.countryId}"><c:out value="${country.countryNote}"/></span>
 		                              	</td>
-		                              	<td class="hidden">
-		                              		<span></span>
+		                              	<td class="">
+		                              		<c:out value="${country.updateDate}"/>
 		                              	</td>
 		                            </tr>
 	                            </c:forEach>

@@ -26,6 +26,7 @@ import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * The persistent class for the stevidors database table.
@@ -90,8 +91,8 @@ public class Stevidor implements Serializable {
 	@Column(name="create_user_id")
 	private int createUserId;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
+	@DateTimeFormat(pattern ="dd-MM-yyyy")
 	private Date updateDate;
 
 	@Column(name="update_user_id")

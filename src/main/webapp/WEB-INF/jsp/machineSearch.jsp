@@ -56,8 +56,8 @@
                                { "mDataProp": "regNo", "defaultContent": " " },
                                { "mDataProp": "note", "defaultContent": " " },
                                { "mDataProp": "archived", "defaultContent": " " },                          
-                               { "mDataProp": "updateDate", "defaultContent": " " }
-                               /* { "mDataProp": "endDate", "defaultContent": " " }, */
+                               { "mDataProp": "updateDate", "defaultContent": " " },
+                               { "mDataProp": "endDate", "defaultContent": " " }
                              ],
     	        "aoColumnDefs": [
        	                         {
@@ -406,7 +406,7 @@
 						<form:select id="recordTypeSelect" path="archived" cssClass="form-control" title="Выборка по типу записи">
 							<form:option value="ALL" label="Все типы" />
 							<form:option value="A" label="Эксплуатируемые" />
-							<form:option value="F" label="Списанные" />
+							<form:option value="R" label="Списанные" />
 							<form:option value="Y" label="Удаленные" />							
 						</form:select>	                    
                     </div>	
@@ -489,6 +489,7 @@
 							<th class="nowrap">Примечания</th>
 							<th class="nowrap">Удалена</th>
 							<th class="nowrap">Посл. изм.</th>
+							<th class="nowrap">Дата Сп.</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>

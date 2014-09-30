@@ -88,12 +88,12 @@
               });
 
               /*This is for dropzone to prevent it from submitting form when file is loaded.*/
-              $( "#machine_edit_form" ).submit(function( event ) {
-                  if (submittignForm) {
-                  } else {
-                	  event.preventDefault();
-                  }
-              });
+//              $( "#machine_edit_form" ).submit(function( event ) {
+//                  if (submittignForm) {
+//                  } else {
+//                	  event.preventDefault();
+//                  }
+//              });
 
               /*Clicking to update button.*/
               $("#submitUpdate").click(function(e) {
@@ -101,8 +101,15 @@
             	   if ($("#machine_edit_form").valid()) {
             		  $("#confirm_edit").modal('show');
                   }
-               });              
-
+               });
+                            
+              $("#submitCopy").click(function(e) {
+           	   e.preventDefault();
+           	   if ($("#machine_edit_form").valid()) {
+           		  $("#confirm_copy").modal('show');
+                 }
+              });   
+              
               /*Cliking to save new machine button*/
               $("#submitNew").click(function(e) {
            	   e.preventDefault();
@@ -111,14 +118,23 @@
                  }
               });              
               
-      		   $("#moda_copy_submit").click(function(e) {
+      		   $("#modal_copy_submit").click(function(e) {
       		    	$('#confirm_edit').modal('hide');
-	              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/edit");
+	              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/copy");
 	              	$('#machine_edit_form').attr('method', "post");
 	              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
 	              	submittignForm = true;
 	              	$('#machine_edit_form').submit();
                });
+               
+      		   $("#modal_edit_submit").click(function(e) {
+     		    	$('#confirm_edit').modal('hide');
+	              	$('#machine_edit_form').attr('action', "${pageContext.request.contextPath}/machineEdit/persist/edit");
+	              	$('#machine_edit_form').attr('method', "post");
+	              	$('#machine_edit_form').attr('accept-charset', "UTF-8");
+	              	submittignForm = true;
+	              	$('#machine_edit_form').submit();
+              });               
                
       		   $("#modal_new_submit").click(function(e) {
      		    	$('#confirm_new').modal('hide');
@@ -459,17 +475,6 @@
 								        		</div>
 							        		</div>
 							        	</div>
-										<%-- 						        	 	
-							        	<div class="form-group">
-								          <label class="form-label">Страна Производства</label>
-								          <select class="form-control" name="manufacturer">
-								          	<option>Все</option>
-								            <option>Россия</option>
-								            <option>Германия</option>
-								            <option>Япония</option>
-								          </select>
-							        	</div>
-							        	 --%>        		
 							        	<div class="form-group">
 				  				            <label class="form-label">Год производства(Выпуска)</label>
 											<form:select path="machine.releaseYear" cssClass="form-control">
@@ -489,7 +494,7 @@
 										--%>
 							            <v:input id="inventoryNumb" path="machine.inventoryNumb" label="Инвентарный №" required="false" title="Введите инвентарный номер" maxlength="50"/>
 							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="false" title="Укажите дату ввода в эксплуатацию" id="startDatepicker" placeholder="01/01/1980"/>
-							            <v:input path="machine.startDate" label="Дата списания" required="false" title="Укажите дату списания" id="endDatepicker" placeholder="01/01/1980"/>
+							            <v:input path="machine.endDate" label="Дата списания" required="false" title="Укажите дату списания" id="endDatepicker"/>
 										<v:input id="docNumb" path="machine.doc" label="Контракт №" required="false" title="Укажите документ ввода в эксплуатацию" maxlength="20"/>
 										<v:input id="transNumb" path="machine.transNumb" label="Транс №" required="false" title="Укажите номер Транса" maxlength="15"/>
 							            <v:input id="factoryNumb" path="machine.factoryNumb" label="Заводской №" required="false" title="Укажите заводской номер" maxlength="20"/>
@@ -499,7 +504,7 @@
 							            <div class="form-group">
 								            <label class="form-label">Примечания</label>
 								            <div class="controls">
-								            	<form:textarea path="machine.note" rows="3" cssClass="form-control" placeholder=" ${machineEditCommand.machine.name}"/>
+								            	<form:textarea path="machine.note" rows="3" cssClass="form-control"/>
 								            </div>				            
 							        	</div>
 							        </div>
@@ -510,18 +515,22 @@
 			    <!-- End of Tab Container -->
 			    
 			    <!-- Buttons -->
+			    <!-- Buttons -->
+			    <!-- Buttons -->
+			    <!-- Buttons -->
 			    <div class="container">
 			      <div class="form-actions" style= "padding: 20px">
 			          <br>
 			          <div class="form-actions">
 						<c:if test="${machineEditCommand.formType=='E'}">
-								<input id="submitUpdate" type="button" class="btn btn-primary"" value="Сохранить Отред." />
+								<input id="submitUpdate" type="button" class="btn btn-primary" value="Сохранить Отред." />
+								<input id="submitCopy" type="button" class="btn btn-primary" value="Сохранить как Новую" />
 						</c:if>	
 						<c:if test="${machineEditCommand.formType != 'E'}">
 								<input id="submitNew" type="button" class="btn btn-primary" value="Сохранить Новую." />
 						</c:if>	
-			            <!-- <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm_edit" onclick="submitForm()" value="Сохранить как Новую" />  -->
-			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';" value="Klick">Отмена</a>			            
+			            
+			            <a class="cancelbtn" type="button" onclick="window.location.href = '<c:url value="machineSearch"/>';">Отмена</a>			            
 			            
 			          </div>
 			      </div>
@@ -543,7 +552,7 @@
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 
-				<!-- Mодальное окно подтверждения сохранения копии текущего механизма -->
+				<!-- Mодальное окно подтверждения сохранения механизма -->
 				<div class="modal fade" id="confirm_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
@@ -552,7 +561,22 @@
 				      </div>
 				      <div class="modal-footer">
 				        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
-				        <a id = "moda_copy_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
+				        <a id = "modal_edit_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+
+				<!-- Mодальное окно подтверждения сохранения копии текущего механизма -->
+				<div class="modal fade" id="confirm_copy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-body" align="center">
+				        <h4>ПОДТВЕРДИТЕ СОХРАНЕНИЕ КОПИИ МЕХАНИЗМА</h4>
+				      </div>
+				      <div class="modal-footer">
+				        <a type="button" class="cancelbtn" data-dismiss="modal">Отмена</a>
+				        <a id = "modal_copy_submit" class="btn btn-primary" type="button" data-dismiss="modal">Сохранить</a>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->

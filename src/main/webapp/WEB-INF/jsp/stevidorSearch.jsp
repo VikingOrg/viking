@@ -215,7 +215,7 @@
 			                              		  <th class="nowrap">Порт&nbsp;&nbsp;</th>
 					                              <th class="hidden-sm hidden-xs nowrap">Страна&nbsp;&nbsp;</th>
 					                              <th class="">Примечания</th>
-									  			  <th class="hidden">Посл. изм.</th>
+									  			  <th class="">Посл. изм.</th>
 				                              </tr>
 				                          </thead>
 				                          <tbody>
@@ -236,7 +236,7 @@
 						                            <td><c:out value="${stevidor.port.name}"/></td>
 					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.port.country.nameRus}"/></td>
 					                                <td class=""><c:out value="${stevidor.stevidorNote}"/></td>
-		                              				<td class="hidden"><span></span></td>
+		                              				<td class="">${stevidor.updateDate}</td>
 					                            </tr>
 				                            </c:forEach>
 				                          </tbody>

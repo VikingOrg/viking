@@ -20,6 +20,7 @@ import com.seaport.domain.Machine;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstant;
+import com.seaport.utils.VikingUtil;
 
 /**
  * The DAO class that serves any type of Machine requests 
@@ -62,9 +63,13 @@ public class MachineDAOImpl implements IMachineDAO {
 		/*if request has record type parameter - add criteria below.*/
 		if (recordType.equalsIgnoreCase(VikingConstant.RECORD_TYPE_ACTIVE)) {
 			criteria.add(Restrictions.ne("archived", "Y"));
+			criteria.add(Restrictions.ne("archived", "R"));
 		} else if (recordType.equalsIgnoreCase(VikingConstant.RECORD_TYPE_ARCHIVED)) {
 			criteria.add(Restrictions.eq("archived", "Y"));
+		} else if (recordType.equalsIgnoreCase(VikingConstant.RECORD_TYPE_RETIRED)) {
+			criteria.add(Restrictions.eq("archived", "R"));
 		}
+
 		return 	criteria.list();
 	}
 	
@@ -89,6 +94,10 @@ public class MachineDAOImpl implements IMachineDAO {
 		}
 		machine.setUpdateUserId(user.getUserId());
 		machine.setUpdateDate(updateDate);
+		/*Setting end date flag*/
+		if (machine.getEndDate() != null) {
+			machine.setArchived(VikingConstant.RECORD_TYPE_RETIRED);
+		}
 		getCurrentSession().saveOrUpdate(machine);
 	}
 

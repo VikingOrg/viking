@@ -79,6 +79,12 @@ public class Machine implements Serializable {
 	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date startDate;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="end_date")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@JsonSerialize(using = CustomDateSerializer.class)
+	private Date endDate;
+	
 	@Column(name="stevidor_id")
 	private Integer stevidorId;
 	
@@ -123,6 +129,13 @@ public class Machine implements Serializable {
 	public Machine() {
 	}
 	
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
 	@JsonProperty("DT_RowId")
 	public Integer getDT_RowId() {
 		return machineId;

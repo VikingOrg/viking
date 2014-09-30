@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.seaport.utils.CustomDateSerializer;
+
 import java.util.Date;
 
 
@@ -43,6 +48,8 @@ public class Group implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
+	@JsonSerialize(using = CustomDateSerializer.class)
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date updateDate;
 
 	@Column(name="update_user_id")

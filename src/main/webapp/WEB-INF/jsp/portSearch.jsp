@@ -237,7 +237,7 @@
 								<th class="nowrap">Порт&nbsp;&nbsp;</th>
 								<th class="nowrap">Страна&nbsp;&nbsp;</th>
 								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
-								<th class="hidden">Посл. изм.</th>
+								<th class="">Посл. изм.</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -262,8 +262,8 @@
 											<c:out value="${port.portNote}"/>
 										</span>
 									</td>
-	                              	<td class="hidden">
-	                              		<span></span>
+	                              	<td class="">
+	                              		<c:out value="${port.updateDate}"/>
 	                              	</td>
 								</tr>
 							</c:forEach>

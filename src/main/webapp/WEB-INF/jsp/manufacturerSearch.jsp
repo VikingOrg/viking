@@ -280,7 +280,7 @@
 								<th class="nowrap">Страна&nbsp;&nbsp;</th>
 								<th class="nowrap">Англ. наименование&nbsp;&nbsp;</th>
 								<th class="">Примечания&nbsp;&nbsp;</th>
-								<th class="hidden">Посл. изм.</th>
+								<th class="">Посл. изм.</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -332,8 +332,8 @@
 									<td class="">
 										<span id="manufacturerNote${manufacturer.manufacturerId}"><c:out value="${manufacturer.note}"/></span>
 									</td>
-	                              	<td class="hidden">
-	                              		<span></span>
+	                              	<td class="">
+	                              		<c:out value="${manufacturer.updateDate}"/>
 	                              	</td>
 								</tr>
 							</c:forEach>
