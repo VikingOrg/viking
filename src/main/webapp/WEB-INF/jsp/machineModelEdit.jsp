@@ -99,8 +99,9 @@
 				      
 				 </form:form>
 				 <script type="text/javascript">
+				 
 	                /*Modal code.*/ 
-	                $('#machineModelModal').on('shown.bs.modal', function (e) {
+
 	              	  	var height = $(window).height() - 200;
 	            	  	$(this).find(".modal-body").css("max-height", height);
 	            	               	   
@@ -110,14 +111,6 @@
 	          			       initiateAjaxCall("copy");
 	                        }
 	                    });
-
-//	                    $("#saveExisting").on("click", "#machineModelModalContent", function(e) {
-//	                    	   alert("Here!");	
-//		                 	   e.preventDefault();
-//		                       if ($("#ajaxSubmitForm").valid()) {
-//		          			      initiateAjaxCall("update");
-//		                       }
-//	                    });
 	                    
 	                    $("#saveExisting").on("click", function(e) {
 		                 	   e.preventDefault();
@@ -125,7 +118,6 @@
 		          			      initiateAjaxCall("update");
 		                       }
 		                });
-
 	                    
 	                    $("#submitCreate").click(function(e) {
 	                 	   e.preventDefault();
@@ -166,8 +158,7 @@
 	         		       	        }
 	         	            });           	
 	         	       }
-	             	   
-	                });				
+				
 
 	                $("#ajaxSubmitForm").validate({
 	    		        highlight: function(element) {
