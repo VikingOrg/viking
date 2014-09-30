@@ -1,9 +1,10 @@
 package com.seaport.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -67,6 +68,10 @@ public class UserSearchController {
 		UserSearchCommand userSearchCommand = new UserSearchCommand();
 		List<User> userList = userService.getUsers();
 		List<Object> principals = sessionRegistry.getAllPrincipals();
+		
+		/*Tune up output for user in MSC time zone*/
+		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		formatter.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
 
 		for (Object principal: principals) {
 		    if (principal instanceof org.springframework.security.core.userdetails.User) {
@@ -75,6 +80,8 @@ public class UserSearchController {
 					if (userLogin.equalsIgnoreCase(user.getLogin())) {
 						user.setIsLoggedIn("Y");
 					}
+					String strUpdateDate = formatter.format(user.getUpdateDate());
+					user.setLocalUpdateDate(strUpdateDate);
 				}
 		    }
 		}

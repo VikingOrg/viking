@@ -139,8 +139,8 @@
     				  	    $.fn.dataTableExt.afnFiltering.push(
     				  	        function(oSettings, aData, iDataIndex) {
     				  	           var tableDate = aData[5].substring(6,10) + aData[5].substring(3,5)+ aData[5].substring(0,2);
-    				  	           dataPickerDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
-    				  	           if (tableDate >= dataPickerDate) {
+    	        	  	           var fromDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+    	        	  	           if (tableDate >= fromDate) {
     				  	        	 return true;
     					  	       }
     				  	           return false;
@@ -332,17 +332,15 @@
 									<td class="">
 										<span id="manufacturerNote${manufacturer.manufacturerId}"><c:out value="${manufacturer.note}"/></span>
 									</td>
-	                              	<td class="">
-	                              		<c:out value="${manufacturer.updateDate}"/>
-	                              	</td>
+		                         	<td class="">
+		                         		<spring:eval expression="manufacturer.updateDate" />
+		                         	</td>									
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-	
 				</div>
 			</div>
-	
 		</form:form>
 	</div>
 </div>

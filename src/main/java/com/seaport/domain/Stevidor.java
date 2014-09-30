@@ -92,7 +92,7 @@ public class Stevidor implements Serializable {
 	private int createUserId;
 	
 	@Column(name="update_date")
-	@DateTimeFormat(pattern ="dd-MM-yyyy")
+	@DateTimeFormat(pattern ="dd.MM.yyyy")
 	private Date updateDate;
 
 	@Column(name="update_user_id")

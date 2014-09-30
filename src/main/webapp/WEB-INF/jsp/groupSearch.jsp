@@ -112,8 +112,8 @@
     				  	    $.fn.dataTableExt.afnFiltering.push(
     				  	        function(oSettings, aData, iDataIndex) {
     				  	           var tableDate = aData[3].substring(6,10) + aData[3].substring(3,5)+ aData[3].substring(0,2);
-    				  	           dataPickerDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
-    				  	           if (tableDate >= dataPickerDate) {
+    	        	  	           var fromDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+    	        	  	           if (tableDate >= fromDate) {
     				  	        	 return true;
     					  	       }
     				  	           return false;
@@ -247,9 +247,9 @@
 									<td class="">
 										<span id="note${group.groupId}"><c:out value="${group.groupNote}"/></span>
 									</td>
-	                              	<td class="">
-	                              		<c:out value="${group.updateDate}"/>
-	                              	</td>
+		                         	<td class="">
+		                         		<spring:eval expression="group.updateDate" />
+		                         	</td>									
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -87,7 +87,6 @@ public class User implements Serializable {
 	private String img;
 	private String dev;
  
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "LAST_LOGIN_DATE", nullable = false)
 	@DateTimeFormat(pattern = "yyyy.dd.MM HH:mm")
 	private Date lastLoginDate;
@@ -110,7 +109,15 @@ public class User implements Serializable {
 
 	@Transient
 	private String isLoggedIn="";
+	@Transient
+	private String localUpdateDate;
 
+	public String getLocalUpdateDate() {
+		return localUpdateDate;
+	}
+	public void setLocalUpdateDate(String localUpdateDate) {
+		this.localUpdateDate = localUpdateDate;
+	}
 	public Date getLastLoginDate() {
 		return lastLoginDate;
 	}

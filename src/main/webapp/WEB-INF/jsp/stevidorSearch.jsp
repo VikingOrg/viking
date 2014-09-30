@@ -91,8 +91,8 @@
 				  	    $.fn.dataTableExt.afnFiltering.push(
 				  	        function(oSettings, aData, iDataIndex) {
 				  	           var tableDate = aData[5].substring(6,10) + aData[5].substring(3,5)+ aData[5].substring(0,2);
-				  	           dataPickerDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
-				  	           if (tableDate >= dataPickerDate) {
+	        	  	           var fromDate  = dataPickerDate.substring(6,10) + dataPickerDate.substring(3,5)+ dataPickerDate.substring(0,2);
+	        	  	           if (tableDate >= fromDate) {
 				  	        	 return true;
 					  	       }
 				  	           return false;
@@ -236,7 +236,9 @@
 						                            <td><c:out value="${stevidor.port.name}"/></td>
 					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.port.country.nameRus}"/></td>
 					                                <td class=""><c:out value="${stevidor.stevidorNote}"/></td>
-		                              				<td class="">${stevidor.updateDate}</td>
+						                         	<td class="">
+						                         		<spring:eval expression="stevidor.updateDate" />
+						                         	</td>					                                
 					                            </tr>
 				                            </c:forEach>
 				                          </tbody>
