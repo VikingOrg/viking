@@ -375,47 +375,14 @@
 		.background-backdrop {
 		  background: none;
 		}
-		
-		/*
-		@media (min-width: 768px) {
-		table.dataTable {
-		    float: left;
-		}
-		
-		.dataTables_wrapper {
-		    clear: none;
-		}
-		
-		.dataTables_wrapper .dataTables_scroll {
-		    clear: right;
-		}
-		
-		.max-limit {
-		margin-left:300px;
-		}
-		
-		.left-limit {
-		width:280px;
-		float:left;
-		}
-		
-		}
-		
-		@media (max-width: 767px) {
-		.max-limit {
-		margin-left:0;
-		}
-		
-		}		
-		*/
+
 		@media (min-width: 1400px){
-		.col-lg-3 {
-		width: 18% !important;
+			.col-lg-3 {
+			width: 18% !important;
 		}
-		
 		
 		.col-lg-9 {
-		width: 82% !important;
-		}
+			width: 82% !important;
+			}
 		}
 		

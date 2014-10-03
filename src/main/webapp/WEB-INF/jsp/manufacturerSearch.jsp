@@ -307,16 +307,9 @@
 											            	<span class="nowrap">Запись создана:<c:out value="${manufacturer.createDate}"/><br></span>
 											            	<span class="nowrap">Последние изменение внесены:<c:out value="${manufacturer.updateDate}"/><br></span>
 											            	<span class="nowrap">Пользователем с ID:<c:out value="${manufacturer.updateUserId}"/><br></span>
-											            	<span class="nowrap">Img Path:<c:url value="/static/images/users/${manufacturer.createUser.img}"/><br></span>
-														
 														</td>
 														<td>
-															<c:if test="${not empty manufacturer.createUser.img}">
-																<img src="<c:url value="/static/images/users/${manufacturer.createUser.img}"/>">
-															</c:if>
-															<c:if test="${empty manufacturer.createUser.img}">
-																<img src="<c:url value="/static/images/users/defaultImg.jpg"/>">															
-															</c:if>		
+														    <img alt="" id="userImg" src="<spring:url value="/fileController/getUserImg/${manufacturer.createUser.img}" htmlEscape="true"/>"/>
 														</td>
 													</tr>
 												</tbody>

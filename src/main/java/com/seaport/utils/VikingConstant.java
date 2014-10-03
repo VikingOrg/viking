@@ -35,10 +35,12 @@ public class VikingConstant {
 	public static int USER_ROLE_MECH = 2;
 	public static int USER_ROLE_GUEST = 3;
 
-	/*Global properties settings.*/
+	/*Not static Global properties settings.*/
 	public boolean localConfig;
 	public boolean responsiveDesign;
-	public boolean applPhaseII;
+	public String rootPath;
+	public String userImgPath;
+	public String modelImgPath;
 
 	/*Record types (for now)*/
 	public static String RECORD_TYPE_ALL = "ALL";
@@ -46,14 +48,29 @@ public class VikingConstant {
 	public static String RECORD_TYPE_ARCHIVED = "Y";
 	public static String RECORD_TYPE_RETIRED = "R";
 	
+	/*Default image file names for Users, Models etc*/
+	public static String DEFAULT_USER_IMG = "default.jpg";
+	
 	/*Semantic shortcuts*/
 	public static String VIKING_YES = "Y";
 	
-	public boolean isApplPhaseII() {
-		return applPhaseII;
+	public String getModelImgPath() {
+		return modelImgPath;
 	}
-	public void setApplPhaseII(boolean applPhaseII) {
-		this.applPhaseII = applPhaseII;
+	public void setModelImgPath(String modelImgPath) {
+		this.modelImgPath = modelImgPath;
+	}
+	public String getUserImgPath() {
+		return userImgPath;
+	}
+	public void setUserImgPath(String userImgPath) {
+		this.userImgPath = userImgPath;
+	}
+	public String getRootPath() {
+		return rootPath;
+	}
+	public void setRootPath(String rootPath) {
+		this.rootPath = rootPath;
 	}
 	public boolean isLocalConfig() {
 		return localConfig;

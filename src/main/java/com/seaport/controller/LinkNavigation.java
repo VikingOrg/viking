@@ -24,7 +24,7 @@ public class LinkNavigation {
 	@Autowired
 	private IUserService userService;
 	@Autowired
-	private VikingConstant systemConstants;
+	private VikingConstant vikingConstant;
 	
 	@RequestMapping
 	public String getLogin(HttpServletRequest request) throws Exception {
@@ -37,7 +37,7 @@ public class LinkNavigation {
 		/*Setting session variables & environment settings for user.*/
 		session.setAttribute(com.seaport.utils.VikingConstant.USER_MODEL, 
 				userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
-		session.setAttribute("system", systemConstants);
+		session.setAttribute("system", vikingConstant);
 		return "home";
 	}
 	

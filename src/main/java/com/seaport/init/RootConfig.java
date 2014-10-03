@@ -1,5 +1,6 @@
 package com.seaport.init;
 
+import java.io.File;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -37,8 +38,6 @@ public class RootConfig {
     
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_RESPONSIVE_SETTING = "responsive.design";
-    private static final String PROPERTY_APPL_PHASEII = "application.phaseII";
-//    private static final String PROPERTY_NAME_DATABASE_JELASTIC = "db.jelastic";
     
     /*Environment -Denv=prod*/
     private static final String PROPERTY_ENV = "env";
@@ -56,7 +55,6 @@ public class RootConfig {
 		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
 		String applEnvironment = System.getProperty(PROPERTY_ENV); 
 				
-		//if (env.getRequiredProperty(PROPERTY_NAME_DATABASE_JELASTIC).equalsIgnoreCase("true")) {
 		if(applEnvironment != null && applEnvironment.equals("prod")){	
 			String URL =  "jdbc:mysql://mysql-viking.jelastic.regruhosting.ru/viking?characterEncoding=utf8&useUnicode=true";
 			dataSource.setUrl(URL);
@@ -80,18 +78,24 @@ public class RootConfig {
 	}
 	
 	@Bean
-	public VikingConstant systemConstants(){
-		VikingConstant systemConstants = new VikingConstant();
+	public VikingConstant vikingConstant(){
+		VikingConstant vikingConstant = new VikingConstant();
+		/*Setting paths*/
+		String rootPath = System.getProperty("user.home");
+		vikingConstant.setRootPath(rootPath);
+		String userImgPath = rootPath  + File.separator + "userImg" + File.separator;
+		vikingConstant.setUserImgPath(userImgPath);
+		String modelImgPath = rootPath  + File.separator + "userImg"+ File.separator;
+		vikingConstant.setModelImgPath(modelImgPath);
+		
+		/*Setting system properties values*/
 		if (System.getProperty(PROPERTY_ENV) == null) {
-			systemConstants.setLocalConfig(true);
+			vikingConstant.setLocalConfig(true);
 		}
 		if (env.getRequiredProperty(PROPERTY_RESPONSIVE_SETTING).equalsIgnoreCase("true")) {
-			systemConstants.setResponsiveDesign(true);
+			vikingConstant.setResponsiveDesign(true);
 		}
-		if (env.getRequiredProperty(PROPERTY_APPL_PHASEII).equalsIgnoreCase("true")) {
-			systemConstants.setApplPhaseII(true);
-		}
-		return systemConstants;
+		return vikingConstant;
 	}
 	
 	@Bean

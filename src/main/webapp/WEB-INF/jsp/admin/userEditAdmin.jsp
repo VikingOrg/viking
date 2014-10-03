@@ -16,10 +16,10 @@
 
 		<script>
 		  $(document).ready(function() {
-			  
-				$("#submit_avatar").click( function(event) {
+				$("#submit_avatar").click( function(e) {
+					e.preventDefault();
  				    var formData = new FormData();
-					formData.append('file', $('#file')[0].files[0]);
+					formData.append('file', $('#lefile')[0].files[0]);
 					formData.append("name", "name");
 					$.ajax({
 					       url: '${pageContext.request.contextPath}/fileController/avatar/${registrationCommand.user.userId}',
@@ -30,10 +30,12 @@
 					       cache: false,
 					       type: 'POST',
 					       success: function(response) {
+						       var newFileName = response[0].fileName;
+					    	   $("#userImg").attr("src", "${pageContext.request.contextPath}/fileController/getUserImg/"+newFileName+"?timestamp=" + new Date().getTime());
 					          alert('Успешно загружен!');
 					       },
 			               error: errorHandler = function() {
-			                    alert("What the fuck!");
+			                    alert("Файл успешно загрузился в черную дыру!");
 			               },					       
 					     });    return false;    
 				});		  
@@ -116,20 +118,6 @@
 				        		</div>
 				        	</div>			          
 			          </c:if>
-				        <%--  
-			          	<div class="form-group">
- 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
-	                    		<div class="panel-heading">
-									<label class="form-label">Загрузить аватар.</label>
-								</div>
-								<div  class="panel-body">		
-							       <label>Выбрать файл для загрузки:</label><br>
-							       <input type="file" id="file" required />
-							       <input id="submit_avatar" type="submit" value="Upload" class="btn btn-primary"/>
-				        		</div>
-			        		</div>
-			        	</div>			          
-			          	 --%>
 			          
 			        </div>
 			        <div class="col-sm-4 col-sm-offset-1">
@@ -161,6 +149,44 @@
 			            	<form:textarea path="user.userNote" rows="3" cssClass="form-control"/>
 			            </div>
 			          </div>
+				        <%----%>  
+				        
+			          	<div class="form-group">
+ 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+	                    		<div class="panel-heading">
+									<label class="form-label">Загрузить аватар.</label>
+								</div>
+								<div  class="panel-body">
+									<div class="input-append">
+										<table>
+										  <tr>
+										    <td>
+												<img alt="" id="userImg" src="<spring:url value="/fileController/getUserImg/${registrationCommand.user.img}" htmlEscape="true"/>"/>
+										    </td>
+										    <td class="nowrap">
+										       <label>Выбрать файл для загрузки:</label><br>
+										       <input id="lefile" type="file" style="display:none">
+											    
+											    <a class="col-sm-3 btn btn-primary" onclick="$('input[id=lefile]').click();">Открыть</a>
+											    <div class="col-sm-7">
+											    	<input id="photoCover" class="form-control" type="text">
+											    </div>
+											    <div class="col-sm-2">
+											    	<input id="submit_avatar" type="submit" value="Загрузить" class="btn btn-primary"/>
+											    </div>
+										    </td>
+										  </tr>
+										</table>
+									</div>
+									<script type="text/javascript">
+										$('input[id=lefile]').change(function() {
+										$('#photoCover').val($(this).val());
+										});
+									</script>							       
+ 							        
+				        		</div>
+			        		</div>
+			        	</div>						          
 			        </div>
 			      </div>
 				
@@ -168,6 +194,7 @@
 		      <div class="row">
 		        <div class="col-sm-10 col-sm-offset-1">
 		          <div class="form-actions">
+		          </br></br></br>
 		            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Копировать</button> -->
 		            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmSave">Сохранить</button>
 		            

@@ -4,13 +4,20 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,13 +28,25 @@ import org.springframework.web.multipart.MultipartFile;
 import com.seaport.domain.FileMeta;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
+import com.seaport.utils.VikingConstant;
  
+
+
+
+
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+
 @Controller
 @RequestMapping("/fileController")
 public class FileController {
 	
 	@Autowired
 	IUserService userService;
+	@Autowired
+	private VikingConstant vikingConstant;
 	
 	/**
 	 * Accepts uploading files request with parameters. 
@@ -37,122 +56,99 @@ public class FileController {
 	 */
     @RequestMapping(value="/avatar/{userId}", method = RequestMethod.POST)
     public @ResponseBody List<FileMeta> uploadAvatar(@RequestParam("name") String[] names,
-    		@RequestParam("file") MultipartFile[] files, @PathVariable String userId, HttpServletRequest request) {
+    		@RequestParam("file") MultipartFile[] files, @PathVariable String userId, HttpServletRequest request)  throws Exception  {
     	
     	List<FileMeta> fileMetaList = new ArrayList<FileMeta>();
     	for (int i = 0; i < files.length; i++) {
             MultipartFile multipartFile = files[i];
-            String nameDD = names[i];
- 
-             //2.3 create new fileMeta
-             FileMeta fileMeta = new FileMeta();
-             fileMeta.setFileName(multipartFile.getOriginalFilename());
-             fileMeta.setFileSize(multipartFile.getSize()/1024+" Kb");
-             fileMeta.setFileType(multipartFile.getContentType());
- 
+            /*Data we're going to send back to the client.*/
+            FileMeta fileMeta = new FileMeta();
+            
              try {
-                // Creating the directory to store file
-//                String rootPath = System.getProperty("catalina.home");
-                String rootPath = request.getServletContext().getRealPath("/")+ "static\\images\\users\\";
-//                File dir = new File(rootPath + File.separator + "tmpFiles");
-                File dir = new File(rootPath);
+            	String userImgPath = vikingConstant.getUserImgPath();
+                File dir = new File(userImgPath);
                 if (!dir.exists()) {
                 	dir.mkdirs();
                 }
                 
-                //21:03:10,900 INFO  [stdout] (http-localhost/127.0.0.1:8080-1) App Deployed Directory path: C:\jboss-eap-6.1\standalone\deployments\viking.war\
-                //21:03:11,627 INFO  [stdout] (http-localhost/127.0.0.1:8080-1) getContextPath(): /viking
-                
-//                System.out.println("\nApp Deployed Directory path: " + request.getServletContext().getRealPath("/"));
-//                System.out.println("getContextPath(): " + request.getServletContext().getContextPath());
-//                System.out.println("Apache Tomcat Server: " + request.getServletContext().getServerInfo());
-//                System.out.println("Servlet API version: " + request.getServletContext().getMajorVersion() + "." +request.getServletContext().getMinorVersion());
-//                System.out.println("Tomcat Project Name: " + request.getServletContext().getServletContextName());
-                
                 User user = userService.getUser(Integer.parseInt(userId));
                 user.setImg(userId+"_"+multipartFile.getOriginalFilename());
-                // Create the file on server
-                String path = dir.getAbsolutePath();
+                
+                /*Create the file on server*/
                 File serverFile = new File(dir.getAbsolutePath() + File.separator + userId+"_"+multipartFile.getOriginalFilename());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(multipartFile.getBytes());
                 stream.close();
-                fileMeta.setUploadOK("Y");
+
                 userService.saveUser(user);
+                fileMeta.setFileName(user.getImg());
+                fileMeta.setFileSize(multipartFile.getSize()/1024+" Kb");
+                fileMeta.setFileType(multipartFile.getContentType());
+                fileMeta.setUploadOK("Y");
+                
             } catch (IOException e) {
                 e.printStackTrace();
                 fileMeta.setUploadOK("N");
             }
-             fileMetaList.add(fileMeta);
+            fileMetaList.add(fileMeta);
     	}
         // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png","uploadOK":"Y"},...]
         return fileMetaList;
     }
+
+	
+	/**
+	 * Load requested user avatar image.
+	 * @param requestedImage
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping(value="/getUserImg/{requestedImage}", method = RequestMethod.GET)
+	protected HttpEntity<byte[]> getUserImg(@PathVariable String requestedImage, 
+											HttpServletRequest request, Model model)  throws Exception  {
+		byte[] data = {};
+        try {
+        	Path path = Paths.get(vikingConstant.getUserImgPath()+requestedImage+".jpg");
+        	data = Files.readAllBytes(path);
+		} catch (Exception e) {
+			return this.getDefaulImg(request);
+		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		headers.setContentLength(data.length);
+		
+		return new HttpEntity<byte[]>(data, headers);
+	}
 
 	/**
-	 * Accepts uploading files request with parameters. 
-	 * @param names
-	 * @param files
+	 * Load requested user avatar image.
+	 * @param requestedImage
+	 * @param request
+	 * @param model
 	 * @return
+	 * @throws Exception
 	 */
-    @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public @ResponseBody List<FileMeta> upload(@RequestParam("name") String[] names,
-    		@RequestParam("file") MultipartFile[] files) {
-    	
-    	List<FileMeta> fileMetaList = new ArrayList<FileMeta>();
-    	for (int i = 0; i < files.length; i++) {
-            MultipartFile multipartFile = files[i];
-            String nameDD = names[i];
- 
-             //2.3 create new fileMeta
-             FileMeta fileMeta = new FileMeta();
-             fileMeta.setFileName(multipartFile.getOriginalFilename());
-             fileMeta.setFileSize(multipartFile.getSize()/1024+" Kb");
-             fileMeta.setFileType(multipartFile.getContentType());
- 
-             try {
-                // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists()) {
-                	dir.mkdirs();
-                }
-
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + multipartFile.getOriginalFilename());
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(multipartFile.getBytes());
-                stream.close();
-                fileMeta.setUploadOK("Y");
-            } catch (IOException e) {
-                e.printStackTrace();
-                fileMeta.setUploadOK("N");
-            }
-             fileMetaList.add(fileMeta);
-    	}
-        // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png","uploadOK":"Y"},...]
-        return fileMetaList;
-    }
-    
-    /***************************************************
-     * URL: /rest/controller/get/{value}
-     * get(): get file as an attachment
-     * @param response : passed by the server
-     * @param value : value from the URL
-     * @return void
-     ****************************************************/
-//    @RequestMapping(value = "/get/{value}", method = RequestMethod.GET)
-//     public void get(HttpServletResponse response,@PathVariable String value){
-//         FileMeta getFile = files.get(Integer.parseInt(value));
-//         try {     
-//                response.setContentType(getFile.getFileType());
-//                response.setHeader("Content-disposition", "attachment; filename=\""+getFile.getFileName()+"\"");
-//                FileCopyUtils.copy(getFile.getBytes(), response.getOutputStream());
-//         }catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//         }
-//     }
-    
-    
+    @RequestMapping(value="/getUserImg/", method = RequestMethod.GET)
+	protected HttpEntity<byte[]> getDefaulImg(HttpServletRequest request)  throws Exception  {
+		byte[] data = {};
+        try {
+        	String userImgPath = request.getServletContext().getRealPath("/")  + File.separator + 
+        						 "static"  + File.separator +
+        						 "images" + File.separator +
+        						 "users" + File.separator + VikingConstant.DEFAULT_USER_IMG;
+        						 
+        	Path path = Paths.get(userImgPath);
+        	data = Files.readAllBytes(path);
+		} catch (Exception e) {
+				/*Do nothing.*/
+		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		headers.setContentLength(data.length);
+		
+		return new HttpEntity<byte[]>(data, headers);
+	}
+	
 }
