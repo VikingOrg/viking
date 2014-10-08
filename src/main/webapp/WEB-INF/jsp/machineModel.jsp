@@ -149,7 +149,6 @@
                     if (keycode == '13') {
                     	ev.preventDefault();
                     	return false;
-                        //fnc.call(this, ev);
                     }
                 }); 
 
@@ -208,7 +207,6 @@
           				oTable.fnAddData(data);
           			}
           			closeProgressModal('#wait_modal');
-          			//oTable.fnDisplayRow( oTable.fnGetNodes()[rowId] );
           			oTable.fnJumpToRowId(rowId);
           			$('#'+rowId).addClass( "success" );
           			$("#dataTableSearch").focus();
@@ -231,7 +229,6 @@
         	    if ( typeof nRowId === 'undefined' )  {
         	        return;
         	    }	
-        	 
         	    
         	    var iPos = -1;
         	    for( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ ) {
@@ -250,7 +247,6 @@
         	    // Redraw table
         	    oSettings.oApi._fnCalculateEnd( oSettings );
         	    oSettings.oApi._fnDraw( oSettings );
-        	    
         	};
         	
         </script>	

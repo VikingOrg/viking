@@ -1,6 +1,7 @@
 package com.seaport.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.seaport.command.MachineSearchCommand;
 import com.seaport.domain.Machine;
@@ -67,6 +69,15 @@ public class MachineSearchController {
 		machineSearchCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		machineSearchCommand.setYearMap(machineService.getYearMap());
 		machineSearchCommand.setArchived("A");
+		
+//		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+//		  if (inputFlashMap != null) {
+//			  Machine lastMachine = (Machine) inputFlashMap.get("lastMachine");
+//			  machineSearchCommand.setLastMachine(lastMachine);
+//		}
+		
+		Machine lastMachine = (Machine) model.get("lastMachine");
+		machineSearchCommand.setLastMachine(lastMachine);
 		model.put("machineSearchCommand", machineSearchCommand);
 		return "machineSearch";
 	}

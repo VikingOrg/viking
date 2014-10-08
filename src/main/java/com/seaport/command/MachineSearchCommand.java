@@ -31,7 +31,7 @@ public class MachineSearchCommand {
 	private Map<Integer, Manufacturer> manufacturerMap = new LinkedHashMap<Integer, Manufacturer>();
 	private Map<Integer, Integer> yearMap = new LinkedHashMap<Integer, Integer>();
 	private Map<Integer, MachineModel> machineModelMap = new LinkedHashMap<Integer, MachineModel>();
-	
+		
 	private Integer groupId;
 	private Integer portId;
 	private Integer countryId;
@@ -41,6 +41,15 @@ public class MachineSearchCommand {
 	private Integer modelId;
 	private String archived;
 	
+	/*This is for last edited machine object.*/
+	private Machine lastMachine;
+	
+	public Machine getLastMachine() {
+		return lastMachine;
+	}
+	public void setLastMachine(Machine lastMachine) {
+		this.lastMachine = lastMachine;
+	}
 	public String getArchived() {
 		return archived;
 	}

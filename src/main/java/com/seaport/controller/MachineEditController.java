@@ -49,6 +49,13 @@ public class MachineEditController {
 	@Autowired
 	private IMachineModelService machineModelService;		
 	
+	/**
+	 * Set machine search form page first time.
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String setUpForm(HttpServletRequest request, ModelMap model) throws Exception {
 		MachineEditCommand machineEditCommand = new MachineEditCommand();
@@ -136,6 +143,7 @@ public class MachineEditController {
 			machineEditCommand.getMachine().setMachineModel(machineModel);
 		}
 		machineService.saveMachine(machineEditCommand.getMachine());
+		redirectAttributes.addFlashAttribute("lastMachine", machineEditCommand.getMachine());
 		return "redirect:/machineSearch";
 	}
 	

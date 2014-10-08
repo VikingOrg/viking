@@ -35,7 +35,7 @@
               "aoColumns": [
                                { "mDataProp": "machineId" },
                                { "mDataProp": "machineId" },
-                               { "mDataProp": "groupId", "defaultContent": " " },
+                               { "mDataProp": "machineModel.groupId", "defaultContent": " " },
                                { "mDataProp": "modelId", "defaultContent": " " },
                                { "mDataProp": "group.name", "defaultContent": " "  },
                                { "mDataProp": "machineModel.name", "defaultContent": "отсутствует"  },
@@ -251,6 +251,8 @@
       				jsonData = data; 
       				oTable.fnAddData(data);
       			}
+      			oTable.fnJumpToRowId('${machineSearchCommand.lastMachine.machineId}');
+      			$("#dataTableSearch").focus();
       			closeProgressModal('#wait_modal');
       		}).fail( function(d, textStatus, error) {
       	        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
@@ -276,7 +278,36 @@
     	        return false;
     	    }
     	);
-    	
+
+    	jQuery.fn.dataTableExt.oApi.fnJumpToRowId = function ( oSettings, nRowId )	{
+    	    /* Find the node's position in the aoData store */
+    	    //var iCurrent = oSettings.oApi._fnNodeToDataIndex( oSettings, nRow );
+    	    
+    	    /*Check if rowId defined*/ 
+    	    if ( typeof nRowId === 'undefined' || nRowId =="")  {
+    	        return;
+    	    }	
+    	    
+    	    var iPos = -1;
+    	    for( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ ) {
+        	    var rowId = oSettings.aoData[ oSettings.aiDisplay[i] ].nTr.id;
+    	        if( rowId == nRowId )  {
+    	            iPos = i;
+    	            break;
+    	        }
+    	    }
+
+    	    var myPage = Math.floor(iPos / oSettings._iDisplayLength); 
+    	    // Set new page
+    	    var iPage = (myPage) * oSettings._iDisplayLength;
+    	    oSettings._iDisplayStart = iPage;
+    	 
+    	    // Redraw table
+    	    oSettings.oApi._fnCalculateEnd( oSettings );
+    	    oSettings.oApi._fnDraw( oSettings );
+  			$('#'+nRowId).addClass( "success" );
+    	};
+    	    	
         </script>
         <style type="text/css">
         	th, td { white-space: nowrap; }
