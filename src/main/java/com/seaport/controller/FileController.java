@@ -1,17 +1,18 @@
 package com.seaport.controller;
  
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
+import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -29,10 +30,8 @@ import com.seaport.domain.FileMeta;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstant;
- 
 
-
-
+import java.io.ByteArrayInputStream;
 
 
 import java.nio.file.Files;
@@ -76,10 +75,18 @@ public class FileController {
                 
                 /*Create the file on server*/
                 File serverFile = new File(dir.getAbsolutePath() + File.separator + userId+"_"+multipartFile.getOriginalFilename());
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(multipartFile.getBytes());
-                stream.close();
+//                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+//                stream.write(multipartFile.getBytes());
+//                stream.close();
 
+                InputStream inputStream = new ByteArrayInputStream(multipartFile.getBytes());
+                BufferedImage bImageFromConvert = ImageIO.read(inputStream);
+                /*Scaling image to dedicated sizes.*/
+                BufferedImage thumbnail = Scalr.resize(bImageFromConvert, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,
+                		               150, 100, Scalr.OP_ANTIALIAS);
+    			ImageIO.write(thumbnail, "jpg", serverFile);
+                
+                /*Saving updates to the user records and populate meta data for return object.*/
                 userService.saveUser(user);
                 fileMeta.setFileName(user.getImg());
                 fileMeta.setFileSize(multipartFile.getSize()/1024+" Kb");
