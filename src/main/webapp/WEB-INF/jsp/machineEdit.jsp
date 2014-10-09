@@ -403,16 +403,16 @@
 							        	Пример не правильного описания: Портальный Кран ГАНЦ 5/6тн. Стрела 30м.)</span>
 							            </label>
 							        	<v:input path="machine.name"  title="Описание Механизма"/> --%>
-							        	<spring:bind path="machine.groupId">
+							        	<spring:bind path="machine.machineModel.groupId">
 								        	<div class="form-group ${status.error ? 'has-error' : '' }">
 							                    <label class="form-label">Группа*</label>
-												<form:select id="groupSelect" path="machine.groupId" cssClass="form-control">
+												<form:select id="groupSelect" path="machine.machineModel.groupId" cssClass="form-control">
 												    <form:option value="0">Не выбрана (отсутствует)</form:option>
 									                <c:forEach items="${machineEditCommand.groupMap}" var="group">
 									                    <form:option value="${group.key}" label="${group.value.name}" />
 									                </c:forEach>								
 												</form:select>
-												<form:errors path="machine.groupId" cssClass="control-label"/>
+												<form:errors path="machine.machineModel.groupId" cssClass="control-label"/>
 											</div>
 							        	</spring:bind>
 							        	<spring:bind path="machine.modelId">

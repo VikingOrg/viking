@@ -37,7 +37,7 @@
                                { "mDataProp": "machineId" },
                                { "mDataProp": "machineModel.groupId", "defaultContent": " " },
                                { "mDataProp": "modelId", "defaultContent": " " },
-                               { "mDataProp": "group.name", "defaultContent": " "  },
+                               { "mDataProp": "machineModel.group.name", "defaultContent": " "  },
                                { "mDataProp": "machineModel.name", "defaultContent": "отсутствует"  },
                                { "mDataProp": "stevidor.name", "defaultContent": " " },
                                { "mDataProp": "stevidor.port.country.nameRus", "defaultContent": " " },

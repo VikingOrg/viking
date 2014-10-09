@@ -255,7 +255,7 @@ public class ReportSelectionController {
 			List<Machine> machineListByGroup = new ArrayList<Machine>();
 			for (Machine machine : machineList) {
 				try {
-					if (group.getGroupId().equals(machine.getGroupId())) {
+					if (group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
 						machineListByGroup.add(machine);
 						countModels++;
 					}

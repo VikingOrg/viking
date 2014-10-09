@@ -46,10 +46,6 @@ public class Machine implements Serializable {
 	private String factoryNumb;
 	
 	@Min(1)
-	@Column(name="group_id")
-	private Integer groupId;
-	
-	@Min(1)
 	@Column(name="model_id")
 	private Integer modelId;
 	
@@ -116,10 +112,6 @@ public class Machine implements Serializable {
 	@JoinColumn(name = "model_id", insertable = false, updatable = false)
 	private MachineModel machineModel;
 
-	@OneToOne()
-	@JoinColumn(name = "group_id", insertable = false, updatable = false)
-	private Group group;
-
 	@Transient
 	private Integer DT_RowId;
 	
@@ -185,17 +177,6 @@ public class Machine implements Serializable {
 		this.machineModel = machineModel;
 	}
 
-
-	public Group getGroup() {
-		return group;
-	}
-
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-
 	public Integer getMachineId() {
 		return machineId;
 	}
@@ -227,14 +208,6 @@ public class Machine implements Serializable {
 
 	public void setFactoryNumb(String factoryNumb) {
 		this.factoryNumb = factoryNumb;
-	}
-
-	public Integer getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
 	}
 
 	public String getInventoryNumb() {
@@ -352,19 +325,59 @@ public class Machine implements Serializable {
 		this.details = details;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((machineId == null) ? 0 : machineId.hashCode());
+		result = prime * result + ((modelId == null) ? 0 : modelId.hashCode());
+		result = prime * result
+				+ ((stevidorId == null) ? 0 : stevidorId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Machine other = (Machine) obj;
+		if (machineId == null) {
+			if (other.machineId != null)
+				return false;
+		} else if (!machineId.equals(other.machineId))
+			return false;
+		if (modelId == null) {
+			if (other.modelId != null)
+				return false;
+		} else if (!modelId.equals(other.modelId))
+			return false;
+		if (stevidorId == null) {
+			if (other.stevidorId != null)
+				return false;
+		} else if (!stevidorId.equals(other.stevidorId))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
 		return "Machine [machineId=" + machineId + ", archived=" + archived
-				+ ", createDate=" + createDate + ", createUserId="
-				+ createUserId + ", doc=" + doc + ", factoryNumb="
-				+ factoryNumb + ", groupId=" + groupId + ", inventoryNumb="
-				+ inventoryNumb + ", location=" + location + ", modelId="
-				+  ", name=" + name + ", note=" + note
-				+ ", releaseYear=" + releaseYear + ", startDate=" + startDate
+				+ ", doc=" + doc + ", factoryNumb=" + factoryNumb
+				+ ", modelId=" + modelId + ", inventoryNumb=" + inventoryNumb
+				+ ", nomNo=" + nomNo + ", regNo=" + regNo + ", location="
+				+ location + ", details=" + details + ", name=" + name
+				+ ", note=" + note + ", releaseYear=" + releaseYear
+				+ ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", stevidorId=" + stevidorId + ", transNumb=" + transNumb
-				+ ", updateDate=" + updateDate + ", updateUserId="
-				+ updateUserId + "]";
+				+ ", createDate=" + createDate + ", createUserId="
+				+ createUserId + ", updateDate=" + updateDate
+				+ ", updateUserId=" + updateUserId + ", DT_RowId=" + DT_RowId
+				+ "]";
 	}
 
 	

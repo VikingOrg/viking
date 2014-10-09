@@ -67,7 +67,7 @@ public class MachineEditController {
 			if(machineEditCommand.getMachine().getMachineModel() != null){
 				machineEditCommand.setMachineModelMap(machineModelService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));	
 			} else {
-				machineEditCommand.setMachineModelMap(machineModelService.getModelsMap(machineEditCommand.getMachine().getGroupId()));
+				machineEditCommand.setMachineModelMap(machineModelService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));
 			}
 			if (request.getParameter("copy")!= null) {
 				machineEditCommand.setFormType("C");
