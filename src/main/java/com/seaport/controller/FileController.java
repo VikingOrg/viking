@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.seaport.domain.FileMeta;
+import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
+import com.seaport.service.IMachineModelService;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstant;
 
@@ -41,6 +43,8 @@ public class FileController {
 	IUserService userService;
 	@Autowired
 	private VikingConstant vikingConstant;
+	@Autowired 
+	private IMachineModelService machineModelService;
 	
 	/**
 	 * Accepts uploading files request with parameters. 
@@ -117,8 +121,9 @@ public class FileController {
                 	dir.mkdirs();
                 }
                 
-                User user = userService.getUser(Integer.parseInt(modelId));
-                user.setImg(modelId+"_"+multipartFile.getOriginalFilename());
+                MachineModel machineModel = machineModelService.getModel(Integer.parseInt(modelId));
+
+                machineModel.setModelImg(modelId+"_"+multipartFile.getOriginalFilename());
                 
                 /*Create the file on server*/
                 File serverFile = new File(dir.getAbsolutePath() + File.separator + modelId+"_"+multipartFile.getOriginalFilename());
@@ -131,8 +136,8 @@ public class FileController {
     			ImageIO.write(thumbnail, "jpg", serverFile);
                 
                 /*Saving updates to the user records and populate meta data for return object.*/
-                userService.saveUser(user);
-                fileMeta.setFileName(user.getImg());
+    			machineModelService.saveMachineModel(machineModel);
+                fileMeta.setFileName(machineModel.getModelImg());
                 fileMeta.setFileSize(multipartFile.getSize()/1024+" Kb");
                 fileMeta.setFileType(multipartFile.getContentType());
                 fileMeta.setUploadOK("Y");
@@ -145,7 +150,33 @@ public class FileController {
     	}
         return fileMetaList;
     }
-	
+
+    
+	/**
+	 * Load requested user avatar image.
+	 * @param requestedImage
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping(value="/getModelImg/{requestedImage}", method = RequestMethod.GET)
+	protected HttpEntity<byte[]> getModelImg(@PathVariable String requestedImage, 
+											HttpServletRequest request, Model model)  throws Exception  {
+		byte[] data = {};
+        try {
+        	Path path = Paths.get(vikingConstant.getModelImgPath()+requestedImage+".jpg");
+        	data = Files.readAllBytes(path);
+		} catch (Exception e) {
+			return this.getDefaulImg(request);
+		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		headers.setContentLength(data.length);
+		
+		return new HttpEntity<byte[]>(data, headers);
+	}
+    
 	/**
 	 * Load requested user avatar image.
 	 * @param requestedImage

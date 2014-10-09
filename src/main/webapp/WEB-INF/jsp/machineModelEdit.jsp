@@ -69,6 +69,46 @@
 						                </c:forEach>								
 									</form:select>
 					        	</div>
+					        	
+					        	
+			          	<div class="form-group">
+ 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+	                    		<div class="panel-heading">
+									<label class="form-label">Загрузить аватар.</label>
+								</div>
+								<div  class="panel-body">
+									<div class="input-append">
+										<table>
+										  <tr>
+										    <td>
+												<img alt="" id="userImg" src="<spring:url value="/fileController/getModelImg/${machineModalEditCommand.machineModel.modelImg}" htmlEscape="true"/>"/>
+										    </td>
+										    <td class="nowrap">
+										       <label>Выбрать файл для загрузки:</label><br>
+										       <input id="lefile" type="file" style="display:none">
+											    
+											    <a class="col-sm-3 btn btn-primary" onclick="$('input[id=lefile]').click();">Открыть</a>
+											    <div class="col-sm-7">
+											    	<input id="photoCover" class="form-control" type="text">
+											    </div>
+											    <div class="col-sm-2">
+											    	<input id="submit_avatar" type="submit" value="Загрузить" class="btn btn-primary"/>
+											    </div>
+										    </td>
+										  </tr>
+										</table>
+									</div>
+									<script type="text/javascript">
+										$('input[id=lefile]').change(function() {
+										$('#photoCover').val($(this).val());
+										});
+									</script>							       
+ 							        
+				        		</div>
+			        		</div>
+			        	</div>	
+			        						        	
+					        	
 								<!-- Need this for Ajax call -->
 								<form:hidden id="ajaxObjectId" path="machineModel.modelId" />
 								<form:hidden id="ajaxSuccessFlag" path="successFlag" />					        	
@@ -182,6 +222,30 @@
 	                $("#machineModelDetail").rules("add", {required:true}); 
 	                $("#groupSelectModal").rules("add", {required:true});
 	                $("#manufacturerSelectModal").rules("add", {required:true}); 
+
+					$("#submit_avatar").click( function(e) {
+						e.preventDefault();
+	 				    var formData = new FormData();
+						formData.append('file', $('#lefile')[0].files[0]);
+						formData.append("name", "name");
+						$.ajax({
+						       url: '${pageContext.request.contextPath}/fileController/model/${machineModalEditCommand.machineModel.modelId}',
+						       data: formData,
+						       async: false,
+						       contentType: false,
+						       processData: false,
+						       cache: false,
+						       type: 'POST',
+						       success: function(response) {
+							       var newFileName = response[0].fileName;
+						    	   $("#userImg").attr("src", "${pageContext.request.contextPath}/fileController/getModelImg/"+newFileName+"?timestamp=" + new Date().getTime());
+						          alert('Успешно загружен!');
+						       },
+				               error: errorHandler = function() {
+				                    alert("Файл успешно загрузился в черную дыру!");
+				               },					       
+						     });    return false;    
+					});		                
 
 				 </script>
 

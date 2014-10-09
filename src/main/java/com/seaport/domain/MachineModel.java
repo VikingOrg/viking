@@ -59,7 +59,10 @@ public class MachineModel implements Serializable {
 
 	@Lob
 	private String note;
-
+	
+	@Column(name="model_img")
+	private String modelImg;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_date")
 	@JsonSerialize(using = CustomDateSerializer.class)
@@ -80,6 +83,14 @@ public class MachineModel implements Serializable {
 	private Integer DT_RowId;
 	
 	public MachineModel() {
+	}
+
+	public String getModelImg() {
+		return modelImg;
+	}
+
+	public void setModelImg(String modelImg) {
+		this.modelImg = modelImg;
 	}
 
 	@JsonProperty("DT_RowId")
