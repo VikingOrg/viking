@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import com.seaport.domain.Machine;
 import com.seaport.domain.MachineModel;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
@@ -56,6 +55,9 @@ public class MachineModelDAOImpl implements IMachineModelDAO {
 	public MachineModel getModel(Integer modelId) {
 		Query query = getCurrentSession().createQuery("from MachineModel m where m.modelId = :modelId");
 		query.setParameter("modelId", modelId);
+		if (query.list().isEmpty()) {
+			return null;
+		}
 		return (MachineModel)query.list().get(0);
 	}	
 	

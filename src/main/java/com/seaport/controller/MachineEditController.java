@@ -105,6 +105,13 @@ public class MachineEditController {
 		return modelList;
 	}	
 
+	/**
+	 * This is for editing machineModel
+	 * @param modelId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/getModel/{modelId}", method = RequestMethod.GET)
 	@ResponseBody
 	public MachineModel getModel(@PathVariable String modelId,
@@ -138,10 +145,10 @@ public class MachineEditController {
 
 		} 
 		
-		if (machineEditCommand.getMachine().getMachineModel() == null) {
-			MachineModel machineModel = machineModelService.getModel(machineEditCommand.getMachine().getModelId());
-			machineEditCommand.getMachine().setMachineModel(machineModel);
-		}
+//		if (machineEditCommand.getMachine().getMachineModel() == null) {
+//			MachineModel machineModel = machineModelService.getModel(machineEditCommand.getMachine().getModelId());
+//			machineEditCommand.getMachine().setMachineModel(machineModel);
+//		}
 		machineService.saveMachine(machineEditCommand.getMachine());
 		redirectAttributes.addFlashAttribute("lastMachine", machineEditCommand.getMachine());
 		return "redirect:/machineSearch";

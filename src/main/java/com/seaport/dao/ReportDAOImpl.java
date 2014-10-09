@@ -72,9 +72,9 @@ public class ReportDAOImpl implements IReportDAO {
 	public List<GroupReportDTO> getGroupReportDTOs(Map<String, Object> filtersMap) {
 		double percentage;
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT b.group_id AS groupId, b.name, COUNT(a.group_id) AS count, '' AS math ");
-		strBuilder.append("FROM machines a RIGHT JOIN groups b ON a.group_id = b.group_id ");
-		strBuilder.append("LEFT JOIN models c ON a.model_id = c.model_id ");
+		strBuilder.append("SELECT b.group_id AS groupId, c.name, COUNT(b.group_id) AS count, '' AS math ");
+		strBuilder.append("FROM machines a JOIN models b ON a.model_id = b.model_id ");
+		strBuilder.append("LEFT JOIN groups c ON b.group_id = c.group_id ");
 		
 		/*Starting filter logic.*/
 		if (filtersMap.size() > 0) {

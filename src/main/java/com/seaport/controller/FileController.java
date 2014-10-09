@@ -1,11 +1,13 @@
 package com.seaport.controller;
  
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +32,6 @@ import com.seaport.domain.FileMeta;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstant;
-
-import java.io.ByteArrayInputStream;
-
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 
 @Controller
 @RequestMapping("/fileController")
@@ -75,9 +70,6 @@ public class FileController {
                 
                 /*Create the file on server*/
                 File serverFile = new File(dir.getAbsolutePath() + File.separator + userId+"_"+multipartFile.getOriginalFilename());
-//                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-//                stream.write(multipartFile.getBytes());
-//                stream.close();
 
                 InputStream inputStream = new ByteArrayInputStream(multipartFile.getBytes());
                 BufferedImage bImageFromConvert = ImageIO.read(inputStream);
@@ -102,7 +94,57 @@ public class FileController {
         // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png","uploadOK":"Y"},...]
         return fileMetaList;
     }
+	/**
+	 * Accepts uploading files request with parameters. 
+	 * @param names
+	 * @param files
+	 * @return
+	 */
+    @RequestMapping(value="/model/{modelId}", method = RequestMethod.POST)
+    public @ResponseBody List<FileMeta> uploadModel(@RequestParam("name") String[] names,
+    		@RequestParam("file") MultipartFile[] files, @PathVariable String modelId, HttpServletRequest request)  throws Exception  {
+    	
+    	List<FileMeta> fileMetaList = new ArrayList<FileMeta>();
+    	for (int i = 0; i < files.length; i++) {
+            MultipartFile multipartFile = files[i];
+            /*Data we're going to send back to the client.*/
+            FileMeta fileMeta = new FileMeta();
+            
+             try {
+            	String userImgPath = vikingConstant.getModelImgPath();
+                File dir = new File(userImgPath);
+                if (!dir.exists()) {
+                	dir.mkdirs();
+                }
+                
+                User user = userService.getUser(Integer.parseInt(modelId));
+                user.setImg(modelId+"_"+multipartFile.getOriginalFilename());
+                
+                /*Create the file on server*/
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + modelId+"_"+multipartFile.getOriginalFilename());
 
+                InputStream inputStream = new ByteArrayInputStream(multipartFile.getBytes());
+                BufferedImage bImageFromConvert = ImageIO.read(inputStream);
+                /*Scaling image to dedicated sizes.*/
+                BufferedImage thumbnail = Scalr.resize(bImageFromConvert, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,
+                		               150, 100, Scalr.OP_ANTIALIAS);
+    			ImageIO.write(thumbnail, "jpg", serverFile);
+                
+                /*Saving updates to the user records and populate meta data for return object.*/
+                userService.saveUser(user);
+                fileMeta.setFileName(user.getImg());
+                fileMeta.setFileSize(multipartFile.getSize()/1024+" Kb");
+                fileMeta.setFileType(multipartFile.getContentType());
+                fileMeta.setUploadOK("Y");
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+                fileMeta.setUploadOK("N");
+            }
+            fileMetaList.add(fileMeta);
+    	}
+        return fileMetaList;
+    }
 	
 	/**
 	 * Load requested user avatar image.
