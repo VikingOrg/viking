@@ -132,7 +132,7 @@ public class FileController {
                 BufferedImage bImageFromConvert = ImageIO.read(inputStream);
                 /*Scaling image to dedicated sizes.*/
                 BufferedImage thumbnail = Scalr.resize(bImageFromConvert, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH,
-                		               150, 100, Scalr.OP_ANTIALIAS);
+                		               300, 200, Scalr.OP_ANTIALIAS);
     			ImageIO.write(thumbnail, "jpg", serverFile);
                 
                 /*Saving updates to the user records and populate meta data for return object.*/

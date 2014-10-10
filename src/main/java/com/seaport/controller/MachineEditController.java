@@ -66,9 +66,7 @@ public class MachineEditController {
 			/*Patch to handle null model.*/
 			if(machineEditCommand.getMachine().getMachineModel() != null){
 				machineEditCommand.setMachineModelMap(machineModelService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));	
-			} else {
-				machineEditCommand.setMachineModelMap(machineModelService.getModelsMap(machineEditCommand.getMachine().getMachineModel().getGroupId()));
-			}
+			} 
 			if (request.getParameter("copy")!= null) {
 				machineEditCommand.setFormType("C");
 				machineEditCommand.getMachine().setMachineId(null);;

@@ -74,7 +74,7 @@
 			          	<div class="form-group">
  				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
 	                    		<div class="panel-heading">
-									<label class="form-label">Загрузить аватар.</label>
+									<label class="form-label">Загрузить Изображение Модели</label>
 								</div>
 								<div  class="panel-body">
 									<div class="input-append">
@@ -111,7 +111,9 @@
 					        	
 								<!-- Need this for Ajax call -->
 								<form:hidden id="ajaxObjectId" path="machineModel.modelId" />
-								<form:hidden id="ajaxSuccessFlag" path="successFlag" />					        	
+								<form:hidden id="ajaxSuccessFlag" path="successFlag" />
+								<v:input id="modelImage" path="machineModel.modelImg" label="Фотка модели"/>
+
 					        </div>
 					      </div>
 					    </div>
@@ -239,7 +241,8 @@
 						       success: function(response) {
 							       var newFileName = response[0].fileName;
 						    	   $("#userImg").attr("src", "${pageContext.request.contextPath}/fileController/getModelImg/"+newFileName+"?timestamp=" + new Date().getTime());
-						          alert('Успешно загружен!');
+						           //alert('Успешно загружен!');
+						           $("#modelImage").val(newFileName);
 						       },
 				               error: errorHandler = function() {
 				                    alert("Файл успешно загрузился в черную дыру!");
