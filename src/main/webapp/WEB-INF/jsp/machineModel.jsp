@@ -42,7 +42,7 @@
 	                               { "mDataProp": "updateDate", "defaultContent": " " }
 	                             ],
                	     "aoColumnDefs": [
-								 { "bVisible": true,  "aTargets": [7] },
+								 { "bVisible": false,  "aTargets": [7] },
        	                         { "aTargets": [ 1 ],
         	   	        		   "mData": 1,
         	   	        		   "mRender": function ( data, type, machineModelObject ) {
@@ -380,7 +380,7 @@
                        <tr>
                          <th class="column-check">№</th>
                          <th class="">Модель</th>
-                         <th class="">Характ. Модели</th>                         
+                         <th class="">Характеристики Модели</th>                         
                          <th class="">Группа</th>
                          <th class="">Производитель</th>
                          <th class="">Страна</th>
