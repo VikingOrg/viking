@@ -130,7 +130,7 @@
 						          <h4>* Поля, обязательные к заполнению</h4>
 						        </div>
 			        			<div class="col-md-4 col-md-offset-1">
-							        <button type="button" class="btn cancelbtn" data-dismiss="modal">Отмена</button>
+							        <button type="button" class="btn cancelbtn" data-dismiss="modal" >Отмена</button>
 							        
 									<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
 								        <button id="saveExisting" type="button" class="btn btn-primary">Сохранить</button>
@@ -147,7 +147,8 @@
 				 <script type="text/javascript">
 				 
 	                /*Modal code.*/ 
-
+						$('#machineModelModal').data( "id", "" );
+	                
 	              	  	var height = $(window).height() - 200;
 	            	  	$(this).find(".modal-body").css("max-height", height);
 	            	               	   

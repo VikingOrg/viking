@@ -167,10 +167,11 @@
 
 	        	$('#machineModelModal').on('hidden.bs.modal', function (e) {
 	        		var modelId = $(this).data('id');
-	        		getData(modelId);
-	        		$('#success_alert').attr("class","alert alert-success");
-	        		$("#success_alert_message").html(successMsg);
-	        	})
+	        		/*Don't update data for 'cancel'*/
+	        		if(modelId != '') {
+	        			getData(modelId);
+		        	}
+	        	});
 
 	        	$("#changesFrom").datepicker({
 	        		dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
@@ -215,12 +216,21 @@
           	        closeProgressModal('#wait_modal');
           	    });
     		} 
-    		         
+
+   		 	/*Get called from edit modal - to close it.*/        
         	function closingModal(modelId, successMsg, groupId){
         		$('#machineModelModal').modal('hide');
+        		if(successMsg != "") {
+            		$("#success_alert_message").html(successMsg);
+            		$('#success_alert').attr("class","alert alert-success");
+            	}
             }
 
-        	
+        	/* 
+        	 * Custom plugin from datatable
+        	 * Uses record Id along with Datatable row index to page, find and highlight 
+        	 * data in table.
+        	 */
         	jQuery.fn.dataTableExt.oApi.fnJumpToRowId = function ( oSettings, nRowId )	{
         	    /* Find the node's position in the aoData store */
         	    //var iCurrent = oSettings.oApi._fnNodeToDataIndex( oSettings, nRow );
