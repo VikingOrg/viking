@@ -5,6 +5,8 @@
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
+	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
+	    
 				<form:form id="ajaxSubmitForm" commandName="machineModalEditCommand" action="/machineModel" method="POST" accept-charset="UTF-8">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -37,85 +39,86 @@
 									</div>
 								</div>
 					      </div>
-					      <div class="row">
-					        <div class="col-sm-4 col-sm-offset-1">
-					        	<v:input id="machineModelName" path="machineModel.name" label="Модель" required="true" title="Укажите модель" maxlength="60"/>
-					        	<v:input id="machineModelDetail" path="machineModel.details" label="Характеристика" required="true" title="Укажите характеристики модели" maxlength="250"/>
-					        	
-					            <div class="form-group">
-						            <label class="form-label">Примечания</label>
-						            <div class="controls">
-						            	<form:textarea id="macnineModelNote" path="machineModel.note" rows="3" cssClass="form-control"/>
-						            </div>				            
-					        	</div>
-					        </div>
-					        <div class="col-sm-4 col-sm-offset-1">
-
-								<div class="form-group">
-				                    <label class="form-label">Группа*</label>
-									<form:select id="groupSelectModal" path="machineModel.groupId" cssClass="form-control" title="Выберите Группу Механизмов">
-									    <form:option value="">Не выбрана</form:option>
-						                <c:forEach items="${machineModalEditCommand.groupMap}" var="group">
-						                    <form:option value="${group.key}" label="${group.value.name}" />
-						                </c:forEach>								
-									</form:select>
-			                    </div>
-						        <div class="form-group">
-		  				            <label class="form-label">Производитель*</label>
-									<form:select id="manufacturerSelectModal" path="machineModel.manufacturerId" cssClass="form-control" title="Выберите Производителя">
-									    <form:option value="">Не выбран</form:option>
-						                <c:forEach items="${machineModalEditCommand.manufacturerMap}" var="manufacturer">
-						                    <form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
-						                </c:forEach>								
-									</form:select>
-					        	</div>
-					        	
-					        	
-			          	<div class="form-group">
- 				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
-	                    		<div class="panel-heading">
-									<label class="form-label">Загрузить Изображение Модели</label>
-								</div>
-								<div  class="panel-body">
-									<div class="input-append">
-										<table>
-										  <tr>
-										    <td>
-												<img alt="" id="userImg" src="<spring:url value="/fileController/getModelImg/${machineModalEditCommand.machineModel.modelImg}" htmlEscape="true"/>"/>
-										    </td>
-										    <td class="nowrap">
-										       <label>Выбрать файл для загрузки:</label><br>
-										       <input id="lefile" type="file" style="display:none">
-											    
-											    <a class="col-sm-3 btn btn-primary" onclick="$('input[id=lefile]').click();">Открыть</a>
-											    <div class="col-sm-7">
-											    	<input id="photoCover" class="form-control" type="text">
-											    </div>
-											    <div class="col-sm-2">
-											    	<input id="submit_avatar" type="submit" value="Загрузить" class="btn btn-primary"/>
-											    </div>
-										    </td>
-										  </tr>
-										</table>
-									</div>
-									<script type="text/javascript">
-										$('input[id=lefile]').change(function() {
-										$('#photoCover').val($(this).val());
-										});
-									</script>							       
- 							        
-				        		</div>
-			        		</div>
-			        	</div>	
-			        						        	
-					        	
-								<!-- Need this for Ajax call -->
-								<form:hidden id="ajaxObjectId" path="machineModel.modelId" />
-								<form:hidden id="ajaxSuccessFlag" path="successFlag" />
-								<v:input id="modelImage" path="machineModel.modelImg" label="Фотка модели"/>
-<!--								<form:hidden id="modelImage" path="machineModel.modelImg" style='display:none'/>-->
-
-					        </div>
+ 					      <div class="container">
+					      	<ul id="machineEditTab" class="nav nav-tabs" role="tablist">
+						      <li class="active">
+						      	  <a href="#main" role="tab" data-toggle="tab">
+								   	  Основные характеристики
+						      	  </a>
+						      </li>
+						      <li><a id="click_to_init" href="#tab_image" role="tab" data-toggle="tab">Изображение</a></li>
+						    </ul>
+				    		
+							<div id="myTabContent" class="tab-content">
+									<div class="tab-pane fade tab-bordered" id="tab_image">
+							          	<div class="container">
+													<div class="input-append">
+														<div class="row" style="margin:5px">
+													       <input id="lefile" type="file" style="display:none">
+														    <div class="pull-left" style="margin:15px">
+														    	<a class="btn btn-primary" onclick="$('input[id=lefile]').click();">Открыть</a>
+														    </div>
+														    <div class="pull-left" style="margin:15px">
+														    	<input id="photoCover" class="form-control" type="text">
+														    </div>
+														    <div class="" style="margin:15px">
+														    	<input id="submit_avatar" type="submit" value="Загрузить" class="btn btn-primary"/>
+														    </div>
+														</div>
+														<div class="row" style="margin:15px">
+															<img alt="" id="userImg" src="<spring:url value="/fileController/getModelImg/${machineModalEditCommand.machineModel.modelImg}" htmlEscape="true"/>"/>
+									        				<br>
+															<!-- Need this for Ajax call -->
+															<form:hidden id="ajaxObjectId" path="machineModel.modelId" />
+															<form:hidden id="ajaxSuccessFlag" path="successFlag" />
+															<form:hidden id="modelImage" path="machineModel.modelImg"/>
+														 </div>
+													</div>
+													<script type="text/javascript">
+														$('input[id=lefile]').change(function() {
+														$('#photoCover').val($(this).val());
+														});
+													</script>	
+							        	</div>	
+									</div>	
+									
+									<div class="tab-pane fade in active tab-bordered" id="main">
+							      		<div class="container" style="margin-top:15px">
+									        <div class="col-sm-4 col-sm-offset-1">
+									        	<v:input id="machineModelName" path="machineModel.name" label="Модель" required="true" title="Укажите модель" maxlength="60"/>
+									        	<v:input id="machineModelDetail" path="machineModel.details" label="Характеристика" required="false" title="Укажите характеристики модели" maxlength="250"/>
+									        	
+									            <div class="form-group">
+										            <label class="form-label">Примечания</label>
+										            <div class="controls">
+										            	<form:textarea id="macnineModelNote" path="machineModel.note" rows="3" cssClass="form-control"/>
+										            </div>				            
+									        	</div>
+									        </div>
+									        <div class="col-sm-4 col-sm-offset-1">
+				
+												<div class="form-group">
+								                    <label class="form-label">Группа*</label>
+													<form:select id="groupSelectModal" path="machineModel.groupId" cssClass="form-control" title="Выберите Группу Механизмов">
+													    <form:option value="">Не выбрана</form:option>
+										                <c:forEach items="${machineModalEditCommand.groupMap}" var="group">
+										                    <form:option value="${group.key}" label="${group.value.name}" />
+										                </c:forEach>								
+													</form:select>
+							                    </div>
+										        <div class="form-group">
+						  				            <label class="form-label">Производитель*</label>
+													<form:select id="manufacturerSelectModal" path="machineModel.manufacturerId" cssClass="form-control" title="Выберите Производителя">
+													    <form:option value="">Не выбран</form:option>
+										                <c:forEach items="${machineModalEditCommand.manufacturerMap}" var="manufacturer">
+										                    <form:option value="${manufacturer.key}" label="${manufacturer.value.nameRus}" />
+										                </c:forEach>								
+													</form:select>
+									        	</div>
+									        </div>
+								        </div>
+								  </div>  
+							</div>    
 					      </div>
 					    </div>
 				      </div> <!-- /.modal-body -->
@@ -222,7 +225,7 @@
 	    		    });
 	    		                     
 	                $("#machineModelName").rules("add", {required:true});
-	                $("#machineModelDetail").rules("add", {required:true}); 
+	                $("#machineModelDetail").rules("add", {required:false}); 
 	                $("#groupSelectModal").rules("add", {required:true});
 	                $("#manufacturerSelectModal").rules("add", {required:true}); 
 
