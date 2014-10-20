@@ -113,6 +113,7 @@
 								<form:hidden id="ajaxObjectId" path="machineModel.modelId" />
 								<form:hidden id="ajaxSuccessFlag" path="successFlag" />
 								<v:input id="modelImage" path="machineModel.modelImg" label="Фотка модели"/>
+<!--								<form:hidden id="modelImage" path="machineModel.modelImg" style='display:none'/>-->
 
 					        </div>
 					      </div>
