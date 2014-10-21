@@ -11,10 +11,15 @@
 	    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/dataTables.tableTools.css"/>"/>
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	    
+	    	    
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/real_estate.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/theme.css"/>"/>
 	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/core.css"/>"/>
+
+	    <!-- Select Integration -->
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/select2.css"/>"/>
+	    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/static/css/select2-bootstrap.css"/>"/>
+
 	    
 	    <!--[if lt IE 9]>
 			<script type="text/javascript" src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -32,5 +37,14 @@
         <!--<script type="text/javascript" src="<c:url value="/static/js/ajax-form.js"/>"></script>-->
         <script type="text/javascript" src="<c:url value="/static/js/core.js"/>"></script>
         
+        <script type="text/javascript" src="<c:url value="/static/js/select2.js"/>"></script>
+        <!--<script type="text/javascript" src="<c:url value="/static/js/select2_locale_ru.js"/>"></script>-->
+		
+		<!-- Check comparability -->		
+		<script type="text/javascript" src="<c:url value="/static/js/modernizr.custom.js"/>"></script>
+
+
+
+
 
 		

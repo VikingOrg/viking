@@ -23,6 +23,7 @@
 		var jsonData={};
 		
 		$(document).ready(function() {
+			$.ajaxSetup({ cache: true });
 			var selected = [];
             oTable = $('#machine_table').dataTable({
           	  "sDom": '<"#tableActions"T>t<"#source"l>ip',
@@ -239,7 +240,7 @@
         	  	    $.fn.dataTableExt.afnFiltering.pop();
         	  }
         	});
-        	            
+        	         
         } ); //end of document.ready
 
 		function getData(recordType){
@@ -247,6 +248,7 @@
         	oTable.fnClearTable();
         	var pageData =  $("#machine_search_form").serialize();
       		$.getJSON("${pageContext.request.contextPath}/machineSearch/getMachines/"+recordType, pageData, function (data) {
+      			cache: true
       			if (data.length != 0 ) {
       				jsonData = data; 
       				oTable.fnAddData(data);

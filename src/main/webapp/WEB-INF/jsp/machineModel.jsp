@@ -88,7 +88,7 @@
                 	   $('select[name="modelSearchTable_length"]').appendTo("#table_length");
                 	   $('select[name="modelSearchTable_length"]').addClass("form-control");
                   	   $("#tableActions").appendTo("#table_Actions");
-                  	   this.fnSetFilteringDelay(500);
+                  	   //this.fnSetFilteringDelay(500);
                   	   getData();
  	               },
  	               
@@ -194,6 +194,16 @@
 	        	  	    $.fn.dataTableExt.afnFiltering.pop();
 	        	  }
 	        	});
+
+	        	$("#groupSelect").select2({
+	        	    allowClear:true
+	        	});
+	        	$("#manufacturerSelect").select2({
+	        	    allowClear:true
+	        	});
+	        	$("#countrySelect").select2({
+	        	    allowClear:true
+	        	});
 	        	
             } ); //end of document.ready 
 
@@ -259,7 +269,7 @@
         	    oSettings.oApi._fnDraw( oSettings );
         	};
         	
-        </script>	
+        </script> 	
         <style type="text/css">
         	th, td { white-space: nowrap; }
         </style>
