@@ -37,12 +37,16 @@
             	  var groupId = $(this).val();
             	  if(groupId=='0'){
             		  $('#modelSelect').html("<option value='0'>Не выбрана</option>");
+            		  $("#modelSelect").select2("val", "0");
+            		  refreshModelElements(groupId, 0);
                   } else {
                 	  refreshModelElements(groupId, 0);
                   }
               });
 
-              $('#modelSelect').change(function() {refreshModel($(this).val());});
+              $('#modelSelect').change(function() {
+                  refreshModel($(this).val());
+              });
 
               $('#stevidorSelect').change(function() {
             	  var stevidorId = $(this).val();
@@ -86,14 +90,6 @@
                         }
                     });
               });
-
-              /*This is for dropzone to prevent it from submitting form when file is loaded.*/
-//              $( "#machine_edit_form" ).submit(function( event ) {
-//                  if (submittignForm) {
-//                  } else {
-//                	  event.preventDefault();
-//                  }
-//              });
 
               /*Clicking to update button.*/
               $("#submitUpdate").click(function(e) {
@@ -162,6 +158,16 @@
     		            }
     		        }
     		   });
+
+	        	$("#groupSelect").select2({
+	        	    allowClear:true
+	        	});
+	        	$("#modelSelect").select2({
+	        	    allowClear:true
+	        	});
+	        	$("#stevidorSelect").select2({
+	        	    allowClear:true
+	        	});    		   
                                 
 		  }); // end of document.ready
 		  
@@ -182,6 +188,7 @@
                 });
                 $('#modelSelect').html(options);
                 $('#modelSelect').val(modelId);
+                $("#modelSelect").select2("val", modelId);
                 refreshModel($('#modelSelect').val());
             });			
 		}
@@ -215,6 +222,9 @@
               } else {
             	  $('#edit_machine_model').html("<a href='#' id='editExistingModel' data-param1='"+machineModel.modelId+"'><span class='glyphicon glyphicon-edit'></span>Редактировать</a>");   
               }
+
+              /*If user wants to pick up model first - set the groupId to the one from picked model*/
+        	  $("#groupSelect").select2("val", machineModel.groupId);
           });
         }
 		      

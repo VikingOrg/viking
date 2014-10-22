@@ -50,19 +50,6 @@
 			        </div>
 			        
 			        <div class="col-md-4 col-md-offset-1 col-xs-6">
-			        <label class="form-label">Порт</label>
-			          <select class="form-control" name="port">
-			            <option>Санкт-Петербург</option>
-			            <option>Высоцк</option>
-			            <option>Приморский</option>
-			          </select>
-			          <p>&nbsp;</p> 
-			        <label class="form-label">Компания</label>
-			          <select class="form-control" name="company">
-			            <option>1-я Стивидорная</option>
-			            <option>2-я Стивидорная</option>
-			            <option>3-я Стивидорная</option>
-			          </select>
 			          <p>&nbsp;</p>
 			        </div>
 			      </div>

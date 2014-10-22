@@ -67,8 +67,13 @@
 					            <li class="divider"></li>
 			</sec:authorize> 		            
 					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">					            
 					            <li><a href="<c:url value="/group"/>">Группы Механизмов</a></li>
 					            <li><a href="<c:url value="/manufacturer"/>">Фирмы Производители</a></li>
+            </sec:authorize> 					            
+					            <li class="divider"></li>
+					            <li><a href="<c:url value="/libraryRequest"/>">Добавление / изменение</a></li>
+					            
 							</ul>
 						</li>
 			

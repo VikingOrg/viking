@@ -78,6 +78,8 @@ public class MachineEditController {
 			if (user.getRole().getId().intValue() == 2) {
 				machineEditCommand.getMachine().setStevidorId(user.getStevidorId());
 			}
+			/*Getting all models... map*/
+			machineEditCommand.setMachineModelMap(machineModelService.getModelsMap());
 		}
 		
 		machineEditCommand.setGroupMap(groupService.getGroupMap());

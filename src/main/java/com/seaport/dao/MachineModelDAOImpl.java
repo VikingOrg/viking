@@ -46,6 +46,9 @@ public class MachineModelDAOImpl implements IMachineModelDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MachineModel> getModels(Integer groupId) {
+		if (groupId != null && groupId.intValue() == 0) {
+			return this.getModels();
+		}
 		Query query = getCurrentSession().createQuery("from MachineModel m where m.groupId = :groupId");
 		query.setParameter("groupId", groupId);
 		return query.list();
