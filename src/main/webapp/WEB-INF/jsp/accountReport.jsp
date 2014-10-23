@@ -85,7 +85,7 @@
                       $('#chartModal').modal('show');                  
                   }            	  
               }); 
-                            			
+
 		  }); //end of document.ready
 		  
 	  </script>		  

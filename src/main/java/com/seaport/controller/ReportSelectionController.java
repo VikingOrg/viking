@@ -6,21 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.ReportSelectionCommand;
 import com.seaport.dao.IReportDAO;
@@ -137,6 +132,8 @@ public class ReportSelectionController {
 			reportSelectionCommand.setStevidorId(user.getStevidorId());
 		}		
 		setFilterMaps(reportSelectionCommand);
+		/*Generate default report*/
+		this.accountReport(request, reportSelectionCommand);
 		model.put("reportSelectionCommand", reportSelectionCommand);
 		return "accountReport";
 	}
@@ -193,9 +190,8 @@ public class ReportSelectionController {
 	 */
 	@RequestMapping(value="/getManufacturerReport/", method = RequestMethod.GET)
 	@ResponseBody
-	public List<ManufacturerReportDTO> getManufacturerReport(HttpServletRequest request, Model model, 
-								@Valid @ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
-								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
+	public List<ManufacturerReportDTO> getManufacturerReport(@ModelAttribute("reportSelectionCommand") 
+									ReportSelectionCommand reportSelectionCommand) throws Exception {
 		
 		/*Populate map with .*/
 		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);
@@ -218,24 +214,27 @@ public class ReportSelectionController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/accountReport/", method = RequestMethod.POST) 
-	public String accountReport(HttpServletRequest request, Model model, 
-								@ModelAttribute("reportSelectionCommand") ReportSelectionCommand reportSelectionCommand,
-								BindingResult result, RedirectAttributes redirectAttributes, SessionStatus status, 
-								HttpServletResponse response, HttpServletRequest req) throws Exception {
+	public String accountReport(HttpServletRequest request, @ModelAttribute("reportSelectionCommand") 
+									ReportSelectionCommand reportSelectionCommand) throws Exception {
 		/*Empty report Map*/
 		Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
 		
-		/*Populate map with filter flag - value pair.*/
-		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);	
+		if (reportSelectionCommand.getStevidorId()==null || reportSelectionCommand.getStevidorId().intValue()==0) {
+			/*Use default value from user account.*/
+			User user = (User)request.getSession().getAttribute(com.seaport.utils.VikingConstant.USER_MODEL);
+			reportSelectionCommand.setStevidorId(user.getStevidor().getStevidorId());
+		}
 		
-		if (reportSelectionCommand.getStevidorId()!=null && reportSelectionCommand.getStevidorId().intValue()!=0) {
-			Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(reportSelectionCommand.getStevidorId());
-			reportSelectionCommand.setCompanyName(stevidor.getFullName());
-		} 
+		Stevidor stevidor = reportSelectionCommand.getStevidorMap().get(reportSelectionCommand.getStevidorId());
+		reportSelectionCommand.setCompanyName(stevidor.getFullName());
+			
 		if (reportSelectionCommand.getGroupId()!=null && reportSelectionCommand.getGroupId().intValue()!=0) {
 			Group group = reportSelectionCommand.getGroupMap().get(reportSelectionCommand.getGroupId());
 			reportSelectionCommand.setGroupName(group.getName());
 		} 
+		
+		/*Populate map with filter flag - value pair.*/
+		Map<String, Object> filtersMap = setFilterValues(reportSelectionCommand);	
 		
 		/*Get machines by stevidor.*/
 		Integer stevidorId = (Integer)filtersMap.get(VikingConstant.COMPANY_SINGLE_FILTER);
@@ -255,7 +254,7 @@ public class ReportSelectionController {
 			List<Machine> machineListByGroup = new ArrayList<Machine>();
 			for (Machine machine : machineList) {
 				try {
-					if (group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
+					if (machine.getMachineModel()!=null && group.getGroupId().equals(machine.getMachineModel().getGroupId())) {
 						machineListByGroup.add(machine);
 						countModels++;
 					}
