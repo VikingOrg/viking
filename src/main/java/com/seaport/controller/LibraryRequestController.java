@@ -44,7 +44,7 @@ public class LibraryRequestController {
 			return "libraryRequest";
 		}
 		String messageText = libraryRequestCommand.getSupportMessage();
-		VikingUtil.sendEmail("Запрос в службу потдержки от " + user.getFirstName() +" "+ user.getLastName(), 
+		VikingUtil.sendEmail("Запрос на создание Новой Записи от " + user.getFirstName() +" "+ user.getLastName(), 
 				messageText, VikingConstant.MAIL_ADMIN_EMAIL);
         
 		redirectAttributes.addFlashAttribute("message", "message.support.success");
