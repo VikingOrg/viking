@@ -4,11 +4,14 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="v" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 	    <script type="text/javascript" src="<c:url value="/static/js/responsive-tabs.js"/>"></script>
 	    
 				<form:form id="ajaxSubmitForm" commandName="machineModalEditCommand" action="/machineModel" method="POST" accept-charset="UTF-8">
-				      <div class="modal-header">
+				      
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+					  <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
 				        	<h4 class="text-muted">РЕДАКТИРОВАНИЕ МОДЕЛИ (№ ${machineModalEditCommand.machineModel.modelId})</h4>
@@ -17,7 +20,7 @@
 				        	<h4 class="text-muted">СОЗДАНИЕ НОВОЙ МОДЕЛИ</h4>
 				        </c:if>				        
 				      </div> <!-- modal header end -->
-				      
+					</sec:authorize>
 				      <div class="modal-body">
    					  	<div class="container">
 					      <div class="masthead">
@@ -132,12 +135,14 @@
 			        			<div class="col-md-4 col-md-offset-1">
 							        <button type="button" class="btn cancelbtn" data-dismiss="modal" >Отмена</button>
 							        
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
 									<c:if test="${not empty machineModalEditCommand.machineModel.modelId}"> 
 								        <button id="saveExisting" type="button" class="btn btn-primary">Сохранить</button>
 							        </c:if>	
 									<c:if test="${empty machineModalEditCommand.machineModel.modelId}"> 
 								        <button id="submitCreate" type="button" class="btn btn-primary">Создать</button>
 							        </c:if>	
+									</sec:authorize>
 							    </div>
 							 </div>
 				        </div>			        

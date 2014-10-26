@@ -302,15 +302,6 @@
 						                </c:forEach>								
 									</form:select>
 			                    </div>
-						        <div class="form-group">
-				                    <label>Производитель</label>
-									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
-									    <form:option value="">Все производители</form:option>
-						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
-						                    <form:option value="${manufacturer.value.nameRus}" label="${manufacturer.value.nameRus}" />
-						                </c:forEach>								
-									</form:select>
-					        	</div>
 					        	<div class="form-group">
 				                    <label>Страна</label>
 									<form:select id="countrySelect" path="countryId" cssClass="form-control">
@@ -319,7 +310,16 @@
 						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 						                </c:forEach>
 									</form:select>
-								</div>	
+								</div>
+						        <div class="form-group">
+				                    <label>Производитель</label>
+									<form:select id="manufacturerSelect" path="manufacturerId" cssClass="form-control" title="Выборка по производителю">
+									    <form:option value="">Все производители</form:option>
+						                <c:forEach items="${modelSearchCommand.manufacturerMap}" var="manufacturer">
+						                    <form:option value="${manufacturer.value.nameRus}" label="${manufacturer.value.nameRus}" />
+						                </c:forEach>								
+									</form:select>
+					        	</div>	
 			                    <div class="form-group">
 								<label>Поиск</label>
 										<input id="dataTableSearch" class="form-control"
@@ -332,15 +332,6 @@
 								</div>
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<div class="form-group">
-				                    <label>Тип записей</label>
-									<select id="" class="form-control" title="Выборка по типу записи">
-										<option value="">Все типы</option>
-										<option value="0">Активные</option>
-										<option value="1">Удаленные</option>
-									</select>	                    
-                    			</div>
-								
-								<div class="form-group">
 				                    <label>Внесенные изменения</label>
 				                    <div class="input-group pull-right">
 										<span class="date-range-label">С</span>
@@ -352,6 +343,7 @@
 					</div>
 				</div>
 				
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<!--  Операции с данными в таблице КНОПОЧКИ -->
 				<div class="col-sm-12 well lform">
 					<div class="row">
@@ -360,7 +352,8 @@
 								<a href="#" class="btn btn-primary pull-right hidden" title="Удалить" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span>Удалить</a>
 						</div>
 					</div>	
-				</div>		
+				</div>	
+				</sec:authorize>	
 			</div>
 			<!-- End of Sidebar content-->
 
