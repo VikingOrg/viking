@@ -27,9 +27,9 @@
 		  
 		<script>
 		  $(document).ready(function() {
-		      $( "#startDatepicker" ).datepicker( { dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
+		      $( "#startDatepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
 				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
-		      $( "#endDatepicker" ).datepicker( { dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
+		      $( "#endDatepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
 				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
 				  
 
@@ -503,8 +503,8 @@
 										<v:input path="machine.details" label="Характеристики" required="true" title="Укажите характеристики модели"/>
 										--%>
 							            <v:input id="inventoryNumb" path="machine.inventoryNumb" label="Инвентарный №" required="false" title="Введите инвентарный номер" maxlength="50"/>
-							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="false" title="Укажите дату ввода в эксплуатацию" id="startDatepicker" placeholder="01.01.1980"/>
-							            <v:input path="machine.endDate" label="Дата списания" required="false" title="Укажите дату списания" id="endDatepicker" placeholder="01.01.1980"/>
+							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="false" title="Укажите дату ввода в эксплуатацию" id="startDatepicker" placeholder="01/01/1980"/>
+							            <v:input path="machine.endDate" label="Дата списания" required="false" title="Укажите дату списания" id="endDatepicker" placeholder="01/01/1980"/>
 										<v:input id="docNumb" path="machine.doc" label="Контракт №" required="false" title="Укажите документ ввода в эксплуатацию" maxlength="20"/>
 										<v:input id="transNumb" path="machine.transNumb" label="Транс №" required="false" title="Укажите номер Транса" maxlength="15"/>
 							            <v:input id="factoryNumb" path="machine.factoryNumb" label="Заводской №" required="false" title="Укажите заводской номер" maxlength="20"/>
