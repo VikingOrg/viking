@@ -124,7 +124,10 @@
     				  	     //Deleting the filtering function if we need the original table later.
     				  	    $.fn.dataTableExt.afnFiltering.pop();
     				  }
-    			});           
+    			});   
+	        	$("#countrySelect").select2({
+	        	    allowClear:true
+	        	});      
                 
             } ); //end of document.ready
 
@@ -155,8 +158,7 @@
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label>Страна</label>
-									<form:select id="countrySelect" path="countryId"
-										cssClass="form-control col-sm-12">
+									<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
 										<form:option value="">Все Страны</form:option>
 										<c:forEach items="${portCommand.countryMap}" var="country">
 											<form:option value="${country.value.nameRus}"

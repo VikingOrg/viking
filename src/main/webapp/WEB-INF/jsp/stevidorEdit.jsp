@@ -280,6 +280,10 @@
 	    $("#stevidorName").rules("add", {required:true});                 
         $("#stevidorFullName").rules("add", {required:true});             
         $("#portSelect").rules("add", {required:true});
+        
+       	$("#portSelect").select2({
+    	    allowClear:true
+    	}); 
 
 	    </script>
 	</body>

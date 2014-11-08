@@ -75,7 +75,7 @@
 										  return input;
         	   	        		      }
        	   	        		     },       	 	        	        
-
+       	   	        				{ "bVisible": false, "bSearchable": false,  "aTargets": [9, 12, 13, 15, 19, 20, 21, 23, 24] },
         	   	        		 <c:if test="${userModel.role.id == 2}">
               	                 	 { "bVisible": false,  "aTargets": [6] },
               	                 </c:if>        	 	        	        
@@ -143,8 +143,7 @@
                 } else {
                 	oTable.fnFilter( "^"+modelId+"$", 3 , true);
                 } 
-            });
-                         
+            });     
             $('#stevidorSelect').change(function() {
             	oTable.fnFilter( $(this).val(), 6);
             });
@@ -240,6 +239,39 @@
         	  	    $.fn.dataTableExt.afnFiltering.pop();
         	  }
         	});
+              
+	       	$("#stevidorSelect").select2({
+	    	    allowClear:true
+	    	}); 
+              
+	       	$("#countrySelect").select2({
+	    	    allowClear:true
+	    	}); 
+              
+	       	$("#portSelect").select2({
+	    	    allowClear:true
+	    	}); 
+	    	
+	       	$("#groupSelect").select2({
+	    	    allowClear:true
+	    	}); 
+	    	
+	       	$("#modelSelect").select2({
+	    	    allowClear:true
+	    	}); 
+
+	       	$("#manufacturerSelect").select2({
+	    	    allowClear:true
+	    	}); 
+
+	       	$("#startRangeSelect").select2({
+	    	    allowClear:true
+	    	}); 
+
+	       	$("#endRangeSelect").select2({
+	    	    allowClear:true
+	    	}); 
+                    
         	         
         } ); //end of document.ready
 
@@ -499,7 +531,7 @@
 			        <thead>
 			            <tr>
 			                <th class="nowrap">№</th>
-			                <th class="nowrap">Тип</th>
+			                <th class="nowrap">&nbsp;</th>
 			                <th class="nowrap">group Id</th>
 			                <th class="nowrap">model Id</th>
 			                <th class="nowrap">Группа</th>
@@ -522,7 +554,7 @@
 							<th class="nowrap">Примечания</th>
 							<th class="nowrap">Удалена</th>
 							<th class="nowrap">Посл. изм.</th>
-							<th class="nowrap">Дата Сп.</th>
+							<th class="nowrap">Дата спис.</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>

@@ -177,6 +177,10 @@
 		                     
            $("#portName").rules("add", {required:true});
            $("#countryNameRus").rules("add", {required:true});
+              
+	       	$("#countryNameRus").select2({
+	    	    allowClear:true
+	    	}); 
 
         
 	 </script>

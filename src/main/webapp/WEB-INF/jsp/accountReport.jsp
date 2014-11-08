@@ -84,7 +84,15 @@
                 	  drawGoogleChart(myObjArray, 700, 500,  document.getElementById('barModalContent'), true, totalCount);
                       $('#chartModal').modal('show');                  
                   }            	  
-              }); 
+              });  	    	
+              
+  	       	$("#groupSelect").select2({
+  	    	    allowClear:true
+  	    	});   	
+              
+  	       	$("#stevidorSelection").select2({
+  	    	    allowClear:true
+  	    	}); 
 
 		  }); //end of document.ready
 		  

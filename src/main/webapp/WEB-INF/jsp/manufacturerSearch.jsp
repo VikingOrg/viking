@@ -80,7 +80,11 @@
                             
                         }
                     });
-                });            
+                });   
+                
+	        	$("#countrySelect").select2({
+	        	    allowClear:true
+	        	});         
 
                 $('#addNewManufacturer').click(function(e){
                 	$('#success_alert').attr("class","alert alert-success hidden");

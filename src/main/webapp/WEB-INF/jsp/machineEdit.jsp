@@ -27,9 +27,9 @@
 		  
 		<script>
 		  $(document).ready(function() {
-		      $( "#startDatepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
+		      $( "#startDatepicker" ).datepicker( { dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
 				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
-		      $( "#endDatepicker" ).datepicker( { dateFormat: "dd/mm/yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
+		      $( "#endDatepicker" ).datepicker( { dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ], 
 				  monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ] });
 				  
 
@@ -52,12 +52,12 @@
             	  var stevidorId = $(this).val();
                   $.getJSON('${pageContext.request.contextPath}/stevidorEdit/getStevidor/' + stevidorId, function(stevidor) {
                 	  if (!$.trim(stevidor.port.name)) {
-                		  $('#stevidor_port_name').html("Порт приписки: Отсутсвует!");
+                		  $('#stevidor_port_name').html("Порт: Отсутствует!");
                       } else {
-                    	  $('#stevidor_port_name').html("Порт приписки: "+stevidor.port.name);
+                    	  $('#stevidor_port_name').html("Порт: "+stevidor.port.name);
                       }
                 	  if (!$.trim(stevidor.port.country.nameRus)) {
-                		  $('#stevidor_port_country_name_rus').html("Страна: Отсутсвует!");
+                		  $('#stevidor_port_country_name_rus').html("Страна: Отсутствует!");
                       } else {
                     	  $('#stevidor_port_country_name_rus').html("Страна: "+stevidor.port.country.nameRus);
                       }
@@ -196,22 +196,22 @@
       	function refreshModel(modelId){
           $.getJSON('${pageContext.request.contextPath}/machineEdit/getModel/' + modelId, function(machineModel) {
         	  if (!$.trim(machineModel.details)) {
-        		  $('#model_details').html("Характеристика Модели: Отсутсвует!");
+        		  $('#model_details').html("Характеристика Модели: Отсутствует!");
               } else {
             	  $('#model_details').html("Характеристика Модели: "+machineModel.details);
               }
         	  if (!$.trim(machineModel.manufacturer.nameRus)) {
-        		  $('#model_manuf_name_rus').html("Компания Произовдитель: Отсутсвует!");
+        		  $('#model_manuf_name_rus').html("Фирма Производитель: Отсутствует!");
               } else {
-            	  $('#model_manuf_name_rus').html("Компания Произовдитель: "+machineModel.manufacturer.nameRus);
+            	  $('#model_manuf_name_rus').html("Фирма Производитель: "+machineModel.manufacturer.nameRus);
               }
         	  if (!$.trim(machineModel.manufacturer.nameRus)) {
-        		  $('#model_manuf_country_name_rus').html("Место Производства: Отсутсвует!");
+        		  $('#model_manuf_country_name_rus').html("Страна Производства: Отсутствует!");
               } else {
-            	  $('#model_manuf_country_name_rus').html("Место Производства: "+machineModel.manufacturer.country.nameRus);
+            	  $('#model_manuf_country_name_rus').html("Страна Производства: "+machineModel.manufacturer.country.nameRus);
               }
         	  if (!$.trim(machineModel.note)) {
-        		  $('#model_note').html("Примечание: Отсутсвует!");
+        		  $('#model_note').html("Примечание: Нет");
               } else {
             	  $('#model_note').html("Примечание: "+machineModel.note);
               }
@@ -428,20 +428,20 @@
 							        	<spring:bind path="machine.modelId">
 								        	<div class="form-group ${status.error ? 'has-error' : '' }">
 							                    <label class="form-label">Модель*&nbsp; </label>
+							                    <sec:authorize access="hasRole('ROLE_ADMIN')">
 							                    	<a href="#" rel="createNewModel" title="Ввод нового">
-							                    	<span class="glyphicon glyphicon-plus"></span>Добавить</a>&nbsp;
-								                    	<span id="edit_machine_model">
-									                    	<a href="#" id="editExistingModel"
-									                    	data-param1="<c:out value="${machineEditCommand.machine.modelId}"/>">
-									                    	<span class="glyphicon glyphicon-edit"></span>Редактировать
-									                    	</a>
-									                    </span>
+							                    	<span class="glyphicon glyphicon-plus"></span>Добавить</a>&nbsp;&nbsp;
+							                    	<span id="edit_machine_model">
+								                    	<a href="#" id="editExistingModel" data-param1="<c:out value="${machineEditCommand.machine.modelId}"/>">
+								                    	<span class="glyphicon glyphicon-edit"></span>Редактировать</a>
+								                    </span>
+								                </sec:authorize> 
 							                    <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
 						                    		<div class="panel-heading">
 													<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
 														<form:option value="0">Не выбрана (или отсутствует в базе моделей)</form:option>
 										                <c:forEach items="${machineEditCommand.machineModelMap}" var="model">
-										                    <form:option value="${model.key}" label="(${model.key})${model.value.name}" />
+										                    <form:option value="${model.key}" label="${model.value.name}" />
 															<c:if test="${machineEditCommand.machine.modelId == model.key}">
 																<c:set var="currentModel" scope="request" value="${model.value}"/> 
 															</c:if>									                    
@@ -480,13 +480,13 @@
 													</form:select>
 												</div>
 												<div  class="panel-body">		
-													<span id="stevidor_port_name" class="report_header"><b>Порт приписки:&nbsp;</b><c:out value="${currentStevidor.port.name}"/></span><br/>
+													<span id="stevidor_port_name" class="report_header"><b>Порт:&nbsp;</b><c:out value="${currentStevidor.port.name}"/></span><br/>
 													<span id="stevidor_port_country_name_rus" class="report_header"><b>Страна:&nbsp;</b><c:out value="${currentStevidor.port.country.nameRus}"/></span><br/>
 								        		</div>
 							        		</div>
 							        	</div>
 							        	<div class="form-group">
-				  				            <label class="form-label">Год производства(Выпуска)</label>
+				  				            <label class="form-label">Год выпуска</label>
 											<form:select path="machine.releaseYear" cssClass="form-control">
 											   <form:option value="" label="Не выбран"/>
 											   <form:options items="${machineEditCommand.yearMap}" />
@@ -503,8 +503,8 @@
 										<v:input path="machine.details" label="Характеристики" required="true" title="Укажите характеристики модели"/>
 										--%>
 							            <v:input id="inventoryNumb" path="machine.inventoryNumb" label="Инвентарный №" required="false" title="Введите инвентарный номер" maxlength="50"/>
-							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="false" title="Укажите дату ввода в эксплуатацию" id="startDatepicker" placeholder="01/01/1980"/>
-							            <v:input path="machine.endDate" label="Дата списания" required="false" title="Укажите дату списания" id="endDatepicker"/>
+							            <v:input path="machine.startDate" label="Дата ввода в эксплуатацию" required="false" title="Укажите дату ввода в эксплуатацию" id="startDatepicker" placeholder="01.01.1980"/>
+							            <v:input path="machine.endDate" label="Дата списания" required="false" title="Укажите дату списания" id="endDatepicker" placeholder="01.01.1980"/>
 										<v:input id="docNumb" path="machine.doc" label="Контракт №" required="false" title="Укажите документ ввода в эксплуатацию" maxlength="20"/>
 										<v:input id="transNumb" path="machine.transNumb" label="Транс №" required="false" title="Укажите номер Транса" maxlength="15"/>
 							            <v:input id="factoryNumb" path="machine.factoryNumb" label="Заводской №" required="false" title="Укажите заводской номер" maxlength="20"/>

@@ -64,11 +64,11 @@
 								<li><a href="<c:url value="/stevidorSearch"/>">Компании-операторы</a></li>
 								<li><a href="<c:url value="/port"/>">Порты</a></li>
 								<li><a href="<c:url value="/country"/>">Страны</a></li>
-					            <li class="divider"></li>
+					            <li class="divider"></li>					            
+					            <li><a href="<c:url value="/group"/>">Группы Механизмов</a></li>
 			</sec:authorize> 		            
 					            <li><a href="<c:url value="/machineModel"/>">Модели Механизмов</a></li>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">					            
-					            <li><a href="<c:url value="/group"/>">Группы Механизмов</a></li>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
 					            <li><a href="<c:url value="/manufacturer"/>">Фирмы Производители</a></li>
             </sec:authorize> 					            
 					            <li class="divider"></li>
@@ -127,14 +127,14 @@
 									    </a>
 									</li> --%>									
 									<li class="dropdown" style="padding:4px;">
-										<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5; font-weight: bold;">
-											${userModel.firstName} &nbsp;${userModel.lastName} (${userModel.role.role})<strong class="caret"></strong></a>
-										<ul class="dropdown-menu">
+										<a class="" href="<c:url value="/userEditAdmin/edit/${userModel.userId}"/>" data-toggle="" style="height:24px; padding:2px 4px; border-left: 0px; color:#E1FCC5">
+											${userModel.firstName} &nbsp;${userModel.lastName}</a>
+										<%-- <ul class="dropdown-menu">
 												<li><a href="<c:url value="/userEditAdmin/edit/${userModel.userId}"/>"><i class="fa fa-user" style="padding-right: 15px"></i>Личные данные</a></li>
-												<li>
-													<a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer"><i class="fa fa-power-off" style="padding-right: 15px"></i>Выход</span></a>
-												</li>
-										</ul>
+										</ul> --%>
+									</li>
+									<li>
+										<a data-toggle="modal" data-target="#confirmLogout" style="cursor: pointer"><i class="fa fa-power-off" style="padding-right: 15px"></i>Выход</a>
 									</li>
 									
 					</ul>

@@ -91,7 +91,28 @@
             	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('chartModalContent'), false, totalCount);
             	  drawGoogleChart(jsonData, 700, 500,  document.getElementById('barModalContent'), true, totalCount);
                   $('#chartModal').modal('show');                  
-              });    	
+              });    	    	
+              
+    	       	$("#groupSelect").select2({
+    	    	    allowClear:true
+    	    	});   	
+                
+    	       	$("#stevidorSelect").select2({
+    	    	    allowClear:true
+    	    	});   	
+                
+    	       	$("#releaseStartYearSelect").select2({
+    	    	    allowClear:true
+    	    	});   	
+                
+    	       	$("#releaseEndYearSelect").select2({
+    	    	    allowClear:true
+    	    	});   	
+                
+    	       	$("#modelSelect").select2({
+    	    	    allowClear:true
+    	    	});
+                  
               			
 		  }); // end of document.ready
 
@@ -313,7 +334,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Закрыть</span></button>
-	        <h3 class="modal-title page-header" id="myModalLabel">Диаграмма <strong>"Кол-во Механизмов в Компаниях-операторах"</strong></h3>
+	        <h3 class="modal-title page-header" id="myModalLabel">Диаграмма <strong>"Кол-во Механизмов разных Производителей"</strong></h3>
 	      </div>
 	      <div class="modal-body">
 	        <div class="col-sm-6">

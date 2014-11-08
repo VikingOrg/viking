@@ -176,6 +176,10 @@
             $("#currentManufacturerNameRus").rules("add", {required:true});
             $("#currentManufacturerNameEn").rules("add", {required:true});
             $("#currentManufacturerCountryId").rules("add", {required:true});
+              
+	       	$("#currentManufacturerCountryId").select2({
+	    	    allowClear:true
+	    	}); 
 
                
 	 </script>

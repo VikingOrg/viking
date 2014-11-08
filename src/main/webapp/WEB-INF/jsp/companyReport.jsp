@@ -107,6 +107,26 @@
 					  });
 				  }
               });    	
+              
+  	       	$("#groupSelect").select2({
+  	    	    allowClear:true
+  	    	});   	
+              
+  	       	$("#modelSelect").select2({
+  	    	    allowClear:true
+  	    	});   	
+              
+  	       	$("#releaseStartYearSelect").select2({
+  	    	    allowClear:true
+  	    	});   	
+              
+  	       	$("#releaseEndYearSelect").select2({
+  	    	    allowClear:true
+  	    	});   	
+              
+  	       	$("#manufacturerSelect").select2({
+  	    	    allowClear:true
+  	    	});
                 	 	
 		  }); //end of document.ready
 

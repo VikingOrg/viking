@@ -234,6 +234,14 @@
 	                $("#machineModelDetail").rules("add", {required:false}); 
 	                $("#groupSelectModal").rules("add", {required:true});
 	                $("#manufacturerSelectModal").rules("add", {required:true}); 
+	                
+	    	       	$("#groupSelectModal").select2({
+	    	    	    allowClear:true
+	    	    	}); 
+	                
+	    	       	$("#manufacturerSelectModal").select2({
+	    	    	    allowClear:true
+	    	    	}); 
 
 					$("#submit_avatar").click( function(e) {
 						e.preventDefault();

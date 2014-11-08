@@ -83,6 +83,12 @@
                     //fnc.call(this, ev);
                 }
             });  
+        	$("#countrySelect").select2({
+        	    allowClear:true
+        	});
+        	$("#portSelect").select2({
+        	    allowClear:true
+        	});
 
 			$("#changesFrom").datepicker({
 					dateFormat: "dd.mm.yy", firstDay: 1, dayNamesMin: [ "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб" ],
