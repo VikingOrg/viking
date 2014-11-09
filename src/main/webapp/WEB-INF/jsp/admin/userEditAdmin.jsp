@@ -149,7 +149,7 @@
 			            	<form:textarea path="user.userNote" rows="3" cssClass="form-control"/>
 			            </div>
 			          </div>
-				        <%----%>  
+				        <%-- 
 				        
 			          	<div class="form-group">
  				            <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
@@ -186,7 +186,8 @@
  							        
 				        		</div>
 			        		</div>
-			        	</div>						          
+			        	</div>	--%> 
+			        						          
 			        </div>
 			      </div>
 				
