@@ -148,9 +148,9 @@
             	oTable.fnFilter( $(this).val(), 6);
             });
                                		 
-            $('#countrySelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 7);
-            });
+//            $('#countrySelect').change(function() {
+//            	oTable.fnFilter( $(this).val(), 7);
+//            });
             $('#portSelect').change(function() {
             	oTable.fnFilter( $(this).val(), 8);
             });
@@ -196,7 +196,7 @@
 // to avoid aaData in JSON response 
 //                 "sAjaxDataProp": '',
 
-            $("#countrySelect").focus();
+//            $("#countrySelect").focus();
             $('#dataTableSearch').keypress(function (ev) {
                 var keycode = (ev.keyCode ? ev.keyCode : ev.which);
                 if (keycode == '13') {
@@ -244,9 +244,9 @@
 	    	    allowClear:true
 	    	}); 
               
-	       	$("#countrySelect").select2({
-	    	    allowClear:true
-	    	}); 
+//	       	$("#countrySelect").select2({
+//	    	    allowClear:true
+//	    	}); 
               
 	       	$("#portSelect").select2({
 	    	    allowClear:true
@@ -367,7 +367,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
-								<div class="form-group">
+								<%-- <div class="form-group">
 									<label>Страна</label>
 										<form:select id="countrySelect" path="countryId"
 											cssClass="form-control">
@@ -378,7 +378,7 @@
 													label="${country.value.nameRus}" />
 											</c:forEach>
 										</form:select>
-								</div>
+								</div> --%>
 								<div class="form-group">
 									<label>Порт</label>
 										<form:select id="portSelect" path="portId"

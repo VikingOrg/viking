@@ -64,9 +64,9 @@
             	oTable.fnFilter( $(this).val());
             });
                		 
-            $('#countrySelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 3);
-            });
+//            $('#countrySelect').change(function() {
+//            	oTable.fnFilter( $(this).val(), 3);
+//            });
             $('#portSelect').change(function() {
             	oTable.fnFilter( $(this).val(), 2);
             });
@@ -83,9 +83,9 @@
                     //fnc.call(this, ev);
                 }
             });  
-        	$("#countrySelect").select2({
-        	    allowClear:true
-        	});
+//        	$("#countrySelect").select2({
+//        	    allowClear:true
+//        	});
         	$("#portSelect").select2({
         	    allowClear:true
         	});
@@ -134,7 +134,7 @@
 							<div class="row">
 									
 									<div class="col-sm-12">
-										<div class="form-group">
+										<%-- <div class="form-group">
 											<label>Страна</label>
 											<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
 												<form:option value="">Все Страны</form:option>
@@ -142,7 +142,7 @@
 								                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
 								                </c:forEach>
 											</form:select>
-										</div>	
+										</div> --%>	
 										<div class="form-group">
 											<label>Порт</label>
 											<form:select id="portSelect" path="portId" cssClass="form-control col-sm-12">
@@ -219,7 +219,9 @@
 					                              <th class="column-check nowrap">№</th>
 					                              <th class="nowrap">Компания-оператор&nbsp;&nbsp;</th>
 			                              		  <th class="nowrap">Порт&nbsp;&nbsp;</th>
+			                              		  <!-- 
 					                              <th class="hidden-sm hidden-xs nowrap">Страна&nbsp;&nbsp;</th>
+					                               -->
 					                              <th class="">Примечания</th>
 									  			  <th class="">Посл. изм.</th>
 				                              </tr>
@@ -240,7 +242,9 @@
 						                         		<a href="<c:url value="stevidorEdit?stevidorId=${stevidor.stevidorId}"/>"><c:out value="${stevidor.fullName}"/></a>
 						                         	</td>
 						                            <td><c:out value="${stevidor.port.name}"/></td>
+						                            <%-- 
 					                                <td class="hidden-sm hidden-xs nowrap"><c:out value="${stevidor.port.country.nameRus}"/></td>
+					                                 --%>
 					                                <td class=""><c:out value="${stevidor.stevidorNote}"/></td>
 						                         	<td class="">
 						                         		<spring:eval expression="stevidor.updateDate" />

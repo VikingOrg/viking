@@ -60,9 +60,9 @@
                 $('#dataTableSearch').on('input', function() {
                 	oTable.fnFilter( $(this).val());
                 });   		 
-                $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 2);
-                });
+//                $('#countrySelect').change(function() {
+//                	oTable.fnFilter( $(this).val(), 2);
+//                });
 
                 /*Edit logic below.*/
                 $("a[rel^='tableRowEdit']").click(function(e){
@@ -125,9 +125,9 @@
     				  	    $.fn.dataTableExt.afnFiltering.pop();
     				  }
     			});   
-	        	$("#countrySelect").select2({
-	        	    allowClear:true
-	        	});      
+//	        	$("#countrySelect").select2({
+//	        	    allowClear:true
+//	        	});      
                 
             } ); //end of document.ready
 
@@ -156,6 +156,7 @@
 					<div class="col-sm-12 well lform">
 						<div class="row">
 							<div class="col-sm-12">
+							<%-- 
 								<div class="form-group">
 									<label>Страна</label>
 									<form:select id="countrySelect" path="countryId" cssClass="form-control col-sm-12">
@@ -166,6 +167,7 @@
 										</c:forEach>
 									</form:select>
 								</div>
+								 --%>
 								<div class="form-group">
 									<label>Поиск</label>
 										<input id="dataTableSearch" class="form-control"
@@ -237,7 +239,9 @@
 							<tr>
 								<th class="column-check nowrap">&nbsp;</th>
 								<th class="nowrap">Порт&nbsp;&nbsp;</th>
+								<!-- 
 								<th class="nowrap">Страна&nbsp;&nbsp;</th>
+								 -->
 								<th class="nowrap">Примечания&nbsp;&nbsp;</th>
 								<th class="">Посл. изм.</th>
 							</tr>
@@ -254,11 +258,11 @@
 											<span id="portName${port.portId}"><c:out value="${port.name}"/></span>
 										</a>
 									</td>
-									<td class="nowrap">
+									<%-- <td class="nowrap">
 										<span id="countryNameRus${port.portId}">
 											<c:out value="${port.country.nameRus}"/>
 										</span>
-									</td>
+									</td> --%>
 									<td class="">
 										<span id="portNote${port.portId}">
 											<c:out value="${port.portNote}"/>
