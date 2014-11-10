@@ -2,6 +2,7 @@ package com.seaport.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -217,7 +218,7 @@ public class ReportSelectionController {
 	public String accountReport(HttpServletRequest request, @ModelAttribute("reportSelectionCommand") 
 									ReportSelectionCommand reportSelectionCommand) throws Exception {
 		/*Empty report Map*/
-		Map<String[], List<Machine>> accountReportMap = new HashMap<String[], List<Machine>>();
+		Map<String[], List<Machine>> accountReportMap = new LinkedHashMap<String[], List<Machine>>();
 		
 		if (reportSelectionCommand.getStevidorId()==null || reportSelectionCommand.getStevidorId().intValue()==0) {
 			/*Use default value from user account.*/
@@ -240,7 +241,7 @@ public class ReportSelectionController {
 		Integer stevidorId = (Integer)filtersMap.get(VikingConstant.COMPANY_SINGLE_FILTER);
 		List<Machine> machineList =  machineService.getMachineByStevedorId(stevidorId);
 
-		Map<Integer, Group> groupMap = new HashMap<Integer, Group>();
+		Map<Integer, Group> groupMap = new LinkedHashMap<Integer, Group>();
 		if (filtersMap.containsKey(VikingConstant.GROUP_FILTER)) {
 			Integer groupId = (Integer)filtersMap.get(VikingConstant.GROUP_FILTER);
 			groupMap.put(groupId, reportSelectionCommand.getGroupMap().get(groupId));

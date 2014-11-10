@@ -20,7 +20,6 @@ import com.seaport.domain.Machine;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstant;
-import com.seaport.utils.VikingUtil;
 
 /**
  * The DAO class that serves any type of Machine requests 

@@ -17,7 +17,6 @@
         
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnSetFilteringDelay.js"></script>
 		
 		<script type="text/javascript">
 		var jsonData={};
@@ -93,7 +92,7 @@
              	   $('select[name="machine_table_length"]').appendTo("#table_length");
             	   $('select[name="machine_table_length"]').addClass("form-control");
            	   	   $("#tableActions").appendTo("#table_Actions");
-            	   this.fnSetFilteringDelay(500);
+            	   //this.fnSetFilteringDelay(500);
             	   getData("A");
 	              },
                	tableTools: {

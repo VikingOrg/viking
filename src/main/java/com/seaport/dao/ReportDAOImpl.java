@@ -42,7 +42,7 @@ public class ReportDAOImpl implements IReportDAO {
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append("SELECT b.stevidor_id AS stevidorId, b.full_name AS name, COUNT(a.stevidor_id) AS count, '' AS math ");
 		strBuilder.append("FROM machines a RIGHT JOIN stevidors b ON a.stevidor_id = b.stevidor_id ");
-		strBuilder.append("LEFT JOIN models c ON a.model_id = c.model_id ");
+		strBuilder.append("LEFT JOIN models ON a.model_id = models.model_id ");
 		
 		/*Starting filter logic.*/
 		if (filtersMap.size() > 0) {
@@ -72,15 +72,15 @@ public class ReportDAOImpl implements IReportDAO {
 	public List<GroupReportDTO> getGroupReportDTOs(Map<String, Object> filtersMap) {
 		double percentage;
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT b.group_id AS groupId, c.name, COUNT(b.group_id) AS count, '' AS math ");
-		strBuilder.append("FROM machines a JOIN models b ON a.model_id = b.model_id ");
-		strBuilder.append("LEFT JOIN groups c ON b.group_id = c.group_id ");
+		strBuilder.append("SELECT models.group_id AS groupId, c.name, COUNT(models.group_id) AS count, '' AS math ");
+		strBuilder.append("FROM machines a JOIN models ON a.model_id = models.model_id ");
+		strBuilder.append("LEFT JOIN groups c ON models.group_id = c.group_id ");
 		
 		/*Starting filter logic.*/
 		if (filtersMap.size() > 0) {
 			strBuilder.append(getFilterWhereClause(filtersMap));
 		}		
-		strBuilder.append("GROUP BY b.group_id ORDER BY b.group_id");
+		strBuilder.append("GROUP BY models.group_id ORDER BY models.group_id");
 		Query query = openSession().createSQLQuery(strBuilder.toString()).setResultTransformer(Transformers.aliasToBean(GroupReportDTO.class));
 		List<GroupReportDTO> result = query.list();
 
@@ -104,9 +104,9 @@ public class ReportDAOImpl implements IReportDAO {
 	public List<ManufacturerReportDTO> getManufacturerReportDTOs(Map<String, Object> filtersMap){
 		double percentage;
 		StringBuilder strBuilder = new StringBuilder();
-		strBuilder.append("SELECT c.manufacturer_id AS manufacturerId, c.name_rus AS name, COUNT(b.manufacturer_id) AS count, '' AS math ");
-		strBuilder.append("FROM machines a JOIN models b ON a.model_id = b.model_id ");
-		strBuilder.append("RIGHT JOIN manufacturers c ON b.manufacturer_id = c.manufacturer_id ");
+		strBuilder.append("SELECT c.manufacturer_id AS manufacturerId, c.name_rus AS name, COUNT(models.manufacturer_id) AS count, '' AS math ");
+		strBuilder.append("FROM machines a JOIN models ON a.model_id = models.model_id ");
+		strBuilder.append("RIGHT JOIN manufacturers c ON models.manufacturer_id = c.manufacturer_id ");
 		/*Starting filter logic.*/
 		if (filtersMap.size() > 0) {
 			strBuilder.append(getFilterWhereClause(filtersMap));
@@ -165,7 +165,7 @@ public class ReportDAOImpl implements IReportDAO {
 				strWhereClauseBuilder.append("AND ");
 			}
 			Integer filterValue = (Integer)filtersMap.get(VikingConstant.GROUP_FILTER);
-			strWhereClauseBuilder.append("a.group_id = ").append(filterValue).append(" ");
+			strWhereClauseBuilder.append("models.group_id = ").append(filterValue).append(" ");
 			andRequired = true;
 		}
 		if (filtersMap.containsKey(VikingConstant.MODEL_FILTER)) {
@@ -181,7 +181,7 @@ public class ReportDAOImpl implements IReportDAO {
 				strWhereClauseBuilder.append("AND ");
 			}
 			Integer filterValue = (Integer)filtersMap.get(VikingConstant.MANUFACTOR_FILTER);
-			strWhereClauseBuilder.append("c.manufacturer_id = ").append(filterValue).append(" ");
+			strWhereClauseBuilder.append("models.manufacturer_id = ").append(filterValue).append(" ");
 			andRequired = true;
 		}
 		if (filtersMap.containsKey(VikingConstant.YEAR_START_FILTER) && filtersMap.containsKey(VikingConstant.YEAR_END_FILTER)) {
