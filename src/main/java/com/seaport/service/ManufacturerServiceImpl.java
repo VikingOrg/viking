@@ -36,4 +36,7 @@ public class ManufacturerServiceImpl implements IManufacturerService {
 	public Map<Integer, Manufacturer> getManufacturerMap(){
 		return manufacturerDAO.getManufacturerMap();
 	}
+	public List<Manufacturer> getManufacturers(Integer countryId, Integer groupId) {
+		return manufacturerDAO.getManufacturers(countryId, groupId);
+	}
 }

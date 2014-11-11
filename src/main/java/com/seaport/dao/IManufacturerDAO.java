@@ -17,4 +17,5 @@ public interface IManufacturerDAO {
 	public List<Manufacturer> getManufacturers();
 	public void saveManufacturer(Manufacturer manufacturer);
 	public Map<Integer, Manufacturer> getManufacturerMap();
+	public List<Manufacturer> getManufacturers(Integer countryId, Integer groupId);
 }

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.seaport.command.MachineModelCommand;
 import com.seaport.command.MachineModelEditCommand;
 import com.seaport.domain.MachineModel;
+import com.seaport.domain.Manufacturer;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
 import com.seaport.service.IMachineModelService;
@@ -66,7 +67,7 @@ public class MachineModelController {
 							ModelMap model) throws Exception {
 		
 		MachineModelCommand machineModelCommand = new MachineModelCommand();
-		machineModelCommand.setMachineModelList(machineModelService.getModels());
+		//machineModelCommand.setMachineModelList(machineModelService.getModels());
 		machineModelCommand.setGroupMap(groupService.getGroupMap());
 		machineModelCommand.setManufacturerMap(manufacturerService.getManufacturerMap());
 		machineModelCommand.setCountryMap(countryService.getContriesMap());
@@ -127,7 +128,24 @@ public class MachineModelController {
 	}	
 	
 	/**
-	 * Set forms for a new Machine Model.
+	 * Get updated list of manufacturers.
+	 * @param groupId
+	 * @param countryId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getManufacturers/{groupId}/country/{countryId}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Manufacturer> getManufacturers(@PathVariable("groupId") Integer groupId,  
+									   @PathVariable("countryId") Integer countryId, 
+									   ModelMap model) throws Exception {
+		List<Manufacturer> manufacturerList = manufacturerService.getManufacturers(countryId, groupId);
+		return manufacturerList;
+	}
+	
+	/**
+	 * Persisting changes.
 	 * @param model
 	 * @return
 	 */
@@ -152,7 +170,7 @@ public class MachineModelController {
 	}
 	
 	/**
-	 * This mapped method used to delete models. It returns to the same page with success message.
+	 * Deleteing machine model.
 	 *  
 	 * @param request
 	 * @param model
@@ -162,7 +180,7 @@ public class MachineModelController {
 	 * @return
 	 */
 	@RequestMapping(value="/delete/", method = RequestMethod.POST)
-	public String deleteUsers(Model model,
+	public String deleteMachineModel(Model model,
 									@ModelAttribute("modelSearchCommand") MachineModelCommand machineModelCommand,
 									BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
 		List<MachineModel> machineModelList = machineModelCommand.getMachineModelList();

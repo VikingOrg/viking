@@ -72,8 +72,9 @@
 					            <li><a href="<c:url value="/manufacturer"/>">Фирмы Производители</a></li>
             </sec:authorize> 					            
 					            <li class="divider"></li>
-					            <li><a href="<c:url value="/libraryRequest"/>">Добавление / изменение</a></li>
-					            
+        	   	        		 <c:if test="${userModel.role.id != 1}">
+									<li><a href="<c:url value="/libraryRequest"/>">Добавление / изменение</a></li>
+              	                 </c:if>  					            
 							</ul>
 						</li>
 			

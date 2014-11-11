@@ -39,7 +39,8 @@
 	                               { "mDataProp": "manufacturer.country.nameRus", "defaultContent": " " },
 	                               { "mDataProp": "note", "defaultContent": " " },
 	                               { "mDataProp": "group.groupId", "defaultContent": "отсутствует" },                          
-	                               { "mDataProp": "updateDate", "defaultContent": " " }
+	                               { "mDataProp": "updateDate", "defaultContent": " " },
+	                               { "mDataProp": "manufacturer.countryId", "defaultContent": " " }
 	                             ],
                	     "aoColumnDefs": [
 								 { "bVisible": false,  "aTargets": [7] },
@@ -112,7 +113,25 @@
                 });
                 
                 $('#countrySelect').change(function() {
-                	oTable.fnFilter( $(this).val(), 5);
+                    var countryId = $(this).val();
+                	oTable.fnFilter( countryId, 9);
+
+              	    if(countryId==''){
+                  		  $('#manufacturerSelect').html("<option value=''>Все производители</option>");
+                        } else {
+                              var groupId = $("#groupSelect").val();
+                              if(groupId==''){
+                            	  groupId = 0;
+                              }     	
+        	                  $.getJSON('${pageContext.request.contextPath}/machineModel/getManufacturers/'+groupId+'/country/' + countryId, function(manufacturers) {
+        	                      var options='<option value="">Все производители</option>';
+        	                      $.each(manufacturers, function (i, e) {
+        	                          options += "<option value='" + e.manufacturerId + "'>" + "(" + e.manufacturerId + ")"+e.nameRus + "</option>";
+        	                      });
+        	                      $('#manufacturerSelect').html(options);
+        	                  });
+                        }
+                	
                 });
 
                 $('#addNewModel').click(function(e){
@@ -307,7 +326,7 @@
 									<form:select id="countrySelect" path="countryId" cssClass="form-control">
 										<form:option value="">Все страны</form:option>
 						                <c:forEach items="${modelSearchCommand.countryMap}" var="country">
-						                    <form:option value="${country.value.nameRus}" label="${country.value.nameRus}" />
+						                    <form:option value="${country.key}" label="${country.value.nameRus}" />
 						                </c:forEach>
 									</form:select>
 								</div>
@@ -400,6 +419,7 @@
                          <th class="">Примечания</th>
                          <th class="">group Id</th>
 						 <th class="">Посл. изм.</th>
+						 <th class="">CountryId</th>
                        </tr>
                    </thead>
 	               <tbody>

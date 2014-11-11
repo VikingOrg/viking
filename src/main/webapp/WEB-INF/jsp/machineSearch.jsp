@@ -125,24 +125,7 @@
             $('#dataTableSearch').on('input', function() {
             	oTable.fnFilter( $(this).val());
             });
-            
-            $('#groupSelect').change(function() {
-                group = $(this).val();
-                if(group==''){
-                	oTable.fnFilter(group, 2);
-                } else {
-                	oTable.fnFilter( "^"+group+"$", 2 , true);
-                }         
-            });
-            
-            $('#modelSelect').change(function() {
-                modelId = $(this).val();
-                if(modelId==''){
-                	oTable.fnFilter(modelId, 3);
-                } else {
-                	oTable.fnFilter( "^"+modelId+"$", 3 , true);
-                } 
-            });     
+
             $('#stevidorSelect').change(function() {
             	oTable.fnFilter( $(this).val(), 6);
             });
@@ -150,6 +133,7 @@
 //            $('#countrySelect').change(function() {
 //            	oTable.fnFilter( $(this).val(), 7);
 //            });
+
             $('#portSelect').change(function() {
             	oTable.fnFilter( $(this).val(), 8);
             });
@@ -157,13 +141,15 @@
             $('#manufacturerSelect').change(function() {
             	oTable.fnFilter( $(this).val());
             });                                                
-
-//            $('#recordTypeSelect').change(function() {
-//            	oTable.fnFilter( $(this).val(), 22);
-//            });
             
             $('#groupSelect').change(function() {
-          	  var groupId = $(this).val();
+	          	var groupId = $(this).val();
+	            if(groupId==''){
+	              	oTable.fnFilter(groupId, 2);
+	            } else {
+	             	oTable.fnFilter( "^"+groupId+"$", 2 , true);
+	            }                 
+          	  
           	  if(groupId=='0'){
           		  $('#modelSelect').html("<option value=''>Все модели</option>");
                 } else {

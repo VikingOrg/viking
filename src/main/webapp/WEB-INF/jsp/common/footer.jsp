@@ -1,5 +1,5 @@
-   <%@ page contentType="text/html; charset=UTF-8" %>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
    
@@ -13,13 +13,13 @@
 			<a href="<c:url value="/static/html/participants.html"/>">Участники</a> |
 			<a href="<c:url value="/static/html/rules.html"/>">Правила</a> |
 			<a href="<c:url value="/support"/>">Поддержка</a> |
-			<a href="<c:url value="/static/html/help.html"/>">Помощь</a> 
-			<sec:authorize access="hasRole('ROLE_ADMIN')">|
-			<a href="<c:url value="/static/html/admin_manual.pdf"/>">Инструкция</a><br />
-            </sec:authorize>
-            <sec:authorize access="hasRole('ROLE_USER')">|
-			<a href="<c:url value="/static/html/user_manual.pdf"/>">Инструкция</a><br />
-            </sec:authorize>
+			<a href="<c:url value="/static/html/help.html"/>">Помощь</a> |
+     		<c:if test="${userModel.role.id != 1}">
+     			<a href="<c:url value="/static/html/user_manual.pdf"/>">Инструкция</a><br />
+       	    </c:if>  					            
+     		<c:if test="${userModel.role.id == 1}">
+     			<a href="<c:url value="/static/html/admin_manual.pdf"/>">Инструкция</a><br />   
+       	    </c:if>  					            
 			&copy; 2013  <a href="<c:url value="/home"/>">ООО "ИТТ"</a>.
 			<span class="pull-right"><a href="#">Разработано Gigavar.com</a></span>
 		</p>

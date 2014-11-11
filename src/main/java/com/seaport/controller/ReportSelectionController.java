@@ -323,7 +323,7 @@ public class ReportSelectionController {
 		return filtersMap;
 	}
 	
-	/*do not remove code below!*//*do not remove code below!*//*do not remove code below!*/
+	/*do not remove code below!*//*do not remove code below!*//*do not remove code below! don't delete, do not delete*/
 //	@RequestMapping(value = "/{app}/conf/{fnm}", method=RequestMethod.GET)
 //	public ResponseEntity<?> getConf(@PathVariable("app") String app, @PathVariable("fnm") String fnm) {
 //	   log.debug("AppName:" + app);
