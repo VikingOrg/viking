@@ -436,7 +436,12 @@
 								                    	<span class="glyphicon glyphicon-edit"></span>Редактировать</a>
 								                    </span>
 								                </sec:authorize> 
-							                    <div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
+								                
+									     		<c:if test="${userModel.role.id != 1}">
+									     			<a href="<c:url value="/libraryRequest"/>">Добавить/Редактировать</a><br />
+									       	    </c:if> 
+									       	    
+												<div class="panel panel-default" style="margin-left: -15px; margin-right: -15px">
 						                    		<div class="panel-heading">
 													<form:select id="modelSelect" path="machine.modelId" cssClass="form-control">
 														<form:option value="0">Не выбрана (или отсутствует в базе моделей)</form:option>

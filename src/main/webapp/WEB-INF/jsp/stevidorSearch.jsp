@@ -206,7 +206,7 @@
 								<tbody>
 									<tr>
 										<td class="nowrap">
-											<h3 class="page-header">Список компаний-операторов</h3>
+											<h3 class="page-header">Справочник компаний-операторов</h3>
 										</td>
 										
 										<td class="nowrap" id="table_Actions"></td>

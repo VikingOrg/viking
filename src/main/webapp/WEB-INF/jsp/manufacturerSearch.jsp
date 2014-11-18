@@ -11,8 +11,7 @@
 <title>Таблица Фирм Производителей</title>
 		<jsp:include page="common/headCoreElements.jsp" />
         
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script type="text/javascript" src="<c:url value="/static/js/jquery.autocomplete.js"/>"></script>
 		<script type="text/javascript" src="//cdn.datatables.net/plug-ins/725b2a2115b/api/fnAddDataAndDisplay.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_ru.js"></script>
@@ -81,10 +80,10 @@
                         }
                     });
                 });   
-                
-	        	$("#countrySelect").select2({
-	        	    allowClear:true
-	        	});         
+                    
+
+	        	// Create autocomplete:
+	        	$('#countrySelect').autocomplete(options);
 
                 $('#addNewManufacturer').click(function(e){
                 	$('#success_alert').attr("class","alert alert-success hidden");
@@ -270,7 +269,7 @@
 						<tbody>
 							<tr>
 								<td class="nowrap">
-									<h3 class="page-header">Список Производителей Механизмов</h3>
+									<h3 class="page-header">Справочник Фирм Производителей</h3>
 								</td>
 								<td class="nowrap" id="table_Actions"></td>
 							</tr>

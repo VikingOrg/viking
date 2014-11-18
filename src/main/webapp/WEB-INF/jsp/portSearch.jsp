@@ -226,7 +226,7 @@
 						<tbody>
 							<tr>
 								<td class="nowrap">
-									<h3 class="page-header">Список портов</h3>
+									<h3 class="page-header">Справочник портов</h3>
 								</td>
 								<td class="nowrap" id="table_Actions"></td>
 							</tr>

@@ -399,7 +399,7 @@
 					<tbody>
 						<tr>
 							<td class="nowrap">
-								<h3 class="page-header">Список Моделей</h3>
+								<h3 class="page-header">Справочник Моделей Механизмов</h3>
 							</td>
 							<td class="nowrap" id="table_Actions"></td>
 						</tr>

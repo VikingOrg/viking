@@ -222,7 +222,7 @@
 							<tbody>
 								<tr>
 									<td class="nowrap">
-										<h3 class="page-header">Список стран</h3>
+										<h3 class="page-header">Справочник стран</h3>
 									</td>
 									
 									<td class="nowrap" id="table_Actions"></td>

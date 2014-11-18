@@ -217,7 +217,7 @@
 						<tbody>
 							<tr>
 								<td class="nowrap">
-									<h3 class="page-header">Список Групп Механизмов</h3>
+									<h3 class="page-header">Справочник Групп Механизмов</h3>
 								</td>
 								<td class="nowrap" id="table_Actions"></td>
 							</tr>
