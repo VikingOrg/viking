@@ -206,7 +206,7 @@
 				<select id="stevidorNameSelect" style="display:none;">
 					<option value="0">Все компании
 					<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-						<option value="${stevidor.key}">${stevidor.value.fullName}</option>
+						<option value="${stevidor.key}">${stevidor.value.name}</option>
 					</c:forEach>
 				</select>
 								
@@ -231,7 +231,7 @@
 										
 											<c:forEach var="stevidor" items="${reportSelectionCommand.stevidorMap}">
 											    <span class="checkbox nowrap">
-											    	<form:checkbox path="stevidorSelection" value="${stevidor.key}" cssClass="newCheckbox"/><%-- (${stevidor.value.stevidorId})  --%>${stevidor.value.fullName}<br/>
+											    	<form:checkbox path="stevidorSelection" value="${stevidor.key}" cssClass="newCheckbox"/><%-- (${stevidor.value.stevidorId})  --%>${stevidor.value.name}<br/>
 											    </span>
 											</c:forEach>
 										</div>

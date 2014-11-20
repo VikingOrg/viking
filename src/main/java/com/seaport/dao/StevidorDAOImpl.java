@@ -5,13 +5,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seaport.domain.Contact;
+import com.seaport.domain.Port;
 import com.seaport.domain.Stevidor;
 import com.seaport.utils.VikingUtil;
 
@@ -41,7 +44,9 @@ public class StevidorDAOImpl implements IStevidorDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Stevidor> getStevidors() {
-		List<Stevidor> stevidorList = getCurrentSession().createCriteria(Stevidor.class).list(); 
+		Criteria criteria = getCurrentSession().createCriteria(Stevidor.class);
+		criteria.addOrder(Order.asc("name"));
+		List<Stevidor> stevidorList = criteria.list(); 
 		return stevidorList;
 	}
 

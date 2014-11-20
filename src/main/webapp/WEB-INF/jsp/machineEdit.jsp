@@ -475,7 +475,7 @@
 													<form:select id="stevidorSelect" path="machine.stevidorId" cssClass="form-control" disabled="${isdisabled}" >
 													    <form:option value="">Не выбрана (отсутствует)</form:option>
 										                <c:forEach items="${machineEditCommand.stevidorMap}" var="stevidor">
-										                    <form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
+										                    <form:option value="${stevidor.key}" label="${stevidor.value.name}" />
 										                    <c:out value="${stevidor.key}"/>:${machineEditCommand.machine.stevidorId}:
 										                    <c:out value="${stevidor.value.fullName}"/>
 															<c:if test="${machineEditCommand.machine.stevidorId == stevidor.key}">

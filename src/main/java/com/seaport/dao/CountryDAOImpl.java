@@ -4,8 +4,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +43,9 @@ public class CountryDAOImpl implements ICountryDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Country> getContries(){
-		return sessionFactory.getCurrentSession().createCriteria(Country.class).list();
+		Criteria criteria = openSession().createCriteria(Country.class);
+		criteria.addOrder(Order.asc("nameRus"));
+		return criteria.list();
 	}
 	
 	@Override

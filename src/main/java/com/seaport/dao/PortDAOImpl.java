@@ -4,8 +4,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +38,9 @@ public class PortDAOImpl implements IPortDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Port> getPorts() {
-		return getCurrentSession().createCriteria(Port.class).list();
+		Criteria criteria = getCurrentSession().createCriteria(Port.class);
+		criteria.addOrder(Order.asc("name"));
+		return criteria.list();
 	}
 
 	@Override

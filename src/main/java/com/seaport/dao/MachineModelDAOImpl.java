@@ -10,6 +10,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
@@ -40,7 +42,9 @@ public class MachineModelDAOImpl implements IMachineModelDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MachineModel> getModels() {
-		return getCurrentSession().createCriteria(MachineModel.class).list();
+		Criteria criteria = getCurrentSession().createCriteria(MachineModel.class);
+		criteria.addOrder(Order.asc("name"));
+		return criteria.list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -49,9 +53,10 @@ public class MachineModelDAOImpl implements IMachineModelDAO {
 		if (groupId != null && groupId.intValue() == 0) {
 			return this.getModels();
 		}
-		Query query = getCurrentSession().createQuery("from MachineModel m where m.groupId = :groupId");
-		query.setParameter("groupId", groupId);
-		return query.list();
+		Criteria criteria = getCurrentSession().createCriteria(MachineModel.class);
+		criteria.add(Restrictions.eq("groupId", groupId));
+		criteria.addOrder(Order.asc("name"));
+		return criteria.list();
 	}	
 
 	@Override
@@ -101,17 +106,13 @@ public class MachineModelDAOImpl implements IMachineModelDAO {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<MachineModel> getMachineModels(boolean getArchive){
-		Criteria criteria = getCurrentSession().createCriteria(MachineModel.class);
+//		Criteria criteria = getCurrentSession().createCriteria(MachineModel.class);
 //		if (!getArchive) {
 //			criteria.add(Restrictions.ne("archived", "Y"));
 //		}
-		return 	criteria.list();
+		return 	this.getModels();
 	}
-	
-	
-	
 }
 
 

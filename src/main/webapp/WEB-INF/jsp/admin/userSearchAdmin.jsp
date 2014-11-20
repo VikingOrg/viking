@@ -132,7 +132,7 @@
 										<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control">
 										    <form:option value="">Все Компании</form:option>
 							                <c:forEach items="${userSearchCommand.userStevidor}" var="stevidor">
-							                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.fullName}" />
+							                    <form:option value="${stevidor.value.fullName}" label="${stevidor.value.name}" />
 							                </c:forEach>								
 										</form:select>
 									</div>	

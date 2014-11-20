@@ -9,12 +9,12 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.User;
 import com.seaport.service.IUserService;
@@ -46,7 +46,9 @@ public class ManufacturerDAOImpl implements IManufacturerDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Manufacturer> getManufacturers() {
-		return getCurrentSession().createCriteria(Manufacturer.class).list();
+		Criteria criteria = getCurrentSession().createCriteria(Manufacturer.class);
+		criteria.addOrder(Order.asc("nameRus"));
+		return criteria.list();
 	}
 
 	@SuppressWarnings("unchecked")

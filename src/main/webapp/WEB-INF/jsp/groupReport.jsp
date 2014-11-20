@@ -161,7 +161,7 @@
 										<form:select id="stevidorSelect" path="stevidorId" cssClass="form-control col-sm-12" disabled="${isdisabled}" >
 											<form:option value="0">Все компании</form:option>
 											<c:forEach items="${reportSelectionCommand.stevidorMap}" var="stevidor">
-												<form:option value="${stevidor.key}" label="${stevidor.value.fullName}" />
+												<form:option value="${stevidor.key}" label="${stevidor.value.name}" />
 											</c:forEach>
 										</form:select>
 									</div>
