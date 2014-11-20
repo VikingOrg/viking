@@ -194,7 +194,7 @@
 											</c:forEach>
 										</form:select>
 									</div>
-						        	<div class="form-group">
+						        	<div class="hidden form-group">
 					                    <label>Модель</label>
 										<form:select id="modelSelect" path="modelId" cssClass="form-control col-sm-12">
 											<form:option value="0">Все модели</form:option>
