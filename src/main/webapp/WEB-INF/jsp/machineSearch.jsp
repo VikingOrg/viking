@@ -57,7 +57,8 @@
                                { "mDataProp": "note", "defaultContent": " " },
                                { "mDataProp": "archived", "defaultContent": " " },                          
                                { "mDataProp": "updateDate", "defaultContent": " " },
-                               { "mDataProp": "endDate", "defaultContent": " " }
+                               { "mDataProp": "endDate", "defaultContent": " " },
+                               { "mDataProp": "machineModel.modelId", "defaultContent": " " }
                              ],
     	        "aoColumnDefs": [
        	                         {
@@ -73,12 +74,25 @@
 	        	   	        		       
 										  return input;
         	   	        		      }
-       	   	        		     },       	 	        	        
-       	   	        				{ "bVisible": false, "bSearchable": false,  "aTargets": [9, 12, 13, 15, 19, 20, 21, 23, 24] },
+       	   	        		     },
+	       	   	        		
+	  	                         {
+	  	   	        		      "aTargets": [ 10 ],
+	  	   	        		      "mData": 10,
+	  	   	        		      "mRender": function ( data, type, machineObject ) {
+	  	   	        		    		var manufName = data;
+	           	   	        		    if(machineObject.machineModel != null && machineObject.machineModel.manufacturer.country.countryId != 1) {
+	           	   	        		 		manufName = manufName + " (" + machineObject.machineModel.manufacturer.nameEn + ")";
+	                	   	        	}	  	   	        		    		
+		  	   	        		        return manufName;
+	  	   	        		      }
+	 	   	        		     },
+	 	   	        		        
+       	   	        				{ "bVisible": false, "aTargets": [9, 12, 13, 15, 19, 20, 21, 23, 24, 25] },
         	   	        		 <c:if test="${userModel.role.id == 2}">
               	                 	 { "bVisible": false,  "aTargets": [6] },
               	                 </c:if>        	 	        	        
-        	                         { "bVisible": false,  "aTargets": [ 2, 3, 7, 8, 22] },
+        	                         { "bVisible": false,  "aTargets": [ 2, 3, 7, 22] },
         	                         
        	                         {
         	   	        		      "aTargets": [ 4 ],
@@ -125,7 +139,7 @@
             $('#dataTableSearch').on('input', function() {
             	oTable.fnFilter( $(this).val());
             });
-
+            
             $('#stevidorSelect').change(function() {
             	oTable.fnFilter( $(this).val(), 6);
             });
@@ -133,11 +147,15 @@
 //            $('#countrySelect').change(function() {
 //            	oTable.fnFilter( $(this).val(), 7);
 //            });
-
+            
             $('#portSelect').change(function() {
             	oTable.fnFilter( $(this).val(), 8);
             });
 
+	        $('#modelSelect').change(function() {
+            	oTable.fnFilter( $(this).val(), 25);
+            });
+            
             $('#manufacturerSelect').change(function() {
             	oTable.fnFilter( $(this).val());
             });                                                
@@ -156,7 +174,7 @@
 	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
 	                      var options='<option value="">Все модели</option>';
 	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + "(" + e.modelId + ")"+e.name + "</option>";
+	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
 	                      });
 	                      $('#modelSelect').html(options);
 	                  });
@@ -404,7 +422,7 @@
 								<form:select id="modelSelect" path="modelId" cssClass="form-control">
 									<form:option value="">Все модели</form:option>
 					                <c:forEach items="${machineSearchCommand.machineModelMap}" var="model">
-					                    <form:option value="${model.key}" label="(${model.key})${model.value.name}" />
+					                    <form:option value="${model.key}" label="${model.value.name}" />
 					                </c:forEach>									
 								</form:select>		                    
 		                    </div>
@@ -540,6 +558,7 @@
 							<th class="nowrap">Удалена</th>
 							<th class="nowrap">Посл. изм.</th>
 							<th class="nowrap">Дата спис.</th>
+							<th class="nowrap">ModelId</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>
