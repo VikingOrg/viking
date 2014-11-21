@@ -18,4 +18,5 @@ public interface IManufacturerService {
 	public void saveManufacturer(Manufacturer manufacturer);
 	public Map<Integer, Manufacturer> getManufacturerMap();
 	public List<Manufacturer> getManufacturers(Integer countryId, Integer groupId);
+	public List<Manufacturer> getManufacturers(Integer groupId);
 }

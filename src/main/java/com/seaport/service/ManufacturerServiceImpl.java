@@ -39,4 +39,7 @@ public class ManufacturerServiceImpl implements IManufacturerService {
 	public List<Manufacturer> getManufacturers(Integer countryId, Integer groupId) {
 		return manufacturerDAO.getManufacturers(countryId, groupId);
 	}
+	public List<Manufacturer> getManufacturers(Integer groupId){
+		return manufacturerDAO.getManufacturers(groupId);
+	}
 }

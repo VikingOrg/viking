@@ -59,7 +59,8 @@
                                { "mDataProp": "updateDate", "defaultContent": " " },
                                { "mDataProp": "endDate", "defaultContent": " " },
                                { "mDataProp": "machineModel.modelId", "defaultContent": " " },
-                               { "mDataProp": "stevidor.port.portId", "defaultContent": " " } //26
+                               { "mDataProp": "stevidor.port.portId", "defaultContent": " " }, //26
+                               { "mDataProp": "machineModel.manufacturer.manufacturerId", "defaultContent": " " }
                              ],
     	        "aoColumnDefs": [
        	                         {
@@ -156,8 +157,8 @@
 	             	oTable.fnFilter( "^"+portId+"$", 26 , true);
 	            }
 
-	            if(portId=='0'){
-             		  $('#modelSelect').html("<option value=''>Все Компании</option>");
+	            if(portId==''){
+             		  $('#stevidorSelect').html("<option value=''>Все Компании</option>");
                 } else {
    	                  $.getJSON('${pageContext.request.contextPath}/machineSearch/getStevidors/' + portId, function(objectLis) {
    	                      var options='<option value="">Все Компании</option>';
@@ -170,11 +171,22 @@
             });
 
 	        $('#modelSelect').change(function() {
-	        	oTable.fnFilter( "^"+$(this).val()+"$", 25 , true);
+	        	var modelId = $(this).val();
+	            if(modelId==''){
+	              	oTable.fnFilter(modelId, 25);
+	            } else {
+	            	oTable.fnFilter( "^"+modelId+"$", 25 , true);
+	            }		        
+	        	
             });
             
             $('#manufacturerSelect').change(function() {
-            	oTable.fnFilter( $(this).val());
+	        	var manufacturerId = $(this).val();
+	            if(manufacturerId==''){
+	              	oTable.fnFilter(manufacturerId, 27);
+	            } else {
+	            	oTable.fnFilter( "^"+manufacturerId+"$", 27 , true);
+	            }	
             });                                                
             
             $('#groupSelect').change(function() {
@@ -185,9 +197,11 @@
 	             	oTable.fnFilter( "^"+groupId+"$", 2 , true);
 	            }                 
           	  
-          	  if(groupId=='0'){
+          	  if(groupId==''){
           		  $('#modelSelect').html("<option value=''>Все модели</option>");
+          		  $('#manufacturerSelect').html("<option value=''>Все Производители</option>");
                 } else {
+                      /*For Models*/
 	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
 	                      var options='<option value="">Все модели</option>';
 	                      $.each(machineModel, function (i, e) {
@@ -195,9 +209,21 @@
 	                      });
 	                      $('#modelSelect').html(options);
 	                  });
+	                  /*For Manufactorers*/
+	                  $.getJSON('${pageContext.request.contextPath}/machineSearch/getManufacturers/' + groupId, function(objectLis) {
+	                      var options='<option value="">Все Производители</option>';
+	                      $.each(objectLis, function (i, e) {
+	                          options += "<option value='" + e.manufacturerId + "'>" + e.nameRus;
+	                          if(e.nameEn != ""){
+	                        	  options += " (" + e.nameEn + ")";
+		                      }
+	                          options += "</option>";
+	                      });
+	                      $('#manufacturerSelect').html(options);
+	                  });	                  
                 }
             }); 
-
+            
             $('#recordTypeSelect').change(function() {
             	var recordType = $(this).val();
             	getData(recordType);
@@ -451,7 +477,7 @@
 										<form:option value="">Все Производители</form:option>
 										<c:forEach items="${machineSearchCommand.manufacturerMap}"
 											var="manufacturer">
-											<form:option value="${manufacturer.value.nameRus}"
+											<form:option value="${manufacturer.key}"
 												label="(${manufacturer.key})${manufacturer.value.nameRus}" />
 										</c:forEach>
 									</form:select>
@@ -577,6 +603,7 @@
 							<th class="nowrap">Дата спис.</th>
 							<th class="nowrap">ModelId</th>
 							<th class="nowrap">PortId</th>
+							<th class="nowrap">ManId</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>
