@@ -58,7 +58,8 @@
                                { "mDataProp": "archived", "defaultContent": " " },                          
                                { "mDataProp": "updateDate", "defaultContent": " " },
                                { "mDataProp": "endDate", "defaultContent": " " },
-                               { "mDataProp": "machineModel.modelId", "defaultContent": " " }
+                               { "mDataProp": "machineModel.modelId", "defaultContent": " " },
+                               { "mDataProp": "stevidor.port.portId", "defaultContent": " " } //26
                              ],
     	        "aoColumnDefs": [
        	                         {
@@ -88,11 +89,10 @@
 	  	   	        		      }
 	 	   	        		     },
 	 	   	        		        
-       	   	        				{ "bVisible": false, "aTargets": [9, 12, 13, 15, 19, 20, 21, 23, 24, 25] },
-        	   	        		 <c:if test="${userModel.role.id == 2}">
+       	   	        				{ "bVisible": false, "aTargets": [2, 3, 7, 9, 12, 13, 15, 19, 20, 21, 22, 23, 24, 25, 26] },
+//         	   	        		 <c:if test="${userModel.role.id == 2}">
               	                 	 { "bVisible": false,  "aTargets": [6] },
-              	                 </c:if>        	 	        	        
-        	                         { "bVisible": false,  "aTargets": [ 2, 3, 7, 22] },
+//               	             </c:if>        	 	        	        
         	                         
        	                         {
         	   	        		      "aTargets": [ 4 ],
@@ -149,11 +149,28 @@
 //            });
             
             $('#portSelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 8);
+            	var portId = $(this).val();
+	            if(portId==''){
+	              	oTable.fnFilter(portId, 26);
+	            } else {
+	             	oTable.fnFilter( "^"+portId+"$", 26 , true);
+	            }
+
+	            if(portId=='0'){
+             		  $('#modelSelect').html("<option value=''>Все Компании</option>");
+                } else {
+   	                  $.getJSON('${pageContext.request.contextPath}/machineSearch/getStevidors/' + portId, function(objectLis) {
+   	                      var options='<option value="">Все Компании</option>';
+   	                      $.each(objectLis, function (i, e) {
+   	                          options += "<option value='" + e.name + "'>" + e.name + "</option>";
+   	                      });
+   	                      $('#stevidorSelect').html(options);
+   	                  });
+                }            	
             });
 
 	        $('#modelSelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 25);
+	        	oTable.fnFilter( "^"+$(this).val()+"$", 25 , true);
             });
             
             $('#manufacturerSelect').change(function() {
@@ -174,7 +191,7 @@
 	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
 	                      var options='<option value="">Все модели</option>';
 	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
+	                          options += "<option value='" + e.modelId + "'>" +e.modelId+ e.name + "</option>";
 	                      });
 	                      $('#modelSelect').html(options);
 	                  });
@@ -389,7 +406,7 @@
 											<form:option value="">Все Порты</form:option>
 											<c:forEach items="${machineSearchCommand.userPort}"
 												var="port">
-												<form:option value="${port.value.name}"
+												<form:option value="${port.key}"
 													label="${port.value.name}" />
 											</c:forEach>
 										</form:select>
@@ -559,6 +576,7 @@
 							<th class="nowrap">Посл. изм.</th>
 							<th class="nowrap">Дата спис.</th>
 							<th class="nowrap">ModelId</th>
+							<th class="nowrap">PortId</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>

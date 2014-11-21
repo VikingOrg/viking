@@ -16,4 +16,7 @@ public interface IStevidorDAO {
 	public Stevidor getStevidor(int stevidorId);
 	public List<Stevidor> getStevidors();
 	public void saveStevidor(Stevidor stevidor);
-	public Map<Integer, Stevidor> getStevidorsMap();}
+	public Map<Integer, Stevidor> getStevidorsMap();
+	public List<Stevidor> getStevidors(Integer portId);
+	
+}	

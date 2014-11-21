@@ -22,32 +22,29 @@ public class StevidorServiceImpl implements IStevidorService {
 	private IUserService userService;
 	@Autowired
 	private IStevidorDAO stevidorDAO;
-
 	
 	@Override
 	public Stevidor getStevidor(int stevidorId) {
 		return stevidorDAO.getStevidor(stevidorId);
 	}
-
 	@Override
 	public List<Stevidor> getStevidors() {
 		return stevidorDAO.getStevidors();
 	}
-
 	@Override
 	public void saveStevidor(Stevidor stevidor) {
 		stevidorDAO.saveStevidor(stevidor);
 	}
-
 	@Override
 	public Map<Integer, Stevidor> getStevidorsMap() {
 		return stevidorDAO.getStevidorsMap();
 	}
-
 	@Override
 	public boolean checkIfStevidorExist(Stevidor stevidorToCheck) {
-		// TODO Auto-generated method stub
 		return false;
 	}
-	
+	@Override
+	public List<Stevidor> getStevidors(Integer portId){
+		return stevidorDAO.getStevidors(portId);
+	}
 }

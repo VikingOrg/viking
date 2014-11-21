@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +50,17 @@ public class StevidorDAOImpl implements IStevidorDAO {
 		List<Stevidor> stevidorList = criteria.list(); 
 		return stevidorList;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Stevidor> getStevidors(Integer portId) {
+		Criteria criteria = getCurrentSession().createCriteria(Stevidor.class);
+		criteria.add(Restrictions.eq("portId", portId));
+		criteria.addOrder(Order.asc("name"));
+		List<Stevidor> stevidorList = criteria.list(); 
+		return stevidorList;
+	}
+	
 	@Override
 	public void saveStevidor(Stevidor stevidor) {
 		/*Check for empty contacts and remove them from being saved.*/

@@ -20,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.MachineSearchCommand;
 import com.seaport.domain.Machine;
+import com.seaport.domain.MachineModel;
+import com.seaport.domain.Stevidor;
 import com.seaport.domain.User;
 import com.seaport.service.ICountryService;
 import com.seaport.service.IGroupService;
@@ -97,6 +99,20 @@ public class MachineSearchController {
 		return machineList;
 	}
 	
+	
+	/**
+	 * JSON formatted response of Stevidors. 
+	 * @param groupId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getStevidors/{portId}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Stevidor> getStevidors(@PathVariable Integer portId, ModelMap model) throws Exception {
+		List<Stevidor> stevidorList = stevidorService.getStevidors(portId);
+		return stevidorList;
+	}	
 	
     /**
      * Using for machine delete functionality. Nothing else get submitted from machine search page.
