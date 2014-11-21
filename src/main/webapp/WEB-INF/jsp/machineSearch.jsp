@@ -191,7 +191,7 @@
 	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
 	                      var options='<option value="">Все модели</option>';
 	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" +e.modelId+ e.name + "</option>";
+	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
 	                      });
 	                      $('#modelSelect').html(options);
 	                  });
