@@ -39,7 +39,7 @@
 				
 					<div class="col-sm-4 col-sm-offset-1">
 						<v:input id="currentManufacturerNameRus" path="currentManufacturer.nameRus" label="Наименование на русском" required="true" title="Введите наименование" maxlength="100"/>
-						<v:input id="currentManufacturerNameEn" path="currentManufacturer.nameEn" label="Наименование на английском" required="true" title="Введите наименование на английском" maxlength="100"/>
+						<v:input id="currentManufacturerNameEn" path="currentManufacturer.nameEn" label="Наименование на английском" required="false" title="Введите наименование на английском" maxlength="100"/>
 					</div>
 
 					<div class="col-sm-4 col-sm-offset-1">
@@ -174,7 +174,7 @@
 		    });
 		                     
             $("#currentManufacturerNameRus").rules("add", {required:true});
-            $("#currentManufacturerNameEn").rules("add", {required:true});
+            $("#currentManufacturerNameEn").rules("add", {required:false});
             $("#currentManufacturerCountryId").rules("add", {required:true});
               
 	       	$("#currentManufacturerCountryId").select2({
