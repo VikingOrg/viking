@@ -21,7 +21,7 @@
      			<a href="<c:url value="/static/html/admin_manual.pdf"/>">Инструкция</a><br />   
        	    </c:if>  					            
 			&copy; 2013  <a href="<c:url value="/home"/>">ООО "ИТТ"</a>.
-			<span class="pull-right"><a href="#">Разработано Gigavar.com</a></span>
+			<!-- <span class="pull-right"><a href="#">Разработано Gigavar.com</a></span> -->
 		</p>
 	</footer>
 </div>
