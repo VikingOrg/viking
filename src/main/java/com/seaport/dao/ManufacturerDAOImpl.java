@@ -64,7 +64,9 @@ public class ManufacturerDAOImpl implements IManufacturerDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Manufacturer> getManufacturers(Integer groupId) {
-		
+		if (groupId != null && groupId.intValue() == 0) {
+			return this.getManufacturers();
+		}
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append("select b.manufacturer_id AS manufacturerId, b.country_id AS countryId, b.address, b.archived, b.email, ");
 		strBuilder.append("b.name_rus AS nameRus, b.name_en AS nameEn, b.note, b.phone, b.create_date AS createDate, ");

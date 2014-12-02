@@ -60,7 +60,8 @@
                                { "mDataProp": "endDate", "defaultContent": " " },
                                { "mDataProp": "machineModel.modelId", "defaultContent": " " },
                                { "mDataProp": "stevidor.port.portId", "defaultContent": " " }, //26
-                               { "mDataProp": "machineModel.manufacturer.manufacturerId", "defaultContent": " " }
+                               { "mDataProp": "machineModel.manufacturer.manufacturerId", "defaultContent": " " },
+                               { "mDataProp": "stevidor.stevidorId", "defaultContent": " " }
                              ],
     	        "aoColumnDefs": [
        	                         {
@@ -142,7 +143,12 @@
             });
             
             $('#stevidorSelect').change(function() {
-            	oTable.fnFilter( $(this).val(), 6);
+            	var stevidorId = $(this).val();
+	            if(stevidorId==''){
+	              	oTable.fnFilter(stevidorId, 28);
+	            } else {
+	             	oTable.fnFilter( "^"+stevidorId+"$", 28 , true);
+	            }                
             });
                                		 
 //            $('#countrySelect').change(function() {
@@ -153,23 +159,27 @@
             	var portId = $(this).val();
 	            if(portId==''){
 	              	oTable.fnFilter(portId, 26);
+	              	refreshStevidorElements("0");
 	            } else {
 	             	oTable.fnFilter( "^"+portId+"$", 26 , true);
+	             	refreshStevidorElements(portId);
 	            }
-
-	            if(portId==''){
-             		  $('#stevidorSelect').html("<option value=''>Все Компании</option>");
-                } else {
-   	                  $.getJSON('${pageContext.request.contextPath}/machineSearch/getStevidors/' + portId, function(objectLis) {
-   	                      var options='<option value="">Все Компании</option>';
-   	                      $.each(objectLis, function (i, e) {
-   	                          options += "<option value='" + e.name + "'>" + e.name + "</option>";
-   	                      });
-   	                      $('#stevidorSelect').html(options);
-   	                  });
-                }            	
             });
-
+            
+    		/*Getting stevidor list from DB.*/
+    		function refreshStevidorElements(portId){
+    			$.getJSON('${pageContext.request.contextPath}/machineSearch/getStevidors/' + portId, function(objectLis) {
+                    var options='<option value="">Все Компании</option>';
+                    $.each(objectLis, function (i, e) {
+                          options += "<option value='" + e.stevidorId + "'>" + e.name + "</option>";
+                    });
+                    $('#stevidorSelect').html(options);
+                    $('#stevidorSelect').val("");
+                    $("#stevidorSelect").select2("val", "");
+                    oTable.fnFilter('', 28);
+                });			
+    		}
+            
 	        $('#modelSelect').change(function() {
 	        	var modelId = $(this).val();
 	            if(modelId==''){
@@ -179,6 +189,7 @@
 	            }		        
 	        	
             });
+
             
             $('#manufacturerSelect').change(function() {
 	        	var manufacturerId = $(this).val();
@@ -191,38 +202,49 @@
             
             $('#groupSelect').change(function() {
 	          	var groupId = $(this).val();
-	            if(groupId==''){
-	              	oTable.fnFilter(groupId, 2);
-	            } else {
-	             	oTable.fnFilter( "^"+groupId+"$", 2 , true);
-	            }                 
-          	  
-          	  if(groupId==''){
-          		  $('#modelSelect').html("<option value=''>Все модели</option>");
-          		  $('#manufacturerSelect').html("<option value=''>Все Производители</option>");
+          	    if(groupId==''){
+          			oTable.fnFilter(groupId, 2);
+          		  	refreshModelElements("0");
+          		    refreshManufacturerElements("0");
                 } else {
-                      /*For Models*/
-	                  $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
-	                      var options='<option value="">Все модели</option>';
-	                      $.each(machineModel, function (i, e) {
-	                          options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
-	                      });
-	                      $('#modelSelect').html(options);
-	                  });
-	                  /*For Manufactorers*/
-	                  $.getJSON('${pageContext.request.contextPath}/machineSearch/getManufacturers/' + groupId, function(objectLis) {
-	                      var options='<option value="">Все Производители</option>';
-	                      $.each(objectLis, function (i, e) {
-	                          options += "<option value='" + e.manufacturerId + "'>" + e.nameRus;
-	                          if(e.nameEn != ""){
-	                        	  options += " (" + e.nameEn + ")";
-		                      }
-	                          options += "</option>";
-	                      });
-	                      $('#manufacturerSelect').html(options);
-	                  });	                  
+                	oTable.fnFilter( "^"+groupId+"$", 2 , true);
+                    /*For Models*/
+                    refreshModelElements(groupId);
+	                /*For Manufactorers*/
+					refreshManufacturerElements(groupId);                 
                 }
             }); 
+
+    		/*Getting model list from DB.*/
+    		function refreshModelElements(groupId){
+                $.getJSON('${pageContext.request.contextPath}/machineEdit/model/' + groupId, function(machineModel) {
+                    var options='<option value="">Все модели</option>';
+                    $.each(machineModel, function (i, e) {
+                        options += "<option value='" + e.modelId + "'>" + e.name + "</option>";
+                    });
+                    $('#modelSelect').html(options);
+                    $('#modelSelect').val("");
+                    $("#modelSelect").select2("val", "");
+                    oTable.fnFilter('', 25);
+                });			
+    		}
+    		/*Getting manufacturer list from DB.*/
+    		function refreshManufacturerElements(groupId){
+                $.getJSON('${pageContext.request.contextPath}/machineSearch/getManufacturers/' + groupId, function(objectLis) {
+                    var options='<option value="">Все Производители</option>';
+                    $.each(objectLis, function (i, e) {
+                        options += "<option value='" + e.manufacturerId + "'>" + e.nameRus;
+                        if(e.nameEn != ""){
+                      	  options += " (" + e.nameEn + ")";
+	                      }
+                        options += "</option>";
+                    });
+                    $('#manufacturerSelect').html(options);
+                    $('#manufacturerSelect').val("");
+                    $("#modemanufacturerSelectlSelect").select2("val", "");
+                    oTable.fnFilter('', 27);                    
+              	});	        		
+    		}
             
             $('#recordTypeSelect').change(function() {
             	var recordType = $(this).val();
@@ -321,6 +343,8 @@
         	         
         } ); //end of document.ready
 
+
+        
 		function getData(recordType){
         	showProgressModal('#wait_modal');
         	oTable.fnClearTable();
@@ -444,7 +468,7 @@
 											<form:option value="">Все Компании</form:option>
 											<c:forEach items="${machineSearchCommand.userStevidor}"
 												var="stevidor">
-												<form:option value="${stevidor.value.name}"
+												<form:option value="${stevidor.key}"
 													label="${stevidor.value.name}" />
 											</c:forEach>
 										</form:select>
@@ -604,6 +628,7 @@
 							<th class="nowrap">ModelId</th>
 							<th class="nowrap">PortId</th>
 							<th class="nowrap">ManId</th>
+							<th class="nowrap">StevidorId</th>
 							<!-- <th>Дата списания</th> -->
 			            </tr>			            
 			        </thead>

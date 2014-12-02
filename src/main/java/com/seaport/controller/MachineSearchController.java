@@ -111,8 +111,11 @@ public class MachineSearchController {
 	@RequestMapping(value="/getStevidors/{portId}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Stevidor> getStevidors(@PathVariable Integer portId, ModelMap model) throws Exception {
-		List<Stevidor> stevidorList = stevidorService.getStevidors(portId);
-		return stevidorList;
+		if (portId == 0) {
+			return stevidorService.getStevidors();
+		} else {
+			return stevidorService.getStevidors(portId);
+		}
 	}	
 	
 	
