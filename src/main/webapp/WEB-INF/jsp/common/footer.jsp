@@ -18,7 +18,8 @@
      			<a href="<c:url value="/static/html/user_manual.pdf"/>">Инструкция</a><br />
        	    </c:if>  					            
      		<c:if test="${userModel.role.id == 1}">
-     			<a href="<c:url value="/static/html/admin_manual.pdf"/>">Инструкция</a><br />   
+     			<a href="<c:url value="/static/html/user_manual.pdf"/>">Инструкция Пользователя</a><br />
+     			<a href="<c:url value="/static/html/admin_manual.pdf"/>">Инструкция Администратора</a><br />   
        	    </c:if>  					            
 			&copy; 2013  <a href="<c:url value="/home"/>">ООО "ИТТ"</a>.
 			<!-- <span class="pull-right"><a href="#">Разработано Gigavar.com</a></span> -->

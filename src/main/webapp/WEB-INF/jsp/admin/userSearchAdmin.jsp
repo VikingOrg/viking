@@ -193,13 +193,13 @@
 			                              <th class="column-check nowrap">&nbsp;</th>
 			                              <th class="nowrap">ФИО&nbsp;&nbsp;</th>
 			                              <th class="hide">Подразделение&nbsp;&nbsp;</th>
-			                              <th class="">Должность&nbsp;&nbsp;</th>
-			                              <th class="hidden-sm hidden-xs hidden-md nowrap">Роль&nbsp;&nbsp;</th>
+			                              <th class="nowrap">Должность&nbsp;&nbsp;</th>
+			                              <th class="nowrap">Роль&nbsp;&nbsp;</th>
 			                              <th class="">E-mail&nbsp;&nbsp;</th>
 			                              <th class="">В системе?</th>
-			                              <th class="">Посл. посещение</th>
+			                              <th class="nowrap">Посл. посещение</th>
 			                              <th class="nowrap">Компания&nbsp;&nbsp;</th>
-			                              <th class="hidden-sm hidden-xs hidden-md nowrap">Порт&nbsp;&nbsp;</th>
+			                              <th class="nowrap">Порт&nbsp;&nbsp;</th>
 			                              <th class="">Страна&nbsp;&nbsp;</th>
 			                              <th class="">Примечания&nbsp;&nbsp;</th>
 			                            </tr>
@@ -224,14 +224,14 @@
 						                         	</td>
 						                         	<td class="hide"><c:out value="${user.division}"/></td>
 						                         	<td class=""><c:out value="${user.occupation}"/></td>
-						                         	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.role.role}"/></td>
+						                         	<td class="nowrap"><c:out value="${user.role.role}"/></td>
 						                         	<td class=""><c:out value="${user.userEmail}"/></td>
 						                         	<td class=""><c:out value="${user.isLoggedIn}"/></td>
 						                         	<td class="">
 						                         		<c:out value="${user.localUpdateDate}"/>
 						                         	</td>
 						                         	<td class="nowrap"><c:out value="${user.stevidor.fullName}"/></td>
-					                              	<td class="hidden-sm hidden-xs hidden-md nowrap"><c:out value="${user.stevidor.port.name}"/></td>
+					                              	<td class="nowrap"><c:out value="${user.stevidor.port.name}"/></td>
 					                              	<td class=""><c:out value="${user.stevidor.port.country.nameRus}"/></td>
 					                              	<td class=""><c:out value="${user.userNote}"/></td>
 						                       </tr>
