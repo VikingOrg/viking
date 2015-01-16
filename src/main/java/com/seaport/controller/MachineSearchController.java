@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seaport.command.MachineSearchCommand;
 import com.seaport.domain.Machine;
-import com.seaport.domain.MachineModel;
 import com.seaport.domain.Manufacturer;
 import com.seaport.domain.Stevidor;
 import com.seaport.domain.User;

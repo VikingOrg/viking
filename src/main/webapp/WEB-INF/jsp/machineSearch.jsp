@@ -91,9 +91,9 @@
 	  	   	        		      }
 	 	   	        		     },
 	 	   	        		        
-       	   	        				{ "bVisible": false, "aTargets": [2, 3, 7, 9, 12, 13, 15, 19, 20, 21, 22, 23, 24, 25, 26] },
+       	   	        				//{ "bVisible": false, "aTargets": [2, 3, 7, 9, 12, 13, 15, 19, 20, 21, 22, 23, 24, 25, 26] },
 //         	   	        		 <c:if test="${userModel.role.id == 2}">
-              	                 	 { "bVisible": false,  "aTargets": [6] },
+              	                 	// { "bVisible": false,  "aTargets": [6] },
 //               	             </c:if>        	 	        	        
         	                         
        	                         {

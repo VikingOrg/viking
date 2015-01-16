@@ -18,6 +18,8 @@ import org.springframework.stereotype.Repository;
 
 import com.seaport.domain.Machine;
 import com.seaport.domain.User;
+import com.seaport.service.IMachineModelService;
+import com.seaport.service.IStevidorService;
 import com.seaport.service.IUserService;
 import com.seaport.utils.VikingConstant;
 
@@ -34,6 +36,10 @@ public class MachineDAOImpl implements IMachineDAO {
 	private SessionFactory sessionFactory;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IStevidorService stevidorService;
+	@Autowired
+	private IMachineModelService machineModelService;	
 	
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
@@ -90,6 +96,9 @@ public class MachineDAOImpl implements IMachineDAO {
 			machine.setCreateUserId(user.getUserId());
 			machine.setCreateDate(updateDate);
 			machine.setArchived(VikingConstant.RECORD_TYPE_ACTIVE);
+			/*Setting missing objects for Hibernate*/
+			machine.setStevidor(stevidorService.getStevidor(machine.getStevidorId()));
+		 	machine.setMachineModel(machineModelService.getModel(machine.getModelId()));
 		}
 		machine.setUpdateUserId(user.getUserId());
 		machine.setUpdateDate(updateDate);
